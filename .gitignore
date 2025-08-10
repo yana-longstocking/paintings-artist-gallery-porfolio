@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+
+# Logs
+logs
+*.log
+
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+
+
+
+
+# Gatsby files
+.cache/
+public
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+
+
+# Vite
+.vite/
+
+# Backup files
+*.bak
+*.tmp
+*~
+
+# Package manager lock files (choose one to keep)
+# Keep package-lock.json if using npm
+# yarn.lock
+# pnpm-lock.yaml
