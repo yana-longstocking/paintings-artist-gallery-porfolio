@@ -1,16 +1,15 @@
 .container {
-    margin-inline: auto;
-  
-    @include on-mobile {
-      padding-inline: 20px;
-    }
+  margin-inline: auto;
 
-    @include on-tablet {
-      padding-inline: 72px;
-    }
+  @include on-mobile {
+    padding-inline: 20px;
+  }
 
+  @include on-tablet {
+    padding-inline: 72px;
+  }
 
-    @include on-desktop {
-      padding-inline: 120px;
-    }
+  @include on-desktop {
+    padding-inline: 120px;
+  }
 }
