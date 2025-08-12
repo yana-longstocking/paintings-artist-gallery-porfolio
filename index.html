@@ -5,9 +5,74 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Artist Gallery Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    Hello world
+    <header class="header">
+      <div class="container">
+        <nav class="header__nav">
+          <div class="header__nav-left">
+            <ul class="header__nav-list">
+              <li>
+                <a href="#" class="header__nav-link">Gallery</a>
+              </li>
+              <li>
+                <a href="#" class="header__nav-link">Artist Bio</a>
+              </li>
+              <li>
+                <a href="#" class="header__nav-link">Contact</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="header__nav-right">
+            <a href="#" class="header__icon header__icon--lang">
+              <div class="header__icon-lang">
+                <p class="header__icon-text">EN</p>
+                <img
+                  src="./src/icons/global.svg"
+                  alt="global"
+                  class="header__icon-image header__icon-image--lang"
+                />
+              </div>
+            </a>
+
+            <a href="#" class="header__icon">
+              <img
+                src="./src/icons/user.svg"
+                alt="user"
+                class="header__icon-image"
+              />
+            </a>
+
+            <a href="#" class="header__icon">
+              <img
+                src="./src/icons/heart.svg"
+                alt="heart"
+                class="header__icon-image"
+              />
+            </a>
+
+            <a href="#" class="header__icon">
+              <img
+                src="./src/icons/cart.svg"
+                alt="cart"
+                class="header__icon-image"
+              />
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
