@@ -1,17 +1,19 @@
+@use "variables";
+
 @mixin on-mobile {
-  @media (min-width: $mobile-min-width) {
+  @media (min-width: variables.$mobile-min-width) {
     @content;
   }
 }
 
 @mixin on-tablet {
-  @media (min-width: $tablet-min-width) {
+  @media (min-width: variables.$tablet-min-width) {
     @content;
   }
 }
 
 @mixin on-desktop {
-  @media (min-width: $desktop-min-width) {
+  @media (min-width: variables.$desktop-min-width) {
     @content;
   }
 }

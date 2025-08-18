@@ -1,5 +1,8 @@
+@use "mixin";
+@use "variables";
+
 .header {
-  @include on-desktop {
+  @include mixin.on-desktop {
     padding: 50px 0;
   }
 
@@ -13,11 +16,11 @@
     align-items: center;
     padding-top: 25px;
 
-    @include on-tablet {
+    @include mixin.on-tablet {
       padding-top: 50px;
     }
 
-    @include on-desktop {
+    @include mixin.on-desktop {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
@@ -46,7 +49,7 @@
     flex-grow: 1;
     text-align: center;
 
-    @include on-desktop {
+    @include mixin.on-desktop {
       grid-column: 2;
     }
   }
@@ -55,7 +58,7 @@
     
     font-family: "Cinzel", sans-serif;
     font-weight: 700;
-    color: $main-color;
+    color: variables.$main-color;
     line-height: 30px;
     list-style: none;
     display: none;
@@ -64,7 +67,7 @@
       display: block;
     }
 
-    @include on-desktop {
+    @include mixin.on-desktop {
       font-size: 24px;
       display: flex;
       justify-content: center;
@@ -77,11 +80,11 @@
 
   &__menu-link {
     text-decoration: none;
-    color: $main-color;
-    transition: color $effect-duration ease;
+    color: variables.$main-color;
+    transition: color variables.$effect-duration ease;
 
     &:hover {
-      color: $hover-color;
+      color: variables.$hover-color;
     }
   }
 
@@ -91,7 +94,7 @@
     right: 40px;
     display: block;
 
-    @include on-desktop {
+    @include mixin.on-desktop {
       display: none;
     }
   }
@@ -101,21 +104,21 @@
 
     font-size: 32px;
     line-height: 1;
-    color: $main-color;
+    color: variables.$main-color;
     text-decoration: none;
 
     &:hover {
-      color: $hover-color;
+      color: variables.$hover-color;
     }
   }
 
   &__burger {
     cursor: pointer;
     display: flex;
-    padding-left: 35px;
+    padding-left: 15px;
     text-decoration: none;
 
-    @include on-desktop {
+    @include mixin.on-desktop {
       display: none;
     }
   }
@@ -124,7 +127,7 @@
     width: 23px;
     height: 23px;
 
-    @include on-tablet {
+    @include mixin.on-tablet {
       width: 24px;
       height: 24px;
     }
@@ -143,7 +146,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  transition: opacity $effect-duration ease;
+  transition: opacity variables.$effect-duration ease;
 
   &:hover {
     opacity: 0.7;
@@ -163,9 +166,9 @@
 &__action-text {
   display: none;
   font-family: "Cinzel", sans-serif;
-  color: $main-color;
+  color: variables.$main-color;
 
-  @include on-desktop {
+  @include mixin.on-desktop {
     font-size: 12px;
     display: block;
   }

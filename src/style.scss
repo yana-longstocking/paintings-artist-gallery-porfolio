@@ -1,5 +1,5 @@
-@import "./blocks/body";
-@import "./blocks/variables";
-@import "./blocks/mixin";
-@import "./blocks/container";
-@import "./blocks/header";
+@use "blocks/body";
+@use "blocks/variables";
+@use "blocks/mixin";
+@use "blocks/container";
+@use "blocks/header";

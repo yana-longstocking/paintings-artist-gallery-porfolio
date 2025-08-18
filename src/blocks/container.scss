@@ -1,15 +1,17 @@
+@use "mixin";
+
 .container {
   margin-inline: auto;
 
-  @include on-mobile {
+  @include mixin.on-mobile {
     padding-inline: 20px;
   }
 
-  @include on-tablet {
+  @include mixin.on-tablet {
     padding-inline: 72px;
   }
 
-  @include on-desktop {
+  @include mixin.on-desktop {
     padding-inline: 120px;
   }
 }
