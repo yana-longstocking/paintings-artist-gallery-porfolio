@@ -20,53 +20,76 @@
     <header class="header">
       <div class="container">
         <nav class="header__nav">
-          <div class="header__nav-left">
-            <ul class="header__nav-list">
+          <div class="header__logo">
+            <a href="/artist-gallery-portfolio/" class="header__logo-link">
+              <img
+                src="./src/icons/logo-play-epic-games-svgrepo-com.svg"
+                alt="portfolio"
+                class="header__logo-image"
+              />
+            </a>
+          </div>
+
+          <div class="header__menu">
+            <div class="header__target"></div>
+            <ul class="header__menu-list" id="menu-toggle">
               <li>
-                <a href="#" class="header__nav-link">Gallery</a>
+                <a href="#gallery" class="header__menu-link">Gallery</a>
               </li>
               <li>
-                <a href="#" class="header__nav-link">Artist Bio</a>
+                <a href="#artist-bio" class="header__menu-link">Artist Bio</a>
               </li>
               <li>
-                <a href="#" class="header__nav-link">Contact</a>
+                <a href="#contact" class="header__menu-link">Contact</a>
+              </li>
+
+              <li class="header__close">
+                <a href="#" class="header__close-btn"> × </a>
               </li>
             </ul>
+
+            <a href="#menu-toggle" class="header__burger">
+              <img
+                src="./src/icons/Icon-Burger-menu.svg"
+                alt="burger-menu"
+                class="header__burger-icon"
+              />
+            </a>
           </div>
 
           <div class="header__nav-right">
-            <a href="#" class="header__icon header__icon--lang">
-              <div class="header__icon-lang">
-                <p class="header__icon-text">EN</p>
+            <a href="#global" class="header__action header__action--lang">
+              <div class="header__action-lang">
+                <p class="header__action-text">EN</p>
                 <img
                   src="./src/icons/global.svg"
                   alt="global"
-                  class="header__icon-image header__icon-image--lang"
+                  class="header__action-image header__action-image--lang"
                 />
               </div>
             </a>
 
-            <a href="#" class="header__icon">
+            <a href="#user" class="header__action">
               <img
                 src="./src/icons/user.svg"
                 alt="user"
-                class="header__icon-image"
+                class="header__action-image"
               />
             </a>
 
-            <a href="#" class="header__icon">
+            <a href="#heart" class="header__action">
               <img
                 src="./src/icons/heart.svg"
                 alt="heart"
-                class="header__icon-image"
+                class="header__action-image"
               />
             </a>
 
-            <a href="#" class="header__icon">
+            <a href="#cart" class="header__action">
               <img
                 src="./src/icons/cart.svg"
                 alt="cart"
-                class="header__icon-image"
+                class="header__action-image"
               />
             </a>
           </div>

@@ -1,0 +1,183 @@
+.header {
+  @include on-desktop {
+    padding: 50px 0;
+  }
+
+  &__target {
+    display: none;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+
+    @include on-tablet {
+      padding-top: 50px;
+    }
+
+    @include on-desktop {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  &__logo {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+
+    &-link {
+      display: flex;
+      align-items: center;
+    }
+
+    &-image {
+      height: 30px;
+      width: 40px;
+    }
+  }
+
+  &__menu {
+
+    flex-grow: 1;
+    text-align: center;
+
+    @include on-desktop {
+      grid-column: 2;
+    }
+  }
+
+  &__menu-list {
+    
+    font-family: "Cinzel", sans-serif;
+    font-weight: 700;
+    color: $main-color;
+    line-height: 30px;
+    list-style: none;
+    display: none;
+
+    &:target {
+      display: block;
+    }
+
+    @include on-desktop {
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      gap: 50px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &__menu-link {
+    text-decoration: none;
+    color: $main-color;
+    transition: color $effect-duration ease;
+
+    &:hover {
+      color: $hover-color;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: block;
+
+    @include on-desktop {
+      display: none;
+    }
+  }
+
+  &__close-btn {
+    cursor: pointer;
+
+    font-size: 32px;
+    line-height: 1;
+    color: $main-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $hover-color;
+    }
+  }
+
+  &__burger {
+    cursor: pointer;
+    display: flex;
+    padding-left: 35px;
+    text-decoration: none;
+
+    @include on-desktop {
+      display: none;
+    }
+  }
+
+  &__burger-icon {
+    width: 23px;
+    height: 23px;
+
+    @include on-tablet {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+
+&__nav-right {
+  grid-column: 3;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+&__action {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity $effect-duration ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &--lang {
+    gap: 7px;
+  }
+}
+
+&__action-lang {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+&__action-text {
+  display: none;
+  font-family: "Cinzel", sans-serif;
+  color: $main-color;
+
+  @include on-desktop {
+    font-size: 12px;
+    display: block;
+  }
+}
+
+&__action-image {
+  width: 23px;
+  height: 23px;
+
+  &--lang {
+    width: 23px;
+    height: 23px;
+  }
+}
+}
