@@ -6,10 +6,6 @@
     padding: 50px 0;
   }
 
-  &__target {
-    display: none;
-  }
-
   &__nav {
     display: flex;
     justify-content: space-between;
@@ -65,6 +61,17 @@
 
     &:target {
       display: block;
+
+      z-index: 999;
+      position: fixed;
+    background-color: variables.$hover-color;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    text-align: left;
+    left: 0;
+    top: 0;
     }
 
     @include mixin.on-desktop {
@@ -81,7 +88,9 @@
   &__menu-link {
     text-decoration: none;
     color: variables.$main-color;
-    transition: color variables.$effect-duration ease;
+    font-size: 22px;
+    line-height: 22px;
+    text-decoration: none;
 
     &:hover {
       color: variables.$hover-color;
@@ -149,11 +158,13 @@
   transition: opacity variables.$effect-duration ease;
 
   &:hover {
-    opacity: 0.7;
+    color: variables.$hover-color;
   }
+
 
   &--lang {
     gap: 7px;
+
   }
 }
 
@@ -177,6 +188,7 @@
 &__action-image {
   width: 23px;
   height: 23px;
+
 
   &--lang {
     width: 23px;
