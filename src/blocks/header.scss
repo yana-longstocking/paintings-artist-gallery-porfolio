@@ -154,10 +154,6 @@
     text-decoration: none;
     transition: opacity variables.$effect-duration ease;
 
-    &:hover {
-      color: variables.$hover-color;
-    }
-
     &--lang {
       gap: 7px;
     }
@@ -183,6 +179,10 @@
   &__action-image {
     width: 23px;
     height: 23px;
+
+    &:hover path {
+      fill: variables.$hover-color;
+    }
 
     &--lang {
       width: 23px;
