@@ -1,0 +1,192 @@
+@use "mixin";
+@use "variables";
+
+.header {
+  @include mixin.on-desktop {
+    padding: 50px 0;
+  }
+
+  &__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+
+    @include mixin.on-tablet {
+      padding-top: 50px;
+    }
+
+    @include mixin.on-desktop {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  &__logo {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+
+    &-link {
+      display: flex;
+      align-items: center;
+    }
+
+    &-image {
+      height: 30px;
+      width: 40px;
+    }
+  }
+
+  &__menu {
+    flex-grow: 1;
+    text-align: center;
+
+    @include mixin.on-desktop {
+      grid-column: 2;
+    }
+  }
+
+  &__menu-list {
+    font-family: "Cinzel", sans-serif;
+    font-weight: 700;
+    color: variables.$main-color;
+    line-height: 30px;
+    list-style: none;
+    display: none;
+
+    &:target {
+      display: block;
+
+      z-index: 999;
+      position: fixed;
+      background-color: variables.$hover-color;
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      text-align: left;
+      left: 0;
+      top: 0;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      gap: 50px;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  &__menu-link {
+    text-decoration: none;
+    color: variables.$main-color;
+    font-size: 22px;
+    line-height: 22px;
+    text-decoration: none;
+
+    &:hover {
+      color: variables.$hover-color;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: block;
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__close-btn {
+    cursor: pointer;
+
+    font-size: 32px;
+    line-height: 1;
+    color: variables.$main-color;
+    text-decoration: none;
+
+    &:hover {
+      color: variables.$hover-color;
+    }
+  }
+
+  &__burger {
+    cursor: pointer;
+    display: flex;
+    padding-left: 15px;
+    text-decoration: none;
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__burger-icon {
+    width: 23px;
+    height: 23px;
+
+    @include mixin.on-tablet {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__nav-right {
+    grid-column: 3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: opacity variables.$effect-duration ease;
+
+    &--lang {
+      gap: 7px;
+    }
+  }
+
+  &__action-lang {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__action-text {
+    display: none;
+    font-family: "Cinzel", sans-serif;
+    color: variables.$main-color;
+
+    @include mixin.on-desktop {
+      font-size: 12px;
+      display: block;
+    }
+  }
+
+  &__action-image {
+    width: 23px;
+    height: 23px;
+
+    &:hover path {
+      fill: variables.$hover-color;
+    }
+
+    &--lang {
+      width: 23px;
+      height: 23px;
+    }
+  }
+}
