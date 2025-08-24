@@ -49,17 +49,10 @@
     }
   }
 
-  &__menu-list {
-    font-family: "Cinzel", sans-serif;
-    font-weight: 700;
-    color: variables.$main-color;
-    line-height: 30px;
-    list-style: none;
-    display: none;
-
-    &:target {
+  &__menu-wrapper {
+      transform: translateX(-100%);
+      transition: all .3s;
       display: block;
-
       z-index: 999;
       position: fixed;
       background-color: variables.$hover-color;
@@ -67,12 +60,44 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      text-align: left;
       left: 0;
       top: 0;
+
+      &:target {
+        transform: translateX(0);
+      }
+    
+      @include mixin.on-desktop {
+        transition: all .0s;
+        transform: translateX(0);
+        background-color: white;
+        height: auto;
+        width: auto;
+        padding: 0;
+        margin: 0;
+        left: auto;
+        top: auto;
+        position: relative;
+      }
+  }
+
+  &__menu-list {
+    display: block;
+    text-align: center;
+    padding: 111px 20px;
+  
+    font-family: "Cinzel", sans-serif;
+    font-weight: 700;
+    line-height: 30px;
+    list-style: none;
+
+    @include mixin.on-tablet {
+      padding: 118px 72px;
     }
 
+
     @include mixin.on-desktop {
+      color: variables.$main-color;
       font-size: 24px;
       display: flex;
       justify-content: center;
@@ -84,14 +109,22 @@
   }
 
   &__menu-link {
-    text-decoration: none;
-    color: variables.$main-color;
     font-size: 22px;
-    line-height: 22px;
-    text-decoration: none;
+    line-height: 50px;
+    color: variables.$color-text;
+    
+      @include mixin.on-desktop {
 
-    &:hover {
-      color: variables.$hover-color;
+      text-decoration: none;
+      color: variables.$main-color;
+      font-size: 22px;
+      line-height: 22px;
+      text-decoration: none;
+
+      &:hover {
+        color: variables.$hover-color;
+      }
+
     }
   }
 
@@ -111,7 +144,7 @@
 
     font-size: 32px;
     line-height: 1;
-    color: variables.$main-color;
+    color: variables.$color-text;
     text-decoration: none;
 
     &:hover {
@@ -120,19 +153,32 @@
   }
 
   &__burger {
+    background-image: url('/src/icons/icon-burger-menu.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 28px;
+    height: 28px;
     cursor: pointer;
     display: flex;
     padding-left: 15px;
     text-decoration: none;
+    
 
     @include mixin.on-desktop {
       display: none;
-    }
-  }
+    }   
+
+    &:hover {
+      background-image: url('/src/icons/icon-burger-menu-hover.svg');
+      transform: scale(1.2);
+    }  
+}
 
   &__burger-icon {
     width: 23px;
-    height: 23px;
+    height: 28px;
+    
 
     @include mixin.on-tablet {
       width: 24px;
