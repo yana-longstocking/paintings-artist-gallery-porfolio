@@ -1,7 +1,14 @@
-$mobile-min-width: 280px;
-$tablet-min-width: 576px;
-$desktop-min-width: 1024px;
+$mobile-min-width: 320px;
+$tablet-min-width: 744px;
+$desktop-min-width: 1260px;
+$large-desktop-min-width: 1600px;
 $main-color: #161616;
 $hover-color: #ae1c23;
 $effect-duration: 0.3s;
-$color-text: #FFFFFF;
+$color-text: #ffffff;
+$background-color: #d12d35;
+$box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+$box-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
+$transition: cubic-bezier(0.4, 0, 0.2, 1);
+$transform-hover: translateY(-8px);
+$bg-color: #f8f8fa;

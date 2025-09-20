@@ -3,7 +3,7 @@
 
 .header {
   @include mixin.on-desktop {
-    padding: 50px 0;
+    padding: 50px 0 129px;
   }
 
   &__nav {
@@ -37,6 +37,11 @@
     &-image {
       height: 30px;
       width: 40px;
+      transition: transform variables.$effect-duration;
+
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
 
@@ -50,51 +55,76 @@
   }
 
   &__menu-wrapper {
-      transform: translateX(-100%);
-      transition: all .3s;
-      display: block;
-      z-index: 999;
-      position: fixed;
-      background-color: variables.$hover-color;
-      width: 100vw;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      left: 0;
-      top: 0;
+    transform: translateX(-100%);
+    transition: all variables.$effect-duration;
+    display: block;
+    z-index: 999;
+    position: fixed;
+    background-color: variables.$background-color;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    left: 0;
+    top: 0;
 
-      &:target {
-        transform: translateX(0);
-      }
-    
-      @include mixin.on-desktop {
-        transition: all .0s;
-        transform: translateX(0);
-        background-color: white;
-        height: auto;
-        width: auto;
-        padding: 0;
-        margin: 0;
-        left: auto;
-        top: auto;
-        position: relative;
-      }
+    &:target {
+      transform: translateX(0);
+    }
+
+    @include mixin.on-desktop {
+      transition: all 0s;
+      transform: translateX(0);
+      background-color: white;
+      height: auto;
+      width: auto;
+      padding: 0;
+      margin: 0;
+      left: auto;
+      top: auto;
+      position: relative;
+    }
+  }
+
+  &__menu-logo {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 25px;
+
+    @include mixin.on-tablet {
+      padding: 50px 64px;
+    }
+
+    @include mixin.on-desktop {
+      display: none;
+    }
+  }
+
+  &__menu-logo-image {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    transition: transform variables.$effect-duration;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   &__menu-list {
     display: block;
-    text-align: center;
-    padding: 111px 20px;
-  
+    text-align: start;
+    padding-left: 25px;
+
     font-family: "Cinzel", sans-serif;
     font-weight: 700;
     line-height: 30px;
     list-style: none;
 
     @include mixin.on-tablet {
-      padding: 118px 72px;
+      padding-left: 64px;
     }
-
 
     @include mixin.on-desktop {
       color: variables.$main-color;
@@ -112,48 +142,69 @@
     font-size: 22px;
     line-height: 50px;
     color: variables.$color-text;
-    
-      @include mixin.on-desktop {
+    text-decoration: none;
+    position: relative;
+    transition: color variables.$effect-duration ease;
 
-      text-decoration: none;
-      color: variables.$main-color;
-      font-size: 22px;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 30px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      transition: width variables.$effect-duration ease;
+    }
+
+    &:hover {
+      color: variables.$color-text;
+
+      &::after {
+        width: 100%;
+        background-color: variables.$color-text;
+      }
+    }
+
+    @include mixin.on-desktop {
       line-height: 22px;
-      text-decoration: none;
+      color: variables.$main-color;
 
       &:hover {
         color: variables.$hover-color;
       }
-
     }
   }
 
   &__close {
     position: absolute;
-    top: 40px;
+    top: 25px;
     right: 40px;
     display: block;
+    transition: transform variables.$effect-duration;
+
+    @include mixin.on-tablet {
+      top: 50px;
+    }
 
     @include mixin.on-desktop {
       display: none;
+    }
+
+    &:hover {
+      transform: scale(1.2);
     }
   }
 
   &__close-btn {
     cursor: pointer;
 
-    font-size: 32px;
-    line-height: 1;
+    font-size: 50px;
     color: variables.$color-text;
     text-decoration: none;
-
-    &:hover {
-      color: variables.$hover-color;
-    }
   }
 
   &__burger {
-    background-image: url('/src/icons/icon-burger-menu.svg');
+    background-image: url("/src/icons/icon-burger-menu.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -163,22 +214,20 @@
     display: flex;
     padding-left: 15px;
     text-decoration: none;
-    
 
     @include mixin.on-desktop {
       display: none;
-    }   
+    }
 
     &:hover {
-      background-image: url('/src/icons/icon-burger-menu-hover.svg');
+      background-image: url("/src/icons/icon-burger-menu-hover.svg");
       transform: scale(1.2);
-    }  
-}
+    }
+  }
 
   &__burger-icon {
     width: 23px;
     height: 28px;
-    
 
     @include mixin.on-tablet {
       width: 24px;

@@ -1,0 +1,87 @@
+@use "mixin";
+@use "variables";
+
+.artist-bio {
+  padding: 50px 0 126px;
+
+  &__content {
+    margin-bottom: 30px;
+
+    @include mixin.on-tablet {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__title {
+    font-family: "Cinzel", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+    color: variables.$main-color;
+    margin-bottom: 20px;
+
+    @include mixin.on-tablet {
+      font-size: 48px;
+      line-height: 48px;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+
+    @include mixin.on-tablet {
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transition: all variables.$effect-duration variables.$transition;
+
+    &:hover {
+      transform: translateY(-8px);
+    }
+
+    @include mixin.on-tablet {
+      display: block;
+    }
+  }
+
+  &__image-img {
+    width: 300px;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+
+    @include mixin.on-tablet {
+      width: 350px;
+    }
+
+    @include mixin.on-desktop {
+      width: 500px;
+    }
+  }
+
+  &__text {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    color: variables.$main-color;
+    padding: 0 5px;
+    text-align: center;
+
+    @include mixin.on-tablet {
+      text-align: left;
+    }
+  }
+}
