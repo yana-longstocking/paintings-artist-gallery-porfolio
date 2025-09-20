@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  base: "/paintings-artist-gallery-porfolio/",
   server: {
     port: 3000,
     open: true,
