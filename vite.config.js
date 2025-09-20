@@ -12,7 +12,7 @@ export default defineConfig({
     sourcemap: true,
     target: "esnext",
     assetsInclude: ["**/*.svg"],
-    assetsInlineLimit: 1000000, // Inline assets up to 1MB (including SVGs)
+    assetsInlineLimit: 0, // Don't inline any assets, treat SVGs as separate files
   },
   css: {
     preprocessorOptions: {
