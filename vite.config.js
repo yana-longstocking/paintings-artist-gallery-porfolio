@@ -12,7 +12,6 @@ export default defineConfig({
     sourcemap: true,
     target: "esnext",
     assetsInclude: ["**/*.svg"],
-
   },
   css: {
     preprocessorOptions: {
