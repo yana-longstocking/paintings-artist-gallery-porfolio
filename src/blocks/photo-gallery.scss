@@ -2,7 +2,7 @@
 @use "variables";
 
 .photo-gallery {
-  padding: 100px 0 126px;
+  padding: 50px 0 126px;
 
   &__grid {
     @include mixin.page-grid;
@@ -67,12 +67,12 @@
     }
   }
 
-  &__description {
+  &__title {
     font-family: "Cinzel", sans-serif;
     font-size: 24px;
     font-weight: 700;
     line-height: 24px;
-    padding-top: 24px;
+    padding: 30px 0 24px;
     color: variables.$background-color;
     text-align: center;
 
@@ -81,6 +81,7 @@
     }
 
     @include mixin.on-tablet {
+      padding: 50px 0 32px;
       grid-column: span 2;
       line-height: 140%;
     }

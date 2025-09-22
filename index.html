@@ -177,6 +177,9 @@
     <article class="article">
       <div class="container">
         <section class="photo-gallery" id="gallery">
+          <div class="photo-gallery__content">
+            <h2 class="photo-gallery__title">The Collection Freedom</h2>
+          </div>
           <div class="photo-gallery__grid">
             <div class="photo-gallery__item photo-gallery__item--featured">
               <img
@@ -213,10 +216,6 @@
                 class="photo-gallery__image"
               />
             </div>
-
-            <p class="photo-gallery__description">
-              Collection <span>Freedom</span>
-            </p>
           </div>
         </section>
       </div>
@@ -225,6 +224,9 @@
     <article class="article">
       <div class="container">
         <section class="photo-art">
+          <div class="photo-art__content">
+            <h2 class="photo-art__title"> The Collection of European Paintings</h2>
+          </div>
           <div class="photo-art__grid">
             <div class="photo-art__item">
               <img
@@ -349,10 +351,6 @@
                 class="gallery-content__image"
               />
             </div>
-
-            <p class="gallery-content__description">
-              <span>Collection of European Paintings</span>
-            </p>
           </div>
         </section>
       </div>
@@ -391,16 +389,17 @@
 
     <footer>
       <div class="container">
-        <section class="footer__contact-us" id="contact-us">
-          <div class="footer__contact-us-content">
+        <section class="footer" id="contact-us">
+          <div class="footer__contact-us">
             <h2 class="footer__contact-us-title">Contact us</h2>
           </div>
-
-          <div class="footer__contact-us-left">
-            <div class="footer__contact-us-form">
+          
+          <div class="footer__left">
+          <div class="footer__left">
+            <div class="footer__form">
               <form onsubmit="this.reset(); return false;">
                 <input
-                  class="footer__contact-us-input"
+                  class="footer__input"
                   type="text"
                   name="name"
                   placeholder="Name"
@@ -409,7 +408,7 @@
 
                 <input
                   type="email"
-                  class="footer__contact-us-input"
+                  class="footer__input"
                   id="email"
                   name="email"
                   placeholder="Email"
@@ -418,13 +417,13 @@
 
                 <textarea
                   id="message"
-                  class="footer__contact-us-message"
+                  class="footer__message"
                   name="comments"
                   placeholder="Message"
                   required
                 ></textarea>
 
-                <button class="footer__contact-us-button">Send</button>
+                <button class="footer__button">Send</button>
               </form>
             </div>
           </div>

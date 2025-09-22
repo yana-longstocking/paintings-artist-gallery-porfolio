@@ -12,7 +12,7 @@
     }
   }
 
-  &__contact-us-title {
+  &__title {
     font-family: "Cinzel", sans-serif;
     font-size: 32px;
     font-weight: 700;
@@ -25,10 +25,10 @@
     }
   }
 
-  &__contact-us-left {
+  &__left {
     @include mixin.page-grid;
 
-    &-form {
+    &__form {
       grid-column: 1 / -1;
 
       @include mixin.on-tablet {

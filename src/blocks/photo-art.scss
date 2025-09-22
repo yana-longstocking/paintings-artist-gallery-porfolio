@@ -2,7 +2,7 @@
 @use "variables";
 
 .photo-art {
-  padding: 48px 0 50px;
+  padding-bottom: 50px;
 
   &__grid {
     @include mixin.page-grid;
@@ -44,6 +44,21 @@
 
     @include mixin.on-desktop {
       transform: scale(1.01);
+    }
+  }
+
+  &__title {
+    font-family: "Cinzel", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    padding-bottom: 24px;
+    color: variables.$background-color;
+    grid-column: 1 / -1;
+
+    @include mixin.on-tablet {
+      padding-bottom: 32px;
+      line-height: 24px;
     }
   }
 }

@@ -2,7 +2,7 @@
 @use "variables";
 
 .art {
-  padding: 20px 0 50px;
+  padding-bottom: 20px;
 
   &__grid {
     @include mixin.page-grid;
@@ -62,8 +62,8 @@
     display: block;
     transition: transform variables.$effect-duration variables.$transition;
 
-    .photo-gallery__item:hover & {
-      transform: scale(1.05);
+    .art__item:hover & {
+      transform: scale(1.01);
     }
   }
 }
