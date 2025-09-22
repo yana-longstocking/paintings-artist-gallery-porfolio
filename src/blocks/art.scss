@@ -24,6 +24,7 @@
     transition: all variables.$effect-duration variables.$transition;
 
     &:hover {
+      box-shadow: variables.$box-shadow-hover;
       transform: (1.05);
 
       @include mixin.on-desktop {
@@ -63,6 +64,7 @@
     transition: transform variables.$effect-duration variables.$transition;
 
     .art__item:hover & {
+      box-shadow: variables.$box-shadow-hover;
       transform: scale(1.01);
     }
   }
