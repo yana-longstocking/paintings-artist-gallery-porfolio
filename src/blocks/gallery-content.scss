@@ -2,19 +2,23 @@
 @use "variables";
 
 .gallery-content {
-  padding: 15px 0 126px;
+  padding: 10px 0 126px;
 
   &__featured {
     width: 100%;
-    margin-bottom: 36px;
+    margin-bottom: 20px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: variables.$box-shadow;
     transition: all variables.$effect-duration variables.$transition;
 
     &:hover {
-      transform: variables.$transform-hover;
+      transform: scale(1.01);
       box-shadow: variables.$box-shadow-hover;
+    }
+
+    @include mixin.on-tablet {
+      margin-bottom: 36px;
     }
   }
 

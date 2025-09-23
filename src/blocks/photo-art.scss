@@ -55,8 +55,10 @@
     padding-bottom: 24px;
     color: variables.$background-color;
     grid-column: 1 / -1;
+    text-align: center;
 
     @include mixin.on-tablet {
+      text-align: left;
       padding-bottom: 32px;
       line-height: 24px;
     }
