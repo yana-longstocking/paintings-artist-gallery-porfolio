@@ -92,6 +92,10 @@
 
   &__contact-section {
     padding-top: 50px;
+
+    @include mixin.on-tablet {
+      padding-top: 0;
+    }
   }
 
   &__contact-title {
