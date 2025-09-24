@@ -2,7 +2,11 @@
 @use "variables";
 
 .art {
-  padding-bottom: 20px;
+  padding: 0 0 24px;
+
+  @include mixin.on-desktop {
+    padding: 10px 0 24px;
+  }
 
   &__grid {
     @include mixin.page-grid;

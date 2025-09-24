@@ -2,23 +2,27 @@
 @use "variables";
 
 .gallery-content {
-  padding: 10px 0 126px;
+  padding: 0 0 24px;
+
+  @include mixin.on-desktop {
+    padding: 10px 0 126px;
+  }
 
   &__featured {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: variables.$box-shadow;
     transition: all variables.$effect-duration variables.$transition;
 
+    @include mixin.on-desktop {
+      margin-bottom: 36px;
+    }
+
     &:hover {
       transform: scale(1.01);
       box-shadow: variables.$box-shadow-hover;
-    }
-
-    @include mixin.on-tablet {
-      margin-bottom: 36px;
     }
   }
 
@@ -46,12 +50,13 @@
     transition: all variables.$effect-duration variables.$transition;
 
     &:hover {
-      transform: scale(1.01);
-    }
-
-    @include mixin.on-desktop {
-      transform: variables.$transform-hover;
       box-shadow: variables.$box-shadow-hover;
+      transform: scale(1.01);
+
+      @include mixin.on-desktop {
+        transform: variables.$transform-hover;
+        box-shadow: variables.$box-shadow-hover;
+      }
     }
   }
 
@@ -64,6 +69,7 @@
     transition: transform variables.$effect-duration variables.$transition;
 
     .gallery-content__item:hover & {
+      transform: scale(1.01);
       box-shadow: variables.$box-shadow-hover;
     }
   }
