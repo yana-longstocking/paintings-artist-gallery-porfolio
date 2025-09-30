@@ -35,7 +35,7 @@
     }
 
     &-image {
-      height: 30px;
+      height: 40px;
       width: 40px;
       transition: transform variables.$effect-duration;
 
@@ -102,7 +102,7 @@
 
   &__menu-logo-image {
     height: 40px;
-    width: 50px;
+    width: 40px;
     object-fit: contain;
     filter: brightness(1) invert(1);
     transition: transform variables.$effect-duration;
