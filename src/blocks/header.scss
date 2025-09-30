@@ -101,10 +101,10 @@
   }
 
   &__menu-logo-image {
-    height: 30px;
-    width: auto;
+    height: 40px;
+    width: 50px;
     object-fit: contain;
-    filter: brightness(0) invert(1);
+    filter: brightness(1) invert(1);
     transition: transform variables.$effect-duration;
 
     &:hover {
