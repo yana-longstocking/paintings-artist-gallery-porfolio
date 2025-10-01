@@ -3,7 +3,6 @@
 
 .artist-bio {
   padding: 50px 0 126px;
-  cursor: pointer;
 
   &__content {
     margin-bottom: 30px;
@@ -46,6 +45,7 @@
     display: flex;
     justify-content: center;
     transition: all variables.$effect-duration variables.$transition;
+    cursor: pointer;
 
     &:hover {
       transform: translateY(-8px);
