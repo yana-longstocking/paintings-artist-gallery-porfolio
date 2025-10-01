@@ -3,6 +3,7 @@
 
 .photo-art {
   padding-bottom: 24px;
+  cursor: pointer;
 
   &__grid {
     @include mixin.page-grid;

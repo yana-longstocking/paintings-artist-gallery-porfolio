@@ -3,6 +3,7 @@
 
 .art {
   padding: 0 0 24px;
+  cursor: pointer;
 
   @include mixin.on-desktop {
     padding: 10px 0 24px;

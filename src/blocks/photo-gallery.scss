@@ -3,6 +3,7 @@
 
 .photo-gallery {
   padding: 50px 0 126px;
+  cursor: pointer;
 
   &__grid {
     @include mixin.page-grid;
