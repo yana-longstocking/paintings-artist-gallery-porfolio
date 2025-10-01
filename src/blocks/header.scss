@@ -106,6 +106,7 @@
     object-fit: contain;
     filter: brightness(1) invert(1);
     transition: transform variables.$effect-duration;
+    cursor: pointer;
 
     &:hover {
       transform: scale(1.1);
