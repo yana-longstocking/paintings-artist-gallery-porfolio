@@ -42,6 +42,11 @@
       &:hover {
         transform: scale(1.2);
       }
+
+      @include mixin.on-desktop {
+        width: 50px;
+        height: 50px;
+      }
     }
   }
 
@@ -129,7 +134,7 @@
 
     @include mixin.on-desktop {
       color: variables.$main-color;
-      font-size: 24px;
+      font-size: 50px;
       display: flex;
       justify-content: center;
       text-align: center;
