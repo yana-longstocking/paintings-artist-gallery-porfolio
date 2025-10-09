@@ -8,29 +8,23 @@
     padding: 140px 0 120px;
   }
 
-  &__content {
-    margin-bottom: 40px;
-    text-align: center;
-
-    @include mixin.on-tablet {
-      margin-bottom: 48px;
-    }
-  }
-
   &__title {
     font-family: "Cinzel", sans-serif;
     font-size: 32px;
     font-weight: 700;
     line-height: 32px;
+    text-align: center;
     color: variables.$main-color;
-    margin-bottom: 48px;
+    padding-bottom: 40px;
 
     @include mixin.on-tablet {
+      padding-bottom: 48px;
       font-size: 48px;
       line-height: 48px;
     }
 
     @include mixin.on-desktop {
+      padding-bottom: 60px;
     }
   }
 
@@ -119,7 +113,6 @@
       color: variables.$background-color;
       font-family: "Cinzel", sans-serif;
       line-height: 1;
-      
 
       @include mixin.on-desktop {
         bottom: -40px;
