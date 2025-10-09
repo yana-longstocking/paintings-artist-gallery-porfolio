@@ -2,29 +2,36 @@
 @use "variables";
 
 .artist-bio {
-  padding: 50px 0 126px;
+  padding: 80px 0 120px;
+  position: relative;
 
   &__content {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
+    text-align: center;
 
     @include mixin.on-tablet {
-      margin-bottom: 60px;
+      margin-bottom: 80px;
     }
   }
 
   &__title {
     font-family: "Cinzel", sans-serif;
-    font-size: 32px;
+    font-size: 42px;
     font-weight: 700;
-    line-height: 32px;
-    text-align: center;
+    line-height: 1.1;
     color: variables.$main-color;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    position: relative;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 
     @include mixin.on-tablet {
-      font-size: 48px;
-      line-height: 48px;
-      margin-bottom: 30px;
+      font-size: 56px;
+      margin-bottom: 40px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 64px;
     }
   }
 
@@ -33,56 +40,98 @@
     flex-direction: column;
 
     @include mixin.on-tablet {
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
       flex-direction: row;
+      align-items: center;
+      gap: 50px;
     }
   }
 
   &__image {
-    width: 100%;
-    display: flex;
-    justify-content: center;
     transition: all variables.$effect-duration variables.$transition;
-    cursor: pointer;
 
     &:hover {
-      transform: translateY(-8px);
-    }
+      transform: translateY(-10px) scale(1.02);
 
-    @include mixin.on-tablet {
-      display: block;
+      &::before {
+        opacity: 0.1;
+      }
     }
   }
 
   &__image-img {
     width: 300px;
-    height: auto;
-    display: block;
+    height: 400px;
     object-fit: cover;
     object-position: center;
+    border-radius: 20px;
+    box-shadow: variables.$box-shadow;
+    transition: all variables.$effect-duration variables.$transition;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+
+    &:hover {
+      box-shadow: variables.$box-shadow-hover;
+      transform: scale(1.02);
+    }
 
     @include mixin.on-tablet {
       width: 350px;
+      height: 450px;
     }
 
     @include mixin.on-desktop {
-      width: 500px;
+      width: 420px;
+      height: 520px;
     }
   }
 
   &__text {
-    font-family: "Roboto", sans-serif;
+    flex: 1;
+    font-family: "Cinzel", sans-serif;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 27px;
+    font-size: 14px;
+    line-height: 1.8;
     color: variables.$main-color;
-    padding: 0 5px;
     text-align: center;
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: variables.$box-shadow;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    &::before {
+      content: '"';
+      position: absolute;
+      top: -5px;
+      left: 25px;
+      font-size: 80px;
+      color: variables.$hover-color;
+      font-family: "Cinzel", sans-serif;
+      line-height: 1;
+      opacity: 0.2;
+    }
+
+    &::after {
+      content: '"';
+      position: absolute;
+      bottom: -15px;
+      right: 25px;
+      font-size: 80px;
+      color: variables.$hover-color;
+      font-family: "Cinzel", sans-serif;
+      line-height: 1;
+      opacity: 0.2;
+    }
 
     @include mixin.on-tablet {
       text-align: left;
+      font-size: 16px;
+      padding: 50px 40px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 16px;
+      line-height: 27px;
     }
   }
 }
