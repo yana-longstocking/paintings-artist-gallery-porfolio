@@ -1,0 +1,137 @@
+{
+  "freedomCollection": [
+    {
+      "id": "series-freedom-alone",
+      "src": "/photo/pic_s_/series-Freedom-alone.jpg",
+      "alt": "series-Freedom-alone",
+      "featured": true
+    },
+    {
+      "id": "series-freedom-impossible",
+      "src": "/photo/pic_s_/series-Freedom-impossible.jpg",
+      "alt": "series-Freedom-impossible",
+      "featured": false
+    },
+    {
+      "id": "series-freedom-light",
+      "src": "/photo/pic_s_/series-Freedom-light.jpg",
+      "alt": "series-Freedom-light",
+      "featured": false
+    },
+    {
+      "id": "series-freedom-grounded",
+      "src": "/photo/pic_s_/series-Freedom-grounded.jpg",
+      "alt": "series-Freedom-grounded",
+      "featured": false
+    },
+    {
+      "id": "series-freedom-freefall",
+      "src": "/photo/pic_s_/series-Freedom-freefall.jpg",
+      "alt": "series-Freedom-freefall",
+      "featured": false
+    }
+  ],
+  "allPaintingCollection": [
+    {
+      "id": "sunkissed-deconstructed",
+      "src": "/photo/art/sunkissed- deconstructed.jpg",
+      "alt": "sunkissed- deconstructed"
+    },
+    {
+      "id": "madrid-mermaid",
+      "src": "/photo/art/Madrid-mermaid.jpg",
+      "alt": "Madrid-mermaid"
+    },
+    {
+      "id": "twilly",
+      "src": "/photo/art/twilly.jpg",
+      "alt": "twilly"
+    },
+    {
+      "id": "midnight",
+      "src": "/photo/art/midnight.jpg",
+      "alt": "midnight"
+    },
+    {
+      "id": "power-pose",
+      "src": "/photo/art/power-pose.jpg",
+      "alt": "power-pose"
+    },
+    {
+      "id": "beach-spirit",
+      "src": "/photo/art/beach-spirit.jpg",
+      "alt": "beach-spirit"
+    }
+  ],
+  "artCollection": [
+    {
+      "id": "dancer",
+      "src": "/photo/art/dancer.jpg",
+      "alt": "dancer",
+      "featured": true
+    },
+    {
+      "id": "blue-haze",
+      "src": "/photo/art/blue-haze.jpg",
+      "alt": "blue-haze"
+    },
+    {
+      "id": "myst",
+      "src": "/photo/art/myst.jpg",
+      "alt": "myst"
+    },
+    {
+      "id": "sunkissed",
+      "src": "/photo/art/sunkissed.jpg",
+      "alt": "sunkissed"
+    },
+    {
+      "id": "intimessy",
+      "src": "/photo/art/intiMessy.jpg",
+      "alt": "intiMessy"
+    }
+  ],
+  "galleryContent": {
+    "featured": {
+      "id": "sisterhood",
+      "src": "/photo/art/sisterhood.jpg",
+      "alt": "sisterhood"
+    },
+    "items": [
+      {
+        "id": "prisme-light",
+        "src": "/photo/art/prisme-light.jpg",
+        "alt": "prisme-light"
+      },
+      {
+        "id": "shevchenkos-kateryna",
+        "src": "/photo/art/SHevchenkos-Kateryna.jpg",
+        "alt": "SHevchenkos-Kateryna"
+      },
+      {
+        "id": "lake",
+        "src": "/photo/art/lake.jpg",
+        "alt": "lake"
+      },
+      {
+        "id": "pretty-girls-do-cry-1",
+        "src": "/photo/art/pretty-girls-do- cry_1.jpg",
+        "alt": "pretty-girls-do- cry_1"
+      },
+      {
+        "id": "pretty-girls-do-cry-2",
+        "src": "/photo/art/pretty-girls-do- cry_2.jpg",
+        "alt": "pretty-girls-do- cry_2"
+      },
+      {
+        "id": "portrait",
+        "src": "/photo/art/portrait.jpg",
+        "alt": "portrait"
+      }
+    ]
+  },
+  "artistBio": {
+    "src": "/photo/artist/artist-bio.jpg",
+    "alt": "artist-bio"
+  }
+}

@@ -1,0 +1,89 @@
+---
+import '../../styles/global.scss';
+import Header from '../../components/Header.astro';
+import galleryData from '../../data/gallery.json';
+
+export async function getStaticPaths() {
+  // Collect all images from all collections
+  const allImages = [
+    ...galleryData.freedomCollection,
+    ...galleryData.allPaintingCollection,
+    ...galleryData.artCollection,
+    galleryData.galleryContent.featured,
+    ...galleryData.galleryContent.items,
+  ];
+
+  return allImages.map((image) => ({
+    params: { id: image.id },
+    props: { image },
+  }));
+}
+
+const { image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{image.alt} - Artist Gallery Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .artwork-detail {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background-color: #f5f5f5;
+      }
+
+      .artwork-detail__container {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .artwork-detail__image-wrapper {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .artwork-detail__image {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+
+    <main class="artwork-detail">
+      <div class="artwork-detail__container">
+        <div class="artwork-detail__image-wrapper">
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="artwork-detail__image"
+          />
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+

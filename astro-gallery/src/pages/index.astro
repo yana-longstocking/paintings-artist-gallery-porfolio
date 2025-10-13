@@ -1,0 +1,266 @@
+---
+import '../styles/global.scss';
+import Header from '../components/Header.astro';
+import galleryData from '../data/gallery.json';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artist Gallery Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <Header />
+
+    <main class="main">
+      <div class="container">
+        <section class="gallery" id="gallery">
+          <div class="gallery__content">
+            <h1 class="gallery__title">Gallery</h1>
+            <p class="gallery__description">
+              Contemporary art collection featuring a young artist
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div class="container">
+      <div class="container__line"></div>
+    </div>
+
+    <article class="article">
+      <div class="container">
+        <section class="photo-gallery" id="gallery">
+          <div class="photo-gallery__content">
+            <h2 class="photo-gallery__title">Freedom Collection</h2>
+          </div>
+          <div class="photo-gallery__grid">
+            {galleryData.freedomCollection.map((item) => (
+              <div class={`photo-gallery__item ${item.featured ? 'photo-gallery__item--featured' : ''}`}>
+                <a href={`/artwork/${item.id}`}>
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    class="photo-gallery__image"
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="container">
+        <section class="photo-art">
+          <div class="photo-art__content">
+            <h2 class="photo-art__title">All Painting Collection</h2>
+          </div>
+          <div class="photo-art__grid">
+            {galleryData.allPaintingCollection.map((item) => (
+              <div class="photo-art__item">
+                <a href={`/artwork/${item.id}`}>
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    class="photo-art__image"
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="container">
+        <section class="art">
+          <div class="art__grid">
+            {galleryData.artCollection.map((item) => (
+              <div class={`art__item ${item.featured ? 'art__item--featured' : ''}`}>
+                <a href={`/artwork/${item.id}`}>
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    class="art__image"
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <article class="article">
+      <div class="container">
+        <section class="gallery-content">
+          <div class="gallery-content__featured">
+            <a href={`/artwork/${galleryData.galleryContent.featured.id}`}>
+              <img
+                src={galleryData.galleryContent.featured.src}
+                alt={galleryData.galleryContent.featured.alt}
+                class="gallery-content__featured-image"
+              />
+            </a>
+          </div>
+          <div class="gallery-content__grid">
+            {galleryData.galleryContent.items.map((item) => (
+              <div class="gallery-content__item">
+                <a href={`/artwork/${item.id}`}>
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    class="gallery-content__image"
+                  />
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <div class="container">
+      <section class="artist-bio">
+        <div class="artist-bio__content" id="artist-bio">
+          <h2 class="artist-bio__title">Artist Bio</h2>
+        </div>
+        <div class="artist-bio__wrapper">
+          <div class="artist-bio__image">
+            <img
+              src={galleryData.artistBio.src}
+              alt={galleryData.artistBio.alt}
+              class="artist-bio__image-img"
+            />
+          </div>
+
+          <div class="artist-bio__text">
+            Born and raised in Ukraine, I began drawing at an early age and have
+            continued to develop my practice ever since. While my degree is in
+            architecture, I am a self-taught artist specializing in highly
+            detailed pencil drawings. My work focuses primarily on female
+            characters, exploring themes of identity, aspiration, and the
+            pursuit of ideal beauty. Often marked by slightly exaggerated
+            proportions, my drawings balance elegance with subtle elements of
+            the grotesque, creating a distinct visual language. Since relocating
+            to Madrid in 2022, I have continued to expand my practice, producing
+            intricate and precise works that reflect both personal expression
+            and technical discipline.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="footer" id="contact-us">
+      <div class="container">
+        <div class="footer__content">
+          <div class="footer__form-section">
+            <h2 class="footer__title">Send us a message</h2>
+            <form class="footer__form" onsubmit="this.reset(); return false;">
+              <input
+                class="footer__input"
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+              />
+
+              <input
+                type="email"
+                class="footer__input"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+
+              <textarea
+                id="message"
+                class="footer__message"
+                name="comments"
+                placeholder="Message"
+                required
+              ></textarea>
+
+              <button class="footer__button">Send</button>
+            </form>
+          </div>
+
+          <div class="footer__contact-section">
+            <div class="footer__contact-title">Contact Us</div>
+            <div class="footer__contact-item">
+              <p class="footer__contact-label">Email</p>
+              <a href="mailto:hello@nothing.com" class="footer__contact-value">
+                iryromanska@gmail.com
+              </a>
+            </div>
+
+            <div class="footer__contact-item">
+              <p class="footer__contact-label">Adress</p>
+
+              <a
+                class="footer__contact-value"
+                href="https://maps.app.goo.gl/b4ArvQcv9C2awyTb6"
+                target="_blank"
+              >
+                Madrid, Spain
+              </a>
+            </div>
+
+            <div class="footer__follow-us">
+              <p class="footer__social">Follow me on Instagram</p>
+              <a
+                href="https://www.instagram.com/romanska13?igsh=MXcxdGticmZvd3Y4bQ=="
+                class="footer__link"
+              >
+                <svg
+                  class="footer__image"
+                  width="32px"
+                  height="32px"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
+                  />
+                  <path
+                    d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer__copyright">
+          <p class="footer__copyright-text">
+            &copy; 2025 Gallery. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

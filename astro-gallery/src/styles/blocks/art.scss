@@ -1,0 +1,77 @@
+@use "mixin";
+@use "variables";
+
+.art {
+  padding: 0 0 24px;
+  cursor: pointer;
+
+  @include mixin.on-desktop {
+    padding: 10px 0 24px;
+  }
+
+  &__grid {
+    @include mixin.page-grid;
+
+    @include mixin.on-tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mixin.on-desktop {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: variables.$box-shadow;
+    transition: all variables.$effect-duration variables.$transition;
+
+    &:hover {
+      box-shadow: variables.$box-shadow-hover;
+      transform: scale(1.01);
+
+      @include mixin.on-desktop {
+        transform: variables.$transform-hover;
+        box-shadow: variables.$box-shadow-hover;
+      }
+    }
+
+    &--featured {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      @include mixin.on-tablet {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      @include mixin.on-desktop {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      @include mixin.on-large-desktop {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform variables.$effect-duration variables.$transition;
+
+    .art__item:hover & {
+      box-shadow: variables.$box-shadow-hover;
+      transform: scale(1.01);
+    }
+  }
+}
+
