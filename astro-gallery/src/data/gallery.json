@@ -4,7 +4,29 @@
       "id": "series-freedom-alone",
       "src": "/photo/pic_s_/series-Freedom-alone.jpg",
       "alt": "series-Freedom-alone",
-      "featured": true
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-alone-4805",
+          "src": "/photo/pic_s_/IMG_4805.jpg",
+          "alt": "series-Freedom-alone detail 1"
+        },
+        {
+          "id": "series-freedom-alone-4806",
+          "src": "/photo/pic_s_/IMG_4806.jpg",
+          "alt": "series-Freedom-alone detail 2"
+        },
+        {
+          "id": "series-freedom-alone-4807",
+          "src": "/photo/pic_s_/IMG_4807.jpg",
+          "alt": "series-Freedom-alone detail 3"
+        },
+        {
+          "id": "series-freedom-alone-4808",
+          "src": "/photo/pic_s_/IMG_4808.jpg",
+          "alt": "series-Freedom-alone detail 4"
+        }
+      ]
     },
     {
       "id": "series-freedom-impossible",
