@@ -2,10 +2,10 @@
 @use "variables";
 
 .artist-bio {
-  padding: 100px 0 120px;
+  padding-bottom: 100px;
 
-  @include mixin.on-desktop {
-    padding: 140px 0 120px;
+  @include mixin.on-tablet {
+    padding-bottom: 140px;
   }
 
   &__title {
@@ -113,6 +113,7 @@
       color: variables.$background-color;
       font-family: "Cinzel", sans-serif;
       line-height: 1;
+      opacity: 0.2;
 
       @include mixin.on-desktop {
         bottom: -40px;

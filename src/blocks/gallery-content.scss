@@ -2,11 +2,11 @@
 @use "variables";
 
 .gallery-content {
-  padding: 0 0 24px;
+  padding-bottom: 100px;
   cursor: pointer;
 
   @include mixin.on-desktop {
-    padding: 10px 0 126px;
+    padding-bottom: 140px;
   }
 
   &__featured {
@@ -39,6 +39,10 @@
     @include mixin.page-grid;
 
     @include mixin.on-tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mixin.on-desktop {
       grid-template-columns: repeat(3, 1fr);
     }
   }
