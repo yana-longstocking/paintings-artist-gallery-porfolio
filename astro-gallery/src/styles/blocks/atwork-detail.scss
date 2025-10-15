@@ -2,7 +2,6 @@
 @use "variables";
 
 .artwork-detail {
-
   &__container {
     margin-inline: auto;
 
@@ -22,10 +21,10 @@
     @include mixin.page-grid;
 
     @include mixin.on-desktop {
-    gap: 50px;
-    grid-template-columns: repeat(2, 1fr);
+      gap: 50px;
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-}
 
   &__wrapper-title {
     padding: 0 10px 0;
@@ -51,7 +50,6 @@
     }
   }
 
-
   &__image {
     width: 650px;
     height: 100%;
@@ -61,7 +59,7 @@
     display: block;
     transition: transform variables.$effect-duration variables.$transition;
 
-    &:hover  {
+    &:hover {
       transform: variables.$scale-max-hover;
       box-shadow: variables.$box-shadow-hover;
     }
@@ -76,7 +74,7 @@
     padding-bottom: 24px;
 
     @include mixin.on-tablet {
-    padding-bottom: 32px;
+      padding-bottom: 32px;
       line-height: 27px;
     }
   }
@@ -99,7 +97,7 @@
     font-weight: 400;
     color: variables.$main-color;
     padding-bottom: 24px;
-    
+
     @include mixin.on-tablet {
       padding-bottom: 32px;
     }
@@ -127,7 +125,6 @@
     text-align: left;
     line-height: 27px;
     padding-bottom: 24px;
-
   }
 
   &__gallery {
@@ -137,13 +134,10 @@
     @include mixin.on-tablet {
       grid-template-columns: repeat(2, 1fr);
     }
-   
 
-   
     @include mixin.on-desktop {
       grid-template-columns: repeat(2, 1fr);
     }
-   
   }
 
   &__gallery-item {
@@ -152,13 +146,12 @@
     box-shadow: variables.$box-shadow;
     transition: all variables.$effect-duration variables.$transition;
     cursor: zoom-in;
-  
 
-  &:hover {
-    transform: variables.$scale-max-hover;
-    box-shadow: variables.$box-shadow-hover;
+    &:hover {
+      transform: variables.$scale-max-hover;
+      box-shadow: variables.$box-shadow-hover;
+    }
   }
-}
 
   &__gallery-image {
     width: 100%;
@@ -168,6 +161,4 @@
     border-radius: 12px;
     transition: transform variables.$effect-duration variables.$transition;
   }
-
-  
 }
