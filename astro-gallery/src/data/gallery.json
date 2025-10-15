@@ -2,7 +2,7 @@
   "freedomCollection": [
     {
       "id": "series-freedom-alone",
-      "src": "/photo/pic_s_/series-Freedom-alone.jpg",
+      "src": "photo/pic_s_/series-Freedom-alone.jpg",
       "alt": "Freedom collection.Alone",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
       "medium": "medium: pencil on paper",
@@ -12,29 +12,29 @@
       "additionalPhotos": [
         {
           "id": "series-freedom-alone-detail-1",
-          "src": "/photo/pic_s_/series-Freedom-alone_detail-1.jpg",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-1.jpg",
           "alt": "series-Freedom-alone-detail-1"
         },
         {
           "id": "series-freedom-alone-4806",
-          "src": "/photo/pic_s_/series-Freedom-alone_detail-2.jpg",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-2.jpg",
           "alt": "series-Freedom-alone detail 2"
         },
         {
           "id": "series-freedom-alone-4807",
-          "src": "/photo/pic_s_/series-Freedom-alone_detail-3.jpg",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-3.jpg",
           "alt": "series-Freedom-alone detail 3"
         },
         {
           "id": "series-freedom-alone-4808",
-          "src": "/photo/pic_s_/series-Freedom-alone_detail-4.jpg",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-4.jpg",
           "alt": "series-Freedom-alone detail 4"
         }
       ]
     },
     {
       "id": "series-freedom-impossible",
-      "src": "/photo/pic_s_/series-Freedom-impossible.jpg",
+      "src": "photo/pic_s_/series-Freedom-impossible.jpg",
       "alt": "Freedom collection.Impossible",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
       "medium": "medium: pencil on paper",
@@ -44,7 +44,7 @@
     },
     {
       "id": "series-freedom-light",
-      "src": "/photo/pic_s_/series-Freedom-light.jpg",
+      "src": "photo/pic_s_/series-Freedom-light.jpg",
       "alt": "Freedom collection.Light",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
       "medium": "medium: pencil on paper.",
@@ -54,7 +54,7 @@
     },
     {
       "id": "series-freedom-grounded",
-      "src": "/photo/pic_s_/series-Freedom-grounded.jpg",
+      "src": "photo/pic_s_/series-Freedom-grounded.jpg",
       "alt": "Freedom collection.Grounded",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
       "medium": "medium: pencil on paper",
@@ -64,7 +64,7 @@
     },
     {
       "id": "series-freedom-freefall",
-      "src": "/photo/pic_s_/series-Freedom-freefall.jpg",
+      "src": "photo/pic_s_/series-Freedom-freefall.jpg",
       "alt": "Freedom collection.Freefall",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
       "medium": "medium: pencil on paper",
@@ -76,104 +76,104 @@
   "allPaintingCollection": [
     {
       "id": "sunkissed-deconstructed",
-      "src": "/photo/art/sunkissed- deconstructed.jpg",
+      "src": "photo/art/sunkissed- deconstructed.jpg",
       "alt": "sunkissed- deconstructed"
     },
     {
       "id": "madrid-mermaid",
-      "src": "/photo/art/Madrid-mermaid.jpg",
+      "src": "photo/art/Madrid-mermaid.jpg",
       "alt": "Madrid-mermaid"
     },
     {
       "id": "twilly",
-      "src": "/photo/art/twilly.jpg",
+      "src": "photo/art/twilly.jpg",
       "alt": "twilly"
     },
     {
       "id": "midnight",
-      "src": "/photo/art/midnight.jpg",
+      "src": "photo/art/midnight.jpg",
       "alt": "midnight"
     },
     {
       "id": "power-pose",
-      "src": "/photo/art/power-pose.jpg",
+      "src": "photo/art/power-pose.jpg",
       "alt": "power-pose"
     },
     {
       "id": "beach-spirit",
-      "src": "/photo/art/beach-spirit.jpg",
+      "src": "photo/art/beach-spirit.jpg",
       "alt": "beach-spirit"
     }
   ],
   "artCollection": [
     {
       "id": "dancer",
-      "src": "/photo/art/dancer.jpg",
+      "src": "photo/art/dancer.jpg",
       "alt": "dancer",
       "featured": true
     },
     {
       "id": "blue-haze",
-      "src": "/photo/art/blue-haze.jpg",
+      "src": "photo/art/blue-haze.jpg",
       "alt": "blue-haze"
     },
     {
       "id": "myst",
-      "src": "/photo/art/myst.jpg",
+      "src": "photo/art/myst.jpg",
       "alt": "myst"
     },
     {
       "id": "sunkissed",
-      "src": "/photo/art/sunkissed.jpg",
+      "src": "photo/art/sunkissed.jpg",
       "alt": "sunkissed"
     },
     {
       "id": "intimessy",
-      "src": "/photo/art/intiMessy.jpg",
+      "src": "photo/art/intiMessy.jpg",
       "alt": "intiMessy"
     }
   ],
   "galleryContent": {
     "featured": {
       "id": "sisterhood",
-      "src": "/photo/art/sisterhood.jpg",
+      "src": "photo/art/sisterhood.jpg",
       "alt": "sisterhood"
     },
     "items": [
       {
         "id": "prisme-light",
-        "src": "/photo/art/prisme-light.jpg",
+        "src": "photo/art/prisme-light.jpg",
         "alt": "prisme-light"
       },
       {
         "id": "shevchenkos-kateryna",
-        "src": "/photo/art/SHevchenkos-Kateryna.jpg",
+        "src": "photo/art/SHevchenkos-Kateryna.jpg",
         "alt": "SHevchenkos-Kateryna"
       },
       {
         "id": "lake",
-        "src": "/photo/art/lake.jpg",
+        "src": "photo/art/lake.jpg",
         "alt": "lake"
       },
       {
         "id": "pretty-girls-do-cry-1",
-        "src": "/photo/art/pretty-girls-do- cry_1.jpg",
+        "src": "photo/art/pretty-girls-do- cry_1.jpg",
         "alt": "pretty-girls-do- cry_1"
       },
       {
         "id": "pretty-girls-do-cry-2",
-        "src": "/photo/art/pretty-girls-do- cry_2.jpg",
+        "src": "photo/art/pretty-girls-do- cry_2.jpg",
         "alt": "pretty-girls-do- cry_2"
       },
       {
         "id": "portrait",
-        "src": "/photo/art/portrait.jpg",
+        "src": "photo/art/portrait.jpg",
         "alt": "portrait"
       }
     ]
   },
   "artistBio": {
-    "src": "/photo/artist/artist-bio.jpg",
+    "src": "photo/artist/artist-bio.jpg",
     "alt": "artist-bio"
   }
 }

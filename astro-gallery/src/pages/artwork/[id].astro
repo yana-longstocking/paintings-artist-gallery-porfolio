@@ -26,7 +26,7 @@ const { image } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{image.alt} - Artist Gallery Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -48,7 +48,7 @@ const { image } = Astro.props;
         <div class="artwork-detail__wrapper">
           <div class="artwork-detail__main-image">
             <img
-              src={image.src}
+              src={`${import.meta.env.BASE_URL}${image.src}`}
               alt={image.alt}
               class="artwork-detail__image"
             />
@@ -78,7 +78,7 @@ const { image } = Astro.props;
                     {image.additionalPhotos.map((photo) => (
                       <div class="artwork-detail__gallery-item">
                         <img
-                          src={photo.src}
+                          src={`${import.meta.env.BASE_URL}${photo.src}`}
                           alt={photo.alt}
                           class="artwork-detail__gallery-image"
                         />
