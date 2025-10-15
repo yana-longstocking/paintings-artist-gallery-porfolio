@@ -3,53 +3,77 @@
     {
       "id": "series-freedom-alone",
       "src": "/photo/pic_s_/series-Freedom-alone.jpg",
-      "alt": "series-Freedom-alone",
+      "alt": "Freedom collection.Alone",
+      "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
+      "medium": "medium: pencil on paper",
+      "size": "size: 594x841",
+      "price": "2000€",
       "featured": true,
       "additionalPhotos": [
         {
-          "id": "series-freedom-alone-4805",
-          "src": "/photo/pic_s_/IMG_4805.jpg",
-          "alt": "series-Freedom-alone detail 1"
+          "id": "series-freedom-alone-detail-1",
+          "src": "/photo/pic_s_/series-Freedom-alone_detail-1.jpg",
+          "alt": "series-Freedom-alone-detail-1"
+         
         },
         {
           "id": "series-freedom-alone-4806",
-          "src": "/photo/pic_s_/IMG_4806.jpg",
+          "src": "/photo/pic_s_/series-Freedom-alone_detail-2.jpg",
           "alt": "series-Freedom-alone detail 2"
+          
         },
         {
           "id": "series-freedom-alone-4807",
-          "src": "/photo/pic_s_/IMG_4807.jpg",
+          "src": "/photo/pic_s_/series-Freedom-alone_detail-3.jpg",
           "alt": "series-Freedom-alone detail 3"
+         
         },
         {
           "id": "series-freedom-alone-4808",
-          "src": "/photo/pic_s_/IMG_4808.jpg",
+          "src": "/photo/pic_s_/series-Freedom-alone_detail-4.jpg",
           "alt": "series-Freedom-alone detail 4"
+         
         }
       ]
     },
     {
       "id": "series-freedom-impossible",
       "src": "/photo/pic_s_/series-Freedom-impossible.jpg",
-      "alt": "series-Freedom-impossible",
+      "alt": "Freedom collection.Impossible",
+      "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
+      "medium": "medium: pencil on paper",
+      "size": "size: 297x420",
+      "price": "600€",
       "featured": false
     },
     {
       "id": "series-freedom-light",
       "src": "/photo/pic_s_/series-Freedom-light.jpg",
-      "alt": "series-Freedom-light",
+      "alt": "Freedom collection.Light",
+      "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
+      "medium": "medium: pencil on paper.",
+      "size": "size: 297x420",
+      "price": "600€",
       "featured": false
     },
     {
       "id": "series-freedom-grounded",
       "src": "/photo/pic_s_/series-Freedom-grounded.jpg",
-      "alt": "series-Freedom-grounded",
+      "alt": "Freedom collection.Grounded",
+      "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
+      "medium": "medium: pencil on paper",
+      "size": "size: 297x420",
+      "price": "600€",
       "featured": false
     },
     {
       "id": "series-freedom-freefall",
       "src": "/photo/pic_s_/series-Freedom-freefall.jpg",
-      "alt": "series-Freedom-freefall",
+      "alt": "Freedom collection.Freefall",
+      "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
+      "medium": "medium: pencil on paper",
+      "size": "size: 297x420",
+      "price": "600€",
       "featured": false
     }
   ],

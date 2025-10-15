@@ -22,7 +22,7 @@
     }
 
     &:hover {
-      transform: scale(1.01);
+      transform: variables.$scale-min-hover;
       box-shadow: variables.$box-shadow-hover;
     }
   }
@@ -56,7 +56,7 @@
 
     &:hover {
       box-shadow: variables.$box-shadow-hover;
-      transform: scale(1.01);
+      transform: variables.$scale-min-hover;
 
       @include mixin.on-desktop {
         transform: variables.$transform-hover;
@@ -74,9 +74,8 @@
     transition: transform variables.$effect-duration variables.$transition;
 
     .gallery-content__item:hover & {
-      transform: scale(1.01);
+      transform: variables.$scale-min-hover;
       box-shadow: variables.$box-shadow-hover;
     }
   }
 }
-

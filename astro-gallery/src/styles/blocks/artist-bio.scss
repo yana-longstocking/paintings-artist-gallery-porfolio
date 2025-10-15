@@ -43,7 +43,7 @@
     transition: all variables.$effect-duration variables.$transition;
 
     &:hover {
-      transform: translateY(-10px) scale(1.02);
+      transform: variables.$transform-hover variables.$scale-min-hover;
 
       &::before {
         opacity: 0.1;
@@ -67,7 +67,7 @@
 
     &:hover {
       box-shadow: variables.$box-shadow-hover;
-      transform: scale(1.02);
+      transform: variables.$scale-min-hover;
     }
 
     @include mixin.on-tablet {
@@ -131,4 +131,3 @@
     }
   }
 }
-

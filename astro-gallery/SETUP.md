@@ -43,22 +43,25 @@ All content from the root project has been successfully migrated to the Astro pr
 1. **Upgrade Node.js** to version 18 or higher:
    - Download from: https://nodejs.org/
    - Or use a version manager like [nvm](https://github.com/nvm-sh/nvm):
+
      ```bash
      # Install nvm if you don't have it
      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-     
+
      # Install Node.js 18+
      nvm install 18
      nvm use 18
      ```
 
 2. **Install dependencies** (if not already done):
+
    ```bash
    cd astro-gallery
    npm install
    ```
 
 3. **Run the development server**:
+
    ```bash
    npm run dev
    ```
@@ -81,6 +84,7 @@ All content from the root project has been successfully migrated to the Astro pr
 ## 📝 Next Steps
 
 After upgrading Node.js, you can:
+
 - Run `npm run dev` to start the development server
 - View the site at `http://localhost:4321`
 - Make further customizations as needed
@@ -89,10 +93,10 @@ After upgrading Node.js, you can:
 ## 🚀 Deployment
 
 Once built, the `dist/` folder will contain your static site ready for deployment to:
+
 - Netlify
 - Vercel
 - GitHub Pages
 - Any static hosting service
 
 Enjoy your new Astro gallery! 🎉
-

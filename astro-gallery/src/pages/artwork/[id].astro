@@ -39,173 +39,57 @@ const { image } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .artwork-detail {
-        min-height: 100vh;
-        padding: 2rem 0;
-        background: linear-gradient(135deg, #f8f8fa 0%, #ffffff 100%);
-      }
-
-      .artwork-detail__container {
-        max-width: 1400px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 0 2rem;
-      }
-
-      .artwork-detail__main-image {
-        background: white;
-        padding: 2rem;
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        margin-bottom: 3rem;
-        text-align: center;
-      }
-
-      .artwork-detail__image {
-        width: 100%;
-        max-width: 800px;
-        height: auto;
-        display: block;
-        border-radius: 12px;
-        margin: 0 auto;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-      }
-
-      .artwork-detail__image:hover {
-        transform: scale(1.02);
-      }
-
-      .artwork-detail__title {
-        font-family: "Cinzel", sans-serif;
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #161616;
-        margin-bottom: 1rem;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .artwork-detail__additional-photos {
-        margin-top: 3rem;
-      }
-
-      .artwork-detail__additional-title {
-        font-family: "Cinzel", sans-serif;
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #161616;
-        margin-bottom: 2rem;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        position: relative;
-      }
-
-      .artwork-detail__additional-title::after {
-        content: "";
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(90deg, #ae1c23, #161616);
-        border-radius: 2px;
-      }
-
-      .artwork-detail__gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin-top: 2rem;
-      }
-
-      .artwork-detail__gallery-item {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-
-      .artwork-detail__gallery-item:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-      }
-
-      .artwork-detail__gallery-image {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        object-position: center;
-        border-radius: 12px;
-        transition: transform 0.3s ease;
-      }
-
-      .artwork-detail__gallery-item:hover .artwork-detail__gallery-image {
-        transform: scale(1.05);
-      }
-
-      .artwork-detail__gallery-caption {
-        font-family: "Roboto", sans-serif;
-        font-size: 0.9rem;
-        color: #666;
-        text-align: center;
-        margin-top: 1rem;
-        font-weight: 400;
-      }
-
-      @media (max-width: 768px) {
-        .artwork-detail__container {
-          padding: 0 1rem;
-        }
-
-        .artwork-detail__title {
-          font-size: 2rem;
-        }
-
-        .artwork-detail__gallery {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
-      }
-    </style>
   </head>
   <body>
     <Header />
 
     <main class="artwork-detail">
       <div class="artwork-detail__container">
-        <div class="artwork-detail__main-image">
-          <h1 class="artwork-detail__title">{image.alt}</h1>
-          <img src={image.src} alt={image.alt} class="artwork-detail__image" />
-        </div>
+        <div class="artwork-detail__wrapper">
+          <div class="artwork-detail__main-image">
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="artwork-detail__image"
+            />
+          </div>
+          <div class="artwork-detail__wrapper-title">
+            <h1 class="artwork-detail__title">{image.alt}</h1>
+            {
+              image.description && (
+                <p class="artwork-detail__description">{image.description}</p>
+              )
+            }
+            {
+              image.medium && (
+                <p class="artwork-detail__medium">{image.medium}</p>
+              )
+            }
+            {image.size && <p class="artwork-detail__size">{image.size}</p>}
+            {image.price && <p class="artwork-detail__price">{image.price}</p>}
 
-        {
-          image.additionalPhotos && image.additionalPhotos.length > 0 && (
-            <div class="artwork-detail__additional-photos">
-              <h2 class="artwork-detail__additional-title">
-                Additional Details
-              </h2>
-              <div class="artwork-detail__gallery">
-                {image.additionalPhotos.map((photo) => (
-                  <div class="artwork-detail__gallery-item">
-                    <img
-                      src={photo.src}
-                      alt={photo.alt}
-                      class="artwork-detail__gallery-image"
-                    />
-                    <p class="artwork-detail__gallery-caption">{photo.alt}</p>
+            {
+              image.additionalPhotos && image.additionalPhotos.length > 0 && (
+                <div class="artwork-detail__additional-photos">
+                  <h2 class="artwork-detail__additional-title">
+                    Additional Details
+                  </h2>
+                  <div class="artwork-detail__gallery">
+                    {image.additionalPhotos.map((photo) => (
+                      <div class="artwork-detail__gallery-item">
+                        <img
+                          src={photo.src}
+                          alt={photo.alt}
+                          class="artwork-detail__gallery-image"
+                        />
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          )
-        }
+                </div>
+              )
+            }
+          </div>
+        </div>
       </div>
     </main>
   </body>

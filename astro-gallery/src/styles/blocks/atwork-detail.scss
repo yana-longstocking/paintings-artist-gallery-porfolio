@@ -1,0 +1,173 @@
+@use "mixin";
+@use "variables";
+
+.artwork-detail {
+
+  &__container {
+    margin-inline: auto;
+
+    @include mixin.on-mobile {
+      padding-inline: 20px;
+    }
+
+    @include mixin.on-tablet {
+      padding-inline: 72px;
+    }
+
+    @include mixin.on-desktop {
+      padding-inline: 120px;
+    }
+  }
+  &__wrapper {
+    @include mixin.page-grid;
+
+    @include mixin.on-desktop {
+    gap: 50px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+  &__wrapper-title {
+    padding: 0 10px 0;
+  }
+
+  &__title {
+    font-family: "Cinzel", sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 24px;
+    padding-bottom: 24px;
+    color: variables.$background-color;
+    text-align: center;
+
+    @include mixin.on-tablet {
+      padding: 50px 0 32px;
+      line-height: 140%;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 20px;
+      text-align: left;
+    }
+  }
+
+
+  &__image {
+    width: 650px;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    cursor: zoom-in;
+    display: block;
+    transition: transform variables.$effect-duration variables.$transition;
+
+    &:hover  {
+      transform: variables.$scale-max-hover;
+      box-shadow: variables.$box-shadow-hover;
+    }
+  }
+
+  &__description {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: variables.$main-color;
+    font-weight: 400;
+    padding-bottom: 24px;
+
+    @include mixin.on-tablet {
+    padding-bottom: 32px;
+      line-height: 27px;
+    }
+  }
+
+  &__medium {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: variables.$main-color;
+    padding-bottom: 24px;
+
+    @include mixin.on-tablet {
+      padding-bottom: 32px;
+    }
+  }
+
+  &__size {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: variables.$main-color;
+    padding-bottom: 24px;
+    
+    @include mixin.on-tablet {
+      padding-bottom: 32px;
+    }
+  }
+
+  &__price {
+    font-family: "Roboto", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: variables.$main-color;
+    padding-bottom: 24px;
+
+    @include mixin.on-tablet {
+      font-size: 24px;
+
+      padding-bottom: 80px;
+    }
+  }
+
+  &__additional-title {
+    font-family: "Cinzel", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: variables.$background-color;
+    text-align: left;
+    line-height: 27px;
+    padding-bottom: 24px;
+
+  }
+
+  &__gallery {
+    @include mixin.page-grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    @include mixin.on-tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+   
+
+   
+    @include mixin.on-desktop {
+      grid-template-columns: repeat(2, 1fr);
+    }
+   
+  }
+
+  &__gallery-item {
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: variables.$box-shadow;
+    transition: all variables.$effect-duration variables.$transition;
+    cursor: zoom-in;
+  
+
+  &:hover {
+    transform: variables.$scale-max-hover;
+    box-shadow: variables.$box-shadow-hover;
+  }
+}
+
+  &__gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+    transition: transform variables.$effect-duration variables.$transition;
+  }
+
+  
+}

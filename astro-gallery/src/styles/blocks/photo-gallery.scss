@@ -25,7 +25,7 @@
     transition: all variables.$effect-duration variables.$transition;
 
     &:hover {
-      transform: (1.05);
+      transform: variables.$scale-max-hover;
 
       @include mixin.on-desktop {
         transform: variables.$transform-hover;
@@ -64,7 +64,7 @@
     transition: transform variables.$effect-duration variables.$transition;
 
     .photo-gallery__item:hover & {
-      transform: scale(1.05);
+      transform: variables.$scale-max-hover;
     }
   }
 
@@ -92,4 +92,3 @@
     }
   }
 }
-

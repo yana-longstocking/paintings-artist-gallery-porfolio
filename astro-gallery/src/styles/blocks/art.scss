@@ -30,7 +30,7 @@
 
     &:hover {
       box-shadow: variables.$box-shadow-hover;
-      transform: scale(1.01);
+      transform: variables.$scale-min-hover;
 
       @include mixin.on-desktop {
         transform: variables.$transform-hover;
@@ -70,8 +70,7 @@
 
     .art__item:hover & {
       box-shadow: variables.$box-shadow-hover;
-      transform: scale(1.01);
+      transform: variables.$scale-min-hover;
     }
   }
 }
-
