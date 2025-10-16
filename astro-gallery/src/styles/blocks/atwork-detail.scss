@@ -2,6 +2,16 @@
 @use "variables";
 
 .artwork-detail {
+  padding-top: 40px;
+
+  @include mixin.on-tablet {
+    padding-top: 60px;
+  }
+
+  @include mixin.on-desktop {
+    padding-top: 0;
+  }
+
   &__container {
     margin-inline: auto;
 
@@ -27,12 +37,14 @@
   }
 
   &__wrapper-title {
-    padding: 0 10px 0;
+    @include mixin.on-tablet {
+      padding: 0 10px 0;
+    }
   }
 
   &__title {
     font-family: "Cinzel", sans-serif;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
     line-height: 24px;
     padding-bottom: 24px;
@@ -50,30 +62,47 @@
     }
   }
 
+  &__main-image {
+    position: relative;
+    padding-bottom: 24px;
+
+    @include mixin.on-desktop {
+      padding-bottom: 0;
+    }
+  }
+
   &__image {
-    width: 650px;
+    width: 100%;
     height: 100%;
     border-radius: 12px;
     object-fit: cover;
-    cursor: zoom-in;
+    cursor: url("../../public/icons/zoom-in.svg"), zoom-in;
+    caret-color: variables.$hover-color;
     display: block;
     transition: transform variables.$effect-duration variables.$transition;
 
-    &:hover {
-      transform: variables.$scale-max-hover;
-      box-shadow: variables.$box-shadow-hover;
+    @include mixin.on-tablet {
+      &:hover {
+        transform: variables.$scale-max-hover;
+        box-shadow: variables.$box-shadow-hover;
+      }
+
+      @include mixin.on-desktop {
+        width: 750px;
+      }
     }
   }
 
   &__description {
     font-family: "Roboto", sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     color: variables.$main-color;
     font-weight: 400;
     padding-bottom: 24px;
 
     @include mixin.on-tablet {
+      font-size: 16px;
       padding-bottom: 32px;
       line-height: 27px;
     }
@@ -125,6 +154,11 @@
     text-align: left;
     line-height: 27px;
     padding-bottom: 24px;
+    text-align: center;
+
+    @include mixin.on-desktop {
+      text-align: left;
+    }
   }
 
   &__gallery {
@@ -147,9 +181,11 @@
     transition: all variables.$effect-duration variables.$transition;
     cursor: zoom-in;
 
-    &:hover {
-      transform: variables.$scale-max-hover;
-      box-shadow: variables.$box-shadow-hover;
+    @include mixin.on-tablet {
+      &:hover {
+        transform: variables.$scale-max-hover;
+        box-shadow: variables.$box-shadow-hover;
+      }
     }
   }
 
@@ -159,6 +195,7 @@
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
+    cursor: url("../../public/icons/zoom-in.svg"), zoom-in;
     transition: transform variables.$effect-duration variables.$transition;
   }
 }

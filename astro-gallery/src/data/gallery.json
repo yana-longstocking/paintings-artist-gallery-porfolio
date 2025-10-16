@@ -5,7 +5,7 @@
       "src": "photo/pic_s_/series-Freedom-alone.jpg",
       "alt": "Freedom collection.Alone",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
-      "medium": "medium: pencil on paper",
+      "medium": "medium: pencils on paper",
       "size": "size: 594x841",
       "price": "2000€",
       "featured": true,
@@ -37,7 +37,7 @@
       "src": "photo/pic_s_/series-Freedom-impossible.jpg",
       "alt": "Freedom collection.Impossible",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
-      "medium": "medium: pencil on paper",
+      "medium": "medium: pencils on paper",
       "size": "size: 297x420",
       "price": "600€",
       "featured": false
@@ -47,7 +47,7 @@
       "src": "photo/pic_s_/series-Freedom-light.jpg",
       "alt": "Freedom collection.Light",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
-      "medium": "medium: pencil on paper.",
+      "medium": "medium: pencils on paper.",
       "size": "size: 297x420",
       "price": "600€",
       "featured": false
@@ -57,7 +57,7 @@
       "src": "photo/pic_s_/series-Freedom-grounded.jpg",
       "alt": "Freedom collection.Grounded",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
-      "medium": "medium: pencil on paper",
+      "medium": "medium: pencils on paper",
       "size": "size: 297x420",
       "price": "600€",
       "featured": false
@@ -67,7 +67,7 @@
       "src": "photo/pic_s_/series-Freedom-freefall.jpg",
       "alt": "Freedom collection.Freefall",
       "description": "Absolute Freedom is impossible, however worth fighting for. So I removed key elements that make poses possible. The Net is trying to get you but you keep your freedom. All in balance.",
-      "medium": "medium: pencil on paper",
+      "medium": "medium: pencils on paper",
       "size": "size: 297x420",
       "price": "600€",
       "featured": false
@@ -77,98 +77,211 @@
     {
       "id": "sunkissed-deconstructed",
       "src": "photo/art/sunkissed- deconstructed.jpg",
-      "alt": "sunkissed- deconstructed"
+      "alt": "Sunkissed deconstructed",
+      "description": "Sunkissed deconstructed",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "500€",
+      "featured": true,
+      "additionalPhotos": []
     },
     {
       "id": "madrid-mermaid",
       "src": "photo/art/Madrid-mermaid.jpg",
-      "alt": "Madrid-mermaid"
+      "alt": "Madrid Mermaid",
+      "description": "In Madrid sculptures of mermaids have two tails",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "800€",
+      "featured": true,
+      "additionalPhotos": []
     },
     {
       "id": "twilly",
       "src": "photo/art/twilly.jpg",
-      "alt": "twilly"
+      "alt": "Twilly",
+      "description": "Twilly",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "400€",
+      "featured": true,
+      "additionalPhotos": []
     },
     {
       "id": "midnight",
       "src": "photo/art/midnight.jpg",
-      "alt": "midnight"
+      "alt": "Midnight",
+      "description": "Midnight",
+      "medium": "medium: pastel on paper",
+      "size": "size: 148x420",
+      "price": "400€",
+      "featured": true,
+      "additionalPhotos": []
     },
     {
       "id": "power-pose",
       "src": "photo/art/power-pose.jpg",
-      "alt": "power-pose"
+      "alt": "Power pose",
+      "description": "Power pose",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "400€",
+      "featured": true,
+      "additionalPhotos": []
     },
     {
       "id": "beach-spirit",
       "src": "photo/art/beach-spirit.jpg",
-      "alt": "beach-spirit"
+      "alt": "Beach spirit",
+      "description": "Beach spirit",
+      "medium": "medium: charcoal on paper",
+      "size": "size: 297x420",
+      "price": "500€",
+      "featured": true,
+      "additionalPhotos": []
     }
   ],
   "artCollection": [
     {
       "id": "dancer",
       "src": "photo/art/dancer.jpg",
-      "alt": "dancer",
-      "featured": true
+      "alt": "Dancer",
+      "description": "Dancer",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "1000€",
+      "featured": true,
+      "additionalPhotos": []
     },
     {
       "id": "blue-haze",
       "src": "photo/art/blue-haze.jpg",
-      "alt": "blue-haze"
+      "alt": "Blue Haze",
+      "description": "Blue Haze",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "500€",
+      "featured": false,
+      "additionalPhotos": []
     },
     {
       "id": "myst",
       "src": "photo/art/myst.jpg",
-      "alt": "myst"
+      "alt": "Myst",
+      "description": "Myst",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": []
     },
     {
       "id": "sunkissed",
       "src": "photo/art/sunkissed.jpg",
-      "alt": "sunkissed"
+      "alt": "Sunkissed",
+      "description": "Sunkissed",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": []
     },
     {
       "id": "intimessy",
       "src": "photo/art/intiMessy.jpg",
-      "alt": "intiMessy"
+      "alt": "intiMessy",
+      "description": "IntiMessy",
+      "medium": "medium: pencils on paper",
+      "size": "size: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": []
     }
   ],
   "galleryContent": {
     "featured": {
       "id": "sisterhood",
       "src": "photo/art/sisterhood.jpg",
-      "alt": "sisterhood"
+      "alt": "Sisterhood",
+      "description": "Sisterhood",
+      "medium": "medium: pencils on paper",
+      "size": "size: 210x297",
+      "price": "800€",
+      "featured": true,
+      "additionalPhotos": []
     },
     "items": [
       {
         "id": "prisme-light",
         "src": "photo/art/prisme-light.jpg",
-        "alt": "prisme-light"
+        "alt": "Prisme light",
+        "description": "Prisme light",
+        "medium": "medium: pencils on paper",
+        "size": "size: 297x420",
+        "price": "600€",
+        "featured": true,
+        "additionalPhotos": []
       },
       {
         "id": "shevchenkos-kateryna",
         "src": "photo/art/SHevchenkos-Kateryna.jpg",
-        "alt": "SHevchenkos-Kateryna"
+        "alt": "Shevchenko's Kateryna",
+        "description": "Reimagining Schevchenko`s aquarel in line art.",
+        "medium": "medium: pencil on paper",
+        "size": "size: 210x297",
+        "price": "800€",
+        "featured": true,
+        "additionalPhotos": []
       },
       {
         "id": "lake",
         "src": "photo/art/lake.jpg",
-        "alt": "lake"
+        "alt": "Lake",
+        "description": "Lake",
+        "medium": "medium: pencils on paper",
+        "size": "size: 297x420",
+        "price": "600€",
+        "featured": true,
+        "additionalPhotos": []
       },
       {
         "id": "pretty-girls-do-cry-1",
         "src": "photo/art/pretty-girls-do- cry_1.jpg",
-        "alt": "pretty-girls-do- cry_1"
+        "alt": "Pretty girls do cry",
+        "description": "Pretty girls do cry",
+        "medium": "medium: pencils on paper",
+        "size": "size: 297x420",
+        "price": "500€",
+        "featured": true,
+        "additionalPhotos": []
       },
       {
         "id": "pretty-girls-do-cry-2",
         "src": "photo/art/pretty-girls-do- cry_2.jpg",
-        "alt": "pretty-girls-do- cry_2"
+        "alt": "Lovely girls do cry",
+        "description": "Lovely girls do cry",
+        "medium": "medium: pencils on paper",
+        "size": "size: 297x420",
+        "price": "500€",
+        "featured": true,
+        "additionalPhotos": [
+          {
+            "id": "pretty-girls-do-cry-2_detail-1",
+            "src": "photo/art/pretty-girls-do- cry_2_detail-1.jpg",
+            "alt": "pretty-girls-do-cry-2-detail-1"
+          }
+        ]
       },
       {
         "id": "portrait",
         "src": "photo/art/portrait.jpg",
-        "alt": "portrait"
+        "alt": "portrait",
+        "description": "Portrait",
+        "medium": "medium: pencils on paper",
+        "size": "size: 297x420",
+        "price": "700€",
+        "featured": true,
+        "additionalPhotos": []
       }
     ]
   },
