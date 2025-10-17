@@ -24,13 +24,15 @@
     box-shadow: variables.$box-shadow;
     transition: all variables.$effect-duration variables.$transition;
 
-    &:hover {
-      transform: variables.$scale-max-hover;
-
-      @include mixin.on-desktop {
-        transform: variables.$transform-hover;
-        box-shadow: variables.$box-shadow-hover;
+    @include mixin.on-tablet {
+      &:hover {
+        transform: variables.$scale-max-hover;
       }
+    }
+
+    @include mixin.on-desktop {
+      transform: variables.$transform-hover;
+      box-shadow: variables.$box-shadow-hover;
     }
 
     &--featured {
@@ -64,7 +66,9 @@
     transition: transform variables.$effect-duration variables.$transition;
 
     .photo-gallery__item:hover & {
-      transform: variables.$scale-max-hover;
+      @include mixin.on-tablet {
+        transform: variables.$scale-max-hover;
+      }
     }
   }
 

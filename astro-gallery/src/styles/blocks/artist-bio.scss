@@ -65,14 +65,14 @@
     transition: all variables.$effect-duration variables.$transition;
     border: 3px solid rgba(255, 255, 255, 0.8);
 
-    &:hover {
-      box-shadow: variables.$box-shadow-hover;
-      transform: variables.$scale-min-hover;
-    }
-
     @include mixin.on-tablet {
       width: 350px;
       height: 450px;
+
+      &:hover {
+        box-shadow: variables.$box-shadow-hover;
+        transform: variables.$scale-min-hover;
+      }
     }
 
     @include mixin.on-desktop {

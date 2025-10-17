@@ -21,9 +21,11 @@
       margin-bottom: 36px;
     }
 
-    &:hover {
-      transform: variables.$scale-min-hover;
-      box-shadow: variables.$box-shadow-hover;
+    @include mixin.on-tablet {
+      &:hover {
+        transform: variables.$scale-min-hover;
+        box-shadow: variables.$box-shadow-hover;
+      }
     }
   }
 
@@ -54,14 +56,16 @@
     box-shadow: variables.$box-shadow;
     transition: all variables.$effect-duration variables.$transition;
 
-    &:hover {
-      box-shadow: variables.$box-shadow-hover;
-      transform: variables.$scale-min-hover;
-
-      @include mixin.on-desktop {
-        transform: variables.$transform-hover;
+    @include mixin.on-tablet {
+      &:hover {
         box-shadow: variables.$box-shadow-hover;
+        transform: variables.$scale-min-hover;
       }
+    }
+
+    @include mixin.on-desktop {
+      transform: variables.$transform-hover;
+      box-shadow: variables.$box-shadow-hover;
     }
   }
 
@@ -74,8 +78,10 @@
     transition: transform variables.$effect-duration variables.$transition;
 
     .gallery-content__item:hover & {
-      transform: variables.$scale-min-hover;
-      box-shadow: variables.$box-shadow-hover;
+      @include mixin.on-tablet {
+        transform: variables.$scale-min-hover;
+        box-shadow: variables.$box-shadow-hover;
+      }
     }
   }
 }

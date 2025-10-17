@@ -24,13 +24,15 @@
     box-shadow: variables.$box-shadow;
     transition: all variables.$effect-duration variables.$transition;
 
-    &:hover {
-      box-shadow: variables.$box-shadow-hover;
-      transform: variables.$scale-min-hover;
-
-      @include mixin.on-desktop {
-        transform: variables.$transform-hover;
+    @include mixin.on-tablet {
+      &:hover {
+        box-shadow: variables.$box-shadow-hover;
+        transform: variables.$scale-min-hover;
       }
+    }
+
+    @include mixin.on-desktop {
+      transform: variables.$transform-hover;
     }
   }
 
