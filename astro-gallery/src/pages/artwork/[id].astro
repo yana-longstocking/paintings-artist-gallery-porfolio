@@ -55,6 +55,8 @@ const { image } = Astro.props;
               src={`${import.meta.env.BASE_URL}${image.src}`}
               alt={image.alt}
               class="artwork-detail__image"
+              data-src-original={`${import.meta.env.BASE_URL}${(image as any).srcOriginal || image.src}`}
+              onclick="openModal(this)"
             />
           </div>
 
@@ -86,6 +88,8 @@ const { image } = Astro.props;
                           src={`${import.meta.env.BASE_URL}${photo.src}`}
                           alt={photo.alt}
                           class="artwork-detail__gallery-image"
+                          data-src-original={`${import.meta.env.BASE_URL}${photo.src}`}
+                          onclick="openModal(this)"
                         />
                       </div>
                     ))}
@@ -97,5 +101,58 @@ const { image } = Astro.props;
         </div>
       </div>
     </main>
+
+    <!-- Modal for full-screen image viewing -->
+    <div id="imageModal" class="modal">
+      <span class="modal__close" onclick="closeModal()">&times;</span>
+      <img class="modal__content" id="modalImage" alt="">
+      <div class="modal__caption" id="modalCaption"></div>
+    </div>
+
+    <script is:inline>
+      function openModal(img) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const caption = document.getElementById('modalCaption');
+        
+        if (modal && modalImg && caption) {
+          modal.style.display = 'block';
+          modalImg.src = img.dataset.srcOriginal || img.src;
+          caption.innerHTML = img.alt;
+          
+          // Prevent body scroll when modal is open
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeModal() {
+        const modal = document.getElementById('imageModal');
+        if (modal) {
+          modal.style.display = 'none';
+          
+          // Restore body scroll
+          document.body.style.overflow = 'auto';
+        }
+      }
+
+      // Close modal when clicking outside the image
+      document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('imageModal');
+        if (modal) {
+          modal.onclick = function(event) {
+            if (event.target === modal) {
+              closeModal();
+            }
+          }
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
+      });
+    </script>
   </body>
 </html>
