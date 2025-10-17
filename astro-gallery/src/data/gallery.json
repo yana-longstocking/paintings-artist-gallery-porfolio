@@ -16,17 +16,17 @@
           "alt": "series-Freedom-alone-detail-1"
         },
         {
-          "id": "series-freedom-alone-4806",
+          "id": "series-freedom-alone-detail-2",
           "src": "photo/pic_s_/series-Freedom-alone_detail-2.jpg",
           "alt": "series-Freedom-alone detail 2"
         },
         {
-          "id": "series-freedom-alone-4807",
+          "id": "series-freedom-alone-detail-3",
           "src": "photo/pic_s_/series-Freedom-alone_detail-3.jpg",
           "alt": "series-Freedom-alone detail 3"
         },
         {
-          "id": "series-freedom-alone-4808",
+          "id": "series-freedom-alone-detail-4",
           "src": "photo/pic_s_/series-Freedom-alone_detail-4.jpg",
           "alt": "series-Freedom-alone detail 4"
         }
@@ -208,7 +208,18 @@
       "size": "size: 210x297",
       "price": "800€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "sisterhood-detail-1",
+          "src": "photo/art/sisterhood_det-1.jpg",
+          "alt": "Sisterhood detail 1"
+        },
+        {
+          "id": "sisterhood-detail-2",
+          "src": "photo/art/sisterhood_det-2.jpg",
+          "alt": "Sisterhood detail 2"
+        }
+      ]
     },
     "items": [
       {
@@ -267,7 +278,7 @@
         "additionalPhotos": [
           {
             "id": "pretty-girls-do-cry-2_detail-1",
-            "src": "photo/art/pretty-girls-do- cry_2_detail-1.jpg",
+            "src": "photo/art/pretty-girls-do-cry_2_det-1.jpg",
             "alt": "pretty-girls-do-cry-2-detail-1"
           }
         ]
