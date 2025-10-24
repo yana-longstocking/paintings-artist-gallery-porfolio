@@ -210,7 +210,7 @@
   }
 
   &__burger {
-    background-image: url("/icons/burger.svg");
+    background-image: url("../../public/icons/burger.svg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -226,7 +226,7 @@
     }
 
     &:hover {
-      background-image: url("/icons/hovered-burger.svg");
+      background-image: url("../../public/icons/hovered-burger.svg");
       transform: scale(1.2);
     }
   }
