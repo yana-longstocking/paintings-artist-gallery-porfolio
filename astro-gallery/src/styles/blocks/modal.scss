@@ -1,3 +1,6 @@
+@use "variables";
+@use "mixin";
+
 .modal {
   display: none;
   position: fixed;
@@ -8,101 +11,68 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
   cursor: pointer;
-}
+  animation: fadeIn variables.$effect-duration ease-in-out;
 
-.modal__content {
-  display: block;
-  margin: auto;
-  max-width: 90%;
-  max-height: 90%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  object-fit: contain;
-  cursor: default;
-}
-
-.modal__close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1001;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #bbb;
-  }
-}
-
-.modal__caption {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #f1f1f1;
-  font-size: 16px;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 10px 20px;
-  border-radius: 5px;
-  max-width: 80%;
-  word-wrap: break-word;
-}
-
-// Animation for modal opening
-.modal {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-// Responsive design
-@media (max-width: 768px) {
-  .modal__content {
-    max-width: 95%;
-    max-height: 85%;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 
-  .modal__close {
+  &__content {
+    display: block;
+    width: 90%;
+    height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    cursor: pointer;
+
+    @include mixin.on-tablet {
+      top: 52%;
+      height: 80%;
+    }
+  }
+
+  &__close {
+    position: absolute;
     top: 10px;
-    right: 20px;
-    font-size: 30px;
-  }
-
-  .modal__caption {
-    bottom: 10px;
-    font-size: 14px;
-    padding: 8px 15px;
-  }
-}
-
-@media (max-width: 480px) {
-  .modal__content {
-    max-width: 98%;
-    max-height: 80%;
-  }
-
-  .modal__close {
-    top: 5px;
-    right: 15px;
+    right: 17px;
+    color: variables.$color-text;
     font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform variables.$effect-duration ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    @include mixin.on-tablet {
+      top: 15px;
+      right: 25px;
+      font-size: 30px;
+    }
   }
 
-  .modal__caption {
-    bottom: 5px;
-    font-size: 12px;
-    padding: 6px 12px;
+  &__caption {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: variables.$background-color;
+    font-size: 13px;
+    text-align: center;
+
+    @include mixin.on-tablet {
+      bottom: 10px;
+      font-size: 16px;
+    }
   }
 }
