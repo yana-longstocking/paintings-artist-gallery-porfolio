@@ -105,27 +105,97 @@ const { image } = Astro.props;
     <!-- Modal for full-screen image viewing -->
     <div id="imageModal" class="modal">
       <span class="modal__close" onclick="closeModal()">&times;</span>
+      <button class="modal__arrow modal__arrow--left" onclick="changeImage(-1)">&#10094;</button>
+      <button class="modal__arrow modal__arrow--right" onclick="changeImage(1)">&#10095;</button>
       <img class="modal__content" id="modalImage" alt="" />
       <div class="modal__caption" id="modalCaption"></div>
     </div>
 
-    <script is:inline>
-      function openModal(img) {
+    <script define:vars={{ imageData: image, baseUrl: import.meta.env.BASE_URL }}>
+      // Global variables for carousel functionality
+      let currentImageIndex = 0;
+      let allImages = [];
+
+      // Make functions globally accessible by explicitly assigning to window
+      window.openModal = function(img) {
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("modalImage");
         const caption = document.getElementById("modalCaption");
 
         if (modal && modalImg && caption) {
+          // Collect all images for carousel
+          collectAllImages();
+          
+          // Find the index of the clicked image
+          const clickedSrc = img.dataset.srcOriginal || img.src;
+          currentImageIndex = allImages.findIndex(image => 
+            image.src === clickedSrc || image.srcOriginal === clickedSrc
+          );
+          
+          // If not found, default to 0
+          if (currentImageIndex === -1) {
+            currentImageIndex = 0;
+          }
+
+          // Show the modal with current image
+          showCurrentImage();
           modal.style.display = "block";
-          modalImg.src = img.dataset.srcOriginal || img.src;
-          caption.innerHTML = img.alt;
 
           // Prevent body scroll when modal is open
           document.body.style.overflow = "hidden";
         }
+      };
+
+      function collectAllImages() {
+        allImages = [];
+        
+        // Add main image
+        const mainImage = {
+          src: `${baseUrl}${imageData.src}`,
+          srcOriginal: `${baseUrl}${imageData.srcOriginal || imageData.src}`,
+          alt: imageData.alt
+        };
+        allImages.push(mainImage);
+        
+        // Add additional photos if they exist
+        if (imageData.additionalPhotos && imageData.additionalPhotos.length > 0) {
+          imageData.additionalPhotos.forEach(photo => {
+            allImages.push({
+              src: `${baseUrl}${photo.src}`,
+              srcOriginal: `${baseUrl}${photo.srcOriginal || photo.src}`,
+              alt: photo.alt
+            });
+          });
+        }
       }
 
-      function closeModal() {
+      function showCurrentImage() {
+        const modalImg = document.getElementById("modalImage");
+        const caption = document.getElementById("modalCaption");
+        
+        if (allImages.length > 0 && modalImg && caption) {
+          const currentImage = allImages[currentImageIndex];
+          modalImg.src = currentImage.srcOriginal;
+          caption.innerHTML = currentImage.alt;
+        }
+      }
+
+      window.changeImage = function(direction) {
+        if (allImages.length <= 1) return; // No need to change if only one image
+        
+        currentImageIndex += direction;
+        
+        // Loop around
+        if (currentImageIndex >= allImages.length) {
+          currentImageIndex = 0;
+        } else if (currentImageIndex < 0) {
+          currentImageIndex = allImages.length - 1;
+        }
+        
+        showCurrentImage();
+      };
+
+      window.closeModal = function() {
         const modal = document.getElementById("imageModal");
         if (modal) {
           modal.style.display = "none";
@@ -133,7 +203,7 @@ const { image } = Astro.props;
           // Restore body scroll
           document.body.style.overflow = "auto";
         }
-      }
+      };
 
       // Close modal when clicking outside the image
       document.addEventListener("DOMContentLoaded", function () {
@@ -141,7 +211,7 @@ const { image } = Astro.props;
         if (modal) {
           modal.onclick = function (event) {
             if (event.target === modal) {
-              closeModal();
+              window.closeModal();
             }
           };
         }
@@ -150,7 +220,19 @@ const { image } = Astro.props;
       // Close modal with Escape key
       document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
-          closeModal();
+          window.closeModal();
+        }
+      });
+
+      // Arrow key navigation
+      document.addEventListener("keydown", function (event) {
+        const modal = document.getElementById("imageModal");
+        if (modal && modal.style.display === "block") {
+          if (event.key === "ArrowLeft") {
+            window.changeImage(-1);
+          } else if (event.key === "ArrowRight") {
+            window.changeImage(1);
+          }
         }
       });
     </script>
