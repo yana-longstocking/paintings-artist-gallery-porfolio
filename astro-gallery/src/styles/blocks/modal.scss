@@ -82,7 +82,6 @@
     display: none;
 
     @include mixin.on-tablet {
-      display: block;
       position: absolute;
       top: 24px;
       left: 13%;
@@ -92,6 +91,7 @@
     }
 
     @include mixin.on-desktop {
+      display: block;
       left: 6%;
       font-size: 13px;
     }
@@ -111,7 +111,7 @@
     border-radius: 30%;
     transition: all variables.$effect-duration ease;
 
-    @include mixin.on-tablet {
+    @include mixin.on-desktop {
       border-radius: 50%;
     }
 
