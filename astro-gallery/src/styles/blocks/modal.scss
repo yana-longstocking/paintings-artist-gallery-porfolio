@@ -111,7 +111,13 @@
     border-radius: 30%;
     transition: all variables.$effect-duration ease;
 
+    @include mixin.on-tablet {
+      top: 50%;
+      
+    }
+
     @include mixin.on-desktop {
+      padding: 15px 20px;
       border-radius: 50%;
     }
 
@@ -134,11 +140,6 @@
       @include mixin.on-tablet {
         right: 20px;
       }
-    }
-
-    @include mixin.on-tablet {
-      top: 50%;
-      padding: 15px 20px;
     }
   }
   /*
