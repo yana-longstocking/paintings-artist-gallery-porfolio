@@ -105,19 +105,25 @@ const { image } = Astro.props;
     <!-- Modal for full-screen image viewing -->
     <div id="imageModal" class="modal">
       <span class="modal__close" onclick="closeModal()">&times;</span>
-      <button class="modal__arrow modal__arrow--left" onclick="changeImage(-1)">&#10094;</button>
-      <button class="modal__arrow modal__arrow--right" onclick="changeImage(1)">&#10095;</button>
+      <button class="modal__arrow modal__arrow--left" onclick="changeImage(-1)"
+        >&#10094;</button
+      >
+      <button class="modal__arrow modal__arrow--right" onclick="changeImage(1)"
+        >&#10095;</button
+      >
       <img class="modal__content" id="modalImage" alt="" />
       <div class="modal__caption" id="modalCaption"></div>
     </div>
 
-    <script define:vars={{ imageData: image, baseUrl: import.meta.env.BASE_URL }}>
+    <script
+      define:vars={{ imageData: image, baseUrl: import.meta.env.BASE_URL }}
+    >
       // Global variables for carousel functionality
       let currentImageIndex = 0;
       let allImages = [];
 
       // Make functions globally accessible by explicitly assigning to window
-      window.openModal = function(img) {
+      window.openModal = function (img) {
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("modalImage");
         const caption = document.getElementById("modalCaption");
@@ -125,13 +131,14 @@ const { image } = Astro.props;
         if (modal && modalImg && caption) {
           // Collect all images for carousel
           collectAllImages();
-          
+
           // Find the index of the clicked image
           const clickedSrc = img.dataset.srcOriginal || img.src;
-          currentImageIndex = allImages.findIndex(image => 
-            image.src === clickedSrc || image.srcOriginal === clickedSrc
+          currentImageIndex = allImages.findIndex(
+            (image) =>
+              image.src === clickedSrc || image.srcOriginal === clickedSrc,
           );
-          
+
           // If not found, default to 0
           if (currentImageIndex === -1) {
             currentImageIndex = 0;
@@ -148,22 +155,25 @@ const { image } = Astro.props;
 
       function collectAllImages() {
         allImages = [];
-        
+
         // Add main image
         const mainImage = {
           src: `${baseUrl}${imageData.src}`,
           srcOriginal: `${baseUrl}${imageData.srcOriginal || imageData.src}`,
-          alt: imageData.alt
+          alt: imageData.alt,
         };
         allImages.push(mainImage);
-        
+
         // Add additional photos if they exist
-        if (imageData.additionalPhotos && imageData.additionalPhotos.length > 0) {
-          imageData.additionalPhotos.forEach(photo => {
+        if (
+          imageData.additionalPhotos &&
+          imageData.additionalPhotos.length > 0
+        ) {
+          imageData.additionalPhotos.forEach((photo) => {
             allImages.push({
               src: `${baseUrl}${photo.src}`,
               srcOriginal: `${baseUrl}${photo.srcOriginal || photo.src}`,
-              alt: photo.alt
+              alt: photo.alt,
             });
           });
         }
@@ -172,7 +182,7 @@ const { image } = Astro.props;
       function showCurrentImage() {
         const modalImg = document.getElementById("modalImage");
         const caption = document.getElementById("modalCaption");
-        
+
         if (allImages.length > 0 && modalImg && caption) {
           const currentImage = allImages[currentImageIndex];
           modalImg.src = currentImage.srcOriginal;
@@ -180,22 +190,22 @@ const { image } = Astro.props;
         }
       }
 
-      window.changeImage = function(direction) {
+      window.changeImage = function (direction) {
         if (allImages.length <= 1) return; // No need to change if only one image
-        
+
         currentImageIndex += direction;
-        
+
         // Loop around
         if (currentImageIndex >= allImages.length) {
           currentImageIndex = 0;
         } else if (currentImageIndex < 0) {
           currentImageIndex = allImages.length - 1;
         }
-        
+
         showCurrentImage();
       };
 
-      window.closeModal = function() {
+      window.closeModal = function () {
         const modal = document.getElementById("imageModal");
         if (modal) {
           modal.style.display = "none";
