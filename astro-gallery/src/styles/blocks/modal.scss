@@ -43,16 +43,18 @@
   &__close {
     position: absolute;
     top: 10px;
-    right: 7px;
+    right: 11px;
     color: variables.$color-text;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
-    padding: 0px 7px;
-    font-size: 25px;
-    font-weight: bold;
     cursor: pointer;
     z-index: 1001;
     transition: transform variables.$effect-duration ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
 
     &:hover {
       background: rgba(0, 0, 0, 0.8);
@@ -61,14 +63,15 @@
 
     @include mixin.on-tablet {
       top: 15px;
-      right: 33px;
-      font-size: 30px;
+      right: 50px;
+      padding: 4px;
+      cursor: pointer;
     }
 
     @include mixin.on-desktop {
       right: 20px;
-      font-size: 20px;
-      padding: 15px 20px;
+      width: 40px;
+      height: 40px;
     }
   }
 
@@ -96,22 +99,29 @@
     bottom: 10px;
     transform: translateY(-50%);
     color: variables.$color-text;
-    font-size: 15px;
-    font-weight: bold;
     cursor: pointer;
     z-index: 1001;
     background: rgba(0, 0, 0, 0.5);
     border: none;
     border-radius: 50%;
     transition: all variables.$effect-duration ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 30px;
+    height: 30px;
 
     @include mixin.on-tablet {
-      bottom: 40%;
-      font-size: 20px;
+      bottom: 35%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
     }
 
     @include mixin.on-desktop {
-      padding: 15px 20px;
+      width: 50px;
+      height: 50px;
     }
 
     &:hover {
@@ -123,11 +133,11 @@
       left: 14px;
 
       @include mixin.on-tablet {
-        left: 39px;
+        left: 50px;
       }
 
       @include mixin.on-desktop {
-        left: 20px;
+        left: 25px;
       }
     }
 
@@ -135,11 +145,11 @@
       right: 14px;
 
       @include mixin.on-tablet {
-        right: 39px;
+        right: 50px;
       }
 
       @include mixin.on-desktop {
-        right: 20px;
+        right: 25px;
       }
     }
   }
