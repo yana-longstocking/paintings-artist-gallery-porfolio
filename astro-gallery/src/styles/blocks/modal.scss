@@ -19,7 +19,7 @@
     left: 12px;
     right: 12px;
     bottom: 12px;
-    height: 64px;
+    height: 30px;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
@@ -48,7 +48,7 @@
     width: 100%;
     height: auto;
     position: absolute;
-    top: 56%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: contain;
@@ -100,7 +100,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 34px;
+    bottom: 19px;
     display: block;
     color: variables.$color-text;
     font-size: 13px;
@@ -114,7 +114,7 @@
 
   &__arrow {
     position: absolute;
-    bottom: 14px;
+    bottom: -3px;
     transform: translateY(-50%);
     color: variables.$color-text;
     cursor: pointer;
