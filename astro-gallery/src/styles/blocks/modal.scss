@@ -13,6 +13,27 @@
   cursor: pointer;
   animation: fadeIn variables.$effect-duration ease-in-out;
 
+  &::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    height: 64px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    z-index: 1000;
+
+    @include mixin.on-tablet {
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      height: 72px;
+      border-radius: 18px;
+    }
+  }
+
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -63,40 +84,37 @@
 
     @include mixin.on-tablet {
       top: 15px;
-      right: 50px;
+      right: 23px;
       padding: 4px;
       cursor: pointer;
+      width: 40px;
+      height: 40px;
     }
 
     @include mixin.on-desktop {
       right: 20px;
-      width: 40px;
-      height: 40px;
     }
   }
 
   &__caption {
-    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 34px;
+    display: block;
+    color: variables.$color-text;
+    font-size: 13px;
+    z-index: 1002;
 
     @include mixin.on-tablet {
-      position: absolute;
-      top: 24px;
-      left: 13%;
-      transform: translateX(-50%);
-      color: variables.$color-text;
-      font-size: 11px;
-    }
-
-    @include mixin.on-desktop {
-      display: block;
-      left: 6%;
-      font-size: 13px;
+      font-size: 14px;
+      bottom: 40px;
     }
   }
 
   &__arrow {
     position: absolute;
-    bottom: 10px;
+    bottom: 14px;
     transform: translateY(-50%);
     color: variables.$color-text;
     cursor: pointer;
@@ -113,15 +131,9 @@
     height: 30px;
 
     @include mixin.on-tablet {
-      bottom: 35%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-    }
-
-    @include mixin.on-desktop {
       width: 50px;
       height: 50px;
+      cursor: pointer;
     }
 
     &:hover {
@@ -133,7 +145,7 @@
       left: 14px;
 
       @include mixin.on-tablet {
-        left: 50px;
+        left: 23px;
       }
 
       @include mixin.on-desktop {
@@ -145,7 +157,7 @@
       right: 14px;
 
       @include mixin.on-tablet {
-        right: 50px;
+        right: 23px;
       }
 
       @include mixin.on-desktop {
