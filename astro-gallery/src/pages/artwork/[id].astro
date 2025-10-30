@@ -190,19 +190,66 @@ const { image } = Astro.props;
         }
       }
 
+      let isAnimating = false;
+
       window.changeImage = function (direction) {
-        if (allImages.length <= 1) return; // No need to change if only one image
+        if (allImages.length <= 1) return;
+        if (isAnimating) return;
 
-        currentImageIndex += direction;
+        const modalImg = document.getElementById("modalImage");
+        if (!modalImg) return;
 
-        // Loop around
-        if (currentImageIndex >= allImages.length) {
-          currentImageIndex = 0;
-        } else if (currentImageIndex < 0) {
-          currentImageIndex = allImages.length - 1;
-        }
+        isAnimating = true;
 
-        showCurrentImage();
+        // Choose classes by direction
+        const outClass =
+          direction > 0
+            ? "modal__content--out-left"
+            : "modal__content--out-right";
+        const inClass =
+          direction > 0
+            ? "modal__content--in-right"
+            : "modal__content--in-left";
+
+        // Play OUT animation
+        modalImg.classList.remove(
+          "modal__content--out-left",
+          "modal__content--out-right",
+          "modal__content--in-left",
+          "modal__content--in-right",
+        );
+        modalImg.classList.add(outClass);
+
+        const onOutEnd = () => {
+          modalImg.removeEventListener("animationend", onOutEnd);
+
+          // Update index
+          currentImageIndex += direction;
+          if (currentImageIndex >= allImages.length) {
+            currentImageIndex = 0;
+          } else if (currentImageIndex < 0) {
+            currentImageIndex = allImages.length - 1;
+          }
+
+          const currentImage = allImages[currentImageIndex];
+          modalImg.src = currentImage.srcOriginal;
+          const caption = document.getElementById("modalCaption");
+          if (caption) caption.innerHTML = currentImage.alt;
+
+          // Play IN animation
+          modalImg.classList.remove(outClass);
+          modalImg.classList.add(inClass);
+
+          const onInEnd = () => {
+            modalImg.removeEventListener("animationend", onInEnd);
+            modalImg.classList.remove(inClass);
+            isAnimating = false;
+          };
+
+          modalImg.addEventListener("animationend", onInEnd);
+        };
+
+        modalImg.addEventListener("animationend", onOutEnd);
       };
 
       window.closeModal = function () {

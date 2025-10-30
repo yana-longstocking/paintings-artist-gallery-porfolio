@@ -11,7 +11,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
   cursor: pointer;
-  animation: fadeIn variables.$effect-duration ease-in-out;
+  animation: fadeIn variables.$effect-duration forwards;
 
   &::after {
     content: "";
@@ -57,7 +57,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: contain;
-    transition: transform variables.$effect-duration ease;
 
     @include mixin.on-tablet {
       top: 50%;
@@ -67,6 +66,82 @@
     @include mixin.on-desktop {
       top: 45%;
       height: 90%;
+    }
+  }
+
+  &__content--out-left {
+    animation: modalSlideOutLeft variables.$effect-duration ease-in-out forwards;
+  }
+
+  &__content--out-right {
+    animation: modalSlideOutRight variables.$effect-duration ease-in-out
+      forwards;
+  }
+
+  &__content--in-left {
+    animation: modalSlideInLeft variables.$effect-duration ease-in-out forwards;
+  }
+  &__content--in-right {
+    animation: modalSlideInRight variables.$effect-duration ease-in-out forwards;
+  }
+
+  @keyframes modalSlideOutLeft {
+    from {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    to {
+      opacity: 0;
+      transform: translate(
+        calc(-50% - variables.$modal-animation-padding),
+        -50%
+      );
+    }
+  }
+
+  @keyframes modalSlideOutRight {
+    from {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    to {
+      opacity: 0;
+      transform: translate(
+        calc(-50% + variables.$modal-animation-padding),
+        -50%
+      );
+    }
+  }
+
+  @keyframes modalSlideInLeft {
+    from {
+      opacity: 0;
+      transform: translate(
+        calc(-50% - variables.$modal-animation-padding),
+        -50%
+      );
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @keyframes modalSlideInRight {
+    from {
+      opacity: 0;
+      transform: translate(
+        calc(-50% + variables.$modal-animation-padding),
+        -50%
+      );
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
     }
   }
 
