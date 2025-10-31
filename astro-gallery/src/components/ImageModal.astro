@@ -1,198 +1,343 @@
 ---
-interface Props {
-  imageData: any;
+/**
+ * Interface for additional photo objects in the gallery
+ */
+interface AdditionalPhoto {
+  id?: string;
+  src: string;
+  srcOriginal?: string;
+  alt: string;
 }
+
+/**
+ * Interface for the main image data structure
+ */
+interface ImageData {
+  id?: string;
+  src: string;
+  srcOriginal?: string;
+  alt: string;
+  description?: string;
+  medium?: string;
+  size?: string;
+  price?: string;
+  featured?: boolean;
+  additionalPhotos?: AdditionalPhoto[];
+}
+
+interface Props {
+  imageData: ImageData;
+}
+
 const baseUrl = import.meta.env.BASE_URL;
 const { imageData } = Astro.props;
 ---
 
 <!-- Modal for full-screen image viewing -->
 <div id="imageModal" class="modal">
-  <span class="modal__close" onclick="closeModal()">&times;</span>
-  <button class="modal__arrow modal__arrow--left" onclick="changeImage(-1)"
-    >&#10094;</button
-  >
-  <button class="modal__arrow modal__arrow--right" onclick="changeImage(1)"
-    >&#10095;</button
-  >
+  <span class="modal__close" id="modalClose" aria-label="Close modal">&times;</span>
+  <button class="modal__arrow modal__arrow--left" id="modalArrowLeft" aria-label="Previous image">
+    &#10094;
+  </button>
+  <button class="modal__arrow modal__arrow--right" id="modalArrowRight" aria-label="Next image">
+    &#10095;
+  </button>
   <img class="modal__content" id="modalImage" alt="" />
   <div class="modal__caption" id="modalCaption"></div>
 </div>
 
 <script define:vars={{ imageData, baseUrl }}>
-  // Global variables for carousel functionality
-  let currentImageIndex = 0;
-  let allImages = [];
+  /**
+   * @typedef {Object} ModalImage
+   * @property {string} src - Image source URL
+   * @property {string} srcOriginal - Original image source URL
+   * @property {string} alt - Image alt text
+   */
 
-  // Make functions globally accessible by explicitly assigning to window
-  window.openModal = function (img) {
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const caption = document.getElementById("modalCaption");
+  /**
+   * CSS classes for slide animations
+   */
+  const ANIMATION_CLASSES = {
+    OUT_LEFT: "modal__content--out-left",
+    OUT_RIGHT: "modal__content--out-right",
+    IN_LEFT: "modal__content--in-left",
+    IN_RIGHT: "modal__content--in-right",
+  };
 
-    if (modal && modalImg && caption) {
-      // Collect all images for carousel
-      collectAllImages();
+  /**
+   * Key codes for keyboard navigation
+   */
+  const KEY_CODES = {
+    ESCAPE: "Escape",
+    ARROW_LEFT: "ArrowLeft",
+    ARROW_RIGHT: "ArrowRight",
+  };
 
-      // Find the index of the clicked image
-      const clickedSrc = img.dataset.srcOriginal || img.src;
-      currentImageIndex = allImages.findIndex(
+  /**
+   * Modal state management class
+   */
+  class ImageModalController {
+    constructor() {
+      this.currentImageIndex = 0;
+      this.allImages = [];
+      this.isAnimating = false;
+      this.modalElement = null;
+      this.modalImageElement = null;
+      this.modalCaptionElement = null;
+
+      this.initializeElements();
+      this.attachEventListeners();
+    }
+
+    /**
+     * Initialize DOM element references
+     */
+    initializeElements() {
+      this.modalElement = document.getElementById("imageModal");
+      this.modalImageElement = document.getElementById("modalImage");
+      this.modalCaptionElement = document.getElementById("modalCaption");
+    }
+
+    /**
+     * Collect all images from imageData into carousel array
+     */
+    collectAllImages() {
+      this.allImages = [];
+
+      // Add main image
+      const mainImage = {
+        src: `${baseUrl}${imageData.src}`,
+        srcOriginal: `${baseUrl}${imageData.srcOriginal || imageData.src}`,
+        alt: imageData.alt,
+      };
+      this.allImages.push(mainImage);
+
+      // Add additional photos if they exist
+      if (imageData.additionalPhotos?.length) {
+        imageData.additionalPhotos.forEach((photo) => {
+          this.allImages.push({
+            src: `${baseUrl}${photo.src}`,
+            srcOriginal: `${baseUrl}${photo.srcOriginal || photo.src}`,
+            alt: photo.alt,
+          });
+        });
+      }
+    }
+
+    /**
+     * Display the current image in the modal
+     */
+    showCurrentImage() {
+      if (
+        !this.allImages.length ||
+        !this.modalImageElement ||
+        !this.modalCaptionElement
+      ) {
+        return;
+      }
+
+      const currentImage = this.allImages[this.currentImageIndex];
+      this.modalImageElement.src = currentImage.srcOriginal;
+      this.modalCaptionElement.textContent = currentImage.alt;
+    }
+
+    /**
+     * Find the index of a clicked image by its source URL
+     * @param {string} clickedSrc - Source URL of the clicked image
+     * @returns {number} Index of the image or -1 if not found
+     */
+    findImageIndex(clickedSrc) {
+      return this.allImages.findIndex(
         (image) =>
           image.src === clickedSrc || image.srcOriginal === clickedSrc,
       );
+    }
 
-      // If not found, default to 0
-      if (currentImageIndex === -1) {
-        currentImageIndex = 0;
+    /**
+     * Open the modal with a specific image
+     * @param {HTMLImageElement} img - The image element that was clicked
+     */
+    openModal(img) {
+      if (
+        !this.modalElement ||
+        !this.modalImageElement ||
+        !this.modalCaptionElement
+      ) {
+        return;
       }
 
+      // Collect all images for carousel
+      this.collectAllImages();
+
+      if (this.allImages.length === 0) {
+        return;
+      }
+
+      // Find the index of the clicked image
+      const clickedSrc = img.dataset.srcOriginal || img.src;
+      const foundIndex = this.findImageIndex(clickedSrc);
+      this.currentImageIndex = foundIndex >= 0 ? foundIndex : 0;
+
       // Show the modal with current image
-      showCurrentImage();
-      modal.style.display = "block";
+      this.showCurrentImage();
+      this.modalElement.style.display = "block";
 
       // Prevent body scroll when modal is open
       document.body.style.overflow = "hidden";
     }
-  };
 
-  function collectAllImages() {
-    allImages = [];
-
-    // Add main image
-    const mainImage = {
-      src: `${baseUrl}${imageData.src}`,
-      srcOriginal: `${baseUrl}${imageData.srcOriginal || imageData.src}`,
-      alt: imageData.alt,
-    };
-    allImages.push(mainImage);
-
-    // Add additional photos if they exist
-    if (
-      imageData.additionalPhotos &&
-      imageData.additionalPhotos.length > 0
-    ) {
-      imageData.additionalPhotos.forEach((photo) => {
-        allImages.push({
-          src: `${baseUrl}${photo.src}`,
-          srcOriginal: `${baseUrl}${photo.srcOriginal || photo.src}`,
-          alt: photo.alt,
-        });
-      });
-    }
-  }
-
-  function showCurrentImage() {
-    const modalImg = document.getElementById("modalImage");
-    const caption = document.getElementById("modalCaption");
-
-    if (allImages.length > 0 && modalImg && caption) {
-      const currentImage = allImages[currentImageIndex];
-      modalImg.src = currentImage.srcOriginal;
-      caption.innerHTML = currentImage.alt;
-    }
-  }
-
-  let isAnimating = false;
-
-  window.changeImage = function (direction) {
-    if (allImages.length <= 1) return;
-    if (isAnimating) return;
-
-    const modalImg = document.getElementById("modalImage");
-    if (!modalImg) return;
-
-    isAnimating = true;
-
-    // Choose classes by direction
-    const outClass =
-      direction > 0
-        ? "modal__content--out-left"
-        : "modal__content--out-right";
-    const inClass =
-      direction > 0
-        ? "modal__content--in-right"
-        : "modal__content--in-left";
-
-    // Play OUT animation
-    modalImg.classList.remove(
-      "modal__content--out-left",
-      "modal__content--out-right",
-      "modal__content--in-left",
-      "modal__content--in-right",
-    );
-    modalImg.classList.add(outClass);
-
-    const onOutEnd = () => {
-      modalImg.removeEventListener("animationend", onOutEnd);
-
-      // Update index
-      currentImageIndex += direction;
-      if (currentImageIndex >= allImages.length) {
-        currentImageIndex = 0;
-      } else if (currentImageIndex < 0) {
-        currentImageIndex = allImages.length - 1;
+    /**
+     * Change to the next or previous image in the carousel
+     * @param {number} direction - Positive for next, negative for previous
+     */
+    changeImage(direction) {
+      if (
+        this.allImages.length <= 1 ||
+        this.isAnimating ||
+        !this.modalImageElement
+      ) {
+        return;
       }
 
-      const currentImage = allImages[currentImageIndex];
-      modalImg.src = currentImage.srcOriginal;
-      const caption = document.getElementById("modalCaption");
-      if (caption) caption.innerHTML = currentImage.alt;
+      this.isAnimating = true;
 
-      // Play IN animation
-      modalImg.classList.remove(outClass);
-      modalImg.classList.add(inClass);
+      // Determine animation classes based on direction
+      const outClass =
+        direction > 0
+          ? ANIMATION_CLASSES.OUT_LEFT
+          : ANIMATION_CLASSES.OUT_RIGHT;
+      const inClass =
+        direction > 0
+          ? ANIMATION_CLASSES.IN_RIGHT
+          : ANIMATION_CLASSES.IN_LEFT;
 
-      const onInEnd = () => {
-        modalImg.removeEventListener("animationend", onInEnd);
-        modalImg.classList.remove(inClass);
-        isAnimating = false;
+      // Remove all animation classes before adding new one
+      Object.values(ANIMATION_CLASSES).forEach((className) => {
+        if (this.modalImageElement) {
+          this.modalImageElement.classList.remove(className);
+        }
+      });
+
+      if (this.modalImageElement) {
+        this.modalImageElement.classList.add(outClass);
+      }
+
+      // Handle animation end
+      const onOutEnd = () => {
+        if (!this.modalImageElement) return;
+
+        this.modalImageElement.removeEventListener("animationend", onOutEnd);
+
+        // Update index with wraparound
+        this.currentImageIndex += direction;
+        if (this.currentImageIndex >= this.allImages.length) {
+          this.currentImageIndex = 0;
+        } else if (this.currentImageIndex < 0) {
+          this.currentImageIndex = this.allImages.length - 1;
+        }
+
+        // Update image source and caption
+        const currentImage = this.allImages[this.currentImageIndex];
+        this.modalImageElement.src = currentImage.srcOriginal;
+        if (this.modalCaptionElement) {
+          this.modalCaptionElement.textContent = currentImage.alt;
+        }
+
+        // Start IN animation
+        this.modalImageElement.classList.remove(outClass);
+        this.modalImageElement.classList.add(inClass);
+
+        const onInEnd = () => {
+          if (!this.modalImageElement) return;
+          this.modalImageElement.removeEventListener("animationend", onInEnd);
+          this.modalImageElement.classList.remove(inClass);
+          this.isAnimating = false;
+        };
+
+        this.modalImageElement.addEventListener("animationend", onInEnd);
       };
 
-      modalImg.addEventListener("animationend", onInEnd);
-    };
+      if (this.modalImageElement) {
+        this.modalImageElement.addEventListener("animationend", onOutEnd);
+      }
+    }
 
-    modalImg.addEventListener("animationend", onOutEnd);
-  };
+    /**
+     * Close the modal and restore page scroll
+     */
+    closeModal() {
+      if (!this.modalElement) {
+        return;
+      }
 
-  window.closeModal = function () {
-    const modal = document.getElementById("imageModal");
-    if (modal) {
-      modal.style.display = "none";
-
-      // Restore body scroll
+      this.modalElement.style.display = "none";
       document.body.style.overflow = "auto";
     }
-  };
 
-  // Close modal when clicking outside the image
-  document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("imageModal");
-    if (modal) {
-      modal.onclick = function (event) {
-        if (event.target === modal) {
-          window.closeModal();
-        }
-      };
-    }
-  });
+    /**
+     * Handle keyboard navigation
+     * @param {KeyboardEvent} event - Keyboard event
+     */
+    handleKeyDown(event) {
+      if (!this.modalElement || this.modalElement.style.display !== "block") {
+        return;
+      }
 
-  // Close modal with Escape key
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      window.closeModal();
-    }
-  });
-
-  // Arrow key navigation
-  document.addEventListener("keydown", function (event) {
-    const modal = document.getElementById("imageModal");
-    if (modal && modal.style.display === "block") {
-      if (event.key === "ArrowLeft") {
-        window.changeImage(-1);
-      } else if (event.key === "ArrowRight") {
-        window.changeImage(1);
+      switch (event.key) {
+        case KEY_CODES.ESCAPE:
+          this.closeModal();
+          break;
+        case KEY_CODES.ARROW_LEFT:
+          this.changeImage(-1);
+          break;
+        case KEY_CODES.ARROW_RIGHT:
+          this.changeImage(1);
+          break;
       }
     }
-  });
+
+    /**
+     * Attach all event listeners
+     */
+    attachEventListeners() {
+      // Close button
+      const closeButton = document.getElementById("modalClose");
+      if (closeButton) {
+        closeButton.addEventListener("click", () => this.closeModal());
+      }
+
+      // Navigation arrows
+      const leftArrow = document.getElementById("modalArrowLeft");
+      const rightArrow = document.getElementById("modalArrowRight");
+      if (leftArrow) {
+        leftArrow.addEventListener("click", () => this.changeImage(-1));
+      }
+      if (rightArrow) {
+        rightArrow.addEventListener("click", () => this.changeImage(1));
+      }
+
+      // Close modal when clicking outside the image
+      if (this.modalElement) {
+        this.modalElement.addEventListener("click", (event) => {
+          if (event.target === this.modalElement) {
+            this.closeModal();
+          }
+        });
+      }
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (event) =>
+        this.handleKeyDown(event),
+      );
+    }
+  }
+
+  // Initialize modal controller
+  const modalController = new ImageModalController();
+
+  // Expose functions globally for backward compatibility
+  window.openModal = (img) => modalController.openModal(img);
+  window.changeImage = (direction) => modalController.changeImage(direction);
+  window.closeModal = () => modalController.closeModal();
 </script>
 
