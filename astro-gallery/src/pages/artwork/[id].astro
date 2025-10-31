@@ -1,6 +1,5 @@
 ---
-import "../../styles/global.scss";
-import Header from "../../components/Header.astro";
+import BaseLayout from "../../components/BaseLayout.astro";
 import galleryData from "../../data/gallery.json";
 
 export async function getStaticPaths() {
@@ -22,30 +21,7 @@ export async function getStaticPaths() {
 const { image } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href={`${import.meta.env.BASE_URL}favicon.svg`}
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{image.alt} - Artist Gallery Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <Header />
+<BaseLayout title={`${image.alt} - Artist Gallery Portfolio`}>
 
     <main class="artwork-detail">
       <div class="artwork-detail__container">
@@ -115,183 +91,184 @@ const { image } = Astro.props;
       <div class="modal__caption" id="modalCaption"></div>
     </div>
 
-    <script
-      define:vars={{ imageData: image, baseUrl: import.meta.env.BASE_URL }}
-    >
-      // Global variables for carousel functionality
-      let currentImageIndex = 0;
-      let allImages = [];
+    <Fragment slot="scripts">
+      <script
+        define:vars={{ imageData: image, baseUrl: import.meta.env.BASE_URL }}
+      >
+        // Global variables for carousel functionality
+        let currentImageIndex = 0;
+        let allImages = [];
 
-      // Make functions globally accessible by explicitly assigning to window
-      window.openModal = function (img) {
-        const modal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("modalImage");
-        const caption = document.getElementById("modalCaption");
-
-        if (modal && modalImg && caption) {
-          // Collect all images for carousel
-          collectAllImages();
-
-          // Find the index of the clicked image
-          const clickedSrc = img.dataset.srcOriginal || img.src;
-          currentImageIndex = allImages.findIndex(
-            (image) =>
-              image.src === clickedSrc || image.srcOriginal === clickedSrc,
-          );
-
-          // If not found, default to 0
-          if (currentImageIndex === -1) {
-            currentImageIndex = 0;
-          }
-
-          // Show the modal with current image
-          showCurrentImage();
-          modal.style.display = "block";
-
-          // Prevent body scroll when modal is open
-          document.body.style.overflow = "hidden";
-        }
-      };
-
-      function collectAllImages() {
-        allImages = [];
-
-        // Add main image
-        const mainImage = {
-          src: `${baseUrl}${imageData.src}`,
-          srcOriginal: `${baseUrl}${imageData.srcOriginal || imageData.src}`,
-          alt: imageData.alt,
-        };
-        allImages.push(mainImage);
-
-        // Add additional photos if they exist
-        if (
-          imageData.additionalPhotos &&
-          imageData.additionalPhotos.length > 0
-        ) {
-          imageData.additionalPhotos.forEach((photo) => {
-            allImages.push({
-              src: `${baseUrl}${photo.src}`,
-              srcOriginal: `${baseUrl}${photo.srcOriginal || photo.src}`,
-              alt: photo.alt,
-            });
-          });
-        }
-      }
-
-      function showCurrentImage() {
-        const modalImg = document.getElementById("modalImage");
-        const caption = document.getElementById("modalCaption");
-
-        if (allImages.length > 0 && modalImg && caption) {
-          const currentImage = allImages[currentImageIndex];
-          modalImg.src = currentImage.srcOriginal;
-          caption.innerHTML = currentImage.alt;
-        }
-      }
-
-      let isAnimating = false;
-
-      window.changeImage = function (direction) {
-        if (allImages.length <= 1) return;
-        if (isAnimating) return;
-
-        const modalImg = document.getElementById("modalImage");
-        if (!modalImg) return;
-
-        isAnimating = true;
-
-        // Choose classes by direction
-        const outClass =
-          direction > 0
-            ? "modal__content--out-left"
-            : "modal__content--out-right";
-        const inClass =
-          direction > 0
-            ? "modal__content--in-right"
-            : "modal__content--in-left";
-
-        // Play OUT animation
-        modalImg.classList.remove(
-          "modal__content--out-left",
-          "modal__content--out-right",
-          "modal__content--in-left",
-          "modal__content--in-right",
-        );
-        modalImg.classList.add(outClass);
-
-        const onOutEnd = () => {
-          modalImg.removeEventListener("animationend", onOutEnd);
-
-          // Update index
-          currentImageIndex += direction;
-          if (currentImageIndex >= allImages.length) {
-            currentImageIndex = 0;
-          } else if (currentImageIndex < 0) {
-            currentImageIndex = allImages.length - 1;
-          }
-
-          const currentImage = allImages[currentImageIndex];
-          modalImg.src = currentImage.srcOriginal;
+        // Make functions globally accessible by explicitly assigning to window
+        window.openModal = function (img) {
+          const modal = document.getElementById("imageModal");
+          const modalImg = document.getElementById("modalImage");
           const caption = document.getElementById("modalCaption");
-          if (caption) caption.innerHTML = currentImage.alt;
 
-          // Play IN animation
-          modalImg.classList.remove(outClass);
-          modalImg.classList.add(inClass);
+          if (modal && modalImg && caption) {
+            // Collect all images for carousel
+            collectAllImages();
 
-          const onInEnd = () => {
-            modalImg.removeEventListener("animationend", onInEnd);
-            modalImg.classList.remove(inClass);
-            isAnimating = false;
-          };
+            // Find the index of the clicked image
+            const clickedSrc = img.dataset.srcOriginal || img.src;
+            currentImageIndex = allImages.findIndex(
+              (image) =>
+                image.src === clickedSrc || image.srcOriginal === clickedSrc,
+            );
 
-          modalImg.addEventListener("animationend", onInEnd);
+            // If not found, default to 0
+            if (currentImageIndex === -1) {
+              currentImageIndex = 0;
+            }
+
+            // Show the modal with current image
+            showCurrentImage();
+            modal.style.display = "block";
+
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = "hidden";
+          }
         };
 
-        modalImg.addEventListener("animationend", onOutEnd);
-      };
+        function collectAllImages() {
+          allImages = [];
 
-      window.closeModal = function () {
-        const modal = document.getElementById("imageModal");
-        if (modal) {
-          modal.style.display = "none";
-
-          // Restore body scroll
-          document.body.style.overflow = "auto";
-        }
-      };
-
-      // Close modal when clicking outside the image
-      document.addEventListener("DOMContentLoaded", function () {
-        const modal = document.getElementById("imageModal");
-        if (modal) {
-          modal.onclick = function (event) {
-            if (event.target === modal) {
-              window.closeModal();
-            }
+          // Add main image
+          const mainImage = {
+            src: `${baseUrl}${imageData.src}`,
+            srcOriginal: `${baseUrl}${imageData.srcOriginal || imageData.src}`,
+            alt: imageData.alt,
           };
-        }
-      });
+          allImages.push(mainImage);
 
-      // Close modal with Escape key
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          window.closeModal();
-        }
-      });
-
-      // Arrow key navigation
-      document.addEventListener("keydown", function (event) {
-        const modal = document.getElementById("imageModal");
-        if (modal && modal.style.display === "block") {
-          if (event.key === "ArrowLeft") {
-            window.changeImage(-1);
-          } else if (event.key === "ArrowRight") {
-            window.changeImage(1);
+          // Add additional photos if they exist
+          if (
+            imageData.additionalPhotos &&
+            imageData.additionalPhotos.length > 0
+          ) {
+            imageData.additionalPhotos.forEach((photo) => {
+              allImages.push({
+                src: `${baseUrl}${photo.src}`,
+                srcOriginal: `${baseUrl}${photo.srcOriginal || photo.src}`,
+                alt: photo.alt,
+              });
+            });
           }
         }
-      });
-    </script>
-  </body>
-</html>
+
+        function showCurrentImage() {
+          const modalImg = document.getElementById("modalImage");
+          const caption = document.getElementById("modalCaption");
+
+          if (allImages.length > 0 && modalImg && caption) {
+            const currentImage = allImages[currentImageIndex];
+            modalImg.src = currentImage.srcOriginal;
+            caption.innerHTML = currentImage.alt;
+          }
+        }
+
+        let isAnimating = false;
+
+        window.changeImage = function (direction) {
+          if (allImages.length <= 1) return;
+          if (isAnimating) return;
+
+          const modalImg = document.getElementById("modalImage");
+          if (!modalImg) return;
+
+          isAnimating = true;
+
+          // Choose classes by direction
+          const outClass =
+            direction > 0
+              ? "modal__content--out-left"
+              : "modal__content--out-right";
+          const inClass =
+            direction > 0
+              ? "modal__content--in-right"
+              : "modal__content--in-left";
+
+          // Play OUT animation
+          modalImg.classList.remove(
+            "modal__content--out-left",
+            "modal__content--out-right",
+            "modal__content--in-left",
+            "modal__content--in-right",
+          );
+          modalImg.classList.add(outClass);
+
+          const onOutEnd = () => {
+            modalImg.removeEventListener("animationend", onOutEnd);
+
+            // Update index
+            currentImageIndex += direction;
+            if (currentImageIndex >= allImages.length) {
+              currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+              currentImageIndex = allImages.length - 1;
+            }
+
+            const currentImage = allImages[currentImageIndex];
+            modalImg.src = currentImage.srcOriginal;
+            const caption = document.getElementById("modalCaption");
+            if (caption) caption.innerHTML = currentImage.alt;
+
+            // Play IN animation
+            modalImg.classList.remove(outClass);
+            modalImg.classList.add(inClass);
+
+            const onInEnd = () => {
+              modalImg.removeEventListener("animationend", onInEnd);
+              modalImg.classList.remove(inClass);
+              isAnimating = false;
+            };
+
+            modalImg.addEventListener("animationend", onInEnd);
+          };
+
+          modalImg.addEventListener("animationend", onOutEnd);
+        };
+
+        window.closeModal = function () {
+          const modal = document.getElementById("imageModal");
+          if (modal) {
+            modal.style.display = "none";
+
+            // Restore body scroll
+            document.body.style.overflow = "auto";
+          }
+        };
+
+        // Close modal when clicking outside the image
+        document.addEventListener("DOMContentLoaded", function () {
+          const modal = document.getElementById("imageModal");
+          if (modal) {
+            modal.onclick = function (event) {
+              if (event.target === modal) {
+                window.closeModal();
+              }
+            };
+          }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") {
+            window.closeModal();
+          }
+        });
+
+        // Arrow key navigation
+        document.addEventListener("keydown", function (event) {
+          const modal = document.getElementById("imageModal");
+          if (modal && modal.style.display === "block") {
+            if (event.key === "ArrowLeft") {
+              window.changeImage(-1);
+            } else if (event.key === "ArrowRight") {
+              window.changeImage(1);
+            }
+          }
+        });
+      </script>
+    </Fragment>
+</BaseLayout>
