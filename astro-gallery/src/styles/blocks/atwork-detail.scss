@@ -76,7 +76,7 @@
     height: 100%;
     border-radius: 12px;
     object-fit: cover;
-    cursor: url("../../public/icons/zoom-in.svg"), zoom-in;
+    cursor: url("../../public/icons/zoom-in-square.svg"), zoom-in;
     caret-color: variables.$hover-color;
     display: block;
     transition: transform variables.$effect-duration variables.$transition;
@@ -195,7 +195,7 @@
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
-    cursor: url("../../public/icons/zoom-in.svg"), zoom-in;
+    cursor: url("../../public/icons/zoom-in-square.svg"), zoom-in;
     transition: transform variables.$effect-duration variables.$transition;
   }
 }

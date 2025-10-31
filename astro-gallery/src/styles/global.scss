@@ -11,4 +11,4 @@
 @use "blocks/artist-bio";
 @use "blocks/footer";
 @use "blocks/atwork-detail";
-@use "blocks/modal";
+@use "../components/ImageModal/ImageModal.scss" as modal;

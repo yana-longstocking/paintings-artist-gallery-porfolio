@@ -1,5 +1,5 @@
-@use "variables";
-@use "mixin";
+@use "../../styles/blocks/variables";
+@use "../../styles/blocks/mixin";
 
 .modal {
   display: none;
@@ -55,8 +55,13 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(calc(-50% + var(--modal-pan-x, 0px)), calc(-50% + var(--modal-pan-y, 0px))) scale(var(--modal-zoom, 1));
     object-fit: contain;
+    transition: transform 0.2s ease-out;
+
+    &.dragging {
+      transition: none;
+    }
 
     @include mixin.on-tablet {
       top: 50%;
@@ -257,4 +262,42 @@
       }
     }
   }
+
+  &__zoom {
+    position: absolute;
+    top: 10px;
+    left: 11px;
+    background-color: variables.$color-text;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform variables.$effect-duration ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      display: block;
+    }
+
+    @include mixin.on-tablet {
+      top: 15px;
+      left: 23px;
+      width: 64px;
+      height: 64px;
+    }
+
+    @include mixin.on-desktop {
+      left: 20px;
+    }
+  }
 }
+

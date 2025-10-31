@@ -1,0 +1,41 @@
+---
+
+import type { ImageData, AdditionalPhoto } from "./ImageModal.ts";
+
+/**
+ * Re-export interfaces for use in other components
+ */
+export type { ImageData, AdditionalPhoto };
+
+interface Props {
+  imageData: ImageData;
+}
+
+const baseUrl = import.meta.env.BASE_URL;
+const { imageData } = Astro.props;
+---
+
+<!-- Modal for full-screen image viewing -->
+<div id="imageModal" class="modal">
+  <span class="modal__close" id="modalClose" aria-label="Close modal">&times;</span>
+  <button class="modal__arrow modal__arrow--left" id="modalArrowLeft" aria-label="Previous image">
+    &#10094;
+  </button>
+  <button class="modal__arrow modal__arrow--right" id="modalArrowRight" aria-label="Next image">
+    &#10095;
+  </button>
+  <button class="modal__zoom" id="modalZoom" aria-label="Zoom">
+    <img id="modalZoomIcon" src={`${baseUrl}icons/zoom-in.svg`} alt="Zoom" width="30" height="30" />
+  </button>
+  <img class="modal__content" id="modalImage" alt="" />
+  <div class="modal__caption" id="modalCaption"></div>
+</div>
+
+<script define:vars={{ imageData }}>
+  window.__imageModalData = imageData;
+</script>
+
+<script>
+  import "./ImageModal.client.ts";
+</script>
+
