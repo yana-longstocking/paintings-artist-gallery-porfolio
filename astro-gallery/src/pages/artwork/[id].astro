@@ -23,63 +23,56 @@ const { image } = Astro.props;
 ---
 
 <BaseLayout title={`${image.alt} - Artist Gallery Portfolio`}>
+  <main class="artwork-detail">
+    <div class="artwork-detail__container">
+      <div class="artwork-detail__wrapper">
+        <div class="artwork-detail__main-image">
+          <img
+            src={`${import.meta.env.BASE_URL}${image.src}`}
+            alt={image.alt}
+            class="artwork-detail__image"
+            data-src-original={`${import.meta.env.BASE_URL}${(image as any).srcOriginal || image.src}`}
+            onclick="openModal(this)"
+          />
+        </div>
 
-    <main class="artwork-detail">
-      <div class="artwork-detail__container">
-        <div class="artwork-detail__wrapper">
-          <div class="artwork-detail__main-image">
-            <img
-              src={`${import.meta.env.BASE_URL}${image.src}`}
-              alt={image.alt}
-              class="artwork-detail__image"
-              data-src-original={`${import.meta.env.BASE_URL}${(image as any).srcOriginal || image.src}`}
-              onclick="openModal(this)"
-            />
-          </div>
+        <div class="artwork-detail__wrapper-title">
+          <h1 class="artwork-detail__title">{image.alt}</h1>
+          {
+            image.description && (
+              <p class="artwork-detail__description">{image.description}</p>
+            )
+          }
+          {image.medium && <p class="artwork-detail__medium">{image.medium}</p>}
+          {image.size && <p class="artwork-detail__size">{image.size}</p>}
+          {image.price && <p class="artwork-detail__price">{image.price}</p>}
 
-          <div class="artwork-detail__wrapper-title">
-            <h1 class="artwork-detail__title">{image.alt}</h1>
-            {
-              image.description && (
-                <p class="artwork-detail__description">{image.description}</p>
-              )
-            }
-            {
-              image.medium && (
-                <p class="artwork-detail__medium">{image.medium}</p>
-              )
-            }
-            {image.size && <p class="artwork-detail__size">{image.size}</p>}
-            {image.price && <p class="artwork-detail__price">{image.price}</p>}
-
-            {
-              image.additionalPhotos && image.additionalPhotos.length > 0 && (
-                <div class="artwork-detail__additional-photos">
-                  <h2 class="artwork-detail__additional-title">
-                    Additional Details
-                  </h2>
-                  <div class="artwork-detail__gallery">
-                    {image.additionalPhotos.map((photo) => (
-                      <div class="artwork-detail__gallery-item">
-                        <img
-                          src={`${import.meta.env.BASE_URL}${photo.src}`}
-                          alt={photo.alt}
-                          class="artwork-detail__gallery-image"
-                          data-src-original={`${import.meta.env.BASE_URL}${photo.src}`}
-                          onclick="openModal(this)"
-                        />
-                      </div>
-                    ))}
-                  </div>
+          {
+            image.additionalPhotos && image.additionalPhotos.length > 0 && (
+              <div class="artwork-detail__additional-photos">
+                <h2 class="artwork-detail__additional-title">
+                  Additional Details
+                </h2>
+                <div class="artwork-detail__gallery">
+                  {image.additionalPhotos.map((photo) => (
+                    <div class="artwork-detail__gallery-item">
+                      <img
+                        src={`${import.meta.env.BASE_URL}${photo.src}`}
+                        alt={photo.alt}
+                        class="artwork-detail__gallery-image"
+                        data-src-original={`${import.meta.env.BASE_URL}${photo.src}`}
+                        onclick="openModal(this)"
+                      />
+                    </div>
+                  ))}
                 </div>
-              )
-            }
-          </div>
+              </div>
+            )
+          }
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <ImageModal
-      imageData={image}
-    />
+  <ImageModal imageData={image} />
 </BaseLayout>

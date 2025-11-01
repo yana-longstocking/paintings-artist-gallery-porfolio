@@ -1,5 +1,4 @@
 ---
-
 import type { ImageData, AdditionalPhoto } from "./ImageModal.ts";
 
 /**
@@ -17,15 +16,32 @@ const { imageData } = Astro.props;
 
 <!-- Modal for full-screen image viewing -->
 <div id="imageModal" class="modal">
-  <span class="modal__close" id="modalClose" aria-label="Close modal">&times;</span>
-  <button class="modal__arrow modal__arrow--left" id="modalArrowLeft" aria-label="Previous image">
+  <span class="modal__close" id="modalClose" aria-label="Close modal"
+    >&times;</span
+  >
+  <button
+    class="modal__arrow modal__arrow--left"
+    id="modalArrowLeft"
+    aria-label="Previous image"
+  >
     &#10094;
   </button>
-  <button class="modal__arrow modal__arrow--right" id="modalArrowRight" aria-label="Next image">
+  <button
+    class="modal__arrow modal__arrow--right"
+    id="modalArrowRight"
+    aria-label="Next image"
+  >
     &#10095;
   </button>
   <button class="modal__zoom" id="modalZoom" aria-label="Zoom">
-    <img id="modalZoomIcon" src={`${baseUrl}icons/zoom-in.svg`} alt="Zoom" width="30" height="30" />
+    <img
+      id="modalZoomIcon"
+      src={`${baseUrl}icons/zoom-in.svg`}
+      alt="Zoom"
+      width="30"
+      height="30"
+      class="modal__zoom-icon"
+    />
   </button>
   <img class="modal__content" id="modalImage" alt="" />
   <div class="modal__caption" id="modalCaption"></div>
@@ -38,4 +54,3 @@ const { imageData } = Astro.props;
 <script>
   import "./ImageModal.client.ts";
 </script>
-

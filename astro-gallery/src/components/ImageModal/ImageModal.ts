@@ -1,6 +1,6 @@
 /**
  * Image Modal Controller
- * 
+ *
  * Manages a full-screen image modal with carousel navigation, zoom, and pan functionality.
  * Supports keyboard navigation, touch gestures, and mouse interactions.
  */
@@ -142,7 +142,7 @@ type NavigationDirection = -1 | 1;
 
 /**
  * Manages the image modal state and interactions
- * 
+ *
  * Features:
  * - Carousel navigation with animations
  * - Zoom in/out functionality
@@ -177,6 +177,8 @@ export class ImageModalController {
   private modalElement: HTMLElement | null = null;
   private modalImageElement: HTMLImageElement | null = null;
   private modalCaptionElement: HTMLElement | null = null;
+  private modalArrowLeftElement: HTMLElement | null = null;
+  private modalArrowRightElement: HTMLElement | null = null;
 
   constructor(baseUrl: string, imageData: ImageData) {
     this.baseUrl = baseUrl;
@@ -260,6 +262,12 @@ export class ImageModalController {
       DOM_IDS.MODAL_IMAGE,
     ) as HTMLImageElement | null;
     this.modalCaptionElement = document.getElementById(DOM_IDS.MODAL_CAPTION);
+    this.modalArrowLeftElement = document.getElementById(
+      DOM_IDS.MODAL_ARROW_LEFT,
+    );
+    this.modalArrowRightElement = document.getElementById(
+      DOM_IDS.MODAL_ARROW_RIGHT,
+    );
   }
 
   /**
@@ -322,8 +330,7 @@ export class ImageModalController {
    */
   private findImageIndex(clickedSrc: string): number {
     return this.allImages.findIndex(
-      (image) =>
-        image.src === clickedSrc || image.srcOriginal === clickedSrc,
+      (image) => image.src === clickedSrc || image.srcOriginal === clickedSrc,
     );
   }
 
@@ -358,9 +365,7 @@ export class ImageModalController {
           ? ANIMATION_CLASSES.OUT_LEFT
           : ANIMATION_CLASSES.OUT_RIGHT,
       inClass:
-        direction > 0
-          ? ANIMATION_CLASSES.IN_RIGHT
-          : ANIMATION_CLASSES.IN_LEFT,
+        direction > 0 ? ANIMATION_CLASSES.IN_RIGHT : ANIMATION_CLASSES.IN_LEFT,
     };
   }
 
@@ -502,6 +507,7 @@ export class ImageModalController {
     this.applyTransform();
     this.updateZoomIcon();
     this.updateCursor();
+    this.updateUIElementsVisibility();
   }
 
   /**
@@ -528,6 +534,7 @@ export class ImageModalController {
     this.applyTransform();
     this.updateZoomIcon();
     this.updateCursor();
+    this.updateUIElementsVisibility();
   }
 
   /**
@@ -550,14 +557,8 @@ export class ImageModalController {
       CSS_VARS.ZOOM,
       String(this.zoomScale),
     );
-    this.modalImageElement.style.setProperty(
-      CSS_VARS.PAN_X,
-      `${this.panX}px`,
-    );
-    this.modalImageElement.style.setProperty(
-      CSS_VARS.PAN_Y,
-      `${this.panY}px`,
-    );
+    this.modalImageElement.style.setProperty(CSS_VARS.PAN_X, `${this.panX}px`);
+    this.modalImageElement.style.setProperty(CSS_VARS.PAN_Y, `${this.panY}px`);
   }
 
   /**
@@ -579,6 +580,36 @@ export class ImageModalController {
     icon.setAttribute("src", iconPath);
   }
 
+  /**
+   * Updates visibility of caption and arrows based on zoom state
+   */
+  private updateUIElementsVisibility(): void {
+    const isZoomed = this.isZoomedIn();
+    const displayValue = isZoomed ? "none" : "block";
+
+    // Hide/show caption
+    if (this.modalCaptionElement) {
+      this.modalCaptionElement.style.display = displayValue;
+    }
+
+    // Hide/show arrows
+    if (this.modalArrowLeftElement) {
+      this.modalArrowLeftElement.style.display = displayValue;
+    }
+    if (this.modalArrowRightElement) {
+      this.modalArrowRightElement.style.display = displayValue;
+    }
+
+    // Hide/show black stripe by toggling CSS class
+    if (this.modalElement) {
+      if (isZoomed) {
+        this.modalElement.classList.add("modal--zoomed");
+      } else {
+        this.modalElement.classList.remove("modal--zoomed");
+      }
+    }
+  }
+
   // ============================================================================
   // Pan/Drag Functionality
   // ============================================================================
@@ -598,41 +629,54 @@ export class ImageModalController {
     // Get the image's natural dimensions
     const naturalWidth = this.modalImageElement.naturalWidth;
     const naturalHeight = this.modalImageElement.naturalHeight;
-    
+
     if (naturalWidth <= 0 || naturalHeight <= 0) {
       // Fallback: use getBoundingClientRect and divide by zoom
       const rect = this.modalImageElement.getBoundingClientRect();
       const baseWidth = rect.width / this.zoomScale;
       const baseHeight = rect.height / this.zoomScale;
-      
-      if (baseWidth <= 0 || baseHeight <= 0 || isNaN(baseWidth) || isNaN(baseHeight)) {
+
+      if (
+        baseWidth <= 0 ||
+        baseHeight <= 0 ||
+        isNaN(baseWidth) ||
+        isNaN(baseHeight)
+      ) {
         return null;
       }
-      
-      return this.calculateBoundsFromSize(baseWidth, baseHeight, viewportWidth, viewportHeight);
+
+      return this.calculateBoundsFromSize(
+        baseWidth,
+        baseHeight,
+        viewportWidth,
+        viewportHeight,
+      );
     }
-    
+
     // Calculate the displayed size based on CSS constraints
     // Image has width: 100%, height: auto on mobile, height: 80% on tablet, 90% on desktop
     // With object-fit: contain, it maintains aspect ratio
-    
+
     // Determine max height based on viewport
     let maxHeight: number;
-    if (window.innerWidth >= 1024) { // desktop
+    if (window.innerWidth >= 1024) {
+      // desktop
       maxHeight = viewportHeight * 0.9;
-    } else if (window.innerWidth >= 768) { // tablet
+    } else if (window.innerWidth >= 768) {
+      // tablet
       maxHeight = viewportHeight * 0.8;
-    } else { // mobile
+    } else {
+      // mobile
       maxHeight = viewportHeight; // no height constraint, just width: 100%
     }
-    
+
     // Calculate actual displayed size maintaining aspect ratio
     const imageAspect = naturalWidth / naturalHeight;
     const maxWidthAspect = viewportWidth / maxHeight;
-    
+
     let displayedWidth: number;
     let displayedHeight: number;
-    
+
     if (imageAspect > maxWidthAspect) {
       // Image is wider - width constrains
       displayedWidth = viewportWidth;
@@ -642,9 +686,14 @@ export class ImageModalController {
       displayedHeight = maxHeight;
       displayedWidth = maxHeight * imageAspect;
     }
-    
+
     // Use calculated dimensions as base size
-    return this.calculateBoundsFromSize(displayedWidth, displayedHeight, viewportWidth, viewportHeight);
+    return this.calculateBoundsFromSize(
+      displayedWidth,
+      displayedHeight,
+      viewportWidth,
+      viewportHeight,
+    );
   }
 
   /**
@@ -671,10 +720,10 @@ export class ImageModalController {
         maxY: 0,
       };
     }
-    
+
     const maxX = excessWidth > 0 ? excessWidth / 2 : 0;
     const maxY = excessHeight > 0 ? excessHeight / 2 : 0;
-    
+
     return {
       maxX: maxX,
       maxY: maxY,
@@ -701,10 +750,10 @@ export class ImageModalController {
 
     // Clamp pan values within bounds
     // Bounds are symmetric: [-maxX, maxX] and [-maxY, maxY]
-    // This prevents dragging beyond image edges    
+    // This prevents dragging beyond image edges
     this.panX = Math.max(-bounds.maxX, Math.min(bounds.maxX, this.panX));
     this.panY = Math.max(-bounds.maxY, Math.min(bounds.maxY, this.panY));
-    
+
     // If bounds were applied, ensure we're not going out of range
     if (isNaN(this.panX) || !isFinite(this.panX)) {
       this.panX = 0;
@@ -890,11 +939,9 @@ export class ImageModalController {
 
     // Mouse wheel handler
     if (this.modalElement) {
-      this.modalElement.addEventListener(
-        "wheel",
-        (e) => this.handleWheel(e),
-        { passive: false },
-      );
+      this.modalElement.addEventListener("wheel", (e) => this.handleWheel(e), {
+        passive: false,
+      });
     }
 
     this.updateCursor();
@@ -905,10 +952,7 @@ export class ImageModalController {
    * @param event - Keyboard event
    */
   private handleKeyDown(event: KeyboardEvent): void {
-    if (
-      !this.modalElement ||
-      this.modalElement.style.display !== "block"
-    ) {
+    if (!this.modalElement || this.modalElement.style.display !== "block") {
       return;
     }
 
@@ -969,9 +1013,7 @@ export class ImageModalController {
     this.setupPanHandlers();
 
     // Keyboard navigation
-    document.addEventListener("keydown", (event) =>
-      this.handleKeyDown(event),
-    );
+    document.addEventListener("keydown", (event) => this.handleKeyDown(event));
   }
 }
 
@@ -981,9 +1023,9 @@ export class ImageModalController {
 
 /**
  * Initializes and returns an ImageModalController instance
- * 
+ *
  * Also exposes functions globally for backward compatibility with legacy code.
- * 
+ *
  * @param baseUrl - Base URL for image assets
  * @param imageData - Image data to display in the modal
  * @returns The modal controller instance
