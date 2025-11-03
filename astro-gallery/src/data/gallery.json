@@ -46,7 +46,27 @@
       "medium": "medium: pencils on paper",
       "size": "size: 297x420",
       "price": "600€",
-      "featured": false
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-impossible-det-1",
+          "src": "photo/pic_s_/series-Freedom-impossible_det-1.jpg",
+          "alt": "Freedom collection.Impossible",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-impossible-det-2",
+          "src": "photo/pic_s_/series-Freedom-impossible_det-2.jpg",
+          "alt": "Freedom collection.Impossible",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-impossible-det-3",
+          "src": "photo/pic_s_/series-Freedom-impossible_det-3.jpg",
+          "alt": "Freedom collection.Impossible",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "series-freedom-light",
@@ -57,7 +77,27 @@
       "medium": "medium: pencils on paper.",
       "size": "size: 297x420",
       "price": "600€",
-      "featured": false
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-light-det-1",
+          "src": "photo/pic_s_/series-Freedom-light_det-1.jpg",
+          "alt": "Freedom collection.Light",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-light-det-2",
+          "src": "photo/pic_s_/series-Freedom-light_det-2.jpg",
+          "alt": "Freedom collection.Light",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-light-det-3",
+          "src": "photo/pic_s_/series-Freedom-light_det-3.jpg",
+          "alt": "Freedom collection.Light",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "series-freedom-grounded",
@@ -68,7 +108,27 @@
       "medium": "medium: pencils on paper",
       "size": "size: 297x420",
       "price": "600€",
-      "featured": false
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-grounded-det-1",
+          "src": "photo/pic_s_/series-Freedom-grounded_det-1.jpg",
+          "alt": "Freedom collection.Grounded",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-grounded-det-2",
+          "src": "photo/pic_s_/series-Freedom-grounded_det-2.jpg",
+          "alt": "Freedom collection.Grounded",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-grounded-det-3",
+          "src": "photo/pic_s_/series-Freedom-grounded_det-3.jpg",
+          "alt": "Freedom collection.Grounded",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "series-freedom-freefall",
@@ -79,7 +139,27 @@
       "medium": "medium: pencils on paper",
       "size": "size: 297x420",
       "price": "600€",
-      "featured": false
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-freefall-det-1",
+          "src": "photo/pic_s_/series-Freedom-freefall_det-1.jpg",
+          "alt": "Freedom collection.Freefall",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-freefall-det-2",
+          "src": "photo/pic_s_/series-Freedom-freefall_det-2.jpg",
+          "alt": "Freedom collection.Freefall",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-freefall-det-3",
+          "src": "photo/pic_s_/series-Freedom-freefall_det-3.jpg",
+          "alt": "Freedom collection.Freefall",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-3.jpg"
+        }
+      ]
     }
   ],
   "allPaintingCollection": [
@@ -93,7 +173,26 @@
       "size": "size: 297x420",
       "price": "500€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "sunkissed-deconstructed-det-1",
+          "src": "photo/art/sunkissed-deconstructed_det-1.jpg",
+          "alt": "Sunkissed deconstructed",
+          "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-1.jpg"
+        },
+        {
+          "id": "sunkissed-deconstructed-det-2",
+          "src": "photo/art/sunkissed-deconstructed_det-2.jpg",
+          "alt": "Sunkissed deconstructed",
+          "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-2.jpg"
+        },
+        {
+          "id": "sunkissed-deconstructed-det-3",
+          "src": "photo/art/sunkissed-deconstructed_det-3.jpg",
+          "alt": "Sunkissed deconstructed",
+          "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "madrid-mermaid",
@@ -105,7 +204,26 @@
       "size": "size: 297x420",
       "price": "800€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "madrid-mermaid-det-1",
+          "src": "photo/art/Madrid-mermaid_det-1.jpg",
+          "alt": "Madrid Mermaid",
+          "srcOriginal": "photo/art_original/Madrid-mermaid_det-1.jpg"
+        },
+        {
+          "id": "madrid-mermaid-det-2",
+          "src": "photo/art/Madrid-mermaid_det-2.jpg",
+          "alt": "Madrid Mermaid",
+          "srcOriginal": "photo/art_original/Madrid-mermaid_det-2.jpg"
+        },
+        {
+          "id": "madrid-mermaid-det-3",
+          "src": "photo/art/Madrid-mermaid_det-3.jpg",
+          "alt": "Madrid Mermaid",
+          "srcOriginal": "photo/art_original/Madrid-mermaid_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "twilly",
@@ -117,7 +235,26 @@
       "size": "size: 297x420",
       "price": "400€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "twilly-det-1",
+          "src": "photo/art/twilly_det-1.jpg",
+          "alt": "Twilly",
+          "srcOriginal": "photo/art_original/twilly_det-1.jpg"
+        },
+        {
+          "id": "twilly-det-2",
+          "src": "photo/art/twilly_det-2.jpg",
+          "alt": "Twilly",
+          "srcOriginal": "photo/art_original/twilly_det-2.jpg"
+        },
+        {
+          "id": "twilly-det-3",
+          "src": "photo/art/twilly_det-3.jpg",
+          "alt": "Twilly",
+          "srcOriginal": "photo/art_original/twilly_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "midnight",
@@ -129,7 +266,26 @@
       "size": "size: 148x420",
       "price": "400€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "midnight-det-1",
+          "src": "photo/art/midnight_det-1.jpg",
+          "alt": "Midnight",
+          "srcOriginal": "photo/art_original/midnight_det-1.jpg"
+        },
+        {
+          "id": "midnight-det-2",
+          "src": "photo/art/midnight_det-2.jpg",
+          "alt": "Midnight",
+          "srcOriginal": "photo/art_original/midnight_det-2.jpg"
+        },
+        {
+          "id": "midnight-det-3",
+          "src": "photo/art/midnight_det-3.jpg",
+          "alt": "Midnight",
+          "srcOriginal": "photo/art_original/midnight_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "power-pose",
