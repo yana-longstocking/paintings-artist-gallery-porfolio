@@ -297,7 +297,26 @@
       "size": "size: 297x420",
       "price": "400€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "power-pose-det-1",
+          "src": "photo/art/power-pose_det-1.jpg",
+          "alt": "Power pose",
+          "srcOriginal": "photo/art_original/power-pose_det-1.jpg"
+        },
+        {
+          "id": "power-pose-det-2",
+          "src": "photo/art/power-pose_det-2.jpg",
+          "alt": "Power pose",
+          "srcOriginal": "photo/art_original/power-pose_det-2.jpg"
+        },
+        {
+          "id": "power-pose-det-3",
+          "src": "photo/art/power-pose_det-3.jpg",
+          "alt": "Power pose",
+          "srcOriginal": "photo/art_original/power-pose_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "beach-spirit",
@@ -309,7 +328,26 @@
       "size": "size: 297x420",
       "price": "500€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "beach-spirit-det-1",
+          "src": "photo/art/beach-spirit_det-1.jpg",
+          "alt": "Beach spirit",
+          "srcOriginal": "photo/art_original/beach-spirit_det-1.jpg"
+        },
+        {
+          "id": "beach-spirit-det-2",
+          "src": "photo/art/beach-spirit_det-2.jpg",
+          "alt": "Beach spirit",
+          "srcOriginal": "photo/art_original/beach-spirit_det-2.jpg"
+        },
+        {
+          "id": "beach-spirit-det-3",
+          "src": "photo/art/beach-spirit_det-3.jpg",
+          "alt": "Beach spirit",
+          "srcOriginal": "photo/art_original/beach-spirit_det-3.jpg"
+        }
+      ]
     }
   ],
   "artCollection": [
@@ -323,7 +361,26 @@
       "size": "size: 297x420",
       "price": "1000€",
       "featured": true,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "dancer-det-1",
+          "src": "photo/art/dancer_det-1.jpg",
+          "alt": "Dancer",
+          "srcOriginal": "photo/art_original/dancer_det-1.jpg"
+        },
+        {
+          "id": "dancer-det-2",
+          "src": "photo/art/dancer_det-2.jpg",
+          "alt": "Dancer",
+          "srcOriginal": "photo/art_original/dancer_det-2.jpg"
+        },
+        {
+          "id": "dancer-det-3",
+          "src": "photo/art/dancer_det-3.jpg",
+          "alt": "Dancer",
+          "srcOriginal": "photo/art_original/dancer_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "blue-haze",
@@ -335,7 +392,26 @@
       "size": "size: 297x420",
       "price": "500€",
       "featured": false,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "blue-haze-det-1",
+          "src": "photo/art/blue-haze_det-1.jpg",
+          "alt": "Blue Haze",
+          "srcOriginal": "photo/art_original/blue-haze_det-1.jpg"
+        },
+        {
+          "id": "blue-haze-det-2",
+          "src": "photo/art/blue-haze_det-2.jpg",
+          "alt": "Blue Haze",
+          "srcOriginal": "photo/art_original/blue-haze_det-2.jpg"
+        },
+        {
+          "id": "blue-haze-det-3",
+          "src": "photo/art/blue-haze_det-3.jpg",
+          "alt": "Blue Haze",
+          "srcOriginal": "photo/art_original/blue-haze_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "myst",
@@ -347,7 +423,26 @@
       "size": "size: 297x420",
       "price": "600€",
       "featured": false,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "myst-det-1",
+          "src": "photo/art/myst_det-1.jpg",
+          "alt": "Myst",
+          "srcOriginal": "photo/art_original/myst_det-1.jpg"
+        },
+        {
+          "id": "myst-det-2",
+          "src": "photo/art/myst_det-2.jpg",
+          "alt": "Myst",
+          "srcOriginal": "photo/art_original/myst_det-2.jpg"
+        },
+        {
+          "id": "myst-det-3",
+          "src": "photo/art/myst_det-3.jpg",
+          "alt": "Myst",
+          "srcOriginal": "photo/art_original/myst_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "sunkissed",
@@ -359,7 +454,26 @@
       "size": "size: 297x420",
       "price": "600€",
       "featured": false,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "sunkissed-det-1",
+          "src": "photo/art/sunkissed_det-1.jpg",
+          "alt": "Sunkissed",
+          "srcOriginal": "photo/art_original/sunkissed_det-1.jpg"
+        },
+        {
+          "id": "sunkissed-det-2",
+          "src": "photo/art/sunkissed_det-2.jpg",
+          "alt": "Sunkissed",
+          "srcOriginal": "photo/art_original/sunkissed_det-2.jpg"
+        },
+        {
+          "id": "sunkissed-det-3",
+          "src": "photo/art/sunkissed_det-3.jpg",
+          "alt": "Sunkissed",
+          "srcOriginal": "photo/art_original/sunkissed_det-3.jpg"
+        }
+      ]
     },
     {
       "id": "intimessy",
@@ -371,7 +485,26 @@
       "size": "size: 297x420",
       "price": "600€",
       "featured": false,
-      "additionalPhotos": []
+      "additionalPhotos": [
+        {
+          "id": "intimessy-det-1",
+          "src": "photo/art/intiMessy_det-1.jpg",
+          "srcOriginal": "photo/art_original/intiMessy_det-1.jpg",
+          "alt": "intiMessy"
+        },
+        {
+          "id": "intimessy-det-2",
+          "src": "photo/art/intiMessy_det-2.jpg",
+          "srcOriginal": "photo/art_original/intiMessy_det-2.jpg",
+          "alt": "intiMessy"
+        },
+        {
+          "id": "intimessy-det-3",
+          "src": "photo/art/intiMessy_det-3.jpg",
+          "srcOriginal": "photo/art_original/intiMessy_det-3.jpg",
+          "alt": "intiMessy"
+        }
+      ]
     }
   ],
   "galleryContent": {
@@ -397,6 +530,12 @@
           "src": "photo/art/sisterhood_det-2.jpg",
           "srcOriginal": "photo/art/sisterhood_det-2.jpg",
           "alt": "Sisterhood"
+        },
+        {
+          "id": "sisterhood-detail-3",
+          "src": "photo/art/sisterhood_det-3.jpg",
+          "srcOriginal": "photo/art/sisterhood_det-3.jpg",
+          "alt": "Sisterhood"
         }
       ]
     },
@@ -411,7 +550,26 @@
         "size": "size: 297x420",
         "price": "600€",
         "featured": true,
-        "additionalPhotos": []
+        "additionalPhotos": [
+          {
+            "id": "prisme-light-detail-1",
+            "src": "photo/art/prisme-light_det-1.jpg",
+            "srcOriginal": "photo/art_original/prisme-light_det-1.jpg",
+            "alt": "Prisme light"
+          },
+          {
+            "id": "prisme-light-detail-2",
+            "src": "photo/art/prisme-light_det-2.jpg",
+            "srcOriginal": "photo/art_original/prisme-light_det-2.jpg",
+            "alt": "Prisme light"
+          },
+          {
+            "id": "prisme-light-detail-3",
+            "src": "photo/art/prisme-light_det-3.jpg",
+            "srcOriginal": "photo/art_original/prisme-light_det-3.jpg",
+            "alt": "Prisme light"
+          }
+        ]
       },
       {
         "id": "shevchenkos-kateryna",
@@ -423,7 +581,26 @@
         "size": "size: 210x297",
         "price": "800€",
         "featured": true,
-        "additionalPhotos": []
+        "additionalPhotos": [
+          {
+            "id": "shevchenkos-kateryna-detail-1",
+            "src": "photo/art/SHevchenkos-Kateryna_det-1.jpg",
+            "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-1.jpg",
+            "alt": "Shevchenko's Kateryna"
+          },
+          {
+            "id": "shevchenkos-kateryna-detail-2",
+            "src": "photo/art/SHevchenkos-Kateryna_det-2.jpg",
+            "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-2.jpg",
+            "alt": "Shevchenko's Kateryna"
+          },
+          {
+            "id": "shevchenkos-kateryna-detail-3",
+            "src": "photo/art/SHevchenkos-Kateryna_det-3.jpg",
+            "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-3.jpg",
+            "alt": "Shevchenko's Kateryna"
+          }
+        ]
       },
       {
         "id": "lake",
@@ -447,7 +624,26 @@
         "size": "size: 297x420",
         "price": "500€",
         "featured": true,
-        "additionalPhotos": []
+        "additionalPhotos": [
+          {
+            "id": "pretty-girls-do-cry-1_detail-1",
+            "src": "photo/art/pretty-girls-do-cry_1_det-1.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-1.jpg",
+            "alt": "Pretty girls do cry"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-2",
+            "src": "photo/art/pretty-girls-do-cry_1_det-2.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-2.jpg",
+            "alt": "Pretty girls do cry"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-3",
+            "src": "photo/art/pretty-girls-do-cry_1_det-3.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-3.jpg",
+            "alt": "Pretty girls do cry"
+          }
+        ]
       },
       {
         "id": "pretty-girls-do-cry-2",
@@ -465,6 +661,18 @@
             "src": "photo/art/pretty-girls-do-cry_2_det-1.jpg",
             "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-1.jpg",
             "alt": "Lovely girls do cry"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-3",
+            "src": "photo/art/pretty-girls-do-cry_2_det-2.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-2.jpg",
+            "alt": "Pretty girls do cry"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-3",
+            "src": "photo/art/pretty-girls-do-cry_2_det-3.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-3.jpg",
+            "alt": "Pretty girls do cry"
           }
         ]
       },
@@ -478,7 +686,26 @@
         "size": "size: 297x420",
         "price": "700€",
         "featured": true,
-        "additionalPhotos": []
+        "additionalPhotos": [
+          {
+            "id": "portrait-detail-1",
+            "src": "photo/art/portrait_det-1.jpg",
+            "srcOriginal": "photo/art_original/portrait_det-1.jpg",
+            "alt": "Portrait"
+          },
+          {
+            "id": "portrait-detail-2",
+            "src": "photo/art/portrait_det-2.jpg",
+            "srcOriginal": "photo/art_original/portrait_det-2.jpg",
+            "alt": "Portrait"
+          },
+          {
+            "id": "portrait-detail-3",
+            "src": "photo/art/portrait_det-3.jpg",
+            "srcOriginal": "photo/art_original/portrait_det-3.jpg",
+            "alt": "Portrait"
+          }
+        ]
       }
     ]
   },
