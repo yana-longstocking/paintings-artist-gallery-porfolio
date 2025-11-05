@@ -1,19 +1,14 @@
-type LanguageCode = "en" | "es";
+type LanguageCode = string;
 
 interface LanguageConfig {
   code: LanguageCode;
   displayText: string;
   pathPrefix: string;
-}
-
-interface MenuTranslations {
-  gallery: string;
-  artistBio: string;
-  contactUs: string;
-}
-
-interface TranslationMap {
-  [key: string]: MenuTranslations;
+  menuTranslations: {
+    gallery: string;
+    artistBio: string;
+    contactUs: string;
+  };
 }
 
 interface DOMElements {
@@ -24,31 +19,30 @@ interface DOMElements {
   menuLinks: NodeListOf<Element>;
 }
 
-const LANGUAGE_CONFIG: Record<LanguageCode, LanguageConfig> = {
+const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
   en: {
     code: "en",
     displayText: "EN",
     pathPrefix: "",
+    menuTranslations: {
+      gallery: "Gallery",
+      artistBio: "Artist Bio",
+      contactUs: "Contact us",
+    },
   },
   es: {
     code: "es",
     displayText: "ES",
     pathPrefix: "/es",
+    menuTranslations: {
+      gallery: "Galería",
+      artistBio: "Biografía del Artista",
+      contactUs: "Contáctanos",
+    },
   },
 };
 
-const MENU_TRANSLATIONS: TranslationMap = {
-  es: {
-    gallery: "Galería",
-    artistBio: "Biografía del Artista",
-    contactUs: "Contáctanos",
-  },
-  en: {
-    gallery: "Gallery",
-    artistBio: "Artist Bio",
-    contactUs: "Contact us",
-  },
-};
+const DEFAULT_LANGUAGE: LanguageCode = "en";
 
 const SELECTORS = {
   switcher: "#language-switcher",
@@ -62,9 +56,16 @@ const SELECTORS = {
 
 const BASE_URL_PATTERNS = ["/paintings-artist-gallery-porfolio/"] as const;
 
-/**
- * Safely gets an element by selector
- */
+const MENU_KEYWORDS: Record<string, keyof LanguageConfig["menuTranslations"]> =
+  {
+    gallery: "gallery",
+    galería: "gallery",
+    bio: "artistBio",
+    biografía: "artistBio",
+    contact: "contactUs",
+    contáctanos: "contactUs",
+  };
+
 function getElement<T extends HTMLElement>(
   selector: string,
   required = false,
@@ -76,18 +77,11 @@ function getElement<T extends HTMLElement>(
   return element;
 }
 
-/**
- * Gets all elements matching a selector
- */
 function getElements(selector: string): NodeListOf<Element> {
   return document.querySelectorAll(selector);
 }
 
-/**
- * Detects the base URL from the document or current path
- */
 function getBaseUrl(): string {
-  // Try to get from <base> tag
   const baseTag = document.querySelector("base");
   if (baseTag?.href) {
     try {
@@ -98,7 +92,6 @@ function getBaseUrl(): string {
     }
   }
 
-  // Fallback: detect from current path
   const currentPath = window.location.pathname;
   for (const pattern of BASE_URL_PATTERNS) {
     if (currentPath.includes(pattern)) {
@@ -109,18 +102,13 @@ function getBaseUrl(): string {
   return "/";
 }
 
-/**
- * Normalizes a path by removing base URL and ensuring proper format
- */
 function normalizePath(path: string, baseUrl: string): string {
   let relativePath = path;
 
-  // Remove base URL if present
   if (baseUrl !== "/" && path.startsWith(baseUrl)) {
     relativePath = path.replace(baseUrl, "/");
   }
 
-  // Normalize empty paths
   if (!relativePath || relativePath === baseUrl || relativePath === "/") {
     return "/";
   }
@@ -128,73 +116,66 @@ function normalizePath(path: string, baseUrl: string): string {
   return relativePath;
 }
 
-/**
- * Constructs a full path with base URL
- */
 function constructFullPath(relativePath: string, baseUrl: string): string {
   if (baseUrl === "/") {
     return relativePath;
   }
 
-  // Remove leading slash from relative path
   const relative = relativePath.startsWith("/")
     ? relativePath.slice(1)
     : relativePath;
 
-  // Ensure base URL ends with /
   const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 
   return `${base}${relative}`;
 }
 
-/**
- * Detects the current language from the URL path
- */
 function detectLanguage(): LanguageCode {
   const path = window.location.pathname;
-  return path.includes("/es/") ? "es" : "en";
+
+  for (const [code, config] of Object.entries(LANGUAGES)) {
+    if (code === DEFAULT_LANGUAGE) continue;
+    if (path.includes(`${config.pathPrefix}/`)) {
+      return code;
+    }
+  }
+
+  return DEFAULT_LANGUAGE;
 }
 
-/**
- * Converts a path from one language to another
- */
+function getLanguagePathPrefix(lang: LanguageCode): string {
+  return LANGUAGES[lang]?.pathPrefix || "";
+}
+
 function convertPath(
   currentPath: string,
   targetLang: LanguageCode,
   baseUrl: string,
 ): string {
   const relativePath = normalizePath(currentPath, baseUrl);
-  const targetConfig = LANGUAGE_CONFIG[targetLang];
   const currentLang = detectLanguage();
 
-  // If already on target language, return current path
   if (currentLang === targetLang) {
     return currentPath;
   }
 
-  let newRelativePath = "";
+  const targetPrefix = getLanguagePathPrefix(targetLang);
+  const currentPrefix = getLanguagePathPrefix(currentLang);
 
-  if (targetLang === "es") {
-    // Converting to Spanish
-    if (relativePath.startsWith("/artwork/")) {
-      const artworkId = relativePath.replace("/artwork/", "");
-      newRelativePath = `/es/artwork/${artworkId}`;
-    } else if (relativePath === "/") {
-      newRelativePath = "/es/";
+  let newRelativePath = relativePath;
+
+  if (currentPrefix && relativePath.startsWith(currentPrefix)) {
+    newRelativePath = relativePath.replace(currentPrefix, "");
+  }
+
+  if (targetPrefix) {
+    if (newRelativePath.startsWith("/artwork/")) {
+      const artworkId = newRelativePath.replace("/artwork/", "");
+      newRelativePath = `${targetPrefix}/artwork/${artworkId}`;
+    } else if (newRelativePath === "/") {
+      newRelativePath = `${targetPrefix}/`;
     } else {
-      newRelativePath = `/es${relativePath}`;
-    }
-  } else {
-    // Converting to English (default - root paths)
-    if (relativePath.startsWith("/es/artwork/")) {
-      const artworkId = relativePath.replace("/es/artwork/", "");
-      newRelativePath = `/artwork/${artworkId}`;
-    } else if (relativePath.startsWith("/es/")) {
-      newRelativePath = relativePath.replace("/es/", "/");
-    } else if (relativePath === "/es/" || relativePath === "/es") {
-      newRelativePath = "/";
-    } else {
-      newRelativePath = relativePath;
+      newRelativePath = `${targetPrefix}${newRelativePath}`;
     }
   }
 
@@ -220,9 +201,6 @@ class LanguageSwitcher {
     this.initializeState();
   }
 
-  /**
-   * Initializes and caches DOM elements
-   */
   private initializeElements(): DOMElements {
     return {
       switcher: getElement<HTMLElement>(SELECTORS.switcher),
@@ -233,37 +211,28 @@ class LanguageSwitcher {
     };
   }
 
-  /**
-   * Validates that required elements exist
-   */
   private validateElements(): boolean {
     const { switcher, currentLangText, menu } = this.elements;
     return !!(switcher && currentLangText && menu);
   }
 
-  /**
-   * Initializes the UI state
-   */
   private initializeState(): void {
     this.updateLanguageDisplay();
     this.translateHeaderMenu();
   }
 
-  /**
-   * Updates the language display text and active state
-   */
   private updateLanguageDisplay(): void {
     const currentLang = detectLanguage();
-    const config = LANGUAGE_CONFIG[currentLang];
+    const config = LANGUAGES[currentLang];
 
-    // Update display text
+    if (!config) return;
+
     if (this.elements.currentLangText) {
       this.elements.currentLangText.textContent = config.displayText;
     }
 
-    // Update active state in dropdown
     this.elements.options.forEach((option) => {
-      const lang = option.getAttribute("data-lang") as LanguageCode;
+      const lang = option.getAttribute("data-lang");
       if (lang === currentLang) {
         option.classList.add(SELECTORS.activeOptionClass);
       } else {
@@ -272,29 +241,24 @@ class LanguageSwitcher {
     });
   }
 
-  /**
-   * Translates header menu items based on current language
-   */
   private translateHeaderMenu(): void {
     const currentLang = detectLanguage();
-    const translations = MENU_TRANSLATIONS[currentLang];
+    const config = LANGUAGES[currentLang];
+
+    if (!config) return;
 
     this.elements.menuLinks.forEach((link) => {
       const text = link.textContent?.trim().toLowerCase() || "";
 
-      if (text.includes("gallery") || text.includes("galería")) {
-        link.textContent = translations.gallery;
-      } else if (text.includes("bio") || text.includes("biografía")) {
-        link.textContent = translations.artistBio;
-      } else if (text.includes("contact") || text.includes("contáctanos")) {
-        link.textContent = translations.contactUs;
+      for (const [keyword, translationKey] of Object.entries(MENU_KEYWORDS)) {
+        if (text.includes(keyword)) {
+          link.textContent = config.menuTranslations[translationKey];
+          break;
+        }
       }
     });
   }
 
-  /**
-   * Opens the language dropdown menu
-   */
   private openDropdown(): void {
     const { menu, switcher } = this.elements;
     if (!menu || !switcher) return;
@@ -303,9 +267,6 @@ class LanguageSwitcher {
     switcher.setAttribute("aria-expanded", "true");
   }
 
-  /**
-   * Closes the language dropdown menu
-   */
   private closeDropdown(): void {
     const { menu, switcher } = this.elements;
     if (!menu || !switcher) return;
@@ -314,9 +275,6 @@ class LanguageSwitcher {
     switcher.setAttribute("aria-expanded", "false");
   }
 
-  /**
-   * Toggles the dropdown menu state
-   */
   private toggleDropdown(event?: Event): void {
     if (event) {
       event.preventDefault();
@@ -334,10 +292,9 @@ class LanguageSwitcher {
     }
   }
 
-  /**
-   * Switches to the specified language
-   */
   private switchLanguage(lang: LanguageCode): void {
+    if (!LANGUAGES[lang]) return;
+
     const currentPath = window.location.pathname;
     const newPath = convertPath(currentPath, lang, this.baseUrl);
 
@@ -348,22 +305,16 @@ class LanguageSwitcher {
     }
   }
 
-  /**
-   * Handles click events on language options
-   */
   private handleLanguageOptionClick(event: Event, option: Element): void {
     event.preventDefault();
     event.stopPropagation();
 
-    const lang = option.getAttribute("data-lang") as LanguageCode;
-    if (lang && (lang === "en" || lang === "es")) {
+    const lang = option.getAttribute("data-lang");
+    if (lang && LANGUAGES[lang]) {
       this.switchLanguage(lang);
     }
   }
 
-  /**
-   * Handles clicks outside the dropdown
-   */
   private handleOutsideClick(event: Event): void {
     const target = event.target as HTMLElement;
     const { switcher, menu } = this.elements;
@@ -378,42 +329,28 @@ class LanguageSwitcher {
     }
   }
 
-  /**
-   * Handles keyboard events
-   */
   private handleKeyDown(event: KeyboardEvent): void {
     if (event.key === "Escape") {
       this.closeDropdown();
     }
   }
 
-  /**
-   * Sets up all event listeners
-   */
   private setupEventListeners(): void {
     const { switcher, options } = this.elements;
 
-    // Toggle button click
     switcher?.addEventListener("click", (e) => this.toggleDropdown(e));
 
-    // Language option clicks
     options.forEach((option) => {
       option.addEventListener("click", (e) =>
         this.handleLanguageOptionClick(e, option),
       );
     });
 
-    // Close on outside click
     document.addEventListener("click", (e) => this.handleOutsideClick(e));
-
-    // Close on escape key
     document.addEventListener("keydown", (e) => this.handleKeyDown(e));
   }
 }
 
-/**
- * Initializes the language switcher when DOM is ready
- */
 function initLanguageSwitcher(): void {
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
@@ -424,5 +361,4 @@ function initLanguageSwitcher(): void {
   }
 }
 
-// Auto-initialize
 initLanguageSwitcher();
