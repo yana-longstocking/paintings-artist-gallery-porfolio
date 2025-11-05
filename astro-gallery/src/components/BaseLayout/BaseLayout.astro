@@ -1,6 +1,6 @@
 ---
-import "../styles/global.scss";
-import Header from "./Header.astro";
+import "../../styles/global.scss";
+import Header from "../Header.astro";
 
 interface Props {
   title: string;
@@ -38,7 +38,7 @@ const { title } = Astro.props;
 
     <slot name="scripts" />
 
-    <script type="module">
+    <script>
       import "./LanguageSwitcher.client.ts";
     </script>
   </body>

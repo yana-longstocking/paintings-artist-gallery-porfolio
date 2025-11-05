@@ -1,0 +1,716 @@
+{
+  "freedomCollection": [
+    {
+      "id": "series-freedom-alone",
+      "src": "photo/pic_s_/series-Freedom-alone.jpg",
+      "srcOriginal": "photo/pic_s_original/series-Freedom-alone.jpg",
+      "alt": "Colección Libertad.Sola",
+      "description": "La Libertad Absoluta es imposible, sin embargo vale la pena luchar por ella. Por eso eliminé elementos clave que hacen posibles las poses. La Red intenta atraparte pero tú mantienes tu libertad. Todo en equilibrio.",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 594x841",
+      "price": "2000€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-alone-detail-1",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-1.jpg",
+          "alt": "Colección Libertad.Sola",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-alone_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-alone-detail-2",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-2.jpg",
+          "alt": "Colección Libertad.Sola",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-alone_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-alone-detail-3",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-3.jpg",
+          "alt": "Colección Libertad.Sola",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-alone_det-3.jpg"
+        },
+        {
+          "id": "series-freedom-alone-detail-4",
+          "src": "photo/pic_s_/series-Freedom-alone_detail-4.jpg",
+          "alt": "Colección Libertad.Sola",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-alone_det-4.jpg"
+        }
+      ]
+    },
+    {
+      "id": "series-freedom-impossible",
+      "src": "photo/pic_s_/series-Freedom-impossible.jpg",
+      "srcOriginal": "photo/pic_s_original/series-Freedom-impossible.jpg",
+      "alt": "Colección Libertad.Imposible",
+      "description": "La Libertad Absoluta es imposible, sin embargo vale la pena luchar por ella. Por eso eliminé elementos clave que hacen posibles las poses. La Red intenta atraparte pero tú mantienes tu libertad. Todo en equilibrio.",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-impossible-det-1",
+          "src": "photo/pic_s_/series-Freedom-impossible_det-1.jpg",
+          "alt": "Colección Libertad.Imposible",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-impossible-det-2",
+          "src": "photo/pic_s_/series-Freedom-impossible_det-2.jpg",
+          "alt": "Colección Libertad.Imposible",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-impossible-det-3",
+          "src": "photo/pic_s_/series-Freedom-impossible_det-3.jpg",
+          "alt": "Colección Libertad.Imposible",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "series-freedom-light",
+      "src": "photo/pic_s_/series-Freedom-light.jpg",
+      "srcOriginal": "photo/pic_s_original/series-Freedom-light.jpg",
+      "alt": "Colección Libertad.Luz",
+      "description": "La Libertad Absoluta es imposible, sin embargo vale la pena luchar por ella. Por eso eliminé elementos clave que hacen posibles las poses. La Red intenta atraparte pero tú mantienes tu libertad. Todo en equilibrio.",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-light-det-1",
+          "src": "photo/pic_s_/series-Freedom-light_det-1.jpg",
+          "alt": "Colección Libertad.Luz",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-light-det-2",
+          "src": "photo/pic_s_/series-Freedom-light_det-2.jpg",
+          "alt": "Colección Libertad.Luz",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-light-det-3",
+          "src": "photo/pic_s_/series-Freedom-light_det-3.jpg",
+          "alt": "Colección Libertad.Luz",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "series-freedom-grounded",
+      "src": "photo/pic_s_/series-Freedom-grounded.jpg",
+      "srcOriginal": "photo/pic_s_original/series-Freedom-grounded.jpg",
+      "alt": "Colección Libertad.Conectada",
+      "description": "La Libertad Absoluta es imposible, sin embargo vale la pena luchar por ella. Por eso eliminé elementos clave que hacen posibles las poses. La Red intenta atraparte pero tú mantienes tu libertad. Todo en equilibrio.",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-grounded-det-1",
+          "src": "photo/pic_s_/series-Freedom-grounded_det-1.jpg",
+          "alt": "Colección Libertad.Conectada",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-grounded-det-2",
+          "src": "photo/pic_s_/series-Freedom-grounded_det-2.jpg",
+          "alt": "Colección Libertad.Conectada",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-grounded-det-3",
+          "src": "photo/pic_s_/series-Freedom-grounded_det-3.jpg",
+          "alt": "Colección Libertad.Conectada",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "series-freedom-freefall",
+      "src": "photo/pic_s_/series-Freedom-freefall.jpg",
+      "srcOriginal": "photo/pic_s_original/series-Freedom-freefall.jpg",
+      "alt": "Colección Libertad.Caída Libre",
+      "description": "La Libertad Absoluta es imposible, sin embargo vale la pena luchar por ella. Por eso eliminé elementos clave que hacen posibles las poses. La Red intenta atraparte pero tú mantienes tu libertad. Todo en equilibrio.",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "series-freedom-freefall-det-1",
+          "src": "photo/pic_s_/series-Freedom-freefall_det-1.jpg",
+          "alt": "Colección Libertad.Caída Libre",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-1.jpg"
+        },
+        {
+          "id": "series-freedom-freefall-det-2",
+          "src": "photo/pic_s_/series-Freedom-freefall_det-2.jpg",
+          "alt": "Colección Libertad.Caída Libre",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-2.jpg"
+        },
+        {
+          "id": "series-freedom-freefall-det-3",
+          "src": "photo/pic_s_/series-Freedom-freefall_det-3.jpg",
+          "alt": "Colección Libertad.Caída Libre",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-3.jpg"
+        }
+      ]
+    }
+  ],
+  "allPaintingCollection": [
+    {
+      "id": "sunkissed-deconstructed",
+      "src": "photo/art/sunkissed- deconstructed.jpg",
+      "srcOriginal": "photo/art_original/sunkissed-deconstructed.jpg",
+      "alt": "Bañado por el sol deconstruido",
+      "description": "Bañado por el sol deconstruido",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "500€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "sunkissed-deconstructed-det-1",
+          "src": "photo/art/sunkissed-deconstructed_det-1.jpg",
+          "alt": "Bañado por el sol deconstruido",
+          "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-1.jpg"
+        },
+        {
+          "id": "sunkissed-deconstructed-det-2",
+          "src": "photo/art/sunkissed-deconstructed_det-2.jpg",
+          "alt": "Bañado por el sol deconstruido",
+          "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-2.jpg"
+        },
+        {
+          "id": "sunkissed-deconstructed-det-3",
+          "src": "photo/art/sunkissed-deconstructed_det-3.jpg",
+          "alt": "Bañado por el sol deconstruido",
+          "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "madrid-mermaid",
+      "src": "photo/art/Madrid-mermaid.jpg",
+      "srcOriginal": "photo/art_original/Madrid-mermaid.jpg",
+      "alt": "Sirena de Madrid",
+      "description": "En Madrid las esculturas de sirenas tienen dos colas",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "800€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "madrid-mermaid-det-1",
+          "src": "photo/art/Madrid-mermaid_det-1.jpg",
+          "alt": "Sirena de Madrid",
+          "srcOriginal": "photo/art_original/Madrid-mermaid_det-1.jpg"
+        },
+        {
+          "id": "madrid-mermaid-det-2",
+          "src": "photo/art/Madrid-mermaid_det-2.jpg",
+          "alt": "Sirena de Madrid",
+          "srcOriginal": "photo/art_original/Madrid-mermaid_det-2.jpg"
+        },
+        {
+          "id": "madrid-mermaid-det-3",
+          "src": "photo/art/Madrid-mermaid_det-3.jpg",
+          "alt": "Sirena de Madrid",
+          "srcOriginal": "photo/art_original/Madrid-mermaid_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "twilly",
+      "src": "photo/art/twilly.jpg",
+      "srcOriginal": "photo/art_original/twilly.jpg",
+      "alt": "Twilly",
+      "description": "Twilly",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "400€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "twilly-det-1",
+          "src": "photo/art/twilly_det-1.jpg",
+          "alt": "Twilly",
+          "srcOriginal": "photo/art_original/twilly_det-1.jpg"
+        },
+        {
+          "id": "twilly-det-2",
+          "src": "photo/art/twilly_det-2.jpg",
+          "alt": "Twilly",
+          "srcOriginal": "photo/art_original/twilly_det-2.jpg"
+        },
+        {
+          "id": "twilly-det-3",
+          "src": "photo/art/twilly_det-3.jpg",
+          "alt": "Twilly",
+          "srcOriginal": "photo/art_original/twilly_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "midnight",
+      "src": "photo/art/midnight.jpg",
+      "srcOriginal": "photo/art_original/midnight.jpg",
+      "alt": "Medianoche",
+      "description": "Medianoche",
+      "medium": "medio: pastel sobre papel",
+      "size": "tamaño: 148x420",
+      "price": "400€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "midnight-det-1",
+          "src": "photo/art/midnight_det-1.jpg",
+          "alt": "Medianoche",
+          "srcOriginal": "photo/art_original/midnight_det-1.jpg"
+        },
+        {
+          "id": "midnight-det-2",
+          "src": "photo/art/midnight_det-2.jpg",
+          "alt": "Medianoche",
+          "srcOriginal": "photo/art_original/midnight_det-2.jpg"
+        },
+        {
+          "id": "midnight-det-3",
+          "src": "photo/art/midnight_det-3.jpg",
+          "alt": "Medianoche",
+          "srcOriginal": "photo/art_original/midnight_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "power-pose",
+      "src": "photo/art/power-pose.jpg",
+      "srcOriginal": "photo/art_original/power-pose.jpg",
+      "alt": "Pose de poder",
+      "description": "Pose de poder",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "400€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "power-pose-det-1",
+          "src": "photo/art/power-pose_det-1.jpg",
+          "alt": "Pose de poder",
+          "srcOriginal": "photo/art_original/power-pose_det-1.jpg"
+        },
+        {
+          "id": "power-pose-det-2",
+          "src": "photo/art/power-pose_det-2.jpg",
+          "alt": "Pose de poder",
+          "srcOriginal": "photo/art_original/power-pose_det-2.jpg"
+        },
+        {
+          "id": "power-pose-det-3",
+          "src": "photo/art/power-pose_det-3.jpg",
+          "alt": "Pose de poder",
+          "srcOriginal": "photo/art_original/power-pose_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "beach-spirit",
+      "src": "photo/art/beach-spirit.jpg",
+      "srcOriginal": "photo/art_original/beach-spirit.jpg",
+      "alt": "Espíritu de playa",
+      "description": "Espíritu de playa",
+      "medium": "medio: carbón sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "500€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "beach-spirit-det-1",
+          "src": "photo/art/beach-spirit_det-1.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-1.jpg"
+        },
+        {
+          "id": "beach-spirit-det-2",
+          "src": "photo/art/beach-spirit_det-2.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-2.jpg"
+        },
+        {
+          "id": "beach-spirit-det-3",
+          "src": "photo/art/beach-spirit_det-3.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-3.jpg"
+        }
+      ]
+    }
+  ],
+  "artCollection": [
+    {
+      "id": "dancer",
+      "src": "photo/art/dancer.jpg",
+      "srcOriginal": "photo/art_original/dancer.jpg",
+      "alt": "Bailarina",
+      "description": "Bailarina",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "1000€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "dancer-det-1",
+          "src": "photo/art/dancer_det-1.jpg",
+          "alt": "Bailarina",
+          "srcOriginal": "photo/art_original/dancer_det-1.jpg"
+        },
+        {
+          "id": "dancer-det-2",
+          "src": "photo/art/dancer_det-2.jpg",
+          "alt": "Bailarina",
+          "srcOriginal": "photo/art_original/dancer_det-2.jpg"
+        },
+        {
+          "id": "dancer-det-3",
+          "src": "photo/art/dancer_det-3.jpg",
+          "alt": "Bailarina",
+          "srcOriginal": "photo/art_original/dancer_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "blue-haze",
+      "src": "photo/art/blue-haze.jpg",
+      "srcOriginal": "photo/art_original/blue-haze.jpg",
+      "alt": "Niebla azul",
+      "description": "Niebla azul",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "500€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "blue-haze-det-1",
+          "src": "photo/art/blue-haze_det-1.jpg",
+          "alt": "Niebla azul",
+          "srcOriginal": "photo/art_original/blue-haze_det-1.jpg"
+        },
+        {
+          "id": "blue-haze-det-2",
+          "src": "photo/art/blue-haze_det-2.jpg",
+          "alt": "Niebla azul",
+          "srcOriginal": "photo/art_original/blue-haze_det-2.jpg"
+        },
+        {
+          "id": "blue-haze-det-3",
+          "src": "photo/art/blue-haze_det-3.jpg",
+          "alt": "Niebla azul",
+          "srcOriginal": "photo/art_original/blue-haze_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "myst",
+      "src": "photo/art/myst.jpg",
+      "srcOriginal": "photo/art_original/myst.jpg",
+      "alt": "Myst",
+      "description": "Myst",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "myst-det-1",
+          "src": "photo/art/myst_det-1.jpg",
+          "alt": "Myst",
+          "srcOriginal": "photo/art_original/myst_det-1.jpg"
+        },
+        {
+          "id": "myst-det-2",
+          "src": "photo/art/myst_det-2.jpg",
+          "alt": "Myst",
+          "srcOriginal": "photo/art_original/myst_det-2.jpg"
+        },
+        {
+          "id": "myst-det-3",
+          "src": "photo/art/myst_det-3.jpg",
+          "alt": "Myst",
+          "srcOriginal": "photo/art_original/myst_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "sunkissed",
+      "src": "photo/art/sunkissed.jpg",
+      "srcOriginal": "photo/art_original/sunkissed.jpg",
+      "alt": "Bañado por el sol",
+      "description": "Bañado por el sol",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "sunkissed-det-1",
+          "src": "photo/art/sunkissed_det-1.jpg",
+          "alt": "Bañado por el sol",
+          "srcOriginal": "photo/art_original/sunkissed_det-1.jpg"
+        },
+        {
+          "id": "sunkissed-det-2",
+          "src": "photo/art/sunkissed_det-2.jpg",
+          "alt": "Bañado por el sol",
+          "srcOriginal": "photo/art_original/sunkissed_det-2.jpg"
+        },
+        {
+          "id": "sunkissed-det-3",
+          "src": "photo/art/sunkissed_det-3.jpg",
+          "alt": "Bañado por el sol",
+          "srcOriginal": "photo/art_original/sunkissed_det-3.jpg"
+        }
+      ]
+    },
+    {
+      "id": "intimessy",
+      "src": "photo/art/intiMessy.jpg",
+      "srcOriginal": "photo/art_original/IntiMessy.jpg",
+      "alt": "intiMessy",
+      "description": "IntiMessy",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 297x420",
+      "price": "600€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "intimessy-det-1",
+          "src": "photo/art/intiMessy_det-1.jpg",
+          "srcOriginal": "photo/art_original/intiMessy_det-1.jpg",
+          "alt": "intiMessy"
+        },
+        {
+          "id": "intimessy-det-2",
+          "src": "photo/art/intiMessy_det-2.jpg",
+          "srcOriginal": "photo/art_original/intiMessy_det-2.jpg",
+          "alt": "intiMessy"
+        },
+        {
+          "id": "intimessy-det-3",
+          "src": "photo/art/intiMessy_det-3.jpg",
+          "srcOriginal": "photo/art_original/intiMessy_det-3.jpg",
+          "alt": "intiMessy"
+        }
+      ]
+    }
+  ],
+  "galleryContent": {
+    "featured": {
+      "id": "sisterhood",
+      "src": "photo/art/sisterhood.jpg",
+      "srcOriginal": "photo/art_original/sisterhood.jpg",
+      "alt": "Hermandad",
+      "description": "Hermandad",
+      "medium": "medio: lápices sobre papel",
+      "size": "tamaño: 210x297",
+      "price": "800€",
+      "featured": true,
+      "additionalPhotos": [
+        {
+          "id": "sisterhood-detail-1",
+          "src": "photo/art/sisterhood_det-1.jpg",
+          "srcOriginal": "photo/art/sisterhood_det-1.jpg",
+          "alt": "Hermandad"
+        },
+        {
+          "id": "sisterhood-detail-2",
+          "src": "photo/art/sisterhood_det-2.jpg",
+          "srcOriginal": "photo/art/sisterhood_det-2.jpg",
+          "alt": "Hermandad"
+        },
+        {
+          "id": "sisterhood-detail-3",
+          "src": "photo/art/sisterhood_det-3.jpg",
+          "srcOriginal": "photo/art/sisterhood_det-3.jpg",
+          "alt": "Hermandad"
+        }
+      ]
+    },
+    "items": [
+      {
+        "id": "prisme-light",
+        "src": "photo/art/prisme-light.jpg",
+        "srcOriginal": "photo/art_original/prisme-light.jpg",
+        "alt": "Luz prisma",
+        "description": "Luz prisma",
+        "medium": "medio: lápices sobre papel",
+        "size": "tamaño: 297x420",
+        "price": "600€",
+        "featured": true,
+        "additionalPhotos": [
+          {
+            "id": "prisme-light-detail-1",
+            "src": "photo/art/prisme-light_det-1.jpg",
+            "srcOriginal": "photo/art_original/prisme-light_det-1.jpg",
+            "alt": "Luz prisma"
+          },
+          {
+            "id": "prisme-light-detail-2",
+            "src": "photo/art/prisme-light_det-2.jpg",
+            "srcOriginal": "photo/art_original/prisme-light_det-2.jpg",
+            "alt": "Luz prisma"
+          },
+          {
+            "id": "prisme-light-detail-3",
+            "src": "photo/art/prisme-light_det-3.jpg",
+            "srcOriginal": "photo/art_original/prisme-light_det-3.jpg",
+            "alt": "Luz prisma"
+          }
+        ]
+      },
+      {
+        "id": "shevchenkos-kateryna",
+        "src": "photo/art/SHevchenkos-Kateryna.jpg",
+        "srcOriginal": "photo/art_original/SHevchenkos-Kateryna.jpg",
+        "alt": "Kateryna de Shevchenko",
+        "description": "Reimaginando la acuarela de Shevchenko en arte lineal.",
+        "medium": "medio: lápiz sobre papel",
+        "size": "tamaño: 210x297",
+        "price": "800€",
+        "featured": true,
+        "additionalPhotos": [
+          {
+            "id": "shevchenkos-kateryna-detail-1",
+            "src": "photo/art/SHevchenkos-Kateryna_det-1.jpg",
+            "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-1.jpg",
+            "alt": "Kateryna de Shevchenko"
+          },
+          {
+            "id": "shevchenkos-kateryna-detail-2",
+            "src": "photo/art/SHevchenkos-Kateryna_det-2.jpg",
+            "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-2.jpg",
+            "alt": "Kateryna de Shevchenko"
+          },
+          {
+            "id": "shevchenkos-kateryna-detail-3",
+            "src": "photo/art/SHevchenkos-Kateryna_det-3.jpg",
+            "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-3.jpg",
+            "alt": "Kateryna de Shevchenko"
+          }
+        ]
+      },
+      {
+        "id": "lake",
+        "src": "photo/art/lake.jpg",
+        "srcOriginal": "photo/art_original/lake.jpg",
+        "alt": "Lago",
+        "description": "Lago",
+        "medium": "medio: lápices sobre papel",
+        "size": "tamaño: 297x420",
+        "price": "600€",
+        "featured": true,
+        "additionalPhotos": []
+      },
+      {
+        "id": "pretty-girls-do-cry-1",
+        "src": "photo/art/pretty-girls-do- cry_1.jpg",
+        "srcOriginal": "photo/art_original/pretty-girls-do-cry_1.jpg",
+        "alt": "Las chicas bonitas sí lloran",
+        "description": "Las chicas bonitas sí lloran",
+        "medium": "medio: lápices sobre papel",
+        "size": "tamaño: 297x420",
+        "price": "500€",
+        "featured": true,
+        "additionalPhotos": [
+          {
+            "id": "pretty-girls-do-cry-1_detail-1",
+            "src": "photo/art/pretty-girls-do-cry_1_det-1.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-1.jpg",
+            "alt": "Las chicas bonitas sí lloran"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-2",
+            "src": "photo/art/pretty-girls-do-cry_1_det-2.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-2.jpg",
+            "alt": "Las chicas bonitas sí lloran"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-3",
+            "src": "photo/art/pretty-girls-do-cry_1_det-3.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-3.jpg",
+            "alt": "Las chicas bonitas sí lloran"
+          }
+        ]
+      },
+      {
+        "id": "pretty-girls-do-cry-2",
+        "src": "photo/art/pretty-girls-do- cry_2.jpg",
+        "srcOriginal": "photo/art_original/pretty-girls-do-cry_2.jpg",
+        "alt": "Las chicas encantadoras sí lloran",
+        "description": "Las chicas encantadoras sí lloran",
+        "medium": "medio: lápices sobre papel",
+        "size": "tamaño: 297x420",
+        "price": "500€",
+        "featured": true,
+        "additionalPhotos": [
+          {
+            "id": "pretty-girls-do-cry-2_detail-1",
+            "src": "photo/art/pretty-girls-do-cry_2_det-1.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-1.jpg",
+            "alt": "Las chicas encantadoras sí lloran"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-3",
+            "src": "photo/art/pretty-girls-do-cry_2_det-2.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-2.jpg",
+            "alt": "Las chicas bonitas sí lloran"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-3",
+            "src": "photo/art/pretty-girls-do-cry_2_det-3.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-3.jpg",
+            "alt": "Las chicas bonitas sí lloran"
+          }
+        ]
+      },
+      {
+        "id": "portrait",
+        "src": "photo/art/portrait.jpg",
+        "srcOriginal": "photo/art_original/portrait.jpg",
+        "alt": "Retrato",
+        "description": "Retrato",
+        "medium": "medio: lápices sobre papel",
+        "size": "tamaño: 297x420",
+        "price": "700€",
+        "featured": true,
+        "additionalPhotos": [
+          {
+            "id": "portrait-detail-1",
+            "src": "photo/art/portrait_det-1.jpg",
+            "srcOriginal": "photo/art_original/portrait_det-1.jpg",
+            "alt": "Retrato"
+          },
+          {
+            "id": "portrait-detail-2",
+            "src": "photo/art/portrait_det-2.jpg",
+            "srcOriginal": "photo/art_original/portrait_det-2.jpg",
+            "alt": "Retrato"
+          },
+          {
+            "id": "portrait-detail-3",
+            "src": "photo/art/portrait_det-3.jpg",
+            "srcOriginal": "photo/art_original/portrait_det-3.jpg",
+            "alt": "Retrato"
+          }
+        ]
+      }
+    ]
+  },
+  "artistBio": {
+    "src": "photo/artist/artist-bio.jpg",
+    "alt": "biografía-artista"
+  }
+}
