@@ -198,4 +198,212 @@
     cursor: url("../../public/icons/zoom-in-square.svg"), zoom-in;
     transition: transform variables.$effect-duration variables.$transition;
   }
+
+  &__footer {
+    margin-top: 60px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(22, 22, 22, 0.1);
+
+    @include mixin.on-tablet {
+      margin-top: 80px;
+      padding-top: 60px;
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 100px;
+      padding-top: 80px;
+    }
+  }
+
+  &__footer-container {
+    padding-inline: 20px;
+
+    @include mixin.on-tablet {
+      padding-inline: 72px;
+    }
+
+    @include mixin.on-desktop {
+      padding-inline: 120px;
+    }
+  }
+
+  &__footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @include mixin.on-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    @include mixin.on-desktop {
+      gap: 60px;
+    }
+  }
+
+  &__footer-section {
+    flex: 1;
+
+    &:first-child {
+      @include mixin.on-tablet {
+        max-width: 400px;
+      }
+    }
+  }
+
+  &__footer-title {
+    font-family: "Cinzel", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: variables.$background-color;
+    margin-bottom: 16px;
+    line-height: 27px;
+
+    @include mixin.on-tablet {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+  }
+
+  &__footer-text {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: variables.$main-color;
+    line-height: 27px;
+    margin-bottom: 12px;
+
+    @include mixin.on-tablet {
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 16px;
+    }
+  }
+
+  &__footer-link {
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: variables.$background-color;
+    text-decoration: none;
+    transition: all variables.$effect-duration variables.$transition;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 6px 12px;
+    border: 1.5px solid variables.$background-color;
+    border-radius: 4px;
+    background-color: transparent;
+
+    @include mixin.on-tablet {
+      font-size: 14px;
+      padding: 7px 14px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 15px;
+      padding: 8px 16px;
+    }
+
+    &:hover {
+      color: variables.$color-text;
+      background-color: variables.$background-color;
+      transform: variables.$transform-hover;
+      box-shadow: variables.$box-shadow;
+    }
+
+    &::after {
+      content: "→";
+      font-size: 12px;
+      transition: transform variables.$effect-duration variables.$transition;
+
+      @include mixin.on-desktop {
+        font-size: 14px;
+      }
+    }
+
+    &:hover::after {
+      transform: translateX(4px);
+    }
+  }
+
+  &__footer-social {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+
+    @include mixin.on-tablet {
+      margin-top: 20px;
+    }
+  }
+
+  &__footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(22, 22, 22, 0.05);
+    color: variables.$main-color;
+    text-decoration: none;
+    transition: all variables.$effect-duration variables.$transition;
+
+    @include mixin.on-tablet {
+      width: 44px;
+      height: 44px;
+    }
+
+    &:hover {
+      background-color: variables.$background-color;
+      color: variables.$color-text;
+      transform: variables.$transform-hover;
+    }
+  }
+
+  &__footer-bottom {
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(22, 22, 22, 0.1);
+    text-align: center;
+
+    @include mixin.on-tablet {
+      margin-top: 50px;
+      padding-top: 40px;
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 60px;
+      padding-top: 50px;
+    }
+  }
+
+  &__footer-copyright {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: variables.$main-color;
+    opacity: 0.7;
+
+    @include mixin.on-tablet {
+      font-size: 13px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 14px;
+    }
+  }
 }
