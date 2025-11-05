@@ -1,16 +1,16 @@
 ---
-import BaseLayout from "../components/BaseLayout.astro";
-import galleryData from "../data/gallery.json";
+import BaseLayout from "../../components/BaseLayout.astro";
+import galleryData from "../../data/gallery.json";
 ---
 
-<BaseLayout title="Artist Gallery Portfolio">
+<BaseLayout title="Portafolio de Galería de Artista">
   <main class="main">
     <div class="container">
       <section class="gallery" id="gallery">
         <div class="gallery__content">
-          <h1 class="gallery__title">Gallery</h1>
+          <h1 class="gallery__title">Galería</h1>
           <p class="gallery__description">
-            Contemporary art collection featuring a young artist
+            Colección de arte contemporáneo de una joven artista
           </p>
         </div>
       </section>
@@ -25,7 +25,7 @@ import galleryData from "../data/gallery.json";
     <div class="container">
       <section class="photo-gallery" id="gallery">
         <div class="photo-gallery__content">
-          <h2 class="photo-gallery__title">Freedom Collection</h2>
+          <h2 class="photo-gallery__title">Colección Libertad</h2>
         </div>
         <div class="photo-gallery__grid">
           {
@@ -33,7 +33,7 @@ import galleryData from "../data/gallery.json";
               <div
                 class={`photo-gallery__item ${item.featured ? "photo-gallery__item--featured" : ""}`}
               >
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}es/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}
@@ -52,13 +52,13 @@ import galleryData from "../data/gallery.json";
     <div class="container">
       <section class="photo-art">
         <div class="photo-art__content">
-          <h2 class="photo-art__title">All Painting Collection</h2>
+          <h2 class="photo-art__title">Colección de Todas las Pinturas</h2>
         </div>
         <div class="photo-art__grid">
           {
             galleryData.allPaintingCollection.map((item) => (
               <div class="photo-art__item">
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}es/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}
@@ -82,7 +82,7 @@ import galleryData from "../data/gallery.json";
               <div
                 class={`art__item ${item.featured ? "art__item--featured" : ""}`}
               >
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}es/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}
@@ -102,7 +102,7 @@ import galleryData from "../data/gallery.json";
       <section class="gallery-content">
         <div class="gallery-content__featured">
           <a
-            href={`${import.meta.env.BASE_URL}artwork/${galleryData.galleryContent.featured.id}`}
+            href={`${import.meta.env.BASE_URL}es/artwork/${galleryData.galleryContent.featured.id}`}
           >
             <img
               src={`${import.meta.env.BASE_URL}${galleryData.galleryContent.featured.src}`}
@@ -115,7 +115,7 @@ import galleryData from "../data/gallery.json";
           {
             galleryData.galleryContent.items.map((item) => (
               <div class="gallery-content__item">
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}es/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}
@@ -133,7 +133,7 @@ import galleryData from "../data/gallery.json";
   <div class="container">
     <section class="artist-bio">
       <div class="artist-bio__content" id="artist-bio">
-        <h2 class="artist-bio__title">Artist Bio</h2>
+        <h2 class="artist-bio__title">Biografía del Artista</h2>
       </div>
       <div class="artist-bio__wrapper">
         <div class="artist-bio__image">
@@ -145,17 +145,17 @@ import galleryData from "../data/gallery.json";
         </div>
 
         <div class="artist-bio__text">
-          Born and raised in Ukraine, I began drawing at an early age and have
-          continued to develop my practice ever since. While my degree is in
-          architecture, I am a self-taught artist specializing in highly
-          detailed pencil drawings. My work focuses primarily on female
-          characters, exploring themes of identity, aspiration, and the pursuit
-          of ideal beauty. Often marked by slightly exaggerated proportions, my
-          drawings balance elegance with subtle elements of the grotesque,
-          creating a distinct visual language. Since relocating to Madrid in
-          2022, I have continued to expand my practice, producing intricate and
-          precise works that reflect both personal expression and technical
-          discipline.
+          Nacida y criada en Ucrania, comencé a dibujar a una edad temprana y he
+          continuado desarrollando mi práctica desde entonces. Aunque mi título
+          es en arquitectura, soy una artista autodidacta especializada en
+          dibujos a lápiz altamente detallados. Mi trabajo se centra
+          principalmente en personajes femeninos, explorando temas de identidad,
+          aspiración y la búsqueda de la belleza ideal. A menudo marcados por
+          proporciones ligeramente exageradas, mis dibujos equilibran la
+          elegancia con elementos sutiles de lo grotesco, creando un lenguaje
+          visual distintivo. Desde que me mudé a Madrid en 2022, he continuado
+          expandiendo mi práctica, produciendo obras intrincadas y precisas que
+          reflejan tanto la expresión personal como la disciplina técnica.
         </div>
       </div>
     </section>
@@ -165,13 +165,13 @@ import galleryData from "../data/gallery.json";
     <div class="container">
       <div class="footer__content">
         <div class="footer__form-section">
-          <h2 class="footer__title">Send us a message</h2>
+          <h2 class="footer__title">Envíanos un mensaje</h2>
           <form class="footer__form" onsubmit="this.reset(); return false;">
             <input
               class="footer__input"
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder="Nombre"
               required
             />
 
@@ -188,15 +188,15 @@ import galleryData from "../data/gallery.json";
               id="message"
               class="footer__message"
               name="comments"
-              placeholder="Message"
+              placeholder="Mensaje"
               required></textarea>
 
-            <button class="footer__button">Send</button>
+            <button class="footer__button">Enviar</button>
           </form>
         </div>
 
         <div class="footer__contact-section">
-          <div class="footer__contact-title">Contact Us</div>
+          <div class="footer__contact-title">Contáctanos</div>
           <div class="footer__contact-item">
             <p class="footer__contact-label">Email</p>
             <a
@@ -208,19 +208,19 @@ import galleryData from "../data/gallery.json";
           </div>
 
           <div class="footer__contact-item">
-            <p class="footer__contact-label">Address</p>
+            <p class="footer__contact-label">Dirección</p>
 
             <a
               class="footer__contact-value"
               href="https://maps.app.goo.gl/b4ArvQcv9C2awyTb6"
               target="_blank"
             >
-              Madrid, Spain
+              Madrid, España
             </a>
           </div>
 
           <div class="footer__follow-us">
-            <p class="footer__social">Follow me on Instagram</p>
+            <p class="footer__social">Sígueme en Instagram</p>
             <a
               href="https://www.instagram.com/romanska13?igsh=MXcxdGticmZvd3Y4bQ=="
               class="footer__link"
@@ -252,7 +252,7 @@ import galleryData from "../data/gallery.json";
       </div>
       <div class="footer__copyright">
         <p class="footer__copyright-text">
-          &copy; 2025 Gallery. All rights reserved.
+          &copy; 2025 Galería. Todos los derechos reservados.
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 ---
-import BaseLayout from "../components/BaseLayout.astro";
-import galleryData from "../data/gallery.json";
+import BaseLayout from "../../components/BaseLayout.astro";
+import galleryData from "../../data/gallery.json";
 ---
 
 <BaseLayout title="Artist Gallery Portfolio">
@@ -33,7 +33,7 @@ import galleryData from "../data/gallery.json";
               <div
                 class={`photo-gallery__item ${item.featured ? "photo-gallery__item--featured" : ""}`}
               >
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}en/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}
@@ -58,7 +58,7 @@ import galleryData from "../data/gallery.json";
           {
             galleryData.allPaintingCollection.map((item) => (
               <div class="photo-art__item">
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}en/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}
@@ -82,7 +82,7 @@ import galleryData from "../data/gallery.json";
               <div
                 class={`art__item ${item.featured ? "art__item--featured" : ""}`}
               >
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}en/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}
@@ -102,7 +102,7 @@ import galleryData from "../data/gallery.json";
       <section class="gallery-content">
         <div class="gallery-content__featured">
           <a
-            href={`${import.meta.env.BASE_URL}artwork/${galleryData.galleryContent.featured.id}`}
+            href={`${import.meta.env.BASE_URL}en/artwork/${galleryData.galleryContent.featured.id}`}
           >
             <img
               src={`${import.meta.env.BASE_URL}${galleryData.galleryContent.featured.src}`}
@@ -115,7 +115,7 @@ import galleryData from "../data/gallery.json";
           {
             galleryData.galleryContent.items.map((item) => (
               <div class="gallery-content__item">
-                <a href={`${import.meta.env.BASE_URL}artwork/${item.id}`}>
+                <a href={`${import.meta.env.BASE_URL}en/artwork/${item.id}`}>
                   <img
                     src={`${import.meta.env.BASE_URL}${item.src}`}
                     alt={item.alt}

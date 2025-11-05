@@ -37,5 +37,282 @@ const { title } = Astro.props;
     <slot />
 
     <slot name="scripts" />
+
+    <script>
+      // @ts-ignore - Client-side script, no type checking needed
+      // Language switcher functionality
+      function initLanguageSwitcher() {
+        const languageSwitcher = document.getElementById("language-switcher");
+        const currentLangText = document.getElementById("current-lang");
+        const languageMenu = document.getElementById("language-menu");
+        const languageOptions = document.querySelectorAll(
+          ".header__language-option",
+        );
+
+        if (!languageSwitcher || !currentLangText || !languageMenu) {
+          console.warn("Language switcher elements not found");
+          return;
+        }
+
+        // Detect current language from URL
+        function getCurrentLanguage() {
+          const path = window.location.pathname;
+
+          if (path.includes("/es/")) {
+            return "es";
+          }
+          if (path.includes("/en/")) {
+            return "en";
+          }
+          return "en"; // Default to English
+        }
+
+        // Update language display and active state
+        function updateLanguageDisplay() {
+          const currentLang = getCurrentLanguage();
+          let displayText = "EN";
+
+          if (currentLang === "es") {
+            displayText = "ES";
+          } else {
+            displayText = "EN";
+          }
+
+          if (currentLangText) {
+            currentLangText.textContent = displayText;
+          }
+
+          // Update active state in dropdown
+          languageOptions.forEach((option: any) => {
+            const lang = option.getAttribute("data-lang");
+            if (lang === currentLang) {
+              option.classList.add("header__language-option--active");
+            } else {
+              option.classList.remove("header__language-option--active");
+            }
+          });
+        }
+
+        // Toggle dropdown
+        function toggleDropdown(e: any) {
+          if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+
+          if (!languageMenu) return;
+
+          const isOpen = languageMenu.classList.contains(
+            "header__language-menu--open",
+          );
+          if (isOpen) {
+            closeDropdown();
+          } else {
+            openDropdown();
+          }
+        }
+
+        // Open dropdown
+        function openDropdown() {
+          if (!languageMenu || !languageSwitcher) return;
+          languageMenu.classList.add("header__language-menu--open");
+          languageSwitcher.setAttribute("aria-expanded", "true");
+        }
+
+        // Close dropdown
+        function closeDropdown() {
+          if (!languageMenu || !languageSwitcher) return;
+          languageMenu.classList.remove("header__language-menu--open");
+          languageSwitcher.setAttribute("aria-expanded", "false");
+        }
+
+        // Get base URL from document
+        function getBaseUrl() {
+          const base = document.querySelector("base");
+          if (base && base.href) {
+            try {
+              const baseUrl = new URL(base.href);
+              return baseUrl.pathname;
+            } catch (e) {
+              // Fallback: try to detect from current path
+              const path = window.location.pathname;
+              if (path.includes("/paintings-artist-gallery-porfolio/")) {
+                return "/paintings-artist-gallery-porfolio/";
+              }
+            }
+          }
+          // Try to detect from current path
+          const path = window.location.pathname;
+          if (path.includes("/paintings-artist-gallery-porfolio/")) {
+            return "/paintings-artist-gallery-porfolio/";
+          }
+          return "/";
+        }
+
+        // Switch language
+        function switchLanguage(lang: string) {
+          const currentPath = window.location.pathname;
+          const baseUrl = getBaseUrl();
+
+          // Remove base URL from path to work with relative paths
+          let relativePath = currentPath;
+          if (baseUrl !== "/" && currentPath.startsWith(baseUrl)) {
+            relativePath = currentPath.replace(baseUrl, "/");
+          }
+
+          // Normalize relative path
+          if (relativePath === "" || relativePath === baseUrl) {
+            relativePath = "/";
+          }
+
+          let newRelativePath = "";
+
+          if (lang === "es") {
+            // Switch to Spanish
+            if (relativePath.startsWith("/artwork/")) {
+              const artworkId = relativePath.replace("/artwork/", "");
+              newRelativePath = `/es/artwork/${artworkId}`;
+            } else if (relativePath.startsWith("/en/artwork/")) {
+              const artworkId = relativePath.replace("/en/artwork/", "");
+              newRelativePath = `/es/artwork/${artworkId}`;
+            } else if (relativePath === "/" || relativePath === "") {
+              newRelativePath = "/es/";
+            } else if (relativePath.startsWith("/en/")) {
+              newRelativePath = relativePath.replace("/en/", "/es/");
+            } else {
+              newRelativePath = `/es${relativePath}`;
+            }
+          } else if (lang === "en") {
+            // Switch to English (default - root paths)
+            if (relativePath.startsWith("/es/artwork/")) {
+              const artworkId = relativePath.replace("/es/artwork/", "");
+              newRelativePath = `/artwork/${artworkId}`;
+            } else if (relativePath.startsWith("/en/artwork/")) {
+              const artworkId = relativePath.replace("/en/artwork/", "");
+              newRelativePath = `/artwork/${artworkId}`;
+            } else if (relativePath.startsWith("/es/")) {
+              newRelativePath = relativePath.replace("/es/", "/");
+            } else if (relativePath.startsWith("/en/")) {
+              newRelativePath = relativePath.replace("/en/", "/");
+            } else if (relativePath === "/es/" || relativePath === "/es") {
+              newRelativePath = "/";
+            } else if (relativePath === "/en/" || relativePath === "/en") {
+              newRelativePath = "/";
+            } else {
+              newRelativePath = relativePath;
+            }
+          }
+
+          // Construct full path with base URL
+          let newPath = "";
+          if (baseUrl !== "/") {
+            // Remove leading slash from newRelativePath
+            const relative = newRelativePath.startsWith("/")
+              ? newRelativePath.slice(1)
+              : newRelativePath;
+            // Ensure baseUrl ends with /
+            const base = baseUrl.endsWith("/") ? baseUrl : baseUrl + "/";
+            newPath = `${base}${relative}`;
+          } else {
+            newPath = newRelativePath;
+          }
+
+          // Navigate to new path
+          if (newPath !== currentPath) {
+            window.location.href = newPath;
+          } else {
+            closeDropdown();
+          }
+        }
+
+        // Translate header menu items
+        function translateHeaderMenu() {
+          const currentLang = getCurrentLanguage();
+          const menuLinks = document.querySelectorAll(".header__menu-link");
+
+          const translations = {
+            es: {
+              gallery: "Galería",
+              artistBio: "Biografía del Artista",
+              contactUs: "Contáctanos",
+            },
+            en: {
+              gallery: "Gallery",
+              artistBio: "Artist Bio",
+              contactUs: "Contact us",
+            },
+          };
+
+          menuLinks.forEach((link: any) => {
+            const text = link.textContent.trim().toLowerCase();
+            if (text.includes("gallery") || text.includes("galería")) {
+              link.textContent = translations[currentLang].gallery;
+            } else if (text.includes("bio") || text.includes("biografía")) {
+              link.textContent = translations[currentLang].artistBio;
+            } else if (
+              text.includes("contact") ||
+              text.includes("contáctanos")
+            ) {
+              link.textContent = translations[currentLang].contactUs;
+            }
+          });
+        }
+
+        // Initialize language display
+        updateLanguageDisplay();
+
+        // Translate header menu on initialization
+        translateHeaderMenu();
+
+        // Add click handler to toggle button
+        languageSwitcher.addEventListener("click", (e: any) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleDropdown(e);
+        });
+
+        // Add click handlers to language options
+        languageOptions.forEach((option: any) => {
+          option.addEventListener("click", (e: any) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const lang = option.getAttribute("data-lang");
+            if (lang) {
+              switchLanguage(lang);
+            }
+          });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener("click", (e: any) => {
+          const target = e.target as HTMLElement;
+          if (languageSwitcher && languageMenu && target) {
+            const clickedInsideButton = languageSwitcher.contains(target);
+            const clickedInsideMenu = languageMenu.contains(target);
+
+            if (!clickedInsideButton && !clickedInsideMenu) {
+              closeDropdown();
+            }
+          }
+        });
+
+        // Close dropdown on escape key
+        document.addEventListener("keydown", (e: any) => {
+          if (e.key === "Escape") {
+            closeDropdown();
+          }
+        });
+
+        console.log("Language switcher initialized");
+      }
+
+      // Wait for DOM to be ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLanguageSwitcher);
+      } else {
+        // DOM already loaded
+        initLanguageSwitcher();
+      }
+    </script>
   </body>
 </html>
