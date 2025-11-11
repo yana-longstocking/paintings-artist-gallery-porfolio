@@ -1,15 +1,4 @@
 /**
- * Image Modal Controller
- *
- * Manages a full-screen image modal with carousel navigation, zoom, and pan functionality.
- * Supports keyboard navigation, touch gestures, and mouse interactions.
- */
-
-// ============================================================================
-// Constants
-// ============================================================================
-
-/**
  * CSS classes for slide animations
  */
 export const ANIMATION_CLASSES = {
@@ -73,11 +62,9 @@ const CSS_VARS = {
 const ZOOM_ICONS = {
   IN: "icons/zoom-in.svg",
   OUT: "icons/zoom-out.svg",
+  SQUARE_IN: "icons/zoom-in-square.svg",
+  SQUARE_OUT: "icons/zoom-out-square.svg",
 } as const;
-
-// ============================================================================
-// Type Definitions
-// ============================================================================
 
 /**
  * Represents an image in the carousel
@@ -121,6 +108,7 @@ interface DragState {
   isDragging: boolean;
   startX: number;
   startY: number;
+  hasMoved: boolean;
 }
 
 /**
@@ -136,25 +124,12 @@ interface PanBounds {
  */
 type NavigationDirection = -1 | 1;
 
-// ============================================================================
-// Image Modal Controller
-// ============================================================================
-
-/**
- * Manages the image modal state and interactions
- *
- * Features:
- * - Carousel navigation with animations
- * - Zoom in/out functionality
- * - Pan/drag when zoomed
- * - Keyboard navigation
- * - Touch gesture support
- * - Mouse wheel scrolling
- */
 export class ImageModalController {
   // Dependencies
   private readonly baseUrl: string;
   private readonly imageData: ImageData;
+  private readonly cursorZoomInValue: string;
+  private readonly cursorZoomOutValue: string;
 
   // Carousel state
   private currentImageIndex: number = 0;
@@ -171,7 +146,20 @@ export class ImageModalController {
     isDragging: false,
     startX: 0,
     startY: 0,
+    hasMoved: false,
   };
+
+  // Track mouse state to distinguish click from drag
+  private mouseDownX: number = 0;
+  private mouseDownY: number = 0;
+  private isMouseDown: boolean = false;
+  private canToggleZoomOnClick: boolean = false;
+
+  // Track touch state for one-finger scrolling
+  private touchStartX: number = 0;
+  private touchStartY: number = 0;
+  private touchStartTime: number = 0;
+  private isTouchActive: boolean = false;
 
   // DOM element references
   private modalElement: HTMLElement | null = null;
@@ -183,19 +171,19 @@ export class ImageModalController {
   constructor(baseUrl: string, imageData: ImageData) {
     this.baseUrl = baseUrl;
     this.imageData = imageData;
+    this.cursorZoomInValue = this.buildCursorValue(
+      ZOOM_ICONS.SQUARE_IN,
+      "zoom-in",
+    );
+    this.cursorZoomOutValue = this.buildCursorValue(
+      ZOOM_ICONS.SQUARE_OUT,
+      "zoom-out",
+    );
 
     this.initializeElements();
     this.attachEventListeners();
   }
 
-  // ============================================================================
-  // Public API
-  // ============================================================================
-
-  /**
-   * Opens the modal with a specific image
-   * @param img - The image element that was clicked
-   */
   openModal(img: HTMLImageElement): void {
     if (!this.ensureElementsReady()) {
       return;
@@ -218,10 +206,6 @@ export class ImageModalController {
     this.resetZoom();
   }
 
-  /**
-   * Changes to the next or previous image in the carousel
-   * @param direction - Positive for next, negative for previous
-   */
   changeImage(direction: NavigationDirection): void {
     if (
       this.allImages.length <= 1 ||
@@ -249,10 +233,6 @@ export class ImageModalController {
     this.enableBodyScroll();
   }
 
-  // ============================================================================
-  // Element Initialization
-  // ============================================================================
-
   /**
    * Initializes DOM element references
    */
@@ -270,10 +250,6 @@ export class ImageModalController {
     );
   }
 
-  /**
-   * Ensures all required DOM elements are available
-   * @returns true if all elements are ready, false otherwise
-   */
   private ensureElementsReady(): boolean {
     return !!(
       this.modalElement &&
@@ -281,10 +257,6 @@ export class ImageModalController {
       this.modalCaptionElement
     );
   }
-
-  // ============================================================================
-  // Image Collection & Navigation
-  // ============================================================================
 
   /**
    * Collects all images from imageData into a carousel array
@@ -314,20 +286,16 @@ export class ImageModalController {
     }
   }
 
-  /**
-   * Builds a full image URL from a relative path
-   * @param path - Relative image path
-   * @returns Full URL
-   */
   private buildImageUrl(path: string): string {
     return `${this.baseUrl}${path}`;
   }
 
-  /**
-   * Finds the index of an image by its source URL
-   * @param clickedSrc - Source URL of the clicked image
-   * @returns Index of the image or -1 if not found
-   */
+  private buildCursorValue(path: string, fallback: string): string {
+    const url = this.buildImageUrl(path);
+    // SVG cursors require an explicit hotspot coordinate; use center of 34x34 icon
+    return `url("${url}") 17 17, ${fallback}`;
+  }
+
   private findImageIndex(clickedSrc: string): number {
     return this.allImages.findIndex(
       (image) => image.src === clickedSrc || image.srcOriginal === clickedSrc,
@@ -353,11 +321,6 @@ export class ImageModalController {
     }
   }
 
-  /**
-   * Gets animation classes based on navigation direction
-   * @param direction - Navigation direction
-   * @returns Object containing out and in animation classes
-   */
   private getAnimationClasses(direction: NavigationDirection) {
     return {
       outClass:
@@ -369,12 +332,6 @@ export class ImageModalController {
     };
   }
 
-  /**
-   * Starts the slide-out animation sequence
-   * @param outClass - CSS class for slide-out animation
-   * @param inClass - CSS class for slide-in animation
-   * @param direction - Navigation direction
-   */
   private startSlideOutAnimation(
     outClass: string,
     inClass: string,
@@ -438,10 +395,6 @@ export class ImageModalController {
     });
   }
 
-  /**
-   * Updates the current image index with wraparound
-   * @param direction - Navigation direction
-   */
   private updateImageIndex(direction: NavigationDirection): void {
     this.currentImageIndex += direction;
 
@@ -451,10 +404,6 @@ export class ImageModalController {
       this.currentImageIndex = this.allImages.length - 1;
     }
   }
-
-  // ============================================================================
-  // Modal Visibility
-  // ============================================================================
 
   /**
    * Shows the modal and prevents body scroll
@@ -492,10 +441,6 @@ export class ImageModalController {
   private enableBodyScroll(): void {
     document.body.style.overflow = "auto";
   }
-
-  // ============================================================================
-  // Zoom Functionality
-  // ============================================================================
 
   /**
    * Resets zoom and pan to default values
@@ -537,10 +482,6 @@ export class ImageModalController {
     this.updateUIElementsVisibility();
   }
 
-  /**
-   * Checks if the image is currently zoomed in
-   * @returns true if zoomed in, false otherwise
-   */
   private isZoomedIn(): boolean {
     return this.zoomScale > ZOOM_CONFIG.MIN;
   }
@@ -610,14 +551,6 @@ export class ImageModalController {
     }
   }
 
-  // ============================================================================
-  // Pan/Drag Functionality
-  // ============================================================================
-
-  /**
-   * Calculates and returns pan bounds based on current zoom and viewport
-   * @returns Pan bounds or null if not zoomed
-   */
   private calculatePanBounds(): PanBounds | null {
     if (!this.modalImageElement || !this.isZoomedIn()) {
       return null;
@@ -652,10 +585,6 @@ export class ImageModalController {
         viewportHeight,
       );
     }
-
-    // Calculate the displayed size based on CSS constraints
-    // Image has width: 100%, height: auto on mobile, height: 80% on tablet, 90% on desktop
-    // With object-fit: contain, it maintains aspect ratio
 
     // Determine max height based on viewport
     let maxHeight: number;
@@ -748,9 +677,6 @@ export class ImageModalController {
       return;
     }
 
-    // Clamp pan values within bounds
-    // Bounds are symmetric: [-maxX, maxX] and [-maxY, maxY]
-    // This prevents dragging beyond image edges
     this.panX = Math.max(-bounds.maxX, Math.min(bounds.maxX, this.panX));
     this.panY = Math.max(-bounds.maxY, Math.min(bounds.maxY, this.panY));
 
@@ -763,17 +689,13 @@ export class ImageModalController {
     }
   }
 
-  /**
-   * Starts a drag operation for panning
-   * @param clientX - Initial X coordinate
-   * @param clientY - Initial Y coordinate
-   */
   private startDrag(clientX: number, clientY: number): void {
     if (!this.isZoomedIn()) {
       return;
     }
 
     this.dragState.isDragging = true;
+    this.dragState.hasMoved = false;
     this.dragState.startX = clientX - this.panX;
     this.dragState.startY = clientY - this.panY;
 
@@ -784,14 +706,16 @@ export class ImageModalController {
     this.updateCursor();
   }
 
-  /**
-   * Handles drag movement
-   * @param clientX - Current X coordinate
-   * @param clientY - Current Y coordinate
-   */
   private onDrag(clientX: number, clientY: number): void {
     if (!this.dragState.isDragging || !this.isZoomedIn()) {
       return;
+    }
+
+    // Mark that mouse has moved (to distinguish click from drag)
+    const deltaX = Math.abs(clientX - (this.dragState.startX + this.panX));
+    const deltaY = Math.abs(clientY - (this.dragState.startY + this.panY));
+    if (deltaX > 5 || deltaY > 5) {
+      this.dragState.hasMoved = true;
     }
 
     // Calculate new pan values
@@ -803,17 +727,21 @@ export class ImageModalController {
     this.applyTransform();
   }
 
-  /**
-   * Ends a drag operation
-   */
-  private endDrag(): void {
+  private endDrag(): boolean {
+    const wasDragging = this.dragState.isDragging;
+    const hadMoved = this.dragState.hasMoved;
+
     this.dragState.isDragging = false;
+    this.dragState.hasMoved = false;
 
     if (this.modalImageElement) {
       this.modalImageElement.classList.remove("dragging");
     }
 
     this.updateCursor();
+
+    // Return whether this was actually a drag (not just a click)
+    return wasDragging && hadMoved;
   }
 
   /**
@@ -848,17 +776,17 @@ export class ImageModalController {
     }
 
     if (this.isZoomedIn()) {
-      this.modalImageElement.style.cursor = this.dragState.isDragging
-        ? "grabbing"
-        : "grab";
+      if (this.dragState.isDragging) {
+        this.modalImageElement.style.cursor = "grabbing";
+      } else {
+        // Show zoom-out cursor when zoomed in (not dragging)
+        this.modalImageElement.style.cursor = this.cursorZoomOutValue;
+      }
     } else {
-      this.modalImageElement.style.cursor = "default";
+      // Show magnifying glass cursor when not zoomed
+      this.modalImageElement.style.cursor = this.cursorZoomInValue;
     }
   }
-
-  // ============================================================================
-  // Event Handlers
-  // ============================================================================
 
   /**
    * Sets up pan/drag event handlers for mouse and touch
@@ -871,10 +799,17 @@ export class ImageModalController {
     // Mouse drag handlers - use left mouse button click-and-drag
     this.modalImageElement.addEventListener("mousedown", (e) => {
       // Only handle left mouse button (button 0)
-      if (this.isZoomedIn() && e.button === 0) {
-        e.preventDefault(); // Prevent text selection and default behaviors
-        e.stopPropagation();
-        this.startDrag(e.clientX, e.clientY);
+      if (e.button === 0) {
+        this.mouseDownX = e.clientX;
+        this.mouseDownY = e.clientY;
+        this.isMouseDown = true;
+        this.canToggleZoomOnClick = true; // Allow zoom toggle unless mouse moves
+
+        if (this.isZoomedIn()) {
+          e.preventDefault(); // Prevent text selection and default behaviors
+          e.stopPropagation();
+          this.startDrag(e.clientX, e.clientY);
+        }
       }
     });
 
@@ -882,14 +817,34 @@ export class ImageModalController {
       if (this.dragState.isDragging) {
         e.preventDefault(); // Prevent default behavior during drag
         this.onDrag(e.clientX, e.clientY);
+      } else if (this.isMouseDown) {
+        // Track if mouse moved significantly during mousedown (to distinguish click from drag)
+        const deltaX = Math.abs(e.clientX - this.mouseDownX);
+        const deltaY = Math.abs(e.clientY - this.mouseDownY);
+        if (deltaX > 5 || deltaY > 5) {
+          // Mouse moved significantly, this is a drag, not a click
+          this.canToggleZoomOnClick = false;
+        }
       }
     });
 
     document.addEventListener("mouseup", (e) => {
       if (this.dragState.isDragging) {
         e.preventDefault(); // Prevent default behavior on release
-        this.endDrag();
+        const wasActualDrag = this.endDrag();
+        // If it was an actual drag (not just a click), don't trigger zoom toggle
+        if (wasActualDrag) {
+          this.canToggleZoomOnClick = false;
+        }
       }
+
+      // Reset flags after a delay to allow click event to fire first
+      setTimeout(() => {
+        if (!this.dragState.isDragging) {
+          this.isMouseDown = false;
+          this.canToggleZoomOnClick = false;
+        }
+      }, 100);
     });
 
     // Handle mouse leaving window while dragging (cancel drag)
@@ -897,6 +852,8 @@ export class ImageModalController {
       if (this.dragState.isDragging) {
         this.endDrag();
       }
+      this.canToggleZoomOnClick = false;
+      this.isMouseDown = false;
     });
 
     // Prevent context menu on right-click while dragging
@@ -906,35 +863,87 @@ export class ImageModalController {
       }
     });
 
-    // Touch handlers
+    // Touch handlers for one-finger scrolling/panning
     this.modalImageElement.addEventListener(
       "touchstart",
       (e) => {
-        if (this.isZoomedIn() && e.touches.length === 1) {
-          e.stopPropagation();
+        // Only handle single touch (one finger)
+        if (e.touches.length === 1) {
           const touch = e.touches[0];
-          this.startDrag(touch.clientX, touch.clientY);
+          this.touchStartX = touch.clientX;
+          this.touchStartY = touch.clientY;
+          this.touchStartTime = Date.now();
+          this.isTouchActive = true;
+          this.canToggleZoomOnClick = true;
+
+          // If zoomed in, start dragging immediately for one-finger panning
+          if (this.isZoomedIn()) {
+            e.stopPropagation();
+            this.startDrag(touch.clientX, touch.clientY);
+          }
         }
       },
       { passive: true },
     );
 
-    document.addEventListener(
+    this.modalImageElement.addEventListener(
       "touchmove",
       (e) => {
-        if (this.dragState.isDragging && e.touches.length === 1) {
-          e.preventDefault();
+        // Only handle single touch (one finger)
+        if (e.touches.length === 1 && this.isTouchActive) {
           const touch = e.touches[0];
-          this.onDrag(touch.clientX, touch.clientY);
+          const deltaX = Math.abs(touch.clientX - this.touchStartX);
+          const deltaY = Math.abs(touch.clientY - this.touchStartY);
+
+          // If moved significantly, it's a drag/pan, not a tap
+          if (deltaX > 3 || deltaY > 3) {
+            this.canToggleZoomOnClick = false;
+          }
+
+          if (this.isZoomedIn()) {
+            // One-finger panning when zoomed in
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (this.dragState.isDragging) {
+              // Continue dragging/panning
+              this.onDrag(touch.clientX, touch.clientY);
+            } else {
+              // Start dragging if not already started
+              this.startDrag(touch.clientX, touch.clientY);
+              this.onDrag(touch.clientX, touch.clientY);
+            }
+          }
         }
       },
       { passive: false },
     );
 
-    document.addEventListener("touchend", () => {
+    this.modalImageElement.addEventListener("touchend", (e) => {
+      if (this.dragState.isDragging) {
+        // End one-finger panning
+        this.endDrag();
+      } else if (this.isTouchActive && this.canToggleZoomOnClick) {
+        // Single tap - toggle zoom (works both when zoomed in and out)
+        const touchDuration = Date.now() - this.touchStartTime;
+        if (touchDuration < 300) {
+          // Quick tap (less than 300ms)
+          e.preventDefault();
+          e.stopPropagation();
+          this.toggleZoom();
+        }
+      }
+
+      this.isTouchActive = false;
+      this.canToggleZoomOnClick = false;
+    });
+
+    this.modalImageElement.addEventListener("touchcancel", () => {
       if (this.dragState.isDragging) {
         this.endDrag();
       }
+      this.isTouchActive = false;
+      this.canToggleZoomOnClick = false;
     });
 
     // Mouse wheel handler
@@ -947,10 +956,6 @@ export class ImageModalController {
     this.updateCursor();
   }
 
-  /**
-   * Handles keyboard navigation
-   * @param event - Keyboard event
-   */
   private handleKeyDown(event: KeyboardEvent): void {
     if (!this.modalElement || this.modalElement.style.display !== "block") {
       return;
@@ -1000,6 +1005,25 @@ export class ImageModalController {
       });
     }
 
+    // Click on image to toggle zoom
+    if (this.modalImageElement) {
+      this.modalImageElement.addEventListener("click", (e) => {
+        if (
+          !this.dragState.isDragging &&
+          e.target === this.modalImageElement &&
+          this.canToggleZoomOnClick
+        ) {
+          e.stopPropagation();
+          e.preventDefault();
+          this.toggleZoom();
+
+          // Reset flags after zoom toggle
+          this.isMouseDown = false;
+          this.canToggleZoomOnClick = false;
+        }
+      });
+    }
+
     // Zoom button
     const zoomButton = document.getElementById(DOM_IDS.MODAL_ZOOM);
     if (zoomButton) {
@@ -1017,19 +1041,6 @@ export class ImageModalController {
   }
 }
 
-// ============================================================================
-// Public API Export
-// ============================================================================
-
-/**
- * Initializes and returns an ImageModalController instance
- *
- * Also exposes functions globally for backward compatibility with legacy code.
- *
- * @param baseUrl - Base URL for image assets
- * @param imageData - Image data to display in the modal
- * @returns The modal controller instance
- */
 export function initializeImageModal(
   baseUrl: string,
   imageData: ImageData,
