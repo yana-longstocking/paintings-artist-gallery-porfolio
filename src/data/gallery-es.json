@@ -65,6 +65,12 @@
           "src": "photo/pic_s_/series-Freedom-impossible_det-3.jpg",
           "alt": "Colección Libertad.Imposible",
           "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-3.jpg"
+        },
+        {
+          "id": "series-freedom-impossible-det-4",
+          "src": "photo/pic_s_/series-Freedom-impossible_det-4.jpg",
+          "alt": "Colección Libertad.Imposible",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-impossible_det-4.jpg"
         }
       ]
     },
@@ -96,6 +102,12 @@
           "src": "photo/pic_s_/series-Freedom-light_det-3.jpg",
           "alt": "Colección Libertad.Luz",
           "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-3.jpg"
+        },
+        {
+          "id": "series-freedom-light-det-4",
+          "src": "photo/pic_s_/series-Freedom-light_det-4.jpg",
+          "alt": "Colección Libertad.Luz",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-light_det-4.jpg"
         }
       ]
     },
@@ -127,6 +139,12 @@
           "src": "photo/pic_s_/series-Freedom-grounded_det-3.jpg",
           "alt": "Colección Libertad.Conectada",
           "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-3.jpg"
+        },
+        {
+          "id": "series-freedom-grounded-det-4",
+          "src": "photo/pic_s_/series-Freedom-grounded_det-4.jpg",
+          "alt": "Colección Libertad.Conectada",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-grounded_det-4.jpg"
         }
       ]
     },
@@ -158,6 +176,12 @@
           "src": "photo/pic_s_/series-Freedom-freefall_det-3.jpg",
           "alt": "Colección Libertad.Caída Libre",
           "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-3.jpg"
+        },
+        {
+          "id": "series-freedom-freefall-det-4",
+          "src": "photo/pic_s_/series-Freedom-freefall_det-4.jpg",
+          "alt": "Colección Libertad.Caída Libre",
+          "srcOriginal": "photo/pic_s_original/series-Freedom-freefall_det-4.jpg"
         }
       ]
     }
@@ -165,7 +189,7 @@
   "allPaintingCollection": [
     {
       "id": "sunkissed-deconstructed",
-      "src": "photo/art/sunkissed- deconstructed.jpg",
+      "src": "photo/art/sunkissed-deconstructed.jpg",
       "srcOriginal": "photo/art_original/sunkissed-deconstructed.jpg",
       "alt": "Bañado por el sol deconstruido",
       "description": "Bañado por el sol deconstruido",
@@ -191,6 +215,12 @@
           "src": "photo/art/sunkissed-deconstructed_det-3.jpg",
           "alt": "Bañado por el sol deconstruido",
           "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-3.jpg"
+        },
+        {
+          "id": "sunkissed-deconstructed-det-4",
+          "src": "photo/art/sunkissed-deconstructed_det-4.jpg",
+          "alt": "Bañado por el sol deconstruido",
+          "srcOriginal": "photo/art_original/sunkissed-deconstructed_det-4.jpg"
         }
       ]
     },
@@ -222,6 +252,12 @@
           "src": "photo/art/Madrid-mermaid_det-3.jpg",
           "alt": "Sirena de Madrid",
           "srcOriginal": "photo/art_original/Madrid-mermaid_det-3.jpg"
+        },
+        {
+          "id": "madrid-mermaid-det-4",
+          "src": "photo/art/Madrid-mermaid_det-4.jpg",
+          "alt": "Sirena de Madrid",
+          "srcOriginal": "photo/art_original/Madrid-mermaid_det-4.jpg"
         }
       ]
     },
@@ -253,6 +289,12 @@
           "src": "photo/art/twilly_det-3.jpg",
           "alt": "Twilly",
           "srcOriginal": "photo/art_original/twilly_det-3.jpg"
+        },
+        {
+          "id": "twilly-det-4",
+          "src": "photo/art/twilly_det-4.jpg",
+          "alt": "Twilly",
+          "srcOriginal": "photo/art_original/twilly_det-4.jpg"
         }
       ]
     },
@@ -284,6 +326,12 @@
           "src": "photo/art/midnight_det-3.jpg",
           "alt": "Medianoche",
           "srcOriginal": "photo/art_original/midnight_det-3.jpg"
+        },
+        {
+          "id": "midnight-det-4",
+          "src": "photo/art/midnight_det-4.jpg",
+          "alt": "Medianoche",
+          "srcOriginal": "photo/art_original/midnight_det-4.jpg"
         }
       ]
     },
@@ -315,6 +363,12 @@
           "src": "photo/art/power-pose_det-3.jpg",
           "alt": "Pose de poder",
           "srcOriginal": "photo/art_original/power-pose_det-3.jpg"
+        },
+        {
+          "id": "power-pose-det-4",
+          "src": "photo/art/power-pose_det-4.jpg",
+          "alt": "Pose de poder",
+          "srcOriginal": "photo/art_original/power-pose_det-4.jpg"
         }
       ]
     },
@@ -346,6 +400,12 @@
           "src": "photo/art/beach-spirit_det-3.jpg",
           "alt": "Espíritu de playa",
           "srcOriginal": "photo/art_original/beach-spirit_det-3.jpg"
+        },
+        {
+          "id": "beach-spirit-det-4",
+          "src": "photo/art/beach-spirit_det-4.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-4.jpg"
         }
       ]
     }
@@ -379,6 +439,12 @@
           "src": "photo/art/dancer_det-3.jpg",
           "alt": "Bailarina",
           "srcOriginal": "photo/art_original/dancer_det-3.jpg"
+        },
+        {
+          "id": "dancer-det-4",
+          "src": "photo/art/dancer_det-4.jpg",
+          "alt": "Bailarina",
+          "srcOriginal": "photo/art_original/dancer_det-4.jpg"
         }
       ]
     },
@@ -410,6 +476,12 @@
           "src": "photo/art/blue-haze_det-3.jpg",
           "alt": "Niebla azul",
           "srcOriginal": "photo/art_original/blue-haze_det-3.jpg"
+        },
+        {
+          "id": "blue-haze-det-4",
+          "src": "photo/art/blue-haze_det-4.jpg",
+          "alt": "Niebla azul",
+          "srcOriginal": "photo/art_original/blue-haze_det-4.jpg"
         }
       ]
     },
@@ -441,6 +513,12 @@
           "src": "photo/art/myst_det-3.jpg",
           "alt": "Myst",
           "srcOriginal": "photo/art_original/myst_det-3.jpg"
+        },
+        {
+          "id": "myst-det-4",
+          "src": "photo/art/myst_det-4.jpg",
+          "alt": "Myst",
+          "srcOriginal": "photo/art_original/myst_det-4.jpg"
         }
       ]
     },
@@ -472,6 +550,12 @@
           "src": "photo/art/sunkissed_det-3.jpg",
           "alt": "Bañado por el sol",
           "srcOriginal": "photo/art_original/sunkissed_det-3.jpg"
+        },
+        {
+          "id": "sunkissed-det-4",
+          "src": "photo/art/sunkissed_det-4.jpg",
+          "alt": "Bañado por el sol",
+          "srcOriginal": "photo/art_original/sunkissed_det-4.jpg"
         }
       ]
     },
@@ -502,6 +586,12 @@
           "id": "intimessy-det-3",
           "src": "photo/art/intiMessy_det-3.jpg",
           "srcOriginal": "photo/art_original/intiMessy_det-3.jpg",
+          "alt": "intiMessy"
+        },
+        {
+          "id": "intimessy-det-4",
+          "src": "photo/art/intiMessy_det-4.jpg",
+          "srcOriginal": "photo/art_original/intiMessy_det-4.jpg",
           "alt": "intiMessy"
         }
       ]
@@ -536,6 +626,12 @@
           "src": "photo/art/sisterhood_det-3.jpg",
           "srcOriginal": "photo/art/sisterhood_det-3.jpg",
           "alt": "Hermandad"
+        },
+        {
+          "id": "sisterhood-detail-4",
+          "src": "photo/art/sisterhood_det-4.jpg",
+          "srcOriginal": "photo/art/sisterhood_det-4.jpg",
+          "alt": "Hermandad"
         }
       ]
     },
@@ -568,6 +664,12 @@
             "src": "photo/art/prisme-light_det-3.jpg",
             "srcOriginal": "photo/art_original/prisme-light_det-3.jpg",
             "alt": "Luz prisma"
+          },
+          {
+            "id": "prisme-light-detail-4",
+            "src": "photo/art/prisme-light_det-4.jpg",
+            "srcOriginal": "photo/art_original/prisme-light_det-4.jpg",
+            "alt": "Luz prisma"
           }
         ]
       },
@@ -598,6 +700,12 @@
             "id": "shevchenkos-kateryna-detail-3",
             "src": "photo/art/SHevchenkos-Kateryna_det-3.jpg",
             "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-3.jpg",
+            "alt": "Kateryna de Shevchenko"
+          },
+          {
+            "id": "shevchenkos-kateryna-detail-4",
+            "src": "photo/art/SHevchenkos-Kateryna_det-4.jpg",
+            "srcOriginal": "photo/art_original/SHevchenkos-Kateryna_det-4.jpg",
             "alt": "Kateryna de Shevchenko"
           }
         ]
@@ -642,6 +750,12 @@
             "src": "photo/art/pretty-girls-do-cry_1_det-3.jpg",
             "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-3.jpg",
             "alt": "Las chicas bonitas sí lloran"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-4",
+            "src": "photo/art/pretty-girls-do-cry_1_det-4.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_1_det-4.jpg",
+            "alt": "Las chicas bonitas sí lloran"
           }
         ]
       },
@@ -673,6 +787,12 @@
             "src": "photo/art/pretty-girls-do-cry_2_det-3.jpg",
             "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-3.jpg",
             "alt": "Las chicas bonitas sí lloran"
+          },
+          {
+            "id": "pretty-girls-do-cry-1_detail-4",
+            "src": "photo/art/pretty-girls-do-cry_2_det-4.jpg",
+            "srcOriginal": "photo/art_original/pretty-girls-do-cry_2_det-4.jpg",
+            "alt": "Las chicas bonitas sí lloran"
           }
         ]
       },
@@ -703,6 +823,12 @@
             "id": "portrait-detail-3",
             "src": "photo/art/portrait_det-3.jpg",
             "srcOriginal": "photo/art_original/portrait_det-3.jpg",
+            "alt": "Retrato"
+          },
+          {
+            "id": "portrait-detail-4",
+            "src": "photo/art/portrait_det-4.jpg",
+            "srcOriginal": "photo/art_original/portrait_det-4.jpg",
             "alt": "Retrato"
           }
         ]
