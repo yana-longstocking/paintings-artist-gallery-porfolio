@@ -158,4 +158,19 @@
     color: variables.$main-color;
     text-align: center;
   }
+
+  &__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+
+  &__success-message {
+    font-family: "Cinzel", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: variables.$main-color;
+    margin: 0;
+  }
 }

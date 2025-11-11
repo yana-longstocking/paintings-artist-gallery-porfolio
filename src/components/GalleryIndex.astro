@@ -15,6 +15,10 @@ interface Props {
     footerFormEmailPlaceholder: string;
     footerFormMessagePlaceholder: string;
     footerFormButtonText: string;
+    footerFormSendingText: string;
+    footerFormSuccessMessage: string;
+    footerFormErrorMessage: string;
+    footerFormErrorGeneric: string;
     footerContactTitle: string;
     footerContactLabelEmail: string;
     footerContactLabelAddress: string;
@@ -192,8 +196,12 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
     <div class="footer__content">
       <div class="footer__form-section">
         <h2 class="footer__title">{translations.footerTitle}</h2>
-        <form class="footer__form" action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="c37ecac4-9d49-4890-ae08-b2a7ed2da3a6">
+        <form
+          id="form"
+          class="footer__form"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+        >
           <input
             class="footer__input"
             type="text"
@@ -218,10 +226,15 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
             placeholder={translations.footerFormMessagePlaceholder}
             required></textarea>
 
-          <button class="footer__button"
+          <button type="submit" class="footer__button"
             >{translations.footerFormButtonText}</button
           >
         </form>
+        <div id="form-success" class="footer__success" style="display: none;">
+          <p class="footer__success-message">
+            {translations.footerFormSuccessMessage}
+          </p>
+        </div>
       </div>
 
       <div class="footer__contact-section">
@@ -289,3 +302,60 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
     </div>
   </div>
 </footer>
+
+<script
+  define:vars={{
+    sendingText: translations.footerFormSendingText,
+    errorMessage: translations.footerFormErrorMessage,
+    errorGeneric: translations.footerFormErrorGeneric,
+  }}
+  is:inline
+>
+  function initForm() {
+    const form = document.getElementById("form");
+    const successMessage = document.getElementById("form-success");
+
+    if (form && successMessage) {
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        formData.append("access_key", "c37ecac4-9d49-4890-ae08-b2a7ed2da3a6");
+
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = sendingText;
+        submitBtn.disabled = true;
+
+        try {
+          const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData,
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            form.style.display = "none";
+            successMessage.style.display = "block";
+          } else {
+            alert(errorMessage + ": " + data.message);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          }
+        } catch (error) {
+          alert(errorGeneric);
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initForm);
+  } else {
+    initForm();
+  }
+</script>
