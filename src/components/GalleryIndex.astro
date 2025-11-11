@@ -192,7 +192,8 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
     <div class="footer__content">
       <div class="footer__form-section">
         <h2 class="footer__title">{translations.footerTitle}</h2>
-        <form class="footer__form" onsubmit="this.reset(); return false;">
+        <form class="footer__form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="c37ecac4-9d49-4890-ae08-b2a7ed2da3a6">
           <input
             class="footer__input"
             type="text"
@@ -213,7 +214,7 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
           <textarea
             id="message"
             class="footer__message"
-            name="comments"
+            name="message"
             placeholder={translations.footerFormMessagePlaceholder}
             required></textarea>
 
