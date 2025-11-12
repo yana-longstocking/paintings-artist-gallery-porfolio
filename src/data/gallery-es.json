@@ -711,16 +711,41 @@
         ]
       },
       {
-        "id": "lake",
-        "src": "photo/art/lake.jpg",
-        "srcOriginal": "photo/art_original/lake.jpg",
-        "alt": "Lago",
+        "id": "viento",
+        "src": "photo/art/wind.jpg",
+        "srcOriginal": "photo/art_original/wind.jpg",
+        "alt": "Viento",
         "description": "",
-        "medium": "medio: lápices sobre papel",
+        "medium": "medio: lápiz sobre papel",
         "size": "tamaño: 297x420",
-        "price": "600€",
+        "price": "300€",
         "featured": true,
-        "additionalPhotos": []
+        "additionalPhotos": [
+          {
+            "id": "wind-detail-1",
+            "src": "photo/art/wind_det-1.jpg",
+            "srcOriginal": "photo/art_original/wind_det-1.jpg",
+            "alt": "Viento"
+          },
+          {
+            "id": "wind-detail-2",
+            "src": "photo/art/wind_det-2.jpg",
+            "srcOriginal": "photo/art_original/wind_det-2.jpg",
+            "alt": "Viento"
+          },
+          {
+            "id": "wind-detail-3",
+            "src": "photo/art/wind_det-3.jpg",
+            "srcOriginal": "photo/art_original/wind_det-3.jpg",
+            "alt": "Viento"
+          },
+          {
+            "id": "wind-detail-4",
+            "src": "photo/art/wind_det-4.jpg",
+            "srcOriginal": "photo/art_original/wind_det-4.jpg",
+            "alt": "Viento"
+          }
+        ]
       },
       {
         "id": "pretty-girls-do-cry-1",

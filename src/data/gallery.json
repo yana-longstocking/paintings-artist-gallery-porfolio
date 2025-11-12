@@ -711,16 +711,41 @@
         ]
       },
       {
-        "id": "lake",
-        "src": "photo/art/lake.jpg",
-        "srcOriginal": "photo/art_original/lake.jpg",
-        "alt": "Lake",
+        "id": "wind",
+        "src": "photo/art/wind.jpg",
+        "srcOriginal": "photo/art_original/wind.jpg",
+        "alt": "Wind",
         "description": "",
-        "medium": "medium: pencils on paper",
+        "medium": "medium: pencil on paper",
         "size": "size: 297x420",
-        "price": "600€",
+        "price": "300€",
         "featured": true,
-        "additionalPhotos": []
+        "additionalPhotos": [
+          {
+            "id": "wind-detail-1",
+            "src": "photo/art/wind_det-1.jpg",
+            "srcOriginal": "photo/art_original/wind_det-1.jpg",
+            "alt": "Wind"
+          },
+          {
+            "id": "wind-detail-2",
+            "src": "photo/art/wind_det-2.jpg",
+            "srcOriginal": "photo/art_original/wind_det-2.jpg",
+            "alt": "Wind"
+          },
+          {
+            "id": "wind-detail-3",
+            "src": "photo/art/wind_det-3.jpg",
+            "srcOriginal": "photo/art_original/wind_det-3.jpg",
+            "alt": "Wind"
+          },
+          {
+            "id": "wind-detail-4",
+            "src": "photo/art/wind_det-4.jpg",
+            "srcOriginal": "photo/art_original/wind_det-4.jpg",
+            "alt": "Wind"
+          }
+        ]
       },
       {
         "id": "pretty-girls-do-cry-1",
