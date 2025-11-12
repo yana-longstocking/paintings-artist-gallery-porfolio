@@ -180,6 +180,9 @@ export class ImageModalController {
       "zoom-out",
     );
 
+    // Preload cursor icons to prevent delay when applying cursor styles
+    this.preloadCursorIcons();
+
     this.initializeElements();
     this.attachEventListeners();
   }
@@ -294,6 +297,18 @@ export class ImageModalController {
     const url = this.buildImageUrl(path);
     // SVG cursors require an explicit hotspot coordinate; use center of 34x34 icon
     return `url("${url}") 17 17, ${fallback}`;
+  }
+
+  /**
+   * Preloads cursor icons to prevent delay when applying cursor styles
+   */
+  private preloadCursorIcons(): void {
+    const iconsToPreload = [ZOOM_ICONS.SQUARE_IN, ZOOM_ICONS.SQUARE_OUT];
+
+    iconsToPreload.forEach((iconPath) => {
+      const img = new Image();
+      img.src = this.buildImageUrl(iconPath);
+    });
   }
 
   private findImageIndex(clickedSrc: string): number {
