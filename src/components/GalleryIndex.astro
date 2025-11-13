@@ -64,10 +64,10 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
               class={`photo-gallery__item ${item.featured ? "photo-gallery__item--featured" : ""}`}
             >
               <a
-                href={`${artworkLinkPrefix}artwork/${item.id}`}
+                href={`/${artworkLinkPrefix}artwork/${item.id}`}
               >
                 <img
-                  src={`${item.src}`}
+                  src={`/${item.src}`}
                   alt={item.alt}
                   class="photo-gallery__image"
                 />
@@ -93,10 +93,10 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
           data.allPaintingCollection.map((item: any) => (
             <div class="photo-art__item">
               <a
-                href={`${artworkLinkPrefix}artwork/${item.id}`}
+                href={`/${artworkLinkPrefix}artwork/${item.id}`}
               >
                 <img
-                  src={`${item.src}`}
+                  src={`/${item.src}`}
                   alt={item.alt}
                   class="photo-art__image"
                 />
@@ -119,10 +119,10 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
               class={`art__item ${item.featured ? "art__item--featured" : ""}`}
             >
               <a
-                href={`${artworkLinkPrefix}artwork/${item.id}`}
+                href={`/${artworkLinkPrefix}artwork/${item.id}`}
               >
                 <img
-                  src={`${item.src}`}
+                  src={`/${item.src}`}
                   alt={item.alt}
                   class="art__image"
                 />
@@ -140,10 +140,10 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
     <section class="gallery-content">
       <div class="gallery-content__featured">
         <a
-          href={`${artworkLinkPrefix}artwork/${data.galleryContent.featured.id}`}
+          href={`/${artworkLinkPrefix}artwork/${data.galleryContent.featured.id}`}
         >
           <img
-            src={`${data.galleryContent.featured.src}`}
+            src={`/${data.galleryContent.featured.src}`}
             alt={data.galleryContent.featured.alt}
             class="gallery-content__featured-image"
           />
@@ -154,10 +154,10 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
           data.galleryContent.items.map((item: any) => (
             <div class="gallery-content__item">
               <a
-                href={`${artworkLinkPrefix}artwork/${item.id}`}
+                href={`/${artworkLinkPrefix}artwork/${item.id}`}
               >
                 <img
-                  src={`${item.src}`}
+                  src={`/${item.src}`}
                   alt={item.alt}
                   class="gallery-content__image"
                 />
@@ -178,7 +178,7 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
     <div class="artist-bio__wrapper">
       <div class="artist-bio__image">
         <img
-          src={`${data.artistBio.src}`}
+          src={`/${data.artistBio.src}`}
           alt={data.artistBio.alt}
           class="artist-bio__image-img"
         />
