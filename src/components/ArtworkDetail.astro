@@ -28,6 +28,9 @@ const { image, translations, galleryLink } = Astro.props;
           class="artwork-detail__image"
           data-src-original={`${import.meta.env.BASE_URL}${(image as any).srcOriginal || image.src}`}
           onclick="openModal(this)"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
       </div>
 
@@ -57,6 +60,8 @@ const { image, translations, galleryLink } = Astro.props;
                       class="artwork-detail__gallery-image"
                       data-src-original={`${import.meta.env.BASE_URL}${photo.src}`}
                       onclick="openModal(this)"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}

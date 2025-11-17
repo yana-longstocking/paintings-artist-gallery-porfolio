@@ -68,6 +68,8 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
                   src={`/${item.src}`}
                   alt={item.alt}
                   class="photo-gallery__image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </a>
             </div>
@@ -95,6 +97,8 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
                   src={`/${item.src}`}
                   alt={item.alt}
                   class="photo-art__image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </a>
             </div>
@@ -115,7 +119,13 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
               class={`art__item ${item.featured ? "art__item--featured" : ""}`}
             >
               <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
-                <img src={`/${item.src}`} alt={item.alt} class="art__image" />
+                <img
+                  src={`/${item.src}`}
+                  alt={item.alt}
+                  class="art__image"
+                  loading="lazy"
+                  decoding="async"
+                />
               </a>
             </div>
           ))
@@ -136,6 +146,9 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
             src={`/${data.galleryContent.featured.src}`}
             alt={data.galleryContent.featured.alt}
             class="gallery-content__featured-image"
+            loading="lazy"
+            decoding="async"
+            fetchpriority="high"
           />
         </a>
       </div>
@@ -148,6 +161,8 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
                   src={`/${item.src}`}
                   alt={item.alt}
                   class="gallery-content__image"
+                  loading="lazy"
+                  decoding="async"
                 />
               </a>
             </div>
@@ -169,6 +184,8 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
           src={`/${data.artistBio.src}`}
           alt={data.artistBio.alt}
           class="artist-bio__image-img"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
