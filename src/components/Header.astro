@@ -1,8 +1,14 @@
+---
+const pathname = Astro.url.pathname;
+const isSpanish = pathname.startsWith("/es");
+const homeHref = isSpanish ? "/es/" : "/";
+---
+
 <header class="header">
   <div class="container">
     <nav class="header__nav">
       <div class="header__logo">
-        <a href="/" class="header__logo-link">
+        <a href={homeHref} class="header__logo-link">
           <img
             src="/icons/logo.svg"
             alt="portfolio"
@@ -23,13 +29,19 @@
           </div>
           <ul class="header__menu-list">
             <li>
-              <a href="#gallery" class="header__menu-link">Gallery</a>
+              <a href={`${homeHref}#gallery`} class="header__menu-link"
+                >Gallery</a
+              >
             </li>
             <li>
-              <a href="#artist-bio" class="header__menu-link">Artist Bio</a>
+              <a href={`${homeHref}#artist-bio`} class="header__menu-link"
+                >Artist Bio</a
+              >
             </li>
             <li>
-              <a href="#contact-us" class="header__menu-link">Contact us</a>
+              <a href={`${homeHref}#contact-us`} class="header__menu-link"
+                >Contact us</a
+              >
             </li>
 
             <li class="header__close">
