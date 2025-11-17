@@ -36,7 +36,7 @@ const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     pathPrefix: "/es",
     menuTranslations: {
       gallery: "Galería",
-      artistBio: "Biografía del Artista",
+      artistBio: "Biografía de la Artista",
       contactUs: "Contáctanos",
     },
   },
