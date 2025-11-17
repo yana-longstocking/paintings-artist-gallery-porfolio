@@ -135,6 +135,7 @@ export class ImageModalController {
   private currentImageIndex: number = 0;
   private allImages: CarouselImage[] = [];
   private isAnimating: boolean = false;
+  private readonly imagePreloadCache: Set<string> = new Set();
 
   // Zoom state
   private zoomScale: number = ZOOM_CONFIG.DEFAULT;
@@ -193,6 +194,7 @@ export class ImageModalController {
     }
 
     this.collectAllImages();
+    this.preloadCarouselImages();
 
     if (this.allImages.length === 0) {
       return;
@@ -334,6 +336,30 @@ export class ImageModalController {
     if (this.modalCaptionElement) {
       this.modalCaptionElement.textContent = currentImage.alt;
     }
+  }
+
+  /**
+   * Preloads all images in the current carousel to ensure instant swaps
+   */
+  private preloadCarouselImages(): void {
+    if (!this.allImages.length) {
+      return;
+    }
+
+    this.allImages.forEach((image) => {
+      this.preloadImageAsset(image.srcOriginal);
+    });
+  }
+
+  private preloadImageAsset(src: string): void {
+    if (!src || this.imagePreloadCache.has(src)) {
+      return;
+    }
+
+    const img = new Image();
+    img.decoding = "async";
+    img.src = src;
+    this.imagePreloadCache.add(src);
   }
 
   private getAnimationClasses(direction: NavigationDirection) {
