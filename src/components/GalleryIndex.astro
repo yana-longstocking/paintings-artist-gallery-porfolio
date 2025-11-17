@@ -63,9 +63,7 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
             <div
               class={`photo-gallery__item ${item.featured ? "photo-gallery__item--featured" : ""}`}
             >
-              <a
-                href={`/${artworkLinkPrefix}artwork/${item.id}`}
-              >
+              <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
                 <img
                   src={`/${item.src}`}
                   alt={item.alt}
@@ -92,9 +90,7 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
         {
           data.allPaintingCollection.map((item: any) => (
             <div class="photo-art__item">
-              <a
-                href={`/${artworkLinkPrefix}artwork/${item.id}`}
-              >
+              <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
                 <img
                   src={`/${item.src}`}
                   alt={item.alt}
@@ -118,14 +114,8 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
             <div
               class={`art__item ${item.featured ? "art__item--featured" : ""}`}
             >
-              <a
-                href={`/${artworkLinkPrefix}artwork/${item.id}`}
-              >
-                <img
-                  src={`/${item.src}`}
-                  alt={item.alt}
-                  class="art__image"
-                />
+              <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
+                <img src={`/${item.src}`} alt={item.alt} class="art__image" />
               </a>
             </div>
           ))
@@ -153,9 +143,7 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
         {
           data.galleryContent.items.map((item: any) => (
             <div class="gallery-content__item">
-              <a
-                href={`/${artworkLinkPrefix}artwork/${item.id}`}
-              >
+              <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
                 <img
                   src={`/${item.src}`}
                   alt={item.alt}
