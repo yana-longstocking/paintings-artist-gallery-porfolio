@@ -34,6 +34,14 @@ const PAN_CONFIG = {
 } as const;
 
 /**
+ * Swipe detection configuration
+ */
+const SWIPE_CONFIG = {
+  MIN_DISTANCE: 50,
+  MAX_DURATION: 500,
+} as const;
+
+/**
  * DOM element IDs used in the modal
  */
 const DOM_IDS = {
@@ -161,6 +169,8 @@ export class ImageModalController {
   private touchStartX: number = 0;
   private touchStartY: number = 0;
   private touchStartTime: number = 0;
+  private touchLastX: number = 0;
+  private touchLastY: number = 0;
   private isTouchActive: boolean = false;
 
   // DOM element references
@@ -925,6 +935,8 @@ export class ImageModalController {
           this.touchStartX = touch.clientX;
           this.touchStartY = touch.clientY;
           this.touchStartTime = Date.now();
+          this.touchLastX = touch.clientX;
+          this.touchLastY = touch.clientY;
           this.isTouchActive = true;
           this.canToggleZoomOnClick = true;
 
@@ -944,6 +956,8 @@ export class ImageModalController {
         // Only handle single touch (one finger)
         if (e.touches.length === 1 && this.isTouchActive) {
           const touch = e.touches[0];
+          this.touchLastX = touch.clientX;
+          this.touchLastY = touch.clientY;
           const deltaX = Math.abs(touch.clientX - this.touchStartX);
           const deltaY = Math.abs(touch.clientY - this.touchStartY);
 
@@ -975,11 +989,17 @@ export class ImageModalController {
       if (this.dragState.isDragging) {
         // End one-finger panning
         this.endDrag();
-      } else if (this.isTouchActive && this.canToggleZoomOnClick) {
-        // Single tap - toggle zoom (works both when zoomed in and out)
+      } else if (this.isTouchActive) {
         const touchDuration = Date.now() - this.touchStartTime;
-        if (touchDuration < 300) {
-          // Quick tap (less than 300ms)
+        const touch = e.changedTouches[0];
+        const endX = touch?.clientX ?? this.touchLastX ?? this.touchStartX;
+        const endY = touch?.clientY ?? this.touchLastY ?? this.touchStartY;
+        const handledSwipe = this.handleSwipeGesture(endX, endY, touchDuration);
+        if (handledSwipe) {
+          e.preventDefault();
+          e.stopPropagation();
+        } else if (this.canToggleZoomOnClick && touchDuration < 300) {
+          // Quick tap (less than 300ms) toggles zoom
           e.preventDefault();
           e.stopPropagation();
           this.toggleZoom();
@@ -1006,6 +1026,35 @@ export class ImageModalController {
     }
 
     this.updateCursor();
+  }
+
+  /**
+   * Detects horizontal swipe gestures to change images on touch devices
+   */
+  private handleSwipeGesture(
+    endX: number,
+    endY: number,
+    duration: number,
+  ): boolean {
+    if (this.isZoomedIn()) {
+      return false;
+    }
+
+    const deltaX = endX - this.touchStartX;
+    const deltaY = endY - this.touchStartY;
+
+    if (
+      Math.abs(deltaX) < SWIPE_CONFIG.MIN_DISTANCE ||
+      Math.abs(deltaX) <= Math.abs(deltaY) ||
+      duration > SWIPE_CONFIG.MAX_DURATION
+    ) {
+      return false;
+    }
+
+    const direction: NavigationDirection = deltaX < 0 ? 1 : -1;
+    this.changeImage(direction);
+    this.canToggleZoomOnClick = false;
+    return true;
   }
 
   private handleKeyDown(event: KeyboardEvent): void {
