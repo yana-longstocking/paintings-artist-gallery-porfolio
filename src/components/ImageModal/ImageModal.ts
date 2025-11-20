@@ -66,6 +66,7 @@ const ZOOM_ICONS = {
   SQUARE_OUT: "icons/zoom-out-square.svg",
 } as const;
 
+const TABLET_MIN_WIDTH = 744;
 /**
  * Represents an image in the carousel
  */
@@ -568,6 +569,8 @@ export class ImageModalController {
   private updateUIElementsVisibility(): void {
     const isZoomed = this.isZoomedIn();
     const displayValue = isZoomed ? "none" : "block";
+    const arrowDisplay =
+      !isZoomed || this.shouldKeepArrowsVisible() ? "block" : displayValue;
 
     // Hide/show caption
     if (this.modalCaptionElement) {
@@ -576,10 +579,10 @@ export class ImageModalController {
 
     // Hide/show arrows
     if (this.modalArrowLeftElement) {
-      this.modalArrowLeftElement.style.display = displayValue;
+      this.modalArrowLeftElement.style.display = arrowDisplay;
     }
     if (this.modalArrowRightElement) {
-      this.modalArrowRightElement.style.display = displayValue;
+      this.modalArrowRightElement.style.display = arrowDisplay;
     }
 
     // Hide/show black stripe by toggling CSS class
@@ -590,6 +593,14 @@ export class ImageModalController {
         this.modalElement.classList.remove("modal--zoomed");
       }
     }
+  }
+
+  private shouldKeepArrowsVisible(): boolean {
+    if (typeof window === "undefined" || !window.matchMedia) {
+      return false;
+    }
+
+    return window.matchMedia(`(min-width: ${TABLET_MIN_WIDTH}px)`).matches;
   }
 
   private calculatePanBounds(): PanBounds | null {
