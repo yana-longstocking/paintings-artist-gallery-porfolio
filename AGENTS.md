@@ -128,14 +128,21 @@ Breakpoint values are defined once in `src/styles/blocks/variables.scss`. Do not
 
 The project is **mobile-first**: styles apply to the smallest viewport by default, then **progressively enhance** at larger breakpoints.
 
-| Rule                 | Do                                                                                                                |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Default block styles | Target the smallest layout (phones). No `min-width` wrapper needed.                                               |
-| Larger layouts       | Add rules inside `@include mixin.on-tablet`, `on-desktop`, or `on-large-desktop`.                                 |
-| Spacing & typography | Use fixed values or tokens from `variables.scss` at each breakpoint. Do **not** use `clamp()` for layout spacing. |
-| Design tokens        | Put repeated spacing, gaps, and padding in `variables.scss` (e.g. `$gallery-grid-gap-tablet`).                    |
+| Rule                 | Do                                                                                                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Default block styles | Target the smallest layout (phones). No `min-width` wrapper needed.                                                             |
+| Larger layouts       | Add rules inside `@include mixin.on-tablet`, `on-desktop`, or `on-large-desktop`.                                               |
+| Spacing & typography | Use fixed values or tokens from `variables.scss` at each breakpoint. Do **not** use `clamp()` for layout spacing.               |
+| Design tokens        | Put repeated spacing, gaps, and padding in `variables.scss` — only when the same value appears **3 or more times** (see below). |
 
 **Do not use `max-width` media queries for layout breakpoints** (e.g. `@media (max-width: 743px)`). If something should only apply below tablet, make it the **default** and override it from `on-tablet` upward.
+
+#### Design token threshold (required)
+
+Add a spacing, gap, or padding token to `variables.scss` only when the same value appears **3 or more times** across the codebase (count literal values and `clamp()` expressions that resolve to the same responsive intent). A mobile/tablet/desktop token set counts as one extracted pattern.
+
+- **3+ uses** → add tokens (e.g. `$gallery-grid-gap-mobile`, `$gallery-grid-gap-tablet`, `$gallery-grid-gap-desktop`).
+- **1–2 uses** → keep the value inline in the block SCSS file; do not create a token.
 
 **Allowed raw `@media` queries** (not layout breakpoints):
 
@@ -233,7 +240,7 @@ Other shared mixins in `mixin.scss` (use when relevant):
   }
   ```
 
-- Design tokens (colors, durations, breakpoints) belong in `variables.scss`. Reuse them instead of duplicating values.
+- Design tokens (colors, durations, breakpoints) belong in `variables.scss`. Reuse them instead of duplicating values. For spacing/gaps/padding, follow the **3+ uses** rule above — do not tokenize one-off values.
 - Component-specific styles that don't map to a global block may live next to the component (e.g. `ImageModal/ImageModal.scss`), but must still follow BEM and mixin rules.
 
 ### 4. Astro & TypeScript
@@ -255,7 +262,7 @@ Before submitting changes, verify:
 
 - [ ] New/changed CSS classes follow BEM (`block__element`, `block__element--modifier`)
 - [ ] Responsive styles use mobile-first `@include mixin.on-*` — no `max-width` layout queries, no raw breakpoint `@media`
-- [ ] Layout spacing uses `variables.scss` tokens — no `clamp()` for responsive spacing
+- [ ] Layout spacing uses `variables.scss` tokens — no `clamp()` for responsive spacing; new spacing tokens only for values used 3+ times
 - [ ] Colors, spacing tokens, and breakpoints come from `variables.scss` / `mixin.scss` / `constants/breakpoints.ts`
 - [ ] New block styles are added to `global.scss` via `@use`
 - [ ] EN and ES routes/data stay in sync when pages or content change

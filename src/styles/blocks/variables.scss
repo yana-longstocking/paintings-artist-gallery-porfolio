@@ -23,3 +23,17 @@ $accent-line-gradient: linear-gradient(
 );
 $color-input: #7e7e83;
 $modal-animation-padding: 24px;
+
+// Repeated spacing (3+ uses); replace matching clamp() in later phases
+$gallery-grid-gap-mobile: 14px;
+$gallery-grid-gap-tablet: 18px;
+$gallery-grid-gap-desktop: 24px;
+$gallery-section-padding-bottom-mobile: 72px;
+$gallery-section-padding-bottom-tablet: 88px;
+$gallery-section-padding-bottom-desktop: 110px;
+$gallery-footer-padding-mobile: 20px;
+$gallery-footer-padding-tablet: 24px;
+$gallery-footer-padding-desktop: 28px;
+$gallery-footer-heading-font-size-mobile: 22px;
+$gallery-footer-heading-font-size-tablet: 25px;
+$gallery-footer-heading-font-size-desktop: 28px;
