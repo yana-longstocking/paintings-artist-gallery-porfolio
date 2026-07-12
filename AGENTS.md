@@ -8,13 +8,13 @@ Static artist portfolio and gallery site for Iryna Romanska. The site showcases 
 
 ## Tech stack
 
-| Layer | Technology |
-| --- | --- |
-| Framework | [Astro](https://astro.build/) 5.x (static site generation) |
-| Language | TypeScript (client scripts only), Astro components (`.astro`) |
-| Styles | SCSS/Sass with BEM methodology |
-| Formatting | Prettier + `prettier-plugin-astro` |
-| Runtime | Node.js 22 (`see .nvmrc`) |
+| Layer      | Technology                                                     |
+| ---------- | -------------------------------------------------------------- |
+| Framework  | [Astro](https://astro.build/) 5.x (static site generation)     |
+| Language   | TypeScript (client scripts only), Astro components (`.astro`)  |
+| Styles     | SCSS/Sass with BEM methodology                                 |
+| Formatting | Prettier + `prettier-plugin-astro`                             |
+| Runtime    | Node.js 22 (`see .nvmrc`)                                      |
 | Deployment | Static build (`dist/`) — site URL: `https://irynaromanska.com` |
 
 ### Key dependencies
@@ -66,10 +66,10 @@ public/                # Static assets (images, icons, favicon)
 
 All CSS class names must follow [BEM](https://getbem.com/):
 
-| Pattern | Example |
-| --- | --- |
-| Block | `.header`, `.gallery-page`, `.artist-bio` |
-| Element | `.header__nav`, `.header__logo-link` |
+| Pattern  | Example                                             |
+| -------- | --------------------------------------------------- |
+| Block    | `.header`, `.gallery-page`, `.artist-bio`           |
+| Element  | `.header__nav`, `.header__logo-link`                |
 | Modifier | `.header__action--lang`, `.container__line--static` |
 
 Rules:
@@ -113,25 +113,83 @@ Rules:
 
 ### 2. SCSS breakpoints via mixins (required)
 
-Never write raw `@media` queries for standard breakpoints. Use the mixins from `src/styles/blocks/mixin.scss`:
+Never write raw `@media` queries for **layout breakpoints**. Use the mixins from `src/styles/blocks/mixin.scss`:
 
-| Mixin | Min-width | Use for |
-| --- | --- | --- |
-| `@include mixin.on-mobile` | 320px | Base mobile adjustments |
-| `@include mixin.on-tablet` | 744px | Tablet layout |
-| `@include mixin.on-desktop` | 1260px | Desktop layout |
-| `@include mixin.on-large-desktop` | 1600px | Large screens |
+| Mixin                             | Min-width | Use for                                   |
+| --------------------------------- | --------- | ----------------------------------------- |
+| `@include mixin.on-mobile`        | 320px     | Optional tweaks from small-phone width up |
+| `@include mixin.on-tablet`        | 744px     | Tablet layout and up                      |
+| `@include mixin.on-desktop`       | 1260px    | Desktop layout and up                     |
+| `@include mixin.on-large-desktop` | 1600px    | Large screens and up                      |
 
-Breakpoint values are defined once in `src/styles/blocks/variables.scss`. Do not hardcode pixel values for these breakpoints elsewhere.
+Breakpoint values are defined once in `src/styles/blocks/variables.scss`. Do not hardcode pixel values for these breakpoints elsewhere (including `matchMedia` in client scripts — use `src/constants/breakpoints.ts`, which must stay in sync).
 
-The project uses a **mobile-first** approach: write default (mobile) styles first, then enhance inside mixin blocks.
+#### Mobile-first breakpoints (required)
 
-**Good:**
+The project is **mobile-first**: styles apply to the smallest viewport by default, then **progressively enhance** at larger breakpoints.
+
+| Rule                 | Do                                                                                                                |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Default block styles | Target the smallest layout (phones). No `min-width` wrapper needed.                                               |
+| Larger layouts       | Add rules inside `@include mixin.on-tablet`, `on-desktop`, or `on-large-desktop`.                                 |
+| Spacing & typography | Use fixed values or tokens from `variables.scss` at each breakpoint. Do **not** use `clamp()` for layout spacing. |
+| Design tokens        | Put repeated spacing, gaps, and padding in `variables.scss` (e.g. `$gallery-grid-gap-tablet`).                    |
+
+**Do not use `max-width` media queries for layout breakpoints** (e.g. `@media (max-width: 743px)`). If something should only apply below tablet, make it the **default** and override it from `on-tablet` upward.
+
+**Allowed raw `@media` queries** (not layout breakpoints):
+
+- `@media (hover: hover)` / `(pointer: fine)` — hover-capable devices
+- `@media (hover: none)` — touch-first press states
+- `@media (prefers-reduced-motion: reduce)` — accessibility
+
+**Good (mobile-first SCSS):**
 
 ```scss
 @use "mixin";
 @use "variables";
 
+.photo-art {
+  padding-bottom: 0;
+  gap: variables.$gallery-mobile-item-gap;
+
+  @include mixin.on-tablet {
+    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
+    gap: variables.$gallery-grid-gap-tablet;
+  }
+
+  @include mixin.on-desktop {
+    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
+    gap: variables.$gallery-grid-gap-desktop;
+  }
+}
+```
+
+**Good (client script — min-width, shared constant):**
+
+```ts
+import { TABLET_MIN_WIDTH } from "../constants/breakpoints";
+
+if (window.matchMedia(`(min-width: ${TABLET_MIN_WIDTH}px)`).matches) {
+  initTabletFeature();
+}
+```
+
+**Avoid:**
+
+```scss
+@media (min-width: 744px) { … }              // use mixin.on-tablet
+@media (max-width: 743px) { … }              // make it the default; override in on-tablet
+padding: clamp(40px, 6vw, 72px);             // use tokens + breakpoint mixins
+```
+
+```js
+window.matchMedia("(max-width: 743px)"); // desktop-first; use min-width + breakpoints.ts
+```
+
+**Good (legacy example — still valid):**
+
+```scss
 .artist-bio {
   padding: 40px 0;
 
@@ -145,7 +203,7 @@ The project uses a **mobile-first** approach: write default (mobile) styles firs
 }
 ```
 
-**Avoid:**
+**Avoid (legacy anti-patterns):**
 
 ```scss
 @media (min-width: 744px) { … }           // use mixin.on-tablet instead
@@ -196,8 +254,9 @@ Other shared mixins in `mixin.scss` (use when relevant):
 Before submitting changes, verify:
 
 - [ ] New/changed CSS classes follow BEM (`block__element`, `block__element--modifier`)
-- [ ] Responsive styles use `@include mixin.on-*` — no raw breakpoint media queries
-- [ ] Colors, spacing tokens, and breakpoints come from `variables.scss` / `mixin.scss`
+- [ ] Responsive styles use mobile-first `@include mixin.on-*` — no `max-width` layout queries, no raw breakpoint `@media`
+- [ ] Layout spacing uses `variables.scss` tokens — no `clamp()` for responsive spacing
+- [ ] Colors, spacing tokens, and breakpoints come from `variables.scss` / `mixin.scss` / `constants/breakpoints.ts`
 - [ ] New block styles are added to `global.scss` via `@use`
 - [ ] EN and ES routes/data stay in sync when pages or content change
 - [ ] Prettier has been run on edited files
