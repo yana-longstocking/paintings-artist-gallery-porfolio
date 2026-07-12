@@ -8,14 +8,6 @@
     padding-bottom: 140px;
   }
 
-  body:has(.main--under-nav-hero) & {
-    padding-top: clamp(56px, 7vw, 88px);
-
-    @include mixin.on-tablet {
-      padding-top: clamp(72px, 8vw, 104px);
-    }
-  }
-
   &--reveal {
     .artist-bio__title {
       opacity: 0;

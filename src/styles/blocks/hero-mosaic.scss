@@ -771,7 +771,16 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   }
 }
 
-body:has(.main--under-nav-hero) > .container,
+.main--under-nav-hero + .container {
+  position: relative;
+  z-index: 1;
+  padding-top: clamp(56px, 7vw, 88px);
+
+  @include mixin.on-tablet {
+    padding-top: clamp(72px, 8vw, 104px);
+  }
+}
+
 body:has(.main--under-nav-hero) > article,
 body:has(.main--under-nav-hero) > footer.footer {
   position: relative;
