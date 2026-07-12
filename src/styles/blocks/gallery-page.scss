@@ -1413,14 +1413,12 @@
       }
     }
 
-    @media (max-width: 1259px) {
-      &:active {
-        background-color: variables.$background-color;
-        border-color: variables.$background-color;
-        color: variables.$color-text;
-        box-shadow: 0 6px 20px rgba(209, 45, 53, 0.28);
-        transform: translateY(0);
-      }
+    &:active {
+      background-color: variables.$background-color;
+      border-color: variables.$background-color;
+      color: variables.$color-text;
+      box-shadow: 0 6px 20px rgba(209, 45, 53, 0.28);
+      transform: translateY(0);
     }
 
     &:focus-visible {

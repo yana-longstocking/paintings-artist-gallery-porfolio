@@ -74,12 +74,14 @@
   }
 
   &__menu-wrapper {
+    display: flex;
+    flex-direction: column;
     transform: translateX(-100%);
-    transition: all variables.$effect-duration;
-    display: block;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow: hidden;
     z-index: 999;
     position: fixed;
-    background-color: variables.$background-color;
+    background: linear-gradient(180deg, #f4f1f8 0%, #ebe7f2 52%, #e3deec 100%);
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -89,12 +91,34 @@
 
     &:target {
       transform: translateX(0);
+
+      .header__menu-list
+        li:not(.header__close):nth-child(1)
+        .header__menu-link {
+        animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s
+          forwards;
+      }
+
+      .header__menu-list
+        li:not(.header__close):nth-child(2)
+        .header__menu-link {
+        animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.18s
+          forwards;
+      }
+
+      .header__menu-list
+        li:not(.header__close):nth-child(3)
+        .header__menu-link {
+        animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.26s
+          forwards;
+      }
     }
 
     @include mixin.on-desktop {
+      display: block;
       transition: all 0s;
       transform: translateX(0);
-      background-color: transparent;
+      background: transparent;
       height: auto;
       width: auto;
       padding: 0;
@@ -102,16 +126,22 @@
       left: auto;
       top: auto;
       position: relative;
+      overflow: visible;
     }
   }
 
   &__menu-logo {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
-    padding: 20px 25px;
+    padding: 0;
 
     @include mixin.on-tablet {
-      padding: 50px 64px;
+      top: 50px;
+      left: 64px;
     }
 
     @include mixin.on-desktop {
@@ -123,7 +153,7 @@
     height: 40px;
     width: 40px;
     object-fit: contain;
-    filter: brightness(1) invert(1);
+    filter: none;
     transition: transform variables.$effect-duration;
     cursor: pointer;
 
@@ -133,47 +163,94 @@
   }
 
   &__menu-list {
-    display: block;
-    text-align: start;
-    padding-left: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 0 25px;
+    line-height: normal;
+    text-align: center;
     font-family: "Cinzel", sans-serif;
     font-weight: 700;
-    line-height: 30px;
     list-style: none;
 
     @include mixin.on-tablet {
-      padding-left: 64px;
+      gap: 22px;
+      padding: 0 64px;
     }
 
     @include mixin.on-desktop {
+      flex: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
       color: variables.$main-color;
       font-size: 50px;
-      display: flex;
-      justify-content: center;
-      text-align: center;
       gap: 50px;
-      margin: 0;
       padding: 0;
+      text-align: center;
     }
   }
 
   &__menu-link {
-    font-size: 22px;
-    line-height: 50px;
-    color: variables.$color-text;
+    display: inline-block;
+    position: relative;
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    color: variables.$main-color;
     text-decoration: none;
+    opacity: 0;
+    transform: translateY(16px);
     transition: color variables.$effect-duration ease;
 
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1.5px;
+      border-radius: 2px;
+      background: variables.$accent-line-gradient;
+      transform: scaleX(0);
+      transform-origin: center center;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     &:hover {
-      color: variables.$color-text;
+      color: variables.$background-color;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+
+    @include mixin.on-tablet {
+      font-size: 34px;
     }
 
     @include mixin.on-desktop {
+      font-size: 22px;
       line-height: 22px;
-      color: variables.$main-color;
+      letter-spacing: normal;
+      opacity: 1;
+      transform: none;
+
+      &::after {
+        display: none;
+      }
 
       &:hover {
         color: variables.$hover-color;
+      }
+
+      &:hover::after {
+        transform: scaleX(0);
       }
     }
   }
@@ -181,12 +258,13 @@
   &__close {
     position: absolute;
     top: 25px;
-    right: 40px;
+    right: 25px;
     display: block;
     transition: transform variables.$effect-duration;
 
     @include mixin.on-tablet {
       top: 50px;
+      right: 64px;
     }
 
     @include mixin.on-desktop {
@@ -200,9 +278,14 @@
 
   &__close-btn {
     cursor: pointer;
-    font-size: 50px;
-    color: variables.$color-text;
+    font-size: 44px;
+    line-height: 1;
+    color: variables.$main-color;
     text-decoration: none;
+
+    &:hover {
+      color: variables.$background-color;
+    }
   }
 
   &__burger {
@@ -361,139 +444,15 @@
       padding: 14px 18px;
     }
   }
-}
-
-@media (max-width: #{variables.$desktop-min-width - 1px}) {
-  .header {
-    &__menu-wrapper {
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(
-        180deg,
-        #f4f1f8 0%,
-        #ebe7f2 52%,
-        #e3deec 100%
-      );
-      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-      overflow: hidden;
-
-      &:target {
-        .header__menu-list
-          li:not(.header__close):nth-child(1)
-          .header__menu-link {
-          animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1)
-            0.1s forwards;
-        }
-
-        .header__menu-list
-          li:not(.header__close):nth-child(2)
-          .header__menu-link {
-          animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1)
-            0.18s forwards;
-        }
-
-        .header__menu-list
-          li:not(.header__close):nth-child(3)
-          .header__menu-link {
-          animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1)
-            0.26s forwards;
-        }
-      }
-    }
-
-    &__menu-logo {
-      position: absolute;
-      top: 20px;
-      left: 25px;
-      z-index: 1;
-      padding: 0;
-
-      @include mixin.on-tablet {
-        top: 50px;
-        left: 64px;
-      }
-    }
-
-    &__menu-logo-image {
-      filter: none;
-    }
-
-    &__menu-list {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: clamp(14px, 4vw, 22px);
-      margin: 0;
-      padding: 0 clamp(25px, 6vw, 64px);
-      line-height: normal;
-      text-align: center;
-    }
-
-    &__menu-link {
-      display: inline-block;
-      position: relative;
-      font-size: clamp(26px, 7vw, 34px);
-      line-height: 1.3;
-      letter-spacing: 0.05em;
-      color: variables.$main-color;
-      opacity: 0;
-      transform: translateY(16px);
-
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 1.5px;
-        border-radius: 2px;
-        background: variables.$accent-line-gradient;
-        transform: scaleX(0);
-        transform-origin: center center;
-        transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-
-      &:hover {
-        color: variables.$background-color;
-      }
-
-      &:hover::after {
-        transform: scaleX(1);
-      }
-    }
-
-    &__close {
-      right: 25px;
-
-      @include mixin.on-tablet {
-        right: 64px;
-      }
-    }
-
-    &__close-btn {
-      font-size: 44px;
-      line-height: 1;
-      color: variables.$main-color;
-
-      &:hover {
-        color: variables.$background-color;
-      }
-    }
-  }
 
   @media (prefers-reduced-motion: reduce) {
-    .header {
-      &__menu-wrapper {
-        transition: transform 0.2s ease;
+    &__menu-wrapper {
+      transition: transform 0.2s ease;
 
-        &:target .header__menu-link {
-          animation: none;
-          opacity: 1;
-          transform: none;
-        }
+      &:target .header__menu-link {
+        animation: none;
+        opacity: 1;
+        transform: none;
       }
     }
   }

@@ -31,6 +31,19 @@
     box-shadow variables.$effect-duration variables.$transition,
     transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 
+  &:focus-visible {
+    outline: 2px solid variables.$main-color;
+    outline-offset: 3px;
+  }
+
+  &:active {
+    background-color: variables.$background-color;
+    border-color: variables.$background-color;
+    color: variables.$color-text;
+    box-shadow: 0 6px 18px rgba(209, 45, 53, 0.24);
+    transform: translateY(0);
+  }
+
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       background-color: variables.$background-color;
@@ -47,21 +60,6 @@
     &:active {
       transform: translateY(-1px);
     }
-  }
-
-  @media (max-width: 1259px) {
-    &:active {
-      background-color: variables.$background-color;
-      border-color: variables.$background-color;
-      color: variables.$color-text;
-      box-shadow: 0 6px 18px rgba(209, 45, 53, 0.24);
-      transform: translateY(0);
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid variables.$main-color;
-    outline-offset: 3px;
   }
 }
 

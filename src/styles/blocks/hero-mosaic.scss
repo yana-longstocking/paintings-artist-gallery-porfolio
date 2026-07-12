@@ -85,13 +85,9 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   width: 100dvw;
   max-width: 100dvw;
   margin-left: calc(50% - 50dvw);
-  margin-top: -40px;
+  margin-top: 36px;
   min-height: 0;
   max-height: none;
-
-  @media (max-width: 743px) {
-    margin-top: clamp(28px, 8vw, 44px);
-  }
 
   @include mixin.on-tablet {
     margin-top: 40px;
@@ -105,26 +101,35 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
 .main--under-nav-hero .hero-mosaic.hero-mosaic--under-nav {
   position: relative;
   z-index: 0;
-  flex: 1 1 auto;
+  flex: none;
   display: flex;
   flex-direction: column;
   min-height: 0;
-  margin: 0;
+  height: auto;
+  margin: 0 0 16px;
   width: 100%;
   max-width: 100%;
 
-  .hero-mosaic__inner {
+  @include mixin.on-tablet {
     flex: 1 1 auto;
+    margin: 0;
+  }
+
+  .hero-mosaic__inner {
+    position: relative;
+    flex: none;
     display: flex;
     flex-direction: column;
     min-height: 0;
     height: auto;
     max-width: 100%;
+    padding: 0 18px;
+    box-sizing: border-box;
 
     @include mixin.on-tablet {
+      flex: 1 1 auto;
       display: block;
       padding: 0 8px;
-      box-sizing: border-box;
 
       @include mixin.on-desktop {
         padding: 0 10px;
@@ -133,22 +138,19 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   }
 
   .hero-mosaic__grid {
-    flex: 1 1 auto;
-    min-height: 0;
-    height: 100%;
-    max-height: none;
-    gap: 6px;
-    padding: 0 6px;
-    box-sizing: border-box;
-    position: relative;
+    display: none;
 
     @include mixin.on-tablet {
+      display: grid;
       flex: none;
+      min-height: 0;
       height: auto;
       max-height: min(78dvh, 1000px);
       min-height: min(480px, 68dvh);
       gap: 8px;
       padding: 0;
+      box-sizing: border-box;
+      position: relative;
 
       @include mixin.on-desktop {
         max-height: min(80dvh, 1080px);
@@ -160,20 +162,17 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   .hero-mosaic__cta {
     display: none;
     pointer-events: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    justify-content: center;
+    z-index: 3;
+    padding: 0;
+    margin: 0;
 
     &--ready {
       display: flex;
-    }
-
-    @media (max-width: 743px) {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 6px;
-      justify-content: center;
-      z-index: 3;
-      padding: 0;
-      margin: 0;
     }
 
     @include mixin.on-tablet {
@@ -286,12 +285,169 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
 
 .hero-mosaic {
   width: 100%;
-  margin: 0 0 clamp(10px, 2vw, 20px);
+  margin: 0 0 20px;
   padding: 0;
   background: transparent;
 
   &__mobile-hero {
-    display: none;
+    display: block;
+    width: 100%;
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+  }
+
+  &__mobile-feature {
+    position: relative;
+    width: min(100%, 20rem);
+    margin: 0 auto;
+    aspect-ratio: 4 / 5;
+    min-height: min(58dvh, 420px);
+    max-height: min(68dvh, 500px);
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  &__mobile-photo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    text-decoration: none;
+  }
+
+  &__mobile-photo-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.58;
+  }
+
+  &__mobile-copy {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 60px 18px 18px;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(242, 240, 246, 0) 0%,
+      rgba(242, 240, 246, 0.45) 50%,
+      rgba(242, 240, 246, 0.88) 100%
+    );
+  }
+
+  &__mobile-tagline {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0.02em;
+    color: rgba(26, 26, 26, 0.62);
+  }
+
+  &__mobile-cta {
+    display: inline-flex;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25em;
+    margin: 0;
+    min-height: 20px;
+    padding: 4px 8px 4px 7px;
+    font-family: "Cinzel", sans-serif;
+    font-size: 6.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: variables.$color-text;
+    background: variables.$background-color;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0;
+    box-shadow:
+      0 1px 6px rgba(209, 45, 53, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    animation: hero-mosaic-cta-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s
+      both;
+    pointer-events: auto;
+    transition:
+      background 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.28) 50%,
+        transparent 65%
+      );
+      transform: translateX(-120%) skewX(-18deg);
+      pointer-events: none;
+    }
+
+    &::after {
+      content: "→";
+      font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+      font-size: 6px;
+      line-height: 1;
+      opacity: 0.92;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.97);
+      box-shadow:
+        0 1px 6px rgba(209, 45, 53, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background: variables.$hover-color;
+        transform: translateY(-1px);
+        box-shadow:
+          0 6px 20px rgba(209, 45, 53, 0.38),
+          inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+        &::before {
+          animation: hero-mosaic-cta-shine 0.8s ease forwards;
+        }
+
+        &::after {
+          transform: translateX(3px);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &__mobile-copy &__mobile-cta {
+    pointer-events: auto;
   }
 
   &__inner {
@@ -454,202 +610,7 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   }
 }
 
-@keyframes hero-mobile-tile-enter {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@media (max-width: 743px) {
-  .main--under-nav-hero .hero-mosaic.hero-mosaic--under-nav {
-    flex: none;
-    height: auto;
-    margin-bottom: clamp(12px, 3vw, 20px);
-  }
-
-  .main--under-nav-hero
-    .hero-mosaic.hero-mosaic--under-nav
-    .hero-mosaic__inner {
-    position: relative;
-    flex: none;
-    padding: 0 clamp(16px, 4vw, 22px);
-    box-sizing: border-box;
-  }
-
-  .hero-mosaic__mobile-hero {
-    display: block;
-    width: 100%;
-  }
-
-  .hero-mosaic__mobile-feature {
-    position: relative;
-    width: min(100%, 20rem);
-    margin: 0 auto;
-    aspect-ratio: 4 / 5;
-    min-height: min(58dvh, 420px);
-    max-height: min(68dvh, 500px);
-    overflow: hidden;
-    border-radius: 0;
-  }
-
-  .hero-mosaic__mobile-photo {
-    position: absolute;
-    inset: 0;
-    display: block;
-    text-decoration: none;
-  }
-
-  .hero-mosaic__mobile-photo-img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    opacity: 0.58;
-  }
-
-  .hero-mosaic__mobile-copy {
-    position: absolute;
-    inset: auto 0 0;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: clamp(48px, 18vw, 72px) clamp(16px, 4vw, 20px)
-      clamp(16px, 4vw, 20px);
-    pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      rgba(242, 240, 246, 0) 0%,
-      rgba(242, 240, 246, 0.45) 50%,
-      rgba(242, 240, 246, 0.88) 100%
-    );
-  }
-
-  .hero-mosaic__mobile-tagline {
-    margin: 0;
-    font-family: "Roboto", sans-serif;
-    font-size: 9px;
-    font-weight: 400;
-    line-height: 1.35;
-    letter-spacing: 0.02em;
-    color: rgba(26, 26, 26, 0.62);
-  }
-
-  .hero-mosaic__mobile-cta {
-    display: inline-flex;
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25em;
-    margin: 0;
-    min-height: 20px;
-    padding: 4px 8px 4px 7px;
-    font-family: "Cinzel", sans-serif;
-    font-size: 6.5px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: variables.$color-text;
-    background: variables.$background-color;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 0;
-    box-shadow:
-      0 1px 6px rgba(209, 45, 53, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    animation: hero-mosaic-cta-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s
-      both;
-    pointer-events: auto;
-    transition:
-      background 0.35s ease,
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.35s ease;
-
-    &::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        105deg,
-        transparent 35%,
-        rgba(255, 255, 255, 0.28) 50%,
-        transparent 65%
-      );
-      transform: translateX(-120%) skewX(-18deg);
-      pointer-events: none;
-    }
-
-    &::after {
-      content: "→";
-      font-family:
-        system-ui,
-        -apple-system,
-        sans-serif;
-      font-size: 6px;
-      line-height: 1;
-      opacity: 0.92;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    &:focus-visible {
-      outline: 2px solid variables.$main-color;
-      outline-offset: 2px;
-    }
-
-    &:active {
-      transform: scale(0.97);
-      box-shadow:
-        0 1px 6px rgba(209, 45, 53, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background: variables.$hover-color;
-        transform: translateY(-1px);
-        box-shadow:
-          0 6px 20px rgba(209, 45, 53, 0.38),
-          inset 0 1px 0 rgba(255, 255, 255, 0.16);
-
-        &::before {
-          animation: hero-mosaic-cta-shine 0.8s ease forwards;
-        }
-
-        &::after {
-          transform: translateX(3px);
-        }
-      }
-
-      &:active {
-        transform: translateY(0);
-      }
-    }
-  }
-
-  .hero-mosaic__mobile-copy .hero-mosaic__mobile-cta {
-    pointer-events: auto;
-  }
-
-  .main--under-nav-hero .hero-mosaic.hero-mosaic--under-nav .hero-mosaic__grid {
-    display: none;
-  }
-}
-
 @include mixin.on-tablet {
-  .hero-mosaic__mobile-hero {
-    display: none;
-  }
-
   .hero-mosaic__grid {
     display: grid;
     grid-template-columns:
@@ -672,8 +633,6 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
 
   .main--under-nav-hero .hero-mosaic.hero-mosaic--under-nav .hero-mosaic__grid {
     height: auto;
-    max-height: min(78dvh, 1000px);
-    min-height: min(480px, 68dvh);
   }
 
   .hero-mosaic__cell {
@@ -759,25 +718,19 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   .hero-mosaic__cta-link:hover::after {
     transform: none;
   }
-
-  @media (max-width: 743px) {
-    .main--under-nav-hero
-      .hero-mosaic.hero-mosaic--under-nav
-      .hero-mosaic__cell {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
-  }
 }
 
 .main--under-nav-hero + .container {
   position: relative;
   z-index: 1;
-  padding-top: clamp(56px, 7vw, 88px);
+  padding-top: 72px;
 
   @include mixin.on-tablet {
-    padding-top: clamp(72px, 8vw, 104px);
+    padding-top: 88px;
+  }
+
+  @include mixin.on-desktop {
+    padding-top: 102px;
   }
 }
 
