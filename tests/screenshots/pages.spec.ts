@@ -20,6 +20,14 @@ test.describe("page screenshots", () => {
       "home-hero.png",
       SECTION_SCREENSHOT,
     );
+    await expect(page.locator(".artist-bio")).toHaveScreenshot(
+      "home-artist-bio.png",
+      SECTION_SCREENSHOT,
+    );
+    await expect(page.locator(".footer")).toHaveScreenshot(
+      "home-footer.png",
+      SECTION_SCREENSHOT,
+    );
   });
 
   test("gallery page", async ({ page }) => {
@@ -30,6 +38,10 @@ test.describe("page screenshots", () => {
       "gallery-hero.png",
       SECTION_SCREENSHOT,
     );
+    await expect(page.locator(".gallery-page__footer")).toHaveScreenshot(
+      "gallery-footer.png",
+      SECTION_SCREENSHOT,
+    );
   });
 
   test("artwork page", async ({ page }) => {
@@ -38,6 +50,10 @@ test.describe("page screenshots", () => {
     await expect(page).toHaveScreenshot("artwork-page.png", PAGE_SCREENSHOT);
     await expect(page.locator(".artwork-detail__wrapper")).toHaveScreenshot(
       "artwork-detail.png",
+      SECTION_SCREENSHOT,
+    );
+    await expect(page.locator(".artwork-detail__footer")).toHaveScreenshot(
+      "artwork-footer.png",
       SECTION_SCREENSHOT,
     );
   });

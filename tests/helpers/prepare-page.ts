@@ -31,4 +31,36 @@ export async function preparePageForScreenshot(page: Page): Promise<void> {
       ),
     );
   });
+  await page.evaluate(() => {
+    document
+      .querySelector(".artist-bio--reveal")
+      ?.classList.add("artist-bio--visible", "artist-bio--content-visible");
+
+    const footer = document.querySelector(".footer--scroll-reveal");
+    if (footer) {
+      footer
+        .querySelector(".footer__form-section")
+        ?.classList.add(
+          "footer__form-section--visible",
+          "footer__form-section--content-visible",
+        );
+      footer
+        .querySelector(".footer__contact-section")
+        ?.classList.add(
+          "footer__contact-section--visible",
+          "footer__contact-section--content-visible",
+        );
+      footer.classList.add("footer--button-visible");
+    }
+
+    const galleryRevealSelector =
+      ".gallery-page__footer-heading, .gallery-page__footer-nav-link, .gallery-page__footer-inline-link, .gallery-page__footer-lead, .gallery-page__footer-classic-item, .gallery-page__footer-copy, .contact-action";
+
+    document.querySelectorAll(galleryRevealSelector).forEach((target) => {
+      target.classList.add(
+        "gallery-page__target",
+        "gallery-page__target--visible",
+      );
+    });
+  });
 }
