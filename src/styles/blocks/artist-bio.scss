@@ -8,6 +8,99 @@
     padding-bottom: 140px;
   }
 
+  body:has(.main--under-nav-hero) & {
+    padding-top: clamp(56px, 7vw, 88px);
+
+    @include mixin.on-tablet {
+      padding-top: clamp(72px, 8vw, 104px);
+    }
+  }
+
+  &--reveal {
+    .artist-bio__title {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .artist-bio__image {
+      opacity: 0;
+      transform: translateX(-24px) scale(0.97);
+      transition:
+        opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .artist-bio__image-img {
+      transform: scale(1.05);
+      transition: transform 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .artist-bio__text {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @include mixin.on-desktop {
+      .artist-bio__image {
+        transform: translateX(-36px) scale(0.96);
+      }
+
+      .artist-bio__text {
+        transform: translateX(36px);
+      }
+    }
+  }
+
+  &--visible {
+    .artist-bio__title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.1s;
+    }
+  }
+
+  &--content-visible {
+    .artist-bio__image {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition-delay: 0.1s;
+    }
+
+    .artist-bio__image-img {
+      transform: scale(1);
+      transition-delay: 0.18s;
+    }
+
+    .artist-bio__text {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+      transition-delay: 0.28s;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &--reveal {
+      .artist-bio__title,
+      .artist-bio__image,
+      .artist-bio__text {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .artist-bio__image-img {
+        transform: none;
+        transition: none;
+      }
+    }
+  }
+
   &__title {
     font-family: "Cinzel", sans-serif;
     font-size: 32px;

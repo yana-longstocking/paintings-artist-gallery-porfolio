@@ -1,8 +1,16 @@
+@use "variables";
+@use "mixin";
+
+html {
+  min-height: 100%;
+}
+
 html,
 body {
   scroll-behavior: smooth;
   margin: 0;
   padding: 0;
+  @include mixin.page-background;
 }
 
 h1,

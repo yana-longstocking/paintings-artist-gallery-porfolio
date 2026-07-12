@@ -1,14 +1,14 @@
 ---
 import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
-import HomeLanding from "../../components/HomeLanding.astro";
+import GalleryIndex from "../../components/GalleryIndex.astro";
 import galleryData from "../../data/gallery-es.json";
 
-const artworkLinkPrefix = "es/";
-const galleryHref = "/es/gallery";
-
 const translations = {
-  viewAllWorksLabel: "Ver todas las obras",
-  mobileHeroTagline: "Lápiz sobre papel",
+  galleryTitle: "Galería",
+  galleryDescriptionLine1: "Colección de arte contemporáneo",
+  galleryDescriptionLine2: "De una joven artista ucraniana",
+  freedomCollectionTitle: "Colección Libertad",
+  allPaintingCollectionTitle: "Colección de Todas las Pinturas",
   artistBioTitle: "Biografía de la Artista",
   artistBioText: `Nacida y criada en Ucrania, comencé a dibujar a una edad temprana y he
     continuado desarrollando mi práctica desde entonces. Aunque mi título
@@ -36,14 +36,21 @@ const translations = {
   footerContactAddress: "Madrid, España",
   footerSocialText: "Sígueme en Instagram",
   footerCopyright: `© ${new Date().getFullYear()} Galería. Todos los derechos reservados.`,
+  scrollToTopLabel: "Volver arriba",
 };
+
+const artworkLinkPrefix = "es/";
 ---
 
-<BaseLayout title="Portafolio de Galería de Artista">
-  <HomeLanding
-    galleryData={galleryData}
-    artworkLinkPrefix={artworkLinkPrefix}
-    galleryHref={galleryHref}
-    translations={translations}
-  />
+<BaseLayout title="Galería — Portafolio de Artista">
+  <div class="gallery-page">
+    <GalleryIndex
+      galleryData={galleryData}
+      translations={translations}
+      artworkLinkPrefix={artworkLinkPrefix}
+      showPageHeader
+      showFooter
+      footerVariant="split"
+    />
+  </div>
 </BaseLayout>

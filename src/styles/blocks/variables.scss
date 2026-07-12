@@ -13,6 +13,13 @@ $transition: cubic-bezier(0.4, 0, 0.2, 1);
 $transform-hover: translateY(-8px);
 $scale-min-hover: scale(1.01);
 $scale-max-hover: scale(1.05);
-$bg-color: #f8f8fa;
+$bg-color: #f2f0f6;
+$accent-line-color: $background-color;
+$accent-line-gradient: linear-gradient(
+  90deg,
+  $background-color 0%,
+  rgba(209, 45, 53, 0.72) 68%,
+  rgba(175, 165, 205, 0.38) 100%
+);
 $color-input: #7e7e83;
 $modal-animation-padding: 24px;

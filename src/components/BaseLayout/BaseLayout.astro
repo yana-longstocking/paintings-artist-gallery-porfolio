@@ -1,6 +1,8 @@
 ---
 import "../../styles/global.scss";
 import Header from "../Header.astro";
+import FooterScrollReveal from "../FooterScrollReveal.astro";
+import GalleryScrollReveal from "../GalleryScrollReveal.astro";
 
 interface Props {
   title: string;
@@ -63,6 +65,9 @@ const { title } = Astro.props;
     <slot />
 
     <slot name="scripts" />
+
+    <FooterScrollReveal />
+    <GalleryScrollReveal />
 
     <script>
       import "./LanguageSwitcher.client.ts";

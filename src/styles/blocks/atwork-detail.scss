@@ -340,37 +340,11 @@
     }
   }
 
-  &__footer-social {
-    display: flex;
-    gap: 16px;
+  &__footer-actions {
     margin-top: 16px;
 
     @include mixin.on-tablet {
       margin-top: 20px;
-    }
-  }
-
-  &__footer-social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(22, 22, 22, 0.05);
-    color: variables.$main-color;
-    text-decoration: none;
-    transition: all variables.$effect-duration variables.$transition;
-
-    @include mixin.on-tablet {
-      width: 44px;
-      height: 44px;
-    }
-
-    &:hover {
-      background-color: variables.$background-color;
-      color: variables.$color-text;
-      transform: variables.$transform-hover;
     }
   }
 

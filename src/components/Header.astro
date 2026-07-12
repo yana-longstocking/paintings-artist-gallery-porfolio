@@ -2,13 +2,21 @@
 const pathname = Astro.url.pathname;
 const isSpanish = pathname.startsWith("/es");
 const homeHref = isSpanish ? "/es/" : "/";
+const galleryHref = isSpanish ? "/es/gallery" : "/gallery";
+const isHomePage =
+  pathname === "/" || pathname === "/es" || pathname === "/es/";
 ---
 
 <header class="header">
   <div class="container">
     <nav class="header__nav">
       <div class="header__logo">
-        <a href={homeHref} class="header__logo-link">
+        <a
+          href={homeHref}
+          class="header__logo-link"
+          data-home-logo
+          data-is-home={isHomePage ? "true" : "false"}
+        >
           <img
             src="/icons/logo.svg"
             alt="portfolio"
@@ -29,9 +37,7 @@ const homeHref = isSpanish ? "/es/" : "/";
           </div>
           <ul class="header__menu-list">
             <li>
-              <a href={`${homeHref}#gallery`} class="header__menu-link"
-                >Gallery</a
-              >
+              <a href={galleryHref} class="header__menu-link">Gallery</a>
             </li>
             <li>
               <a href={`${homeHref}#artist-bio`} class="header__menu-link"
@@ -45,7 +51,8 @@ const homeHref = isSpanish ? "/es/" : "/";
             </li>
 
             <li class="header__close">
-              <a href="#" class="header__close-btn"> × </a>
+              <a href="#" class="header__close-btn" aria-label="Close menu">×</a
+              >
             </li>
           </ul>
         </div>
@@ -174,3 +181,18 @@ const homeHref = isSpanish ? "/es/" : "/";
     </nav>
   </div>
 </header>
+
+<script is:inline>
+  document
+    .querySelector("[data-home-logo]")
+    ?.addEventListener("click", (event) => {
+      const link = event.currentTarget;
+      if (!(link instanceof HTMLAnchorElement)) return;
+      if (link.dataset.isHome !== "true") return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+
+      event.preventDefault();
+      window.location.reload();
+    });
+</script>

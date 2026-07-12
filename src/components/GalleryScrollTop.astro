@@ -1,0 +1,75 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="gallery-page__scroll-top-wrap">
+  <button
+    type="button"
+    class="gallery-page__scroll-top"
+    aria-label={label}
+    title={label}
+  >
+    <svg
+      class="gallery-page__scroll-top-icon"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 18V6M7 11l5-5 5 5"></path>
+    </svg>
+  </button>
+  <span class="gallery-page__scroll-top-accent" aria-hidden="true"></span>
+</div>
+
+<script is:inline>
+  function initGalleryScrollTop() {
+    const bar = document.querySelector(".gallery-page__scroll-top-bar");
+    const wrap = document.querySelector(".gallery-page__scroll-top-wrap");
+    const button = document.querySelector(".gallery-page__scroll-top");
+    if (!bar || !wrap || !button) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          wrap.classList.toggle(
+            "gallery-page__scroll-top-wrap--visible",
+            entry.isIntersecting,
+          );
+        });
+      },
+      {
+        threshold: 0.25,
+        rootMargin: "0px 0px -5% 0px",
+      },
+    );
+
+    observer.observe(bar);
+
+    button.addEventListener("click", () => {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      window.scrollTo({
+        top: 0,
+        behavior: reduceMotion ? "auto" : "smooth",
+      });
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGalleryScrollTop);
+  } else {
+    initGalleryScrollTop();
+  }
+</script>
