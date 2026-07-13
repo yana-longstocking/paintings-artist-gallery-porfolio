@@ -52,7 +52,7 @@
   }
 }
 
-body:has(.main--under-nav-hero) {
+body:has(.hero-mosaic-page) {
   overflow-x: hidden;
   scroll-padding-top: 96px;
 
@@ -74,7 +74,7 @@ body:has(.main--under-nav-hero) {
   }
 }
 
-body:has(.main--under-nav-hero) .main.main--under-nav-hero {
+.hero-mosaic-page {
   position: relative;
   z-index: 0;
 }
@@ -98,7 +98,7 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   }
 }
 
-.main--under-nav-hero .hero-mosaic.hero-mosaic--under-nav {
+.hero-mosaic-page .hero-mosaic.hero-mosaic--under-nav {
   position: relative;
   z-index: 0;
   flex: none;
@@ -631,7 +631,7 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
     min-height: min(480px, 70dvh);
   }
 
-  .main--under-nav-hero .hero-mosaic.hero-mosaic--under-nav .hero-mosaic__grid {
+  .hero-mosaic-page .hero-mosaic.hero-mosaic--under-nav .hero-mosaic__grid {
     height: auto;
   }
 
@@ -720,7 +720,7 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   }
 }
 
-.main--under-nav-hero + .container {
+.hero-mosaic-page + .container {
   position: relative;
   z-index: 1;
   padding-top: 72px;
@@ -734,8 +734,8 @@ body:has(.main--under-nav-hero) .main.main--under-nav-hero {
   }
 }
 
-body:has(.main--under-nav-hero) > article,
-body:has(.main--under-nav-hero) > footer.footer {
+body:has(.hero-mosaic-page) > article,
+body:has(.hero-mosaic-page) > footer.footer {
   position: relative;
   z-index: 1;
 }

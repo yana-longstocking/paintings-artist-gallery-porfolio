@@ -1,0 +1,92 @@
+@use "variables";
+
+@mixin gallery-page-section-title-accent {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 18px;
+  margin-bottom: 8px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 72px;
+    height: 2px;
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 0;
+    background: variables.$accent-line-gradient;
+  }
+}
+
+@mixin gallery-card-link {
+  display: block;
+  height: 100%;
+  min-height: 100%;
+}
+
+@mixin gallery-card-image {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  background: transparent;
+}
+
+@mixin gallery-hover-link {
+  box-shadow: none;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow variables.$effect-duration variables.$transition;
+}
+
+@mixin gallery-hover-link-active {
+  @media (hover: hover) and (pointer: fine) {
+    transform: translateY(-4px);
+    box-shadow: variables.$box-shadow-hover;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transform: none;
+  }
+}
+
+@mixin gallery-page-card-item {
+  &:not(.gallery-page__target) {
+    transform: none;
+  }
+
+  position: relative;
+  overflow: visible;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  > a {
+    @include gallery-card-link;
+    @include gallery-hover-link;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  &:hover > a {
+    @include gallery-hover-link-active;
+  }
+
+  &.gallery-page__target--visible:hover {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+}
+
+@mixin gallery-page-card-image {
+  @include gallery-card-image;
+  border-radius: 0;
+  transform: none;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}

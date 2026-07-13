@@ -1,5 +1,6 @@
 @use "mixin";
 @use "variables";
+@use "gallery-page-mixins";
 
 .gallery-content {
   padding-bottom: 100px;
@@ -82,6 +83,170 @@
         transform: variables.$scale-min-hover;
         box-shadow: variables.$box-shadow-hover;
       }
+    }
+  }
+}
+
+.gallery-content--gallery-page {
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @include mixin.on-tablet {
+    padding-bottom: 108px;
+  }
+
+  @include mixin.on-desktop {
+    padding-bottom: 130px;
+  }
+
+  .gallery-content__item,
+  .gallery-content__featured {
+    @include gallery-page-mixins.gallery-page-card-item;
+  }
+
+  .gallery-content__image,
+  .gallery-content__featured-image {
+    @include gallery-page-mixins.gallery-page-card-image;
+  }
+
+  .gallery-content__featured {
+    margin-bottom: var(--gallery-page-mobile-item-gap);
+
+    @include mixin.on-tablet {
+      margin-bottom: 0;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 28px;
+      min-height: 420px;
+    }
+
+    .gallery-content__featured-image {
+      min-height: 0;
+
+      @include mixin.on-tablet {
+        min-height: 280px;
+      }
+
+      @include mixin.on-desktop {
+        min-height: 420px;
+      }
+    }
+  }
+
+  .gallery-content__grid {
+    display: grid;
+    margin: 0;
+    gap: var(--gallery-page-mobile-item-gap);
+    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+
+    .gallery-content__item {
+      min-height: 0;
+      height: fit-content;
+      align-self: start;
+      overflow: visible;
+
+      > a {
+        display: block;
+        height: auto;
+        min-height: 0;
+        padding: 0;
+        line-height: 0;
+      }
+    }
+
+    .gallery-content__image {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      object-fit: unset;
+      display: block;
+      vertical-align: top;
+      background: transparent;
+    }
+
+    @include mixin.on-tablet {
+      display: grid !important;
+      grid-template-columns:
+        minmax(0, 0.82fr) minmax(0, 0.82fr) minmax(0, 0.82fr) minmax(0, 1.27fr)
+        minmax(0, 1.27fr) !important;
+      grid-template-rows: auto auto;
+      gap: variables.$gallery-grid-gap-tablet;
+      width: 100%;
+      max-width: none;
+      margin-inline: 0;
+
+      .gallery-content__item--prisme-light {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .gallery-content__item--shevchenkos-kateryna {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .gallery-content__item--wind {
+        grid-column: 3;
+        grid-row: 1;
+      }
+
+      .gallery-content__item--myst,
+      [data-artwork-id="myst"] {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+      }
+
+      .gallery-content__item--pretty-girls-do-cry-1 {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      .gallery-content__item--pretty-girls-do-cry-2 {
+        grid-column: 3;
+        grid-row: 2;
+      }
+
+      .gallery-content__item--portrait,
+      [data-artwork-id="portrait"] {
+        grid-column: 4 / 6 !important;
+        grid-row: 1 / 3 !important;
+        align-self: stretch !important;
+        height: auto !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+
+        > a {
+          flex: 1 1 auto !important;
+          display: block !important;
+          height: 100% !important;
+          min-height: 100% !important;
+          padding: 0 !important;
+          line-height: 0 !important;
+        }
+
+        .gallery-content__image {
+          width: 100% !important;
+          height: 100% !important;
+          min-height: 100% !important;
+          max-height: none !important;
+          object-fit: cover !important;
+          object-position: center top;
+        }
+      }
+    }
+
+    @include mixin.on-desktop {
+      gap: variables.$gallery-grid-gap-desktop;
+      grid-template-columns:
+        minmax(0, 0.78fr) minmax(0, 0.78fr) minmax(0, 0.78fr) minmax(0, 1.33fr)
+        minmax(0, 1.33fr) !important;
     }
   }
 }

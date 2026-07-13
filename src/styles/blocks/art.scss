@@ -1,5 +1,6 @@
 @use "mixin";
 @use "variables";
+@use "gallery-page-mixins";
 
 .art {
   padding: 0 0 24px;
@@ -75,6 +76,129 @@
         box-shadow: variables.$box-shadow-hover;
         transform: variables.$scale-min-hover;
       }
+    }
+  }
+}
+
+.art--gallery-page {
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @include mixin.on-tablet {
+    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
+  }
+
+  @include mixin.on-desktop {
+    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
+  }
+
+  .art__item--featured {
+    @include mixin.on-tablet {
+      grid-column: 2 !important;
+      grid-row: 1 / span 2 !important;
+      width: auto !important;
+      height: auto !important;
+    }
+  }
+
+  .art__item {
+    @include mixin.on-desktop {
+      transform: none;
+      box-shadow: none;
+    }
+
+    @include gallery-page-mixins.gallery-page-card-item;
+  }
+
+  .art__image {
+    @include gallery-page-mixins.gallery-page-card-image;
+  }
+
+  .art__grid {
+    display: grid;
+    margin: 0;
+    gap: var(--gallery-page-mobile-item-gap);
+    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+
+    .art__item {
+      min-height: 0;
+      height: fit-content;
+      align-self: start;
+      overflow: visible;
+
+      > a {
+        display: block;
+        height: auto;
+        min-height: 0;
+        padding: 0;
+        line-height: 0;
+      }
+    }
+
+    .art__image {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      object-fit: unset;
+      display: block;
+      vertical-align: top;
+      background: transparent;
+    }
+
+    .art__item--featured {
+      grid-column: 1;
+
+      @include mixin.on-tablet {
+        grid-column: 2 !important;
+        grid-row: 1 / span 2 !important;
+        min-height: 0;
+      }
+    }
+
+    @include mixin.on-tablet {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr) !important;
+      grid-template-rows: auto auto;
+      gap: variables.$gallery-grid-gap-tablet;
+      width: 100%;
+      max-width: none;
+      margin-inline: 0;
+      align-items: start;
+
+      .art__item--blue-haze {
+        grid-column: 1;
+        grid-row: 1;
+        min-height: 0;
+      }
+
+      .art__item--sunkissed,
+      [data-artwork-id="sunkissed"] {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+        min-height: 0;
+        width: 100%;
+      }
+
+      .art__item--intimessy {
+        grid-column: 3;
+        grid-row: 1;
+        min-height: 0;
+      }
+
+      .art__item--beach-spirit {
+        grid-column: 3;
+        grid-row: 2;
+        min-height: 0;
+      }
+    }
+
+    @include mixin.on-desktop {
+      gap: variables.$gallery-grid-gap-desktop;
     }
   }
 }

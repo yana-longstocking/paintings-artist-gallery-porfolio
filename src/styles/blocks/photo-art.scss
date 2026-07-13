@@ -1,5 +1,6 @@
 @use "mixin";
 @use "variables";
+@use "gallery-page-mixins";
 
 .photo-art {
   padding-bottom: 24px;
@@ -67,6 +68,126 @@
 
     @include mixin.on-desktop {
       text-align: left;
+    }
+  }
+}
+
+.photo-art--gallery-page {
+  padding-top: 0;
+  padding-bottom: 0;
+
+  @include mixin.on-tablet {
+    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
+  }
+
+  @include mixin.on-desktop {
+    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
+  }
+
+  .photo-art__title {
+    @include gallery-page-mixins.gallery-page-section-title-accent;
+    color: variables.$main-color;
+    text-align: left;
+    padding-bottom: var(--gallery-page-mobile-item-gap);
+    margin-bottom: 0;
+
+    @include mixin.on-tablet {
+      padding-bottom: 0;
+      margin-bottom: 16px;
+    }
+
+    @include mixin.on-desktop {
+      margin-bottom: 20px;
+    }
+  }
+
+  .photo-art__item {
+    @include gallery-page-mixins.gallery-page-card-item;
+  }
+
+  .photo-art__image {
+    @include gallery-page-mixins.gallery-page-card-image;
+  }
+
+  .photo-art__grid--paintings {
+    display: grid;
+    margin: 0;
+    gap: var(--gallery-page-mobile-item-gap);
+    align-items: start;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+
+    .photo-art__item {
+      min-height: 0;
+      height: fit-content;
+      align-self: start;
+
+      a {
+        display: block;
+        height: auto;
+        min-height: 0;
+        padding: 0;
+        line-height: 0;
+      }
+    }
+
+    .photo-art__image {
+      width: 100%;
+      height: auto;
+      min-height: 0;
+      max-height: none;
+      object-fit: unset;
+      display: block;
+      vertical-align: top;
+      background: transparent;
+    }
+
+    .photo-art__item--featured {
+      grid-column: 1;
+
+      @include mixin.on-tablet {
+        grid-column: 3;
+        grid-row: 1 / 3;
+        max-width: none;
+        justify-self: stretch;
+      }
+    }
+
+    @include mixin.on-tablet {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
+      grid-template-rows: auto auto;
+      gap: variables.$gallery-grid-gap-tablet;
+      margin-top: 56px;
+      width: 100%;
+      max-width: none;
+      margin-inline: 0;
+
+      .photo-art__item--2 {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .photo-art__item--3 {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .photo-art__item--4 {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .photo-art__item--5 {
+        grid-column: 2;
+        grid-row: 2;
+      }
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 72px;
+      gap: variables.$gallery-grid-gap-desktop;
     }
   }
 }

@@ -165,7 +165,11 @@
     line-height: 32px;
     color: variables.$main-color;
     padding-bottom: 28px;
-    margin-bottom: clamp(16px, 2.5vw, 24px);
+    margin-bottom: 16px;
+
+    @include mixin.on-desktop {
+      margin-bottom: 24px;
+    }
 
     @include footer-title-accent-line;
   }
@@ -285,7 +289,11 @@
     line-height: 32px;
     color: variables.$main-color;
     padding-bottom: 28px;
-    margin-bottom: clamp(16px, 2.5vw, 24px);
+    margin-bottom: 16px;
+
+    @include mixin.on-desktop {
+      margin-bottom: 24px;
+    }
 
     @include footer-title-accent-line;
   }

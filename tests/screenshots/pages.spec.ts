@@ -57,4 +57,50 @@ test.describe("page screenshots", () => {
       SECTION_SCREENSHOT,
     );
   });
+
+  test("home page (ES)", async ({ page }) => {
+    await gotoAndPrepare(page, "/es/");
+
+    await expect(page).toHaveScreenshot("es-home-page.png", PAGE_SCREENSHOT);
+    await expect(page.locator(".hero-mosaic-viewport")).toHaveScreenshot(
+      "es-home-hero.png",
+      SECTION_SCREENSHOT,
+    );
+    await expect(page.locator(".artist-bio")).toHaveScreenshot(
+      "es-home-artist-bio.png",
+      SECTION_SCREENSHOT,
+    );
+    await expect(page.locator(".footer")).toHaveScreenshot(
+      "es-home-footer.png",
+      SECTION_SCREENSHOT,
+    );
+  });
+
+  test("gallery page (ES)", async ({ page }) => {
+    await gotoAndPrepare(page, "/es/gallery");
+
+    await expect(page).toHaveScreenshot("es-gallery-page.png", PAGE_SCREENSHOT);
+    await expect(page.locator(".gallery-page__hero")).toHaveScreenshot(
+      "es-gallery-hero.png",
+      SECTION_SCREENSHOT,
+    );
+    await expect(page.locator(".gallery-page__footer")).toHaveScreenshot(
+      "es-gallery-footer.png",
+      SECTION_SCREENSHOT,
+    );
+  });
+
+  test("artwork page (ES)", async ({ page }) => {
+    await gotoAndPrepare(page, `/es/artwork/${ARTWORK_ID}`);
+
+    await expect(page).toHaveScreenshot("es-artwork-page.png", PAGE_SCREENSHOT);
+    await expect(page.locator(".artwork-detail__wrapper")).toHaveScreenshot(
+      "es-artwork-detail.png",
+      SECTION_SCREENSHOT,
+    );
+    await expect(page.locator(".artwork-detail__footer")).toHaveScreenshot(
+      "es-artwork-footer.png",
+      SECTION_SCREENSHOT,
+    );
+  });
 });
