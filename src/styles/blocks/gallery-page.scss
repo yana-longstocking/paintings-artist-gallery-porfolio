@@ -228,18 +228,6 @@
     }
   }
 
-  .gallery-page__section-divider {
-    margin-top: 88px;
-
-    @include mixin.on-tablet {
-      margin-top: 100px;
-    }
-
-    @include mixin.on-desktop {
-      margin-top: 120px;
-    }
-  }
-
   .gallery-page__footer {
     margin-top: 0;
   }
