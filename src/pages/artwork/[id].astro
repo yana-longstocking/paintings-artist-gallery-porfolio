@@ -3,20 +3,10 @@ import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
 import ArtworkDetail from "../../components/ArtworkDetail.astro";
 import galleryData from "../../data/gallery.json";
 import { artwork as translations } from "../../i18n/en";
+import { getArtworkStaticPaths } from "../../utils/artworkPaths";
 
-export async function getStaticPaths() {
-  const allImages = [
-    ...galleryData.freedomCollection,
-    ...galleryData.allPaintingCollection,
-    ...galleryData.artCollection,
-    galleryData.galleryContent.featured,
-    ...galleryData.galleryContent.items,
-  ];
-
-  return allImages.map((image) => ({
-    params: { id: image.id },
-    props: { image },
-  }));
+export function getStaticPaths() {
+  return getArtworkStaticPaths(galleryData);
 }
 
 const { image } = Astro.props;

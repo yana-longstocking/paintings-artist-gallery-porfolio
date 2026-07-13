@@ -11,7 +11,6 @@ interface Props {
   galleryData: GalleryData;
   translations: GalleryTranslations;
   artworkLinkPrefix: string;
-  showFooter?: boolean;
   footerVariant?: GalleryFooterVariant;
 }
 
@@ -19,7 +18,6 @@ const {
   galleryData: data,
   translations,
   artworkLinkPrefix,
-  showFooter = false,
   footerVariant = "split",
 } = Astro.props;
 ---
@@ -194,24 +192,16 @@ const {
   </div>
 </article>
 
-{
-  showFooter && (
-    <div class="container gallery-page__scroll-top-bar">
-      <GalleryScrollTop label={translations.scrollToTopLabel} />
-    </div>
-  )
-}
+<div class="container gallery-page__scroll-top-bar">
+  <GalleryScrollTop label={translations.scrollToTopLabel} />
+</div>
 
-{
-  showFooter && (
-    <GalleryPageFooter
-      variant={footerVariant}
-      copyright={translations.footerCopyright}
-      contactTitle={translations.footerContactTitle}
-      emailLabel={translations.footerContactLabelEmail}
-      addressLabel={translations.footerContactLabelAddress}
-      address={translations.footerContactAddress}
-      socialText={translations.footerSocialText}
-    />
-  )
-}
+<GalleryPageFooter
+  variant={footerVariant}
+  copyright={translations.footerCopyright}
+  contactTitle={translations.footerContactTitle}
+  emailLabel={translations.footerContactLabelEmail}
+  addressLabel={translations.footerContactLabelAddress}
+  address={translations.footerContactAddress}
+  socialText={translations.footerSocialText}
+/>
