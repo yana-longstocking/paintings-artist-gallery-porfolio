@@ -2,17 +2,7 @@
 import HeroMosaic from "./HeroMosaic.astro";
 import ArtistBio from "./ArtistBio.astro";
 import ContactFooter from "./ContactFooter.astro";
-
-interface GalleryData {
-  freedomCollection: { id: string; src: string; alt: string }[];
-  allPaintingCollection: { id: string; src: string; alt: string }[];
-  artCollection: { id: string; src: string; alt: string }[];
-  galleryContent: {
-    featured: { id: string; src: string; alt: string };
-    items: { id: string; src: string; alt: string }[];
-  };
-  artistBio: { src: string; alt: string };
-}
+import type { GalleryData } from "../types/gallery";
 
 interface Props {
   galleryData: GalleryData;

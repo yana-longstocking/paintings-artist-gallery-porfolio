@@ -1,12 +1,13 @@
 ---
-import galleryData from "../data/gallery.json";
 import GalleryPageFooter, {
   type GalleryFooterVariant,
 } from "./GalleryPageFooter.astro";
+import GalleryPageHero from "./GalleryPageHero.astro";
 import GalleryScrollTop from "./GalleryScrollTop.astro";
+import type { GalleryData } from "../types/gallery";
 
 interface Props {
-  galleryData: typeof galleryData;
+  galleryData: GalleryData;
   translations: {
     galleryTitle: string;
     galleryDescriptionLine1: string;
@@ -39,32 +40,11 @@ const {
 
 {
   showPageHeader && (
-    <>
-      <main>
-        <div class="container">
-          <section class="gallery-page__hero" id="gallery">
-            <div class="gallery-page__hero-content">
-              <h1 class="gallery-page__hero-title">
-                {translations.galleryTitle}
-              </h1>
-              <span class="gallery-page__hero-accent" aria-hidden="true" />
-              <div class="gallery-page__hero-text">
-                <p class="gallery-page__hero-text-line gallery-page__hero-text-line--first">
-                  {translations.galleryDescriptionLine1}
-                </p>
-                <p class="gallery-page__hero-text-line gallery-page__hero-text-line--second">
-                  {translations.galleryDescriptionLine2}
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-      </main>
-
-      <div class="container">
-        <div class="container__line container__line--gallery-page" />
-      </div>
-    </>
+    <GalleryPageHero
+      title={translations.galleryTitle}
+      descriptionLine1={translations.galleryDescriptionLine1}
+      descriptionLine2={translations.galleryDescriptionLine2}
+    />
   )
 }
 
@@ -86,7 +66,7 @@ const {
       </div>
       <div class="photo-gallery__grid photo-gallery__grid--freedom">
         {
-          data.freedomCollection.map((item: any, index: number) =>
+          data.freedomCollection.map((item, index) =>
             item.featured ? (
               <div
                 class:list={[
@@ -110,7 +90,7 @@ const {
         }
         <div class="photo-gallery__side">
           {
-            data.freedomCollection.map((item: any, index: number) =>
+            data.freedomCollection.map((item, index) =>
               !item.featured ? (
                 <div
                   class:list={[
@@ -147,7 +127,7 @@ const {
       </div>
       <div class="photo-art__grid photo-art__grid--paintings">
         {
-          data.allPaintingCollection.map((item: any, index: number) => (
+          data.allPaintingCollection.map((item, index) => (
             <div
               class:list={[
                 "photo-art__item",
@@ -177,7 +157,7 @@ const {
     <section class="art art--gallery-page">
       <div class="art__grid">
         {
-          data.artCollection.map((item: any) => (
+          data.artCollection.map((item) => (
             <div
               class={`art__item art__item--${item.id} ${item.featured ? "art__item--featured" : ""}`}
               data-artwork-id={item.id}
@@ -218,7 +198,7 @@ const {
       </div>
       <div class="gallery-content__grid">
         {
-          data.galleryContent.items.map((item: any) => (
+          data.galleryContent.items.map((item) => (
             <div
               class={`gallery-content__item gallery-content__item--${item.id}`}
               data-artwork-id={item.id}
