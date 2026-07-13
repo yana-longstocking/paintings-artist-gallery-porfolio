@@ -456,4 +456,21 @@
       }
     }
   }
+
+  &--landing {
+    position: relative;
+    z-index: 10;
+
+    @include mixin.on-desktop {
+      padding: 28px 0 8px;
+    }
+
+    .header__nav {
+      padding-top: 8px;
+
+      @include mixin.on-tablet {
+        padding-top: 20px;
+      }
+    }
+  }
 }

@@ -31,6 +31,20 @@
     }
   }
 
+  &--landing {
+    position: relative;
+    z-index: 1;
+    padding-top: 72px;
+
+    @include mixin.on-tablet {
+      padding-top: 88px;
+    }
+
+    @include mixin.on-desktop {
+      padding-top: 102px;
+    }
+  }
+
   @keyframes slidein {
     from {
       margin-left: 100%;

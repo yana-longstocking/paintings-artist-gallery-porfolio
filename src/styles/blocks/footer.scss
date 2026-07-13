@@ -34,6 +34,11 @@
 .footer {
   padding-bottom: 20px;
 
+  &--landing {
+    position: relative;
+    z-index: 1;
+  }
+
   &--scroll-reveal {
     .footer__title,
     .footer__contact-title {

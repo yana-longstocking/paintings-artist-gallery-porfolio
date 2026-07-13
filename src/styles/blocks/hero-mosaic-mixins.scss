@@ -1,0 +1,52 @@
+@use "mixin";
+
+@mixin hero-mosaic-column-template {
+  grid-template-columns:
+    minmax(0, 0.88fr) minmax(0, 1.05fr) minmax(0, 1.36fr)
+    minmax(0, 1.05fr) minmax(0, 0.88fr);
+
+  @include mixin.on-desktop {
+    grid-template-columns:
+      minmax(0, 0.82fr) minmax(0, 1.05fr) minmax(0, 1.48fr)
+      minmax(0, 1.05fr) minmax(0, 0.82fr);
+  }
+}
+
+@keyframes hero-mosaic-cell-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-10px) translateY(6px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-mosaic-cta-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+
+  55% {
+    opacity: 0.72;
+    transform: translateY(4px) scale(0.995);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-mosaic-cta-shine {
+  from {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+
+  to {
+    transform: translateX(220%) skewX(-18deg);
+  }
+}

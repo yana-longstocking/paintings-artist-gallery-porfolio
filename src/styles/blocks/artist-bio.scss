@@ -8,6 +8,11 @@
     padding-bottom: 140px;
   }
 
+  &--landing {
+    position: relative;
+    z-index: 1;
+  }
+
   &--reveal {
     .artist-bio__title {
       opacity: 0;

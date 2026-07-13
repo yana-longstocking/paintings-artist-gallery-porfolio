@@ -102,6 +102,7 @@
   .gallery-content__item,
   .gallery-content__featured {
     @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
   }
 
   .gallery-content__image,
@@ -110,9 +111,11 @@
   }
 
   .gallery-content__featured {
+    margin-top: var(--gallery-page-mobile-item-gap);
     margin-bottom: var(--gallery-page-mobile-item-gap);
 
     @include mixin.on-tablet {
+      margin-top: 0;
       margin-bottom: 0;
     }
 
@@ -248,5 +251,37 @@
         minmax(0, 0.78fr) minmax(0, 0.78fr) minmax(0, 0.78fr) minmax(0, 1.33fr)
         minmax(0, 1.33fr) !important;
     }
+
+    .gallery-content__item--prisme-light.gallery-page__target--visible {
+      transition-delay: 0.12s;
+    }
+
+    .gallery-content__item--shevchenkos-kateryna.gallery-page__target--visible {
+      transition-delay: 0.2s;
+    }
+
+    .gallery-content__item--wind.gallery-page__target--visible {
+      transition-delay: 0.28s;
+    }
+
+    .gallery-content__item--myst.gallery-page__target--visible {
+      transition-delay: 0.36s;
+    }
+
+    .gallery-content__item--pretty-girls-do-cry-1.gallery-page__target--visible {
+      transition-delay: 0.44s;
+    }
+
+    .gallery-content__item--pretty-girls-do-cry-2.gallery-page__target--visible {
+      transition-delay: 0.52s;
+    }
+
+    .gallery-content__item--portrait.gallery-page__target--visible {
+      transition-delay: 0.18s;
+    }
+  }
+
+  .gallery-content__featured.gallery-page__target--visible {
+    transition-delay: 0.06s;
   }
 }

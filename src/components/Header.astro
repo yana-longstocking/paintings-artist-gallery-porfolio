@@ -1,4 +1,12 @@
 ---
+import type { PageSurface } from "./BaseLayout/BaseLayout.astro";
+
+interface Props {
+  surface?: PageSurface;
+}
+
+const { surface = "default" } = Astro.props;
+
 const pathname = Astro.url.pathname;
 const isSpanish = pathname.startsWith("/es");
 const homeHref = isSpanish ? "/es/" : "/";
@@ -7,7 +15,7 @@ const isHomePage =
   pathname === "/" || pathname === "/es" || pathname === "/es/";
 ---
 
-<header class="header">
+<header class:list={["header", surface === "landing" && "header--landing"]}>
   <div class="container">
     <nav class="header__nav">
       <div class="header__logo">

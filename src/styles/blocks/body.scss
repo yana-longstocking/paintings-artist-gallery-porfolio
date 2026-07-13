@@ -3,6 +3,11 @@
 
 html {
   min-height: 100%;
+
+  &--landing {
+    overflow-x: clip;
+    scroll-padding-top: 96px;
+  }
 }
 
 html,

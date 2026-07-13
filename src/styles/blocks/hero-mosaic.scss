@@ -1,104 +1,8 @@
 @use "mixin";
 @use "variables";
+@use "hero-mosaic-mixins";
 
-@mixin hero-mosaic-column-template {
-  grid-template-columns:
-    minmax(0, 0.88fr) minmax(0, 1.05fr) minmax(0, 1.36fr)
-    minmax(0, 1.05fr) minmax(0, 0.88fr);
-
-  @include mixin.on-desktop {
-    grid-template-columns:
-      minmax(0, 0.82fr) minmax(0, 1.05fr) minmax(0, 1.48fr)
-      minmax(0, 1.05fr) minmax(0, 0.82fr);
-  }
-}
-
-@keyframes hero-mosaic-cell-enter {
-  from {
-    opacity: 0;
-    transform: translateX(-10px) translateY(6px) scale(0.99);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0) translateY(0) scale(1);
-  }
-}
-
-@keyframes hero-mosaic-cta-enter {
-  0% {
-    opacity: 0;
-    transform: translateY(14px) scale(0.97);
-  }
-
-  55% {
-    opacity: 0.72;
-    transform: translateY(4px) scale(0.995);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes hero-mosaic-cta-shine {
-  from {
-    transform: translateX(-120%) skewX(-18deg);
-  }
-
-  to {
-    transform: translateX(220%) skewX(-18deg);
-  }
-}
-
-body:has(.hero-mosaic-page) {
-  overflow-x: hidden;
-  scroll-padding-top: 96px;
-
-  .header {
-    position: relative;
-    z-index: 10;
-
-    @include mixin.on-desktop {
-      padding: 28px 0 8px;
-    }
-  }
-
-  .header__nav {
-    padding-top: 8px;
-
-    @include mixin.on-tablet {
-      padding-top: 20px;
-    }
-  }
-}
-
-.hero-mosaic-page {
-  position: relative;
-  z-index: 0;
-}
-
-.hero-mosaic-viewport {
-  display: flex;
-  flex-direction: column;
-  width: 100dvw;
-  max-width: 100dvw;
-  margin-left: calc(50% - 50dvw);
-  margin-top: 36px;
-  min-height: 0;
-  max-height: none;
-
-  @include mixin.on-tablet {
-    margin-top: 40px;
-  }
-
-  @include mixin.on-desktop {
-    margin-top: -80px;
-  }
-}
-
-.hero-mosaic-page .hero-mosaic.hero-mosaic--under-nav {
+.hero-mosaic--under-nav {
   position: relative;
   z-index: 0;
   flex: none;
@@ -631,7 +535,7 @@ body:has(.hero-mosaic-page) {
     min-height: min(480px, 70dvh);
   }
 
-  .hero-mosaic-page .hero-mosaic.hero-mosaic--under-nav .hero-mosaic__grid {
+  .hero-mosaic--under-nav .hero-mosaic__grid {
     height: auto;
   }
 
@@ -718,24 +622,4 @@ body:has(.hero-mosaic-page) {
   .hero-mosaic__cta-link:hover::after {
     transform: none;
   }
-}
-
-.hero-mosaic-page + .container {
-  position: relative;
-  z-index: 1;
-  padding-top: 72px;
-
-  @include mixin.on-tablet {
-    padding-top: 88px;
-  }
-
-  @include mixin.on-desktop {
-    padding-top: 102px;
-  }
-}
-
-body:has(.hero-mosaic-page) > article,
-body:has(.hero-mosaic-page) > footer.footer {
-  position: relative;
-  z-index: 1;
 }

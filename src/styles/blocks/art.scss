@@ -108,6 +108,7 @@
     }
 
     @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
   }
 
   .art__image {
@@ -117,6 +118,7 @@
   .art__grid {
     display: grid;
     margin: 0;
+    margin-top: var(--gallery-page-mobile-item-gap);
     gap: var(--gallery-page-mobile-item-gap);
     align-items: start;
     grid-template-columns: minmax(0, 1fr);
@@ -168,6 +170,7 @@
       width: 100%;
       max-width: none;
       margin-inline: 0;
+      margin-top: 0;
       align-items: start;
 
       .art__item--blue-haze {
@@ -199,6 +202,26 @@
 
     @include mixin.on-desktop {
       gap: variables.$gallery-grid-gap-desktop;
+    }
+
+    .art__item--dancer.gallery-page__target--visible {
+      transition-delay: 0.14s;
+    }
+
+    .art__item--blue-haze.gallery-page__target--visible {
+      transition-delay: 0.06s;
+    }
+
+    .art__item--sunkissed.gallery-page__target--visible {
+      transition-delay: 0.22s;
+    }
+
+    .art__item--intimessy.gallery-page__target--visible {
+      transition-delay: 0.06s;
+    }
+
+    .art__item--beach-spirit.gallery-page__target--visible {
+      transition-delay: 0.22s;
     }
   }
 }

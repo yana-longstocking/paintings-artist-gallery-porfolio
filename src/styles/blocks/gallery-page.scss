@@ -2,22 +2,6 @@
 @use "variables";
 @use "gallery-page-mixins";
 
-@keyframes gallery-page-section-title-line {
-  0% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-
-  35% {
-    opacity: 0.55;
-  }
-
-  100% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-}
-
 @keyframes gallery-page-accent-line-in {
   0% {
     transform: scaleX(0);
@@ -232,148 +216,6 @@
     }
   }
 
-  .gallery-page__section--reveal {
-    .photo-gallery__title.gallery-page__target,
-    .photo-art__title.gallery-page__target {
-      opacity: 0;
-      transform: translateY(24px);
-      transition:
-        opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
-
-      &::after {
-        transform: scaleX(0);
-        opacity: 0;
-      }
-    }
-
-    .photo-gallery__item.gallery-page__target,
-    .photo-art__item.gallery-page__target,
-    .art__item.gallery-page__target,
-    .gallery-content__featured.gallery-page__target,
-    .gallery-content__item.gallery-page__target {
-      opacity: 0;
-      transform: translateY(32px);
-      transition:
-        opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .photo-gallery__title.gallery-page__target--visible,
-    .photo-art__title.gallery-page__target--visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.04s;
-
-      &::after {
-        animation: gallery-page-section-title-line 1.15s
-          cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
-      }
-    }
-
-    .gallery-page__footer-heading.gallery-page__target {
-      &::after {
-        transform: scaleX(0);
-        opacity: 0;
-      }
-    }
-
-    .gallery-page__footer-heading.gallery-page__target--visible {
-      &::after {
-        animation: gallery-page-section-title-line 1.15s
-          cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
-      }
-    }
-
-    .photo-gallery__item.gallery-page__target--visible,
-    .photo-art__item.gallery-page__target--visible,
-    .art__item.gallery-page__target--visible,
-    .gallery-content__featured.gallery-page__target--visible,
-    .gallery-content__item.gallery-page__target--visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: calc(var(--reveal-i, 0) * 0.12s + 0.06s);
-    }
-
-    .gallery-page__footer-heading.gallery-page__target,
-    .gallery-page__footer-nav-link.gallery-page__target,
-    .gallery-page__footer-inline-link.gallery-page__target,
-    .contact-action.gallery-page__target,
-    .gallery-page__footer-lead.gallery-page__target,
-    .gallery-page__footer-classic-item.gallery-page__target,
-    .gallery-page__footer-copy.gallery-page__target {
-      opacity: 0;
-      transform: translateY(24px);
-      transition:
-        opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .gallery-page__footer-heading.gallery-page__target--visible,
-    .gallery-page__footer-nav-link.gallery-page__target--visible,
-    .gallery-page__footer-inline-link.gallery-page__target--visible,
-    .contact-action.gallery-page__target--visible,
-    .gallery-page__footer-lead.gallery-page__target--visible,
-    .gallery-page__footer-classic-item.gallery-page__target--visible,
-    .gallery-page__footer-copy.gallery-page__target--visible {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: calc(var(--reveal-i, 0) * 0.12s + 0.06s);
-    }
-  }
-
-  .photo-gallery__grid--freedom {
-    .photo-gallery__item--1.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    .photo-gallery__item--2.gallery-page__target--visible {
-      transition-delay: 0.14s;
-    }
-
-    .photo-gallery__item--3.gallery-page__target--visible {
-      transition-delay: 0.22s;
-    }
-
-    .photo-gallery__item--4.gallery-page__target--visible {
-      transition-delay: 0.3s;
-    }
-
-    .photo-gallery__item--5.gallery-page__target--visible {
-      transition-delay: 0.38s;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .gallery-page__section--reveal {
-      .photo-gallery__title.gallery-page__target,
-      .photo-art__title.gallery-page__target,
-      .photo-gallery__item.gallery-page__target,
-      .photo-art__item.gallery-page__target,
-      .art__item.gallery-page__target,
-      .gallery-content__featured.gallery-page__target,
-      .gallery-content__item.gallery-page__target,
-      .gallery-page__footer-heading.gallery-page__target,
-      .gallery-page__footer-nav-link.gallery-page__target,
-      .gallery-page__footer-inline-link.gallery-page__target,
-      .contact-action.gallery-page__target,
-      .gallery-page__footer-lead.gallery-page__target,
-      .gallery-page__footer-classic-item.gallery-page__target,
-      .gallery-page__footer-copy.gallery-page__target {
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
-
-      .photo-gallery__title::after,
-      .photo-art__title::after {
-        transform: none;
-        opacity: 1;
-        animation: none;
-      }
-    }
-  }
-
   .gallery-page > .gallery-page__section:first-of-type {
     margin-top: 96px;
 
@@ -395,104 +237,6 @@
 
     @include mixin.on-desktop {
       margin-top: 120px;
-    }
-  }
-
-  .photo-art__grid--paintings {
-    .photo-art__item--1.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    .photo-art__item--2.gallery-page__target--visible {
-      transition-delay: 0.14s;
-    }
-
-    .photo-art__item--3.gallery-page__target--visible {
-      transition-delay: 0.22s;
-    }
-
-    .photo-art__item--4.gallery-page__target--visible {
-      transition-delay: 0.3s;
-    }
-
-    .photo-art__item--5.gallery-page__target--visible {
-      transition-delay: 0.38s;
-    }
-  }
-
-  .gallery-content__featured.gallery-page__target--visible {
-    transition-delay: 0.06s;
-  }
-
-  .gallery-content__grid {
-    .gallery-content__item--prisme-light.gallery-page__target--visible {
-      transition-delay: 0.12s;
-    }
-
-    .gallery-content__item--shevchenkos-kateryna.gallery-page__target--visible {
-      transition-delay: 0.2s;
-    }
-
-    .gallery-content__item--wind.gallery-page__target--visible {
-      transition-delay: 0.28s;
-    }
-
-    .gallery-content__item--myst.gallery-page__target--visible {
-      transition-delay: 0.36s;
-    }
-
-    .gallery-content__item--pretty-girls-do-cry-1.gallery-page__target--visible {
-      transition-delay: 0.44s;
-    }
-
-    .gallery-content__item--pretty-girls-do-cry-2.gallery-page__target--visible {
-      transition-delay: 0.52s;
-    }
-
-    .gallery-content__item--portrait.gallery-page__target--visible {
-      transition-delay: 0.18s;
-    }
-  }
-
-  .art__grid {
-    .art__item--dancer.gallery-page__target--visible {
-      transition-delay: 0.14s;
-    }
-
-    .art__item--blue-haze.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    .art__item--sunkissed.gallery-page__target--visible {
-      transition-delay: 0.22s;
-    }
-
-    .art__item--intimessy.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    .art__item--beach-spirit.gallery-page__target--visible {
-      transition-delay: 0.22s;
-    }
-  }
-
-  .gallery-page__section:has(.photo-art)
-    + .gallery-page__section:has(.art)
-    .art__grid {
-    margin-top: var(--gallery-page-mobile-item-gap);
-
-    @include mixin.on-tablet {
-      margin-top: 0;
-    }
-  }
-
-  .gallery-page__section:has(.art)
-    + .gallery-page__section
-    .gallery-content__featured {
-    margin-top: var(--gallery-page-mobile-item-gap);
-
-    @include mixin.on-tablet {
-      margin-top: 0;
     }
   }
 
@@ -555,6 +299,8 @@
   }
 
   .gallery-page__footer-heading {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    @include gallery-page-mixins.gallery-page-reveal-footer-heading-accent;
     margin: 0;
     font-family: "Cinzel", sans-serif;
     font-weight: 700;
@@ -563,6 +309,7 @@
   }
 
   .gallery-page__footer-copy {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
     margin: 0;
     font-family: "Cinzel", sans-serif;
     font-size: 12px;
@@ -629,6 +376,7 @@
     }
 
     .gallery-page__footer-nav-link {
+      @include gallery-page-mixins.gallery-page-reveal-footer-text;
       display: grid;
       grid-template-columns: minmax(72px, 92px) 1fr;
       gap: 12px 16px;
@@ -735,6 +483,7 @@
     }
 
     .gallery-page__footer-inline-link {
+      @include gallery-page-mixins.gallery-page-reveal-footer-text;
       font-family: "Roboto", sans-serif;
       font-size: 14px;
       line-height: 1.5;
@@ -816,6 +565,7 @@
     }
 
     .gallery-page__footer-lead {
+      @include gallery-page-mixins.gallery-page-reveal-footer-text;
       margin: 0;
       font-family: "Roboto", sans-serif;
       font-size: 14px;
@@ -893,6 +643,7 @@
     }
 
     .gallery-page__footer-classic-item {
+      @include gallery-page-mixins.gallery-page-reveal-footer-text;
       display: flex;
       flex-direction: column;
       gap: 8px;
