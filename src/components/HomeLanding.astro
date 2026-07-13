@@ -3,32 +3,13 @@ import HeroMosaic from "./HeroMosaic.astro";
 import ArtistBio from "./ArtistBio.astro";
 import ContactFooter from "./ContactFooter.astro";
 import type { GalleryData } from "../types/gallery";
+import type { HomeTranslations } from "../i18n/types";
 
 interface Props {
   galleryData: GalleryData;
   artworkLinkPrefix: string;
   galleryHref: string;
-  translations: {
-    viewAllWorksLabel: string;
-    mobileHeroTagline: string;
-    artistBioTitle: string;
-    artistBioText: string;
-    footerTitle: string;
-    footerFormNamePlaceholder: string;
-    footerFormEmailPlaceholder: string;
-    footerFormMessagePlaceholder: string;
-    footerFormButtonText: string;
-    footerFormSendingText: string;
-    footerFormSuccessMessage: string;
-    footerFormErrorMessage: string;
-    footerFormErrorGeneric: string;
-    footerContactTitle: string;
-    footerContactLabelEmail: string;
-    footerContactLabelAddress: string;
-    footerContactAddress: string;
-    footerSocialText: string;
-    footerCopyright: string;
-  };
+  translations: HomeTranslations;
 }
 
 const {

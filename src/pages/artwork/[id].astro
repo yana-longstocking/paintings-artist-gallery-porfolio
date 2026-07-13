@@ -2,9 +2,9 @@
 import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
 import ArtworkDetail from "../../components/ArtworkDetail.astro";
 import galleryData from "../../data/gallery.json";
+import { artwork as translations } from "../../i18n/en";
 
 export async function getStaticPaths() {
-  // Collect all images from all collections
   const allImages = [
     ...galleryData.freedomCollection,
     ...galleryData.allPaintingCollection,
@@ -20,18 +20,6 @@ export async function getStaticPaths() {
 }
 
 const { image } = Astro.props;
-
-const translations = {
-  additionalDetailsTitle: "Artwork Details",
-  footerTitle: "About the Gallery",
-  footerText:
-    "Explore the unique artistic vision and creative journey through each piece in the collection.",
-  footerLinkText: "View Gallery",
-  footerContactTitle: "Contact us",
-  footerContactText:
-    "Follow me and if you have any questions, I am here for you.",
-  footerCopyright: `© ${new Date().getFullYear()} Artist Gallery. All rights reserved.`,
-};
 
 const galleryLink = `${import.meta.env.BASE_URL}gallery`;
 ---

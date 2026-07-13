@@ -5,23 +5,11 @@ import GalleryPageFooter, {
 import GalleryPageHero from "./GalleryPageHero.astro";
 import GalleryScrollTop from "./GalleryScrollTop.astro";
 import type { GalleryData } from "../types/gallery";
+import type { GalleryTranslations } from "../i18n/types";
 
 interface Props {
   galleryData: GalleryData;
-  translations: {
-    galleryTitle: string;
-    galleryDescriptionLine1: string;
-    galleryDescriptionLine2: string;
-    freedomCollectionTitle: string;
-    allPaintingCollectionTitle: string;
-    footerContactTitle: string;
-    footerContactLabelEmail: string;
-    footerContactLabelAddress: string;
-    footerContactAddress: string;
-    footerSocialText: string;
-    footerCopyright: string;
-    scrollToTopLabel: string;
-  };
+  translations: GalleryTranslations;
   artworkLinkPrefix: string;
   showFooter?: boolean;
   footerVariant?: GalleryFooterVariant;

@@ -2,21 +2,7 @@
 import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
 import GalleryIndex from "../../components/GalleryIndex.astro";
 import galleryData from "../../data/gallery-es.json";
-
-const translations = {
-  galleryTitle: "Galería",
-  galleryDescriptionLine1: "Colección de arte contemporáneo",
-  galleryDescriptionLine2: "De una joven artista ucraniana",
-  freedomCollectionTitle: "Colección Libertad",
-  allPaintingCollectionTitle: "Colección de Todas las Pinturas",
-  footerContactTitle: "Contáctanos",
-  footerContactLabelEmail: "Email",
-  footerContactLabelAddress: "Dirección",
-  footerContactAddress: "Madrid, España",
-  footerSocialText: "Sígueme en Instagram",
-  footerCopyright: `© ${new Date().getFullYear()} Galería. Todos los derechos reservados.`,
-  scrollToTopLabel: "Volver arriba",
-};
+import { gallery as translations } from "../../i18n/es";
 
 const artworkLinkPrefix = "es/";
 ---

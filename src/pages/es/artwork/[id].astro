@@ -2,9 +2,9 @@
 import BaseLayout from "../../../components/BaseLayout/BaseLayout.astro";
 import ArtworkDetail from "../../../components/ArtworkDetail.astro";
 import galleryData from "../../../data/gallery-es.json";
+import { artwork as translations } from "../../../i18n/es";
 
 export async function getStaticPaths() {
-  // Collect all images from all collections
   const allImages = [
     ...galleryData.freedomCollection,
     ...galleryData.allPaintingCollection,
@@ -20,18 +20,6 @@ export async function getStaticPaths() {
 }
 
 const { image } = Astro.props;
-
-const translations = {
-  additionalDetailsTitle: "Detalles de la Obra",
-  footerTitle: "Sobre la galería",
-  footerText:
-    "Explora la visión artística y el viaje creativo a través de cada pieza de la colección.",
-  footerLinkText: "Ver Galería",
-  footerContactTitle: "Contáctanos",
-  footerContactText:
-    "Sígueme y si tienes alguna pregunta, estaré encantada de contestarte.",
-  footerCopyright: `© ${new Date().getFullYear()} Galería de Artista. Todos los derechos reservados.`,
-};
 
 const galleryLink = `${import.meta.env.BASE_URL}es/gallery`;
 ---

@@ -1,18 +1,12 @@
 ---
 import ImageModal from "./ImageModal/ImageModal.astro";
 import ContactActionButtons from "./ContactActionButtons.astro";
+import type { ArtworkItem } from "../types/gallery";
+import type { ArtworkTranslations } from "../i18n/types";
 
 interface Props {
-  image: any;
-  translations: {
-    additionalDetailsTitle: string;
-    footerTitle: string;
-    footerText: string;
-    footerLinkText: string;
-    footerContactTitle: string;
-    footerContactText: string;
-    footerCopyright: string;
-  };
+  image: ArtworkItem;
+  translations: ArtworkTranslations;
   galleryLink: string;
 }
 
@@ -27,7 +21,7 @@ const { image, translations, galleryLink } = Astro.props;
           src={`${import.meta.env.BASE_URL}${image.src}`}
           alt={image.alt}
           class="artwork-detail__image"
-          data-src-original={`${import.meta.env.BASE_URL}${(image as any).srcOriginal || image.src}`}
+          data-src-original={`${import.meta.env.BASE_URL}${image.srcOriginal || image.src}`}
           onclick="openModal(this)"
           loading="eager"
           fetchpriority="high"
@@ -53,7 +47,7 @@ const { image, translations, galleryLink } = Astro.props;
                 {translations.additionalDetailsTitle}
               </h2>
               <div class="artwork-detail__gallery">
-                {image.additionalPhotos.map((photo: any) => (
+                {image.additionalPhotos.map((photo) => (
                   <div class="artwork-detail__gallery-item">
                     <img
                       src={`${import.meta.env.BASE_URL}${photo.src}`}
