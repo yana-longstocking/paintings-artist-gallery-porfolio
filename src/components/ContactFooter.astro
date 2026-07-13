@@ -1,0 +1,132 @@
+---
+import ContactActionButtons from "./ContactActionButtons.astro";
+
+export type ContactFooterVariant = "landing" | "default";
+
+interface Props {
+  variant?: ContactFooterVariant;
+  title: string;
+  formNamePlaceholder: string;
+  formEmailPlaceholder: string;
+  formMessagePlaceholder: string;
+  formButtonText: string;
+  formSendingText: string;
+  formSuccessMessage: string;
+  formErrorMessage: string;
+  formErrorGeneric: string;
+  contactTitle: string;
+  contactLabelEmail: string;
+  contactLabelAddress: string;
+  contactAddress: string;
+  copyright: string;
+}
+
+const {
+  variant = "default",
+  title,
+  formNamePlaceholder,
+  formEmailPlaceholder,
+  formMessagePlaceholder,
+  formButtonText,
+  formSendingText,
+  formSuccessMessage,
+  formErrorMessage,
+  formErrorGeneric,
+  contactTitle,
+  contactLabelEmail,
+  contactLabelAddress,
+  contactAddress,
+  copyright,
+} = Astro.props;
+
+const isLanding = variant === "landing";
+---
+
+<footer
+  class:list={[
+    "footer",
+    "footer--scroll-reveal",
+    isLanding && "footer--landing",
+  ]}
+  id="contact-us"
+>
+  <div class="container">
+    <div class="footer__content">
+      <div class="footer__form-section">
+        <h2 class="footer__title">{title}</h2>
+        <form
+          id="form"
+          class="footer__form"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          data-sending-text={formSendingText}
+          data-error-message={formErrorMessage}
+          data-error-generic={formErrorGeneric}
+        >
+          <input
+            class="footer__input"
+            type="text"
+            name="name"
+            placeholder={formNamePlaceholder}
+            required
+          />
+
+          <input
+            type="email"
+            class="footer__input"
+            id="email"
+            name="email"
+            placeholder={formEmailPlaceholder}
+            required
+          />
+
+          <textarea
+            id="message"
+            class="footer__message"
+            name="message"
+            placeholder={formMessagePlaceholder}
+            required></textarea>
+
+          <button type="submit" class="footer__button">
+            {formButtonText}
+          </button>
+        </form>
+        <div id="form-success" class="footer__success" style="display: none;">
+          <p class="footer__success-message">
+            {formSuccessMessage}
+          </p>
+        </div>
+      </div>
+
+      <div class="footer__contact-section">
+        <div class="footer__contact-title">
+          {contactTitle}
+        </div>
+        <div class="footer__contact-item">
+          <p class="footer__contact-label">
+            {contactLabelAddress}
+          </p>
+
+          <a
+            class="footer__contact-value"
+            href="https://maps.app.goo.gl/b4ArvQcv9C2awyTb6"
+            target="_blank"
+          >
+            {contactAddress}
+          </a>
+        </div>
+
+        <ContactActionButtons
+          emailLabel={contactLabelEmail}
+          instagramLabel="Instagram"
+          class="footer__contact-actions"
+        />
+      </div>
+    </div>
+    <div class="footer__copyright">
+      <p class="footer__copyright-text">{copyright}</p>
+    </div>
+  </div>
+</footer>
+
+<script src="./ContactForm.client.ts"></script>

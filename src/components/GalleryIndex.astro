@@ -4,7 +4,6 @@ import GalleryPageFooter, {
   type GalleryFooterVariant,
 } from "./GalleryPageFooter.astro";
 import GalleryScrollTop from "./GalleryScrollTop.astro";
-import ContactActionButtons from "./ContactActionButtons.astro";
 
 interface Props {
   galleryData: typeof galleryData;
@@ -14,17 +13,6 @@ interface Props {
     galleryDescriptionLine2: string;
     freedomCollectionTitle: string;
     allPaintingCollectionTitle: string;
-    artistBioTitle: string;
-    artistBioText: string;
-    footerTitle: string;
-    footerFormNamePlaceholder: string;
-    footerFormEmailPlaceholder: string;
-    footerFormMessagePlaceholder: string;
-    footerFormButtonText: string;
-    footerFormSendingText: string;
-    footerFormSuccessMessage: string;
-    footerFormErrorMessage: string;
-    footerFormErrorGeneric: string;
     footerContactTitle: string;
     footerContactLabelEmail: string;
     footerContactLabelAddress: string;
@@ -35,7 +23,6 @@ interface Props {
   };
   artworkLinkPrefix: string;
   showPageHeader?: boolean;
-  showBioAndFooter?: boolean;
   showFooter?: boolean;
   footerVariant?: GalleryFooterVariant;
 }
@@ -45,7 +32,6 @@ const {
   translations,
   artworkLinkPrefix,
   showPageHeader = false,
-  showBioAndFooter = false,
   showFooter = false,
   footerVariant = "split",
 } = Astro.props;
@@ -255,31 +241,6 @@ const {
 </article>
 
 {
-  showBioAndFooter && (
-    <div class="container">
-      <section class="artist-bio">
-        <div class="artist-bio__content" id="artist-bio">
-          <h2 class="artist-bio__title">{translations.artistBioTitle}</h2>
-        </div>
-        <div class="artist-bio__wrapper">
-          <div class="artist-bio__image">
-            <img
-              src={`/${data.artistBio.src}`}
-              alt={data.artistBio.alt}
-              class="artist-bio__image-img"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-
-          <div class="artist-bio__text">{translations.artistBioText}</div>
-        </div>
-      </section>
-    </div>
-  )
-}
-
-{
   showPageHeader && showFooter && (
     <div class="container gallery-page__scroll-top-bar">
       <GalleryScrollTop label={translations.scrollToTopLabel} />
@@ -300,94 +261,3 @@ const {
     />
   )
 }
-
-{
-  showBioAndFooter && (
-    <footer class="footer footer--scroll-reveal" id="contact-us">
-      <div class="container">
-        <div class="footer__content">
-          <div class="footer__form-section">
-            <h2 class="footer__title">{translations.footerTitle}</h2>
-            <form
-              id="form"
-              class="footer__form"
-              action="https://api.web3forms.com/submit"
-              method="POST"
-              data-sending-text={translations.footerFormSendingText}
-              data-error-message={translations.footerFormErrorMessage}
-              data-error-generic={translations.footerFormErrorGeneric}
-            >
-              <input
-                class="footer__input"
-                type="text"
-                name="name"
-                placeholder={translations.footerFormNamePlaceholder}
-                required
-              />
-
-              <input
-                type="email"
-                class="footer__input"
-                id="email"
-                name="email"
-                placeholder={translations.footerFormEmailPlaceholder}
-                required
-              />
-
-              <textarea
-                id="message"
-                class="footer__message"
-                name="message"
-                placeholder={translations.footerFormMessagePlaceholder}
-                required
-              />
-
-              <button type="submit" class="footer__button">
-                {translations.footerFormButtonText}
-              </button>
-            </form>
-            <div
-              id="form-success"
-              class="footer__success"
-              style="display: none;"
-            >
-              <p class="footer__success-message">
-                {translations.footerFormSuccessMessage}
-              </p>
-            </div>
-          </div>
-
-          <div class="footer__contact-section">
-            <div class="footer__contact-title">
-              {translations.footerContactTitle}
-            </div>
-            <div class="footer__contact-item">
-              <p class="footer__contact-label">
-                {translations.footerContactLabelAddress}
-              </p>
-
-              <a
-                class="footer__contact-value"
-                href="https://maps.app.goo.gl/b4ArvQcv9C2awyTb6"
-                target="_blank"
-              >
-                {translations.footerContactAddress}
-              </a>
-            </div>
-
-            <ContactActionButtons
-              emailLabel={translations.footerContactLabelEmail}
-              instagramLabel="Instagram"
-              class="footer__contact-actions"
-            />
-          </div>
-        </div>
-        <div class="footer__copyright">
-          <p class="footer__copyright-text">{translations.footerCopyright}</p>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
-<script src="./ContactForm.client.ts"></script>

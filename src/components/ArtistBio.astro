@@ -1,0 +1,41 @@
+---
+export type ArtistBioVariant = "landing" | "default";
+
+interface Props {
+  title: string;
+  text: string;
+  image: { src: string; alt: string };
+  variant?: ArtistBioVariant;
+}
+
+const { title, text, image, variant = "default" } = Astro.props;
+const isLanding = variant === "landing";
+---
+
+<div class:list={["container", isLanding && "container--landing"]}>
+  <section
+    class:list={[
+      "artist-bio",
+      isLanding && "artist-bio--reveal artist-bio--landing",
+    ]}
+  >
+    <div class="artist-bio__content" id="artist-bio">
+      <h2 class="artist-bio__title">{title}</h2>
+    </div>
+    <div class="artist-bio__wrapper">
+      <div class="artist-bio__image">
+        <img
+          src={`/${image.src}`}
+          alt={image.alt}
+          class="artist-bio__image-img"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <div class="artist-bio__text">{text}</div>
+    </div>
+  </section>
+</div>
+
+{isLanding && <script src="./ArtistBioReveal.client.ts" />}
