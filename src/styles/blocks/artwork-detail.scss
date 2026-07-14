@@ -27,7 +27,7 @@
       padding-inline: 120px;
     }
   }
-  
+
   &__wrapper {
     @include mixin.page-grid;
 
@@ -39,7 +39,7 @@
 
   &__wrapper-title {
     @include mixin.on-tablet {
-      padding: 0 10px 0;
+      padding: 0 10px;
     }
   }
 
@@ -73,24 +73,25 @@
   }
 
   &__image {
+    display: block;
     width: 100%;
     height: 100%;
     border-radius: 12px;
     object-fit: cover;
     cursor: url("../../public/icons/zoom-in-square.svg"), zoom-in;
-    caret-color: variables.$hover-color;
-    display: block;
     transition: transform variables.$effect-duration variables.$transition;
 
-    @include mixin.on-tablet {
-      &:hover {
-        transform: variables.$scale-max-hover;
-        box-shadow: variables.$box-shadow-hover;
+    @include mixin.on-hover-capable {
+      @include mixin.on-tablet {
+        &:hover {
+          transform: variables.$scale-max-hover;
+          box-shadow: variables.$box-shadow-hover;
+        }
       }
+    }
 
-      @include mixin.on-desktop {
-        width: 710px;
-      }
+    @include mixin.on-desktop {
+      width: 710px;
     }
   }
 
@@ -99,7 +100,6 @@
     font-size: 15px;
     font-weight: 400;
     color: variables.$main-color;
-    font-weight: 400;
     padding-bottom: 24px;
 
     @include mixin.on-tablet {
@@ -109,18 +109,7 @@
     }
   }
 
-  &__medium {
-    font-family: "Roboto", sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: variables.$main-color;
-    padding-bottom: 24px;
-
-    @include mixin.on-tablet {
-      padding-bottom: 32px;
-    }
-  }
-
+  &__medium,
   &__size {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
@@ -142,7 +131,6 @@
 
     @include mixin.on-tablet {
       font-size: 24px;
-
       padding-bottom: 80px;
     }
   }
@@ -152,7 +140,6 @@
     font-size: 16px;
     font-weight: 400;
     color: variables.$background-color;
-    text-align: left;
     line-height: 27px;
     padding-bottom: 24px;
     text-align: center;
@@ -169,35 +156,35 @@
     @include mixin.on-tablet {
       grid-template-columns: repeat(2, 1fr);
     }
-
-    @include mixin.on-desktop {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 
   &__gallery-item {
     overflow: hidden;
     border-radius: 12px;
     box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
     cursor: zoom-in;
+    transition:
+      transform variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition;
 
-    @include mixin.on-tablet {
-      &:hover {
-        transform: variables.$scale-max-hover;
-        box-shadow: variables.$box-shadow-hover;
+    @include mixin.on-hover-capable {
+      @include mixin.on-tablet {
+        &:hover {
+          transform: variables.$scale-max-hover;
+          box-shadow: variables.$box-shadow-hover;
+        }
       }
     }
   }
 
   &__gallery-image {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     border-radius: 12px;
     cursor: url("../../public/icons/zoom-in-square.svg"), zoom-in;
-    transition: transform variables.$effect-duration variables.$transition;
   }
 
   &__footer {
@@ -261,7 +248,7 @@
     font-size: 18px;
     font-weight: 700;
     color: variables.$background-color;
-    margin-bottom: 16px;
+    margin: 0 0 16px;
     line-height: 27px;
 
     @include mixin.on-tablet {
@@ -281,7 +268,7 @@
     font-weight: 400;
     color: variables.$main-color;
     line-height: 27px;
-    margin-bottom: 12px;
+    margin: 0 0 12px;
 
     @include mixin.on-tablet {
       font-size: 15px;
@@ -294,12 +281,6 @@
   }
 
   &__footer-link {
-    font-family: "Roboto", sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: variables.$background-color;
-    text-decoration: none;
-    transition: all variables.$effect-duration variables.$transition;
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -308,6 +289,16 @@
     border: 1.5px solid variables.$background-color;
     border-radius: 4px;
     background-color: transparent;
+    font-family: "Roboto", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: variables.$background-color;
+    text-decoration: none;
+    transition:
+      color variables.$effect-duration variables.$transition,
+      background-color variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition;
 
     @include mixin.on-tablet {
       font-size: 14px;
@@ -317,13 +308,6 @@
     @include mixin.on-desktop {
       font-size: 15px;
       padding: 8px 16px;
-    }
-
-    &:hover {
-      color: variables.$color-text;
-      background-color: variables.$background-color;
-      transform: variables.$transform-hover;
-      box-shadow: variables.$box-shadow;
     }
 
     &::after {
@@ -336,8 +320,17 @@
       }
     }
 
-    &:hover::after {
-      transform: translateX(4px);
+    @include mixin.on-hover-capable {
+      &:hover {
+        color: variables.$color-text;
+        background-color: variables.$background-color;
+        transform: variables.$transform-hover;
+        box-shadow: variables.$box-shadow;
+
+        &::after {
+          transform: translateX(4px);
+        }
+      }
     }
   }
 
@@ -372,6 +365,7 @@
     font-weight: 400;
     color: variables.$main-color;
     opacity: 0.7;
+    margin: 0;
 
     @include mixin.on-tablet {
       font-size: 13px;
