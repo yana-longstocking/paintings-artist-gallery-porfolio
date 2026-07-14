@@ -10,6 +10,19 @@
     padding: 10px 0 24px;
   }
 
+  &--gallery-page {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    @include mixin.on-tablet {
+      padding-bottom: variables.$gallery-section-padding-bottom-tablet;
+    }
+
+    @include mixin.on-desktop {
+      padding-bottom: variables.$gallery-section-padding-bottom-desktop;
+    }
+  }
+
   &__grid {
     @include mixin.page-grid;
 
@@ -19,6 +32,34 @@
 
     @include mixin.on-desktop {
       grid-template-columns: repeat(4, 1fr);
+    }
+
+    .art--gallery-page & {
+      display: grid;
+      margin: 0;
+      margin-top: var(--gallery-page-mobile-item-gap);
+      gap: var(--gallery-page-mobile-item-gap);
+      align-items: start;
+      grid-template-columns: minmax(0, 1fr);
+      width: 100%;
+      max-width: none;
+      margin-inline: 0;
+
+      @include mixin.on-tablet {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        gap: variables.$gallery-grid-gap-tablet;
+        width: 100%;
+        max-width: none;
+        margin-inline: 0;
+        margin-top: 0;
+        align-items: start;
+      }
+
+      @include mixin.on-desktop {
+        gap: variables.$gallery-grid-gap-desktop;
+      }
     }
   }
 
@@ -41,25 +82,87 @@
       }
     }
 
-    &--featured {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .art--gallery-page & {
+      @include mixin.on-desktop {
+        transform: none;
+        box-shadow: none;
+      }
+
+      @include gallery-page-mixins.gallery-page-card-item;
+      @include gallery-page-mixins.gallery-page-reveal-card;
+    }
+
+    .art--gallery-page .art__grid & {
+      min-height: 0;
+      height: fit-content;
+      align-self: start;
+      overflow: visible;
+
+      &--featured {
+        grid-column: 1;
+        width: auto;
+        height: auto;
+        object-fit: unset;
+
+        @include mixin.on-tablet {
+          grid-column: 2;
+          grid-row: 1 / span 2;
+          min-height: 0;
+        }
+      }
+
+      &--dancer.gallery-page__target--visible {
+        transition-delay: 0.14s;
+      }
+
+      &--blue-haze.gallery-page__target--visible {
+        transition-delay: 0.06s;
+      }
+
+      &--sunkissed.gallery-page__target--visible {
+        transition-delay: 0.22s;
+      }
+
+      &--intimessy.gallery-page__target--visible {
+        transition-delay: 0.06s;
+      }
+
+      &--beach-spirit.gallery-page__target--visible {
+        transition-delay: 0.22s;
+      }
 
       @include mixin.on-tablet {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
+        &--blue-haze {
+          grid-column: 1;
+          grid-row: 1;
+          min-height: 0;
+        }
 
-      @include mixin.on-desktop {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
+        &--sunkissed {
+          grid-column: 1;
+          grid-row: 2;
+          min-height: 0;
+          width: 100%;
+        }
 
-      @include mixin.on-large-desktop {
-        grid-column: span 2;
-        grid-row: span 2;
+        &--intimessy {
+          grid-column: 3;
+          grid-row: 1;
+          min-height: 0;
+        }
+
+        &--beach-spirit {
+          grid-column: 3;
+          grid-row: 2;
+          min-height: 0;
+        }
       }
+    }
+  }
+
+  &__link {
+    .art--gallery-page .art__grid & {
+      @include gallery-page-mixins.gallery-page-grid-link;
     }
   }
 
@@ -77,151 +180,19 @@
         transform: variables.$scale-min-hover;
       }
     }
-  }
-}
 
-.art--gallery-page {
-  padding-top: 0;
-  padding-bottom: 0;
-
-  @include mixin.on-tablet {
-    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
-  }
-
-  @include mixin.on-desktop {
-    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
-  }
-
-  .art__item--featured {
-    @include mixin.on-tablet {
-      grid-column: 2 !important;
-      grid-row: 1 / span 2 !important;
-      width: auto !important;
-      height: auto !important;
-    }
-  }
-
-  .art__item {
-    @include mixin.on-desktop {
-      transform: none;
-      box-shadow: none;
+    .art--gallery-page & {
+      @include gallery-page-mixins.gallery-page-card-image;
     }
 
-    @include gallery-page-mixins.gallery-page-card-item;
-    @include gallery-page-mixins.gallery-page-reveal-card;
-  }
-
-  .art__image {
-    @include gallery-page-mixins.gallery-page-card-image;
-  }
-
-  .art__grid {
-    display: grid;
-    margin: 0;
-    margin-top: var(--gallery-page-mobile-item-gap);
-    gap: var(--gallery-page-mobile-item-gap);
-    align-items: start;
-    grid-template-columns: minmax(0, 1fr);
-    width: 100%;
-    max-width: none;
-    margin-inline: 0;
-
-    .art__item {
-      min-height: 0;
-      height: fit-content;
-      align-self: start;
-      overflow: visible;
-
-      > a {
-        display: block;
-        height: auto;
-        min-height: 0;
-        padding: 0;
-        line-height: 0;
-      }
-    }
-
-    .art__image {
+    .art--gallery-page .art__grid & {
       width: 100%;
       height: auto;
       min-height: 0;
       max-height: none;
       object-fit: unset;
       display: block;
-      vertical-align: top;
       background: transparent;
-    }
-
-    .art__item--featured {
-      grid-column: 1;
-
-      @include mixin.on-tablet {
-        grid-column: 2 !important;
-        grid-row: 1 / span 2 !important;
-        min-height: 0;
-      }
-    }
-
-    @include mixin.on-tablet {
-      display: grid !important;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr) !important;
-      grid-template-rows: auto auto;
-      gap: variables.$gallery-grid-gap-tablet;
-      width: 100%;
-      max-width: none;
-      margin-inline: 0;
-      margin-top: 0;
-      align-items: start;
-
-      .art__item--blue-haze {
-        grid-column: 1;
-        grid-row: 1;
-        min-height: 0;
-      }
-
-      .art__item--sunkissed,
-      [data-artwork-id="sunkissed"] {
-        grid-column: 1 !important;
-        grid-row: 2 !important;
-        min-height: 0;
-        width: 100%;
-      }
-
-      .art__item--intimessy {
-        grid-column: 3;
-        grid-row: 1;
-        min-height: 0;
-      }
-
-      .art__item--beach-spirit {
-        grid-column: 3;
-        grid-row: 2;
-        min-height: 0;
-      }
-    }
-
-    @include mixin.on-desktop {
-      gap: variables.$gallery-grid-gap-desktop;
-    }
-
-    .art__item--dancer.gallery-page__target--visible {
-      transition-delay: 0.14s;
-    }
-
-    .art__item--blue-haze.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    .art__item--sunkissed.gallery-page__target--visible {
-      transition-delay: 0.22s;
-    }
-
-    .art__item--intimessy.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    .art__item--beach-spirit.gallery-page__target--visible {
-      transition-delay: 0.22s;
     }
   }
 }

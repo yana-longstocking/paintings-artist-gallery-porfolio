@@ -134,7 +134,10 @@ const {
               class={`art__item art__item--${item.id} ${item.featured ? "art__item--featured" : ""}`}
               data-artwork-id={item.id}
             >
-              <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
+              <a
+                class="art__link"
+                href={`/${artworkLinkPrefix}artwork/${item.id}`}
+              >
                 <img
                   src={`/${item.src}`}
                   alt={item.alt}
