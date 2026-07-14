@@ -6,7 +6,7 @@ function initGalleryScrollReveal(): void {
 
   const titleSelector = ".photo-gallery__title, .photo-art__title";
   const imageSelector =
-    ".photo-gallery__item, .photo-art__item, .art__item, .gallery-content__featured, .gallery-content__item, .gallery-page__footer-heading, .gallery-page__footer-nav-link, .gallery-page__footer-inline-link, .contact-action, .gallery-page__footer-lead, .gallery-page__footer-classic-item, .gallery-page__footer-copy";
+    ".photo-gallery__item, .photo-art__item, .art__item, .gallery-content__featured, .gallery-content__item, .gallery-page__footer-heading, .gallery-page__footer-nav-link, .gallery-page__footer-inline-link, .contact-actions__link, .gallery-page__footer-lead, .gallery-page__footer-classic-item, .gallery-page__footer-copy";
 
   const revealTarget = (target: Element) => {
     target.classList.add("gallery-page__target--visible");
