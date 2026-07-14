@@ -90,7 +90,9 @@ const { image, translations, galleryLink } = Astro.props;
           <p class="artwork-detail__footer-text">
             {translations.footerContactText}
           </p>
-          <ContactActionButtons class="artwork-detail__footer-actions" />
+          <div class="artwork-detail__footer-actions">
+            <ContactActionButtons />
+          </div>
         </div>
       </div>
 
