@@ -19,14 +19,50 @@
     opacity: 0;
     color: rgba(22, 22, 22, 0.2);
     transform: translateY(32px) scale(1.05);
-    letter-spacing: 0.38em;
+    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
   }
 
   100% {
     opacity: 1;
     color: variables.$main-color;
     transform: translateY(0) scale(1);
-    letter-spacing: 0.04em;
+    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-mobile;
+  }
+}
+
+@include mixin.on-tablet {
+  @keyframes gallery-page-hero-title-in {
+    0% {
+      opacity: 0;
+      color: rgba(22, 22, 22, 0.2);
+      transform: translateY(32px) scale(1.05);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
+    }
+
+    100% {
+      opacity: 1;
+      color: variables.$main-color;
+      transform: translateY(0) scale(1);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-tablet;
+    }
+  }
+}
+
+@include mixin.on-desktop {
+  @keyframes gallery-page-hero-title-in {
+    0% {
+      opacity: 0;
+      color: rgba(22, 22, 22, 0.2);
+      transform: translateY(32px) scale(1.05);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-desktop;
+    }
+
+    100% {
+      opacity: 1;
+      color: variables.$main-color;
+      transform: translateY(0) scale(1);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-desktop;
+    }
   }
 }
 
@@ -75,9 +111,7 @@
 }
 
 .gallery-page {
-  --gallery-page-mobile-item-gap: 24px;
-
-  .gallery-page__hero {
+  &__hero {
     padding: 129px 0 50px;
 
     @include mixin.on-tablet {
@@ -89,37 +123,39 @@
     }
   }
 
-  .gallery-page__hero-content {
+  &__hero-content {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .gallery-page__hero-title {
+  &__hero-title {
     margin: 0;
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 40px;
     font-weight: 700;
     line-height: 100%;
     text-align: center;
     color: variables.$main-color;
     opacity: 0;
-    letter-spacing: 0.38em;
+    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
     animation: gallery-page-hero-title-in 2.6s cubic-bezier(0.16, 1, 0.3, 1)
       forwards;
 
     @include mixin.on-tablet {
       font-size: 64px;
       line-height: 64px;
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
     }
 
     @include mixin.on-desktop {
       font-size: 80px;
       line-height: 80px;
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-desktop;
     }
   }
 
-  .gallery-page__hero-accent {
+  &__hero-accent {
     display: block;
     width: min(120px, 22vw);
     height: 2px;
@@ -151,7 +187,7 @@
     }
   }
 
-  .gallery-page__hero-text {
+  &__hero-text {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,46 +197,29 @@
     text-align: center;
   }
 
-  .gallery-page__hero-text-line {
+  &__hero-text-line {
     margin: 0;
-    font-family: "Cinzel", sans-serif;
-    font-size: 16px;
+    font-family: variables.$font-family-cinzel;
+    font-size: variables.$gallery-page-body-font-size-desktop;
     font-weight: 400;
     line-height: 27px;
     color: variables.$main-color;
     opacity: 0;
     animation: gallery-page-hero-line-in 1.8s cubic-bezier(0.16, 1, 0.3, 1)
       forwards;
-  }
 
-  .gallery-page__hero-text-line--first {
-    animation-delay: 1.35s;
-  }
-
-  .gallery-page__hero-text-line--second {
-    animation-delay: 1.65s;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .gallery-page__hero-title,
-    .gallery-page__hero-accent,
-    .gallery-page__hero-text-line {
-      animation: none;
-      opacity: 1;
-      color: variables.$main-color;
-      transform: none;
-      clip-path: none;
-      letter-spacing: normal;
+    &--first {
+      animation-delay: 1.35s;
     }
 
-    .gallery-page__hero-accent {
-      transform: scaleX(1);
+    &--second {
+      animation-delay: 1.65s;
     }
   }
 
-  .container__line--gallery-page {
-    margin-left: 0;
+  &__divider {
     width: 100%;
+    border-bottom: 5px solid variables.$hover-color;
     opacity: 0;
     transform: scaleX(0);
     transform-origin: left center;
@@ -208,31 +227,119 @@
       forwards;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .container__line--gallery-page {
-      animation: none;
-      opacity: 1;
-      transform: none;
+  &__section {
+    &--first {
+      margin-top: 96px;
+
+      @include mixin.on-tablet {
+        margin-top: 160px;
+      }
+
+      @include mixin.on-desktop {
+        margin-top: 200px;
+      }
     }
   }
 
-  .gallery-page > .gallery-page__section:first-of-type {
-    margin-top: 96px;
+  &__footer-split {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-block: 32px 28px;
+    border-top: 1px solid variables.$gallery-page-border-subtle;
 
     @include mixin.on-tablet {
-      margin-top: 160px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding-block: 40px 34px;
     }
 
     @include mixin.on-desktop {
-      margin-top: 200px;
+      gap: 48px;
+      padding-block: 44px 36px;
     }
   }
 
-  .gallery-page__footer {
-    margin-top: 0;
+  &__footer-lead {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    margin: 0;
+    font-family: variables.$font-family-roboto;
+    font-size: variables.$gallery-page-body-font-size-mobile;
+    line-height: variables.$gallery-page-footer-line-height-22;
+    color: rgba(22, 22, 22, 0.72);
+
+    @include mixin.on-tablet {
+      font-size: variables.$gallery-page-body-font-size-tablet;
+      line-height: 24px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: variables.$gallery-page-body-font-size-desktop;
+      line-height: 26px;
+    }
   }
 
-  .gallery-page__scroll-top-bar {
+  &__footer-shell {
+    padding-bottom: variables.$gallery-footer-padding-mobile;
+
+    @include mixin.on-tablet {
+      padding-bottom: variables.$gallery-footer-padding-tablet;
+    }
+
+    @include mixin.on-desktop {
+      padding-bottom: variables.$gallery-footer-padding-desktop;
+    }
+  }
+
+  &__footer-heading {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    @include gallery-page-mixins.gallery-page-reveal-footer-heading-accent;
+    @include gallery-page-mixins.gallery-page-section-title-accent;
+    margin: 0 0 14px;
+    font-family: variables.$font-family-cinzel;
+    font-size: variables.$gallery-footer-heading-font-size-mobile;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: 1px;
+    color: variables.$main-color;
+
+    @include mixin.on-tablet {
+      font-size: variables.$gallery-footer-heading-font-size-tablet;
+      margin-bottom: 16px;
+      line-height: 30px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: variables.$gallery-footer-heading-font-size-desktop;
+      margin-bottom: 18px;
+      line-height: 34px;
+      letter-spacing: 1.1px;
+    }
+  }
+
+  &__footer-copy {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    margin: 0;
+    padding-top: 16px;
+    font-family: variables.$font-family-cinzel;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: rgba(22, 22, 22, 0.62);
+
+    @include mixin.on-tablet {
+      padding-top: 19px;
+    }
+
+    @include mixin.on-desktop {
+      padding-top: 22px;
+    }
+  }
+
+  &__scroll-top-bar {
     margin-top: 20px;
     margin-bottom: 32px;
 
@@ -247,7 +354,7 @@
     }
   }
 
-  .gallery-page__scroll-top-wrap {
+  &__scroll-top-wrap {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -269,422 +376,12 @@
 
       .gallery-page__scroll-top-accent {
         animation: gallery-page-accent-line-in 1.1s
-          cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+          cubic-bezier(0.16, 1, 0.3, 1) variables.$effect-duration-short forwards;
       }
     }
   }
 
-  .gallery-page__footer-shell {
-    padding-bottom: variables.$gallery-footer-padding-mobile;
-
-    @include mixin.on-tablet {
-      padding-bottom: variables.$gallery-footer-padding-tablet;
-    }
-
-    @include mixin.on-desktop {
-      padding-bottom: variables.$gallery-footer-padding-desktop;
-    }
-  }
-
-  .gallery-page__footer-heading {
-    @include gallery-page-mixins.gallery-page-reveal-footer-text;
-    @include gallery-page-mixins.gallery-page-reveal-footer-heading-accent;
-    margin: 0;
-    font-family: "Cinzel", sans-serif;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: 0.04em;
-  }
-
-  .gallery-page__footer-copy {
-    @include gallery-page-mixins.gallery-page-reveal-footer-text;
-    margin: 0;
-    font-family: "Cinzel", sans-serif;
-    font-size: 12px;
-    line-height: 1.5;
-    letter-spacing: 0.04em;
-    text-align: center;
-    color: rgba(22, 22, 22, 0.62);
-  }
-
-  .gallery-page__footer--panel {
-    .gallery-page__footer-panel {
-      background-color: variables.$background-color;
-      color: variables.$color-text;
-    }
-
-    .gallery-page__footer-panel-inner {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      padding-block: 36px 36px;
-
-      @include mixin.on-tablet {
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 32px;
-        padding-block: 48px 48px;
-      }
-
-      @include mixin.on-desktop {
-        gap: 64px;
-        padding-block: 56px 56px;
-      }
-    }
-
-    .gallery-page__footer-heading {
-      font-size: 28px;
-      color: variables.$color-text;
-
-      @include mixin.on-tablet {
-        font-size: 34px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: 42px;
-      }
-    }
-
-    .gallery-page__footer-nav {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      width: 100%;
-
-      @include mixin.on-tablet {
-        width: auto;
-        min-width: min(100%, 520px);
-        gap: 14px;
-      }
-
-      @include mixin.on-desktop {
-        gap: 18px;
-      }
-    }
-
-    .gallery-page__footer-nav-link {
-      @include gallery-page-mixins.gallery-page-reveal-footer-text;
-      display: grid;
-      grid-template-columns: minmax(72px, 92px) 1fr;
-      gap: 12px 16px;
-      align-items: baseline;
-      color: variables.$color-text;
-      text-decoration: none;
-      transition: opacity 0.3s ease;
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          opacity: 0.82;
-        }
-      }
-
-      @include mixin.on-tablet {
-        grid-template-columns: 96px 1fr;
-      }
-    }
-
-    .gallery-page__footer-nav-label {
-      font-family: "Roboto", sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    .gallery-page__footer-nav-value {
-      font-family: "Cinzel", sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.45;
-      color: variables.$color-text;
-      word-break: break-word;
-
-      @include mixin.on-tablet {
-        font-size: 15px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: 17px;
-      }
-    }
-
-    .gallery-page__footer-bottom {
-      padding-block: variables.$gallery-footer-padding-mobile;
-
-      @include mixin.on-tablet {
-        padding-block: variables.$gallery-footer-padding-tablet;
-      }
-
-      @include mixin.on-desktop {
-        padding-block: variables.$gallery-footer-padding-desktop;
-      }
-    }
-  }
-
-  .gallery-page__footer--minimal {
-    .gallery-page__footer-minimal-inner {
-      padding-top: 28px;
-
-      @include mixin.on-tablet {
-        padding-top: 34px;
-      }
-
-      @include mixin.on-desktop {
-        padding-top: 40px;
-      }
-    }
-
-    .gallery-page__footer-heading {
-      @include gallery-page-mixins.gallery-page-section-title-accent;
-      margin-bottom: 22px;
-      font-size: variables.$gallery-footer-heading-font-size-mobile;
-      color: variables.$main-color;
-      text-align: left;
-
-      @include mixin.on-tablet {
-        font-size: variables.$gallery-footer-heading-font-size-tablet;
-        margin-bottom: 26px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: variables.$gallery-footer-heading-font-size-desktop;
-        margin-bottom: 32px;
-      }
-    }
-
-    .gallery-page__footer-inline {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px 12px;
-      margin-bottom: 28px;
-
-      @include mixin.on-tablet {
-        margin-bottom: 34px;
-      }
-
-      @include mixin.on-desktop {
-        margin-bottom: 40px;
-      }
-    }
-
-    .gallery-page__footer-inline-link {
-      @include gallery-page-mixins.gallery-page-reveal-footer-text;
-      font-family: "Roboto", sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      color: variables.$main-color;
-      text-decoration: none;
-      transition: color 0.3s ease;
-
-      @include mixin.on-tablet {
-        font-size: 15px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: 16px;
-      }
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          color: variables.$background-color;
-        }
-      }
-    }
-
-    .gallery-page__footer-inline-sep {
-      color: rgba(22, 22, 22, 0.35);
-      user-select: none;
-    }
-
-    .gallery-page__footer-copy {
-      padding-top: 18px;
-      border-top: 1px solid rgba(22, 22, 22, 0.12);
-
-      @include mixin.on-tablet {
-        padding-top: 21px;
-      }
-
-      @include mixin.on-desktop {
-        padding-top: 24px;
-      }
-    }
-  }
-
-  .gallery-page__footer--split {
-    .gallery-page__footer-split {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      padding-block: 32px 28px;
-      border-top: 1px solid rgba(22, 22, 22, 0.12);
-
-      @include mixin.on-tablet {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 32px;
-        padding-block: 40px 34px;
-      }
-
-      @include mixin.on-desktop {
-        gap: 48px;
-        padding-block: 44px 36px;
-      }
-    }
-
-    .gallery-page__footer-heading {
-      @include gallery-page-mixins.gallery-page-section-title-accent;
-      margin-bottom: 14px;
-      font-size: variables.$gallery-footer-heading-font-size-mobile;
-      color: variables.$main-color;
-
-      @include mixin.on-tablet {
-        font-size: variables.$gallery-footer-heading-font-size-tablet;
-        margin-bottom: 16px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: variables.$gallery-footer-heading-font-size-desktop;
-        margin-bottom: 18px;
-      }
-    }
-
-    .gallery-page__footer-lead {
-      @include gallery-page-mixins.gallery-page-reveal-footer-text;
-      margin: 0;
-      font-family: "Roboto", sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
-      color: rgba(22, 22, 22, 0.72);
-
-      @include mixin.on-tablet {
-        font-size: 15px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: 16px;
-      }
-    }
-
-    .gallery-page__footer-copy {
-      padding-top: 16px;
-
-      @include mixin.on-tablet {
-        padding-top: 19px;
-      }
-
-      @include mixin.on-desktop {
-        padding-top: 22px;
-      }
-    }
-  }
-
-  .gallery-page__footer--classic {
-    .gallery-page__footer-classic {
-      padding-top: 8px;
-
-      @include mixin.on-tablet {
-        padding-top: 10px;
-      }
-
-      @include mixin.on-desktop {
-        padding-top: 12px;
-      }
-    }
-
-    .gallery-page__footer-heading {
-      @include gallery-page-mixins.gallery-page-section-title-accent;
-      margin-bottom: 24px;
-      font-size: variables.$gallery-footer-heading-font-size-mobile;
-      color: variables.$main-color;
-      text-align: left;
-
-      @include mixin.on-tablet {
-        font-size: variables.$gallery-footer-heading-font-size-tablet;
-        margin-bottom: 30px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: variables.$gallery-footer-heading-font-size-desktop;
-        margin-bottom: 36px;
-      }
-    }
-
-    .gallery-page__footer-classic-grid {
-      display: grid;
-      gap: 18px;
-      margin-bottom: 32px;
-
-      @include mixin.on-tablet {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 24px;
-        margin-bottom: 38px;
-      }
-
-      @include mixin.on-desktop {
-        gap: 36px;
-        margin-bottom: 44px;
-      }
-    }
-
-    .gallery-page__footer-classic-item {
-      @include gallery-page-mixins.gallery-page-reveal-footer-text;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      color: variables.$main-color;
-      text-decoration: none;
-      transition: color 0.3s ease;
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          color: variables.$background-color;
-        }
-      }
-    }
-
-    .gallery-page__footer-classic-label {
-      font-family: "Roboto", sans-serif;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(22, 22, 22, 0.55);
-    }
-
-    .gallery-page__footer-classic-value {
-      font-family: "Cinzel", sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      line-height: 1.45;
-
-      @include mixin.on-tablet {
-        font-size: 16px;
-      }
-
-      @include mixin.on-desktop {
-        font-size: 17px;
-      }
-    }
-
-    .gallery-page__footer-copy {
-      padding-top: variables.$gallery-footer-padding-mobile;
-      border-top: 1px solid rgba(22, 22, 22, 0.12);
-
-      @include mixin.on-tablet {
-        padding-top: variables.$gallery-footer-padding-tablet;
-      }
-
-      @include mixin.on-desktop {
-        padding-top: variables.$gallery-footer-padding-desktop;
-      }
-    }
-  }
-
-  .gallery-page__scroll-top {
+  &__scroll-top {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -704,7 +401,7 @@
       box-shadow variables.$effect-duration variables.$transition,
       transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 
-    @media (hover: hover) and (pointer: fine) {
+    @include mixin.on-hover-capable {
       &:hover {
         background-color: variables.$background-color;
         border-color: variables.$background-color;
@@ -732,11 +429,11 @@
     }
   }
 
-  .gallery-page__scroll-top-icon {
+  &__scroll-top-icon {
     display: block;
   }
 
-  .gallery-page__scroll-top-accent {
+  &__scroll-top-accent {
     display: block;
     width: 36px;
     height: 1.5px;
@@ -747,26 +444,49 @@
     background: variables.$accent-line-gradient;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .gallery-page__scroll-top {
-      transition: background-color 0.2s;
+  @include mixin.on-reduced-motion {
+    &__hero-title,
+    &__hero-accent,
+    &__hero-text-line {
+      animation: none;
+      opacity: 1;
+      color: variables.$main-color;
+      transform: none;
+      clip-path: none;
+      letter-spacing: normal;
+    }
+
+    &__hero-accent {
+      transform: scaleX(1);
+    }
+
+    &__divider {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    &__scroll-top {
+      transition: background-color variables.$effect-duration-short;
 
       &:hover {
         transform: none;
       }
     }
 
-    .gallery-page__scroll-top-wrap {
+    &__scroll-top-wrap {
       transform: none;
       transition:
-        opacity 0.2s,
-        visibility 0.2s;
-    }
+        opacity variables.$effect-duration-short,
+        visibility variables.$effect-duration-short;
 
-    .gallery-page__scroll-top-wrap--visible .gallery-page__scroll-top-accent {
-      animation: none;
-      opacity: 1;
-      transform: none;
+      &--visible {
+        .gallery-page__scroll-top-accent {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+      }
     }
   }
 }

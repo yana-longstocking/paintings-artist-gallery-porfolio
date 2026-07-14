@@ -3,196 +3,116 @@
 @use "gallery-page-mixins";
 
 .art {
-  padding: 0 0 24px;
+  padding-top: 0;
+  padding-bottom: 0;
   cursor: pointer;
 
-  @include mixin.on-desktop {
-    padding: 10px 0 24px;
+  @include mixin.on-tablet {
+    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
   }
 
-  &--gallery-page {
-    padding-top: 0;
-    padding-bottom: 0;
-
-    @include mixin.on-tablet {
-      padding-bottom: variables.$gallery-section-padding-bottom-tablet;
-    }
-
-    @include mixin.on-desktop {
-      padding-bottom: variables.$gallery-section-padding-bottom-desktop;
-    }
+  @include mixin.on-desktop {
+    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
   }
 
   &__grid {
-    @include mixin.page-grid;
+    display: grid;
+    margin: 0;
+    margin-top: variables.$gallery-page-mobile-item-gap;
+    gap: variables.$gallery-page-mobile-item-gap;
+    align-items: start;
+    grid-template-columns: variables.$gallery-grid-column-fluid;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
 
     @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns:
+        variables.$gallery-grid-column-fluid minmax(0, 2fr)
+        variables.$gallery-grid-column-fluid;
+      grid-template-rows: auto auto;
+      gap: variables.$gallery-grid-gap-tablet;
+      margin-top: 0;
     }
 
     @include mixin.on-desktop {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .art--gallery-page & {
-      display: grid;
-      margin: 0;
-      margin-top: var(--gallery-page-mobile-item-gap);
-      gap: var(--gallery-page-mobile-item-gap);
-      align-items: start;
-      grid-template-columns: minmax(0, 1fr);
-      width: 100%;
-      max-width: none;
-      margin-inline: 0;
-
-      @include mixin.on-tablet {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
-        grid-template-rows: auto auto;
-        gap: variables.$gallery-grid-gap-tablet;
-        width: 100%;
-        max-width: none;
-        margin-inline: 0;
-        margin-top: 0;
-        align-items: start;
-      }
-
-      @include mixin.on-desktop {
-        gap: variables.$gallery-grid-gap-desktop;
-      }
+      gap: variables.$gallery-grid-gap-desktop;
     }
   }
 
   &__item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
+    @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
+    min-height: 0;
+    height: fit-content;
+    align-self: start;
 
-    @include mixin.on-tablet {
-      &:hover {
-        box-shadow: variables.$box-shadow-hover;
-        transform: variables.$scale-min-hover;
-      }
-
-      @include mixin.on-desktop {
-        transform: variables.$transform-hover;
-        box-shadow: variables.$box-shadow-hover;
-      }
-    }
-
-    .art--gallery-page & {
-      @include mixin.on-desktop {
-        transform: none;
-        box-shadow: none;
-      }
-
-      @include gallery-page-mixins.gallery-page-card-item;
-      @include gallery-page-mixins.gallery-page-reveal-card;
-    }
-
-    .art--gallery-page .art__grid & {
-      min-height: 0;
-      height: fit-content;
-      align-self: start;
-      overflow: visible;
-
-      &--featured {
-        grid-column: 1;
-        width: auto;
-        height: auto;
-        object-fit: unset;
-
-        @include mixin.on-tablet {
-          grid-column: 2;
-          grid-row: 1 / span 2;
-          min-height: 0;
-        }
-      }
-
-      &--dancer.gallery-page__target--visible {
-        transition-delay: 0.14s;
-      }
-
-      &--blue-haze.gallery-page__target--visible {
-        transition-delay: 0.06s;
-      }
-
-      &--sunkissed.gallery-page__target--visible {
-        transition-delay: 0.22s;
-      }
-
-      &--intimessy.gallery-page__target--visible {
-        transition-delay: 0.06s;
-      }
-
-      &--beach-spirit.gallery-page__target--visible {
-        transition-delay: 0.22s;
-      }
+    &--featured {
+      grid-column: 1;
 
       @include mixin.on-tablet {
-        &--blue-haze {
-          grid-column: 1;
-          grid-row: 1;
-          min-height: 0;
-        }
+        grid-column: 2;
+        grid-row: 1 / span 2;
+      }
+    }
 
-        &--sunkissed {
-          grid-column: 1;
-          grid-row: 2;
-          min-height: 0;
-          width: 100%;
-        }
+    &--dancer.gallery-page__target--visible {
+      transition-delay: 0.14s;
+    }
 
-        &--intimessy {
-          grid-column: 3;
-          grid-row: 1;
-          min-height: 0;
-        }
+    &--blue-haze.gallery-page__target--visible {
+      transition-delay: 0.06s;
+    }
 
-        &--beach-spirit {
-          grid-column: 3;
-          grid-row: 2;
-          min-height: 0;
-        }
+    &--sunkissed.gallery-page__target--visible {
+      transition-delay: 0.22s;
+    }
+
+    &--intimessy.gallery-page__target--visible {
+      transition-delay: 0.06s;
+    }
+
+    &--beach-spirit.gallery-page__target--visible {
+      transition-delay: 0.22s;
+    }
+
+    @include mixin.on-tablet {
+      &--blue-haze {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      &--sunkissed {
+        grid-column: 1;
+        grid-row: 2;
+        width: 100%;
+      }
+
+      &--intimessy {
+        grid-column: 3;
+        grid-row: 1;
+      }
+
+      &--beach-spirit {
+        grid-column: 3;
+        grid-row: 2;
       }
     }
   }
 
   &__link {
-    .art--gallery-page .art__grid & {
-      @include gallery-page-mixins.gallery-page-grid-link;
+    @include gallery-page-mixins.gallery-page-grid-item-link;
+
+    @include mixin.on-hover-capable {
+      .art__item:hover & {
+        @include gallery-page-mixins.gallery-hover-link-active;
+      }
     }
   }
 
   &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform variables.$effect-duration variables.$transition;
-
-    .art__item:hover & {
-      @include mixin.on-tablet {
-        box-shadow: variables.$box-shadow-hover;
-        transform: variables.$scale-min-hover;
-      }
-    }
-
-    .art--gallery-page & {
-      @include gallery-page-mixins.gallery-page-card-image;
-    }
-
-    .art--gallery-page .art__grid & {
-      width: 100%;
-      height: auto;
-      min-height: 0;
-      max-height: none;
-      object-fit: unset;
-      display: block;
-      background: transparent;
-    }
+    @include gallery-page-mixins.gallery-page-card-image;
+    max-height: none;
+    object-fit: unset;
   }
 }

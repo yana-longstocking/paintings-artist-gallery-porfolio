@@ -1,3 +1,4 @@
+@use "mixin";
 @use "variables";
 
 @keyframes gallery-page-section-title-line {
@@ -37,10 +38,48 @@
   }
 }
 
+@mixin gallery-page-collection-title-typography {
+  font-family: "Cinzel", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+
+  @include mixin.on-tablet {
+    font-size: 32px;
+    line-height: 45px;
+  }
+}
+
 @mixin gallery-card-link {
   display: block;
   height: 100%;
   min-height: 100%;
+}
+
+@mixin gallery-page-grid-link {
+  display: block;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+@mixin gallery-content-grid-columns-tablet {
+  grid-template-columns:
+    minmax(0, variables.$gallery-content-grid-track-narrow-tablet)
+    minmax(0, variables.$gallery-content-grid-track-narrow-tablet)
+    minmax(0, variables.$gallery-content-grid-track-narrow-tablet)
+    minmax(0, variables.$gallery-content-grid-track-wide-tablet)
+    minmax(0, variables.$gallery-content-grid-track-wide-tablet);
+}
+
+@mixin gallery-content-grid-columns-desktop {
+  grid-template-columns:
+    minmax(0, variables.$gallery-content-grid-track-narrow-desktop)
+    minmax(0, variables.$gallery-content-grid-track-narrow-desktop)
+    minmax(0, variables.$gallery-content-grid-track-narrow-desktop)
+    minmax(0, variables.$gallery-content-grid-track-wide-desktop)
+    minmax(0, variables.$gallery-content-grid-track-wide-desktop);
 }
 
 @mixin gallery-card-image {
@@ -61,21 +100,30 @@
 }
 
 @mixin gallery-hover-link-active {
-  @media (hover: hover) and (pointer: fine) {
+  @include mixin.on-hover-capable {
     transform: translateY(-4px);
     box-shadow: variables.$box-shadow-hover;
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include mixin.on-reduced-motion {
     transform: none;
   }
 }
 
-@mixin gallery-page-card-item {
-  &:not(.gallery-page__target) {
-    transform: none;
-  }
+@mixin gallery-page-item-link {
+  @include gallery-card-link;
+  @include gallery-hover-link;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+@mixin gallery-page-grid-item-link {
+  @include gallery-page-grid-link;
+  @include gallery-hover-link;
+}
+
+@mixin gallery-page-card-item {
+  transform: none;
   position: relative;
   overflow: visible;
   border: none;
@@ -83,19 +131,7 @@
   background: transparent;
   box-shadow: none;
 
-  > a {
-    @include gallery-card-link;
-    @include gallery-hover-link;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  &:hover > a {
-    @include gallery-hover-link-active;
-  }
-
   &.gallery-page__target--visible:hover {
-    box-shadow: none;
     transform: translateY(0);
   }
 }
@@ -132,7 +168,7 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include mixin.on-reduced-motion {
     &.gallery-page__target {
       opacity: 1;
       transform: none;
@@ -162,7 +198,7 @@
     transition-delay: calc(var(--reveal-i, 0) * 0.12s + 0.06s);
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include mixin.on-reduced-motion {
     &.gallery-page__target {
       opacity: 1;
       transform: none;
@@ -186,7 +222,7 @@
     transition-delay: calc(var(--reveal-i, 0) * 0.12s + 0.06s);
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include mixin.on-reduced-motion {
     &.gallery-page__target {
       opacity: 1;
       transform: none;

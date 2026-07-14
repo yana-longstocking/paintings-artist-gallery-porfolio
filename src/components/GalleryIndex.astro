@@ -1,7 +1,5 @@
 ---
-import GalleryPageFooter, {
-  type GalleryFooterVariant,
-} from "./GalleryPageFooter.astro";
+import GalleryPageFooter from "./GalleryPageFooter.astro";
 import GalleryPageHero from "./GalleryPageHero.astro";
 import GalleryScrollTop from "./GalleryScrollTop.astro";
 import type { GalleryData } from "../types/gallery";
@@ -11,15 +9,9 @@ interface Props {
   galleryData: GalleryData;
   translations: GalleryTranslations;
   artworkLinkPrefix: string;
-  footerVariant?: GalleryFooterVariant;
 }
 
-const {
-  galleryData: data,
-  translations,
-  artworkLinkPrefix,
-  footerVariant = "split",
-} = Astro.props;
+const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
 ---
 
 <GalleryPageHero
@@ -28,7 +20,9 @@ const {
   descriptionLine2={translations.galleryDescriptionLine2}
 />
 
-<article class="article gallery-page__section gallery-page__section--reveal">
+<article
+  class="gallery-page__section gallery-page__section--reveal gallery-page__section--first"
+>
   <div class="container">
     <section class="photo-gallery photo-gallery--gallery-page" id="gallery">
       <div class="photo-gallery__content">
@@ -47,7 +41,10 @@ const {
                   `photo-gallery__item--${index + 1}`,
                 ]}
               >
-                <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
+                <a
+                  class="photo-gallery__link"
+                  href={`/${artworkLinkPrefix}artwork/${item.id}`}
+                >
                   <img
                     src={`/${item.src}`}
                     alt={item.alt}
@@ -70,7 +67,10 @@ const {
                     `photo-gallery__item--${index + 1}`,
                   ]}
                 >
-                  <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
+                  <a
+                    class="photo-gallery__link"
+                    href={`/${artworkLinkPrefix}artwork/${item.id}`}
+                  >
                     <img
                       src={`/${item.src}`}
                       alt={item.alt}
@@ -89,7 +89,7 @@ const {
   </div>
 </article>
 
-<article class="article gallery-page__section gallery-page__section--reveal">
+<article class="gallery-page__section gallery-page__section--reveal">
   <div class="container">
     <section class="photo-art photo-art--gallery-page">
       <div class="photo-art__content">
@@ -107,7 +107,10 @@ const {
                 `photo-art__item--${index + 1}`,
               ]}
             >
-              <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
+              <a
+                class="photo-art__link"
+                href={`/${artworkLinkPrefix}artwork/${item.id}`}
+              >
                 <img
                   src={`/${item.src}`}
                   alt={item.alt}
@@ -124,15 +127,14 @@ const {
   </div>
 </article>
 
-<article class="article gallery-page__section gallery-page__section--reveal">
+<article class="gallery-page__section gallery-page__section--reveal">
   <div class="container">
-    <section class="art art--gallery-page">
+    <section class="art">
       <div class="art__grid">
         {
           data.artCollection.map((item) => (
             <div
               class={`art__item art__item--${item.id} ${item.featured ? "art__item--featured" : ""}`}
-              data-artwork-id={item.id}
             >
               <a
                 class="art__link"
@@ -154,11 +156,12 @@ const {
   </div>
 </article>
 
-<article class="article gallery-page__section gallery-page__section--reveal">
+<article class="gallery-page__section gallery-page__section--reveal">
   <div class="container">
     <section class="gallery-content gallery-content--gallery-page">
       <div class="gallery-content__featured">
         <a
+          class="gallery-content__link"
           href={`/${artworkLinkPrefix}artwork/${data.galleryContent.featured.id}`}
         >
           <img
@@ -176,9 +179,11 @@ const {
           data.galleryContent.items.map((item) => (
             <div
               class={`gallery-content__item gallery-content__item--${item.id}`}
-              data-artwork-id={item.id}
             >
-              <a href={`/${artworkLinkPrefix}artwork/${item.id}`}>
+              <a
+                class="gallery-content__link"
+                href={`/${artworkLinkPrefix}artwork/${item.id}`}
+              >
                 <img
                   src={`/${item.src}`}
                   alt={item.alt}
@@ -200,11 +205,8 @@ const {
 </div>
 
 <GalleryPageFooter
-  variant={footerVariant}
   copyright={translations.footerCopyright}
   contactTitle={translations.footerContactTitle}
   emailLabel={translations.footerContactLabelEmail}
-  addressLabel={translations.footerContactLabelAddress}
   address={translations.footerContactAddress}
-  socialText={translations.footerSocialText}
 />

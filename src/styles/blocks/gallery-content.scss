@@ -3,116 +3,24 @@
 @use "gallery-page-mixins";
 
 .gallery-content {
-  padding-bottom: 100px;
-  cursor: pointer;
+  &--gallery-page {
+    padding-top: 0;
+    padding-bottom: 0;
 
-  @include mixin.on-tablet {
-    padding-bottom: 140px;
+    @include mixin.on-tablet {
+      padding-bottom: 108px;
+    }
+
+    @include mixin.on-desktop {
+      padding-bottom: 130px;
+    }
   }
 
   &__featured {
-    width: 100%;
-    margin-bottom: 24px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
-
-    @include mixin.on-desktop {
-      margin-bottom: 36px;
-    }
-
-    @include mixin.on-tablet {
-      &:hover {
-        transform: variables.$scale-min-hover;
-        box-shadow: variables.$box-shadow-hover;
-      }
-    }
-  }
-
-  &__featured-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  &__grid {
-    @include mixin.page-grid;
-
-    @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @include mixin.on-desktop {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  &__item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
-
-    @include mixin.on-tablet {
-      &:hover {
-        box-shadow: variables.$box-shadow-hover;
-        transform: variables.$scale-min-hover;
-      }
-    }
-
-    @include mixin.on-desktop {
-      transform: variables.$transform-hover;
-      box-shadow: variables.$box-shadow-hover;
-    }
-  }
-
-  &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform variables.$effect-duration variables.$transition;
-
-    .gallery-content__item:hover & {
-      @include mixin.on-tablet {
-        transform: variables.$scale-min-hover;
-        box-shadow: variables.$box-shadow-hover;
-      }
-    }
-  }
-}
-
-.gallery-content--gallery-page {
-  padding-top: 0;
-  padding-bottom: 0;
-
-  @include mixin.on-tablet {
-    padding-bottom: 108px;
-  }
-
-  @include mixin.on-desktop {
-    padding-bottom: 130px;
-  }
-
-  .gallery-content__item,
-  .gallery-content__featured {
     @include gallery-page-mixins.gallery-page-card-item;
     @include gallery-page-mixins.gallery-page-reveal-card;
-  }
-
-  .gallery-content__image,
-  .gallery-content__featured-image {
-    @include gallery-page-mixins.gallery-page-card-image;
-  }
-
-  .gallery-content__featured {
-    margin-top: var(--gallery-page-mobile-item-gap);
-    margin-bottom: var(--gallery-page-mobile-item-gap);
+    margin-top: variables.$gallery-page-mobile-item-gap;
+    margin-bottom: variables.$gallery-page-mobile-item-gap;
 
     @include mixin.on-tablet {
       margin-top: 0;
@@ -124,164 +32,156 @@
       min-height: 420px;
     }
 
-    .gallery-content__featured-image {
-      min-height: 0;
-
-      @include mixin.on-tablet {
-        min-height: 280px;
-      }
-
-      @include mixin.on-desktop {
-        min-height: 420px;
-      }
+    &.gallery-page__target--visible {
+      transition-delay: 0.06s;
     }
   }
 
-  .gallery-content__grid {
+  &__featured-image {
+    @include gallery-page-mixins.gallery-page-card-image;
+
+    @include mixin.on-tablet {
+      min-height: 280px;
+    }
+
+    @include mixin.on-desktop {
+      min-height: 420px;
+    }
+  }
+
+  &__grid {
     display: grid;
     margin: 0;
-    gap: var(--gallery-page-mobile-item-gap);
+    gap: variables.$gallery-page-mobile-item-gap;
     align-items: start;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: variables.$gallery-grid-column-fluid;
     width: 100%;
     max-width: none;
     margin-inline: 0;
 
-    .gallery-content__item {
-      min-height: 0;
-      height: fit-content;
-      align-self: start;
-      overflow: visible;
-
-      > a {
-        display: block;
-        height: auto;
-        min-height: 0;
-        padding: 0;
-        line-height: 0;
-      }
-    }
-
-    .gallery-content__image {
-      width: 100%;
-      height: auto;
-      min-height: 0;
-      max-height: none;
-      object-fit: unset;
-      display: block;
-      vertical-align: top;
-      background: transparent;
-    }
-
     @include mixin.on-tablet {
-      display: grid !important;
-      grid-template-columns:
-        minmax(0, 0.82fr) minmax(0, 0.82fr) minmax(0, 0.82fr) minmax(0, 1.27fr)
-        minmax(0, 1.27fr) !important;
+      @include gallery-page-mixins.gallery-content-grid-columns-tablet;
       grid-template-rows: auto auto;
       gap: variables.$gallery-grid-gap-tablet;
-      width: 100%;
-      max-width: none;
-      margin-inline: 0;
-
-      .gallery-content__item--prisme-light {
-        grid-column: 1;
-        grid-row: 1;
-      }
-
-      .gallery-content__item--shevchenkos-kateryna {
-        grid-column: 2;
-        grid-row: 1;
-      }
-
-      .gallery-content__item--wind {
-        grid-column: 3;
-        grid-row: 1;
-      }
-
-      .gallery-content__item--myst,
-      [data-artwork-id="myst"] {
-        grid-column: 1 !important;
-        grid-row: 2 !important;
-      }
-
-      .gallery-content__item--pretty-girls-do-cry-1 {
-        grid-column: 2;
-        grid-row: 2;
-      }
-
-      .gallery-content__item--pretty-girls-do-cry-2 {
-        grid-column: 3;
-        grid-row: 2;
-      }
-
-      .gallery-content__item--portrait,
-      [data-artwork-id="portrait"] {
-        grid-column: 4 / 6 !important;
-        grid-row: 1 / 3 !important;
-        align-self: stretch !important;
-        height: auto !important;
-        min-height: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-
-        > a {
-          flex: 1 1 auto !important;
-          display: block !important;
-          height: 100% !important;
-          min-height: 100% !important;
-          padding: 0 !important;
-          line-height: 0 !important;
-        }
-
-        .gallery-content__image {
-          width: 100% !important;
-          height: 100% !important;
-          min-height: 100% !important;
-          max-height: none !important;
-          object-fit: cover !important;
-          object-position: center top;
-        }
-      }
     }
 
     @include mixin.on-desktop {
       gap: variables.$gallery-grid-gap-desktop;
-      grid-template-columns:
-        minmax(0, 0.78fr) minmax(0, 0.78fr) minmax(0, 0.78fr) minmax(0, 1.33fr)
-        minmax(0, 1.33fr) !important;
-    }
-
-    .gallery-content__item--prisme-light.gallery-page__target--visible {
-      transition-delay: 0.12s;
-    }
-
-    .gallery-content__item--shevchenkos-kateryna.gallery-page__target--visible {
-      transition-delay: 0.2s;
-    }
-
-    .gallery-content__item--wind.gallery-page__target--visible {
-      transition-delay: 0.28s;
-    }
-
-    .gallery-content__item--myst.gallery-page__target--visible {
-      transition-delay: 0.36s;
-    }
-
-    .gallery-content__item--pretty-girls-do-cry-1.gallery-page__target--visible {
-      transition-delay: 0.44s;
-    }
-
-    .gallery-content__item--pretty-girls-do-cry-2.gallery-page__target--visible {
-      transition-delay: 0.52s;
-    }
-
-    .gallery-content__item--portrait.gallery-page__target--visible {
-      transition-delay: 0.18s;
+      @include gallery-page-mixins.gallery-content-grid-columns-desktop;
     }
   }
 
-  .gallery-content__featured.gallery-page__target--visible {
-    transition-delay: 0.06s;
+  &__item {
+    @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
+    min-height: 0;
+    height: fit-content;
+    align-self: start;
+
+    &--prisme-light.gallery-page__target--visible {
+      transition-delay: 0.12s;
+    }
+
+    &--shevchenkos-kateryna.gallery-page__target--visible {
+      transition-delay: variables.$effect-duration-short;
+    }
+
+    &--wind.gallery-page__target--visible {
+      transition-delay: 0.28s;
+    }
+
+    &--myst.gallery-page__target--visible {
+      transition-delay: 0.36s;
+    }
+
+    &--pretty-girls-do-cry-1.gallery-page__target--visible {
+      transition-delay: 0.44s;
+    }
+
+    &--pretty-girls-do-cry-2.gallery-page__target--visible {
+      transition-delay: 0.52s;
+    }
+
+    &--portrait.gallery-page__target--visible {
+      transition-delay: 0.18s;
+    }
+
+    @include mixin.on-tablet {
+      &--prisme-light {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      &--shevchenkos-kateryna {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      &--wind {
+        grid-column: 3;
+        grid-row: 1;
+      }
+
+      &--myst {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      &--pretty-girls-do-cry-1 {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      &--pretty-girls-do-cry-2 {
+        grid-column: 3;
+        grid-row: 2;
+      }
+
+      &--portrait {
+        grid-column: 4 / 6;
+        grid-row: 1 / 3;
+        align-self: stretch;
+        height: auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__link {
+    .gallery-content__featured & {
+      @include gallery-page-mixins.gallery-page-item-link;
+    }
+
+    .gallery-content__item & {
+      @include gallery-page-mixins.gallery-page-grid-item-link;
+    }
+
+    .gallery-content__featured:hover &,
+    .gallery-content__item:hover & {
+      @include gallery-page-mixins.gallery-hover-link-active;
+    }
+
+    @include mixin.on-tablet {
+      .gallery-content__item--portrait & {
+        flex: 1 1 auto;
+      }
+    }
+  }
+
+  &__image {
+    @include gallery-page-mixins.gallery-page-card-image;
+    max-height: none;
+    object-fit: unset;
+
+    @include mixin.on-tablet {
+      .gallery-content__item--portrait & {
+        height: 100%;
+        min-height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+    }
   }
 }

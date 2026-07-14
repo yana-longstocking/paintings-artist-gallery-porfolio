@@ -1,221 +1,45 @@
 ---
 import ContactActionButtons from "./ContactActionButtons.astro";
 
-export type GalleryFooterVariant = "panel" | "minimal" | "split" | "classic";
-
 interface Props {
-  variant?: GalleryFooterVariant;
   copyright: string;
   contactTitle: string;
   emailLabel: string;
-  addressLabel: string;
   address: string;
-  socialText: string;
 }
 
-const {
-  variant = "split",
-  copyright,
-  contactTitle,
-  emailLabel,
-  addressLabel,
-  address,
-  socialText,
-} = Astro.props;
+const { copyright, contactTitle, emailLabel, address } = Astro.props;
 
 const email = "iryromanska@gmail.com";
 const instagram =
   "https://www.instagram.com/romanska13?igsh=MXcxdGticmZvd3Y4bQ==";
-const maps = "https://maps.app.goo.gl/b4ArvQcv9C2awyTb6";
 ---
 
-<footer
-  class:list={["gallery-page__footer", `gallery-page__footer--${variant}`]}
-  id="contact-us"
->
-  {
-    variant === "panel" && (
-      <>
-        <div class="gallery-page__footer-panel gallery-page__section--reveal">
-          <div class="container gallery-page__footer-panel-inner">
-            <h2 class="gallery-page__footer-heading gallery-page__target">
-              {contactTitle}
-            </h2>
-
-            <nav class="gallery-page__footer-nav" aria-label={contactTitle}>
-              <a
-                href={`mailto:${email}`}
-                class="gallery-page__footer-nav-link gallery-page__target"
-              >
-                <span class="gallery-page__footer-nav-label">{emailLabel}</span>
-                <span class="gallery-page__footer-nav-value">{email}</span>
-              </a>
-
-              <a
-                href={maps}
-                class="gallery-page__footer-nav-link gallery-page__target"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="gallery-page__footer-nav-label">
-                  {addressLabel}
-                </span>
-                <span class="gallery-page__footer-nav-value">{address}</span>
-              </a>
-
-              <a
-                href={instagram}
-                class="gallery-page__footer-nav-link gallery-page__target"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span class="gallery-page__footer-nav-label">{socialText}</span>
-                <span class="gallery-page__footer-nav-value">@romanska13</span>
-              </a>
-            </nav>
-          </div>
-        </div>
-
-        <div class="container gallery-page__footer-bottom">
-          <p class="gallery-page__footer-copy gallery-page__target">
-            {copyright}
-          </p>
-        </div>
-      </>
-    )
-  }
-
-  {
-    variant === "minimal" && (
-      <div class="container gallery-page__footer-shell gallery-page__section--reveal">
-        <div class="container__line container__line--static" />
-
-        <div class="gallery-page__footer-minimal-inner">
-          <h2 class="gallery-page__footer-heading gallery-page__target">
-            {contactTitle}
-          </h2>
-
-          <nav class="gallery-page__footer-inline" aria-label={contactTitle}>
-            <a
-              href={`mailto:${email}`}
-              class="gallery-page__footer-inline-link gallery-page__target"
-            >
-              {email}
-            </a>
-            <span class="gallery-page__footer-inline-sep" aria-hidden="true">
-              ·
-            </span>
-            <a
-              href={maps}
-              class="gallery-page__footer-inline-link gallery-page__target"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {address}
-            </a>
-            <span class="gallery-page__footer-inline-sep" aria-hidden="true">
-              ·
-            </span>
-            <a
-              href={instagram}
-              class="gallery-page__footer-inline-link gallery-page__target"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Instagram
-            </a>
-          </nav>
-
-          <p class="gallery-page__footer-copy gallery-page__target">
-            {copyright}
-          </p>
-        </div>
-      </div>
-    )
-  }
-
-  {
-    variant === "split" && (
-      <div class="container gallery-page__footer-shell gallery-page__section--reveal">
-        <div class="gallery-page__footer-split">
-          <div class="gallery-page__footer-split-main">
-            <h2 class="gallery-page__footer-heading gallery-page__target">
-              {contactTitle}
-            </h2>
-            <p class="gallery-page__footer-lead gallery-page__target">
-              {address} · Iryna Romanska
-            </p>
-          </div>
-
-          <div class="gallery-page__footer-actions">
-            <ContactActionButtons
-              emailLabel={emailLabel}
-              instagramLabel="Instagram"
-              email={email}
-              instagramUrl={instagram}
-              actionClass="gallery-page__target"
-            />
-          </div>
-        </div>
-
-        <p class="gallery-page__footer-copy gallery-page__target">
-          {copyright}
+<footer class="gallery-page__footer" id="contact-us">
+  <div
+    class="container gallery-page__footer-shell gallery-page__section--reveal"
+  >
+    <div class="gallery-page__footer-split">
+      <div>
+        <h2 class="gallery-page__footer-heading gallery-page__target">
+          {contactTitle}
+        </h2>
+        <p class="gallery-page__footer-lead gallery-page__target">
+          {address} · Iryna Romanska
         </p>
       </div>
-    )
-  }
 
-  {
-    variant === "classic" && (
-      <div class="container gallery-page__footer-shell gallery-page__section--reveal">
-        <div class="gallery-page__footer-classic">
-          <h2 class="gallery-page__footer-heading gallery-page__target">
-            {contactTitle}
-          </h2>
+      <ContactActionButtons
+        emailLabel={emailLabel}
+        instagramLabel="Instagram"
+        email={email}
+        instagramUrl={instagram}
+        actionClass="gallery-page__target"
+      />
+    </div>
 
-          <div class="gallery-page__footer-classic-grid">
-            <a
-              href={`mailto:${email}`}
-              class="gallery-page__footer-classic-item gallery-page__target"
-            >
-              <span class="gallery-page__footer-classic-label">
-                {emailLabel}
-              </span>
-              <span class="gallery-page__footer-classic-value">{email}</span>
-            </a>
-
-            <a
-              href={maps}
-              class="gallery-page__footer-classic-item gallery-page__target"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="gallery-page__footer-classic-label">
-                {addressLabel}
-              </span>
-              <span class="gallery-page__footer-classic-value">{address}</span>
-            </a>
-
-            <a
-              href={instagram}
-              class="gallery-page__footer-classic-item gallery-page__target"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span class="gallery-page__footer-classic-label">
-                {socialText}
-              </span>
-              <span class="gallery-page__footer-classic-value">
-                @romanska13
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <p class="gallery-page__footer-copy gallery-page__target">
-          {copyright}
-        </p>
-      </div>
-    )
-  }
+    <p class="gallery-page__footer-copy gallery-page__target">
+      {copyright}
+    </p>
+  </div>
 </footer>
