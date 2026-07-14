@@ -32,8 +32,8 @@ function initContactForm(): void {
       const data = await response.json();
 
       if (response.ok) {
-        (form as HTMLElement).style.display = "none";
-        successMessage.style.display = "block";
+        form.classList.add("footer__form--hidden");
+        successMessage.classList.add("footer__success--visible");
       } else {
         alert(`${errorMessage}: ${data.message}`);
         submitBtn.textContent = originalText;

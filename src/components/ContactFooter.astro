@@ -1,10 +1,7 @@
 ---
 import ContactActionButtons from "./ContactActionButtons.astro";
 
-export type ContactFooterVariant = "landing" | "default";
-
 interface Props {
-  variant?: ContactFooterVariant;
   title: string;
   formNamePlaceholder: string;
   formEmailPlaceholder: string;
@@ -22,7 +19,6 @@ interface Props {
 }
 
 const {
-  variant = "default",
   title,
   formNamePlaceholder,
   formEmailPlaceholder,
@@ -38,18 +34,9 @@ const {
   contactAddress,
   copyright,
 } = Astro.props;
-
-const isLanding = variant === "landing";
 ---
 
-<footer
-  class:list={[
-    "footer",
-    "footer--scroll-reveal",
-    isLanding && "footer--landing",
-  ]}
-  id="contact-us"
->
+<footer class="footer footer--scroll-reveal" id="contact-us">
   <div class="container">
     <div class="footer__content">
       <div class="footer__form-section">
@@ -91,7 +78,7 @@ const isLanding = variant === "landing";
             {formButtonText}
           </button>
         </form>
-        <div id="form-success" class="footer__success" style="display: none;">
+        <div id="form-success" class="footer__success">
           <p class="footer__success-message">
             {formSuccessMessage}
           </p>
@@ -99,9 +86,7 @@ const isLanding = variant === "landing";
       </div>
 
       <div class="footer__contact-section">
-        <div class="footer__contact-title">
-          {contactTitle}
-        </div>
+        <h2 class="footer__contact-title">{contactTitle}</h2>
         <div class="footer__contact-item">
           <p class="footer__contact-label">
             {contactLabelAddress}
@@ -111,6 +96,7 @@ const isLanding = variant === "landing";
             class="footer__contact-value"
             href="https://maps.app.goo.gl/b4ArvQcv9C2awyTb6"
             target="_blank"
+            rel="noopener noreferrer"
           >
             {contactAddress}
           </a>
@@ -124,9 +110,7 @@ const isLanding = variant === "landing";
         </div>
       </div>
     </div>
-    <div class="footer__copyright">
-      <p class="footer__copyright-text">{copyright}</p>
-    </div>
+    <p class="footer__copyright-text">{copyright}</p>
   </div>
 </footer>
 

@@ -31,13 +31,27 @@
   }
 }
 
-.footer {
-  padding-bottom: 20px;
+@mixin footer-section-heading {
+  position: relative;
+  font-family: "Cinzel", sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 32px;
+  color: variables.$main-color;
+  padding-bottom: 28px;
+  margin: 0 0 16px;
 
-  &--landing {
-    position: relative;
-    z-index: 1;
+  @include mixin.on-desktop {
+    margin-bottom: 24px;
   }
+
+  @include footer-title-accent-line;
+}
+
+.footer {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 20px;
 
   &--scroll-reveal {
     .footer__title,
@@ -137,7 +151,7 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  @include mixin.on-reduced-motion {
     &--scroll-reveal {
       .footer__title,
       .footer__contact-title,
@@ -163,25 +177,13 @@
   }
 
   &__title {
-    position: relative;
-    font-family: "Cinzel", sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 32px;
-    color: variables.$main-color;
-    padding-bottom: 28px;
-    margin-bottom: 16px;
-
-    @include mixin.on-desktop {
-      margin-bottom: 24px;
-    }
-
-    @include footer-title-accent-line;
+    @include footer-section-heading;
   }
 
   &__content {
     padding-bottom: 50px;
     @include mixin.page-grid;
+
     @include mixin.on-tablet {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -191,6 +193,10 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    &--hidden {
+      display: none;
+    }
   }
 
   &__input {
@@ -231,11 +237,11 @@
     outline: none;
     resize: none;
     min-height: 100px;
+    margin-bottom: 32px;
     transition:
       border-color variables.$effect-duration variables.$transition,
       box-shadow variables.$effect-duration variables.$transition,
       background-color variables.$effect-duration variables.$transition;
-    margin-bottom: 32px;
 
     &::placeholder {
       color: rgba(126, 115, 145, 0.68);
@@ -267,10 +273,12 @@
       transform variables.$effect-duration variables.$transition;
     align-self: flex-start;
 
-    &:hover {
-      background-color: variables.$hover-color;
-      box-shadow: 0 6px 24px rgba(174, 28, 35, 0.28);
-      transform: translateY(-1px);
+    @include mixin.on-hover-capable {
+      &:hover {
+        background-color: variables.$hover-color;
+        box-shadow: 0 6px 24px rgba(174, 28, 35, 0.28);
+        transform: translateY(-1px);
+      }
     }
 
     @include mixin.on-tablet {
@@ -287,20 +295,7 @@
   }
 
   &__contact-title {
-    position: relative;
-    font-family: "Cinzel", sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 32px;
-    color: variables.$main-color;
-    padding-bottom: 28px;
-    margin-bottom: 16px;
-
-    @include mixin.on-desktop {
-      margin-bottom: 24px;
-    }
-
-    @include footer-title-accent-line;
+    @include footer-section-heading;
   }
 
   &__contact-item {
@@ -312,7 +307,7 @@
     font-size: 14px;
     font-weight: 400;
     color: variables.$main-color;
-    margin: 0 0 8px 0;
+    margin: 0 0 8px;
   }
 
   &__contact-value {
@@ -324,8 +319,10 @@
     line-height: 1.4;
     display: block;
 
-    &:hover {
-      color: variables.$background-color;
+    @include mixin.on-hover-capable {
+      &:hover {
+        color: variables.$background-color;
+      }
     }
   }
 
@@ -336,16 +333,20 @@
   &__copyright-text {
     font-family: "Cinzel", sans-serif;
     font-size: 12px;
-
     color: variables.$main-color;
     text-align: center;
+    margin: 0;
   }
 
   &__success {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     min-height: 200px;
+
+    &--visible {
+      display: flex;
+    }
   }
 
   &__success-message {
