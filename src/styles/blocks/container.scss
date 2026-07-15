@@ -1,5 +1,4 @@
 @use "mixin";
-@use "variables";
 
 .container {
   margin-inline: auto;
@@ -16,21 +15,6 @@
     padding-inline: 120px;
   }
 
-  &__line {
-    border-bottom: 5px solid variables.$hover-color;
-    animation: slidein 3s alternate 1;
-
-    &--static {
-      animation: none;
-      margin-left: 0;
-      width: 100%;
-    }
-
-    &--gallery-page {
-      animation: none;
-    }
-  }
-
   &--landing {
     position: relative;
     z-index: 1;
@@ -42,18 +26,6 @@
 
     @include mixin.on-desktop {
       padding-top: 102px;
-    }
-  }
-
-  @keyframes slidein {
-    from {
-      margin-left: 100%;
-      width: 300%;
-    }
-
-    to {
-      margin-left: 0%;
-      width: 100%;
     }
   }
 }
