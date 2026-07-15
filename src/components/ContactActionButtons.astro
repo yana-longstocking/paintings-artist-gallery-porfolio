@@ -1,10 +1,13 @@
 ---
+export type ContactActionButtonsVariant = "landing" | "default";
+
 interface Props {
   emailLabel?: string;
   instagramLabel?: string;
   email?: string;
   instagramUrl?: string;
   actionClass?: string;
+  variant?: ContactActionButtonsVariant;
 }
 
 const {
@@ -13,10 +16,12 @@ const {
   email = "iryromanska@gmail.com",
   instagramUrl = "https://www.instagram.com/romanska13?igsh=MXcxdGticmZvd3Y4bQ==",
   actionClass,
+  variant = "default",
 } = Astro.props;
+const isLanding = variant === "landing";
 ---
 
-<div class="contact-actions">
+<div class:list={["contact-actions", isLanding && "contact-actions--landing"]}>
   <a
     href={`mailto:${email}`}
     class:list={["contact-actions__link", actionClass]}

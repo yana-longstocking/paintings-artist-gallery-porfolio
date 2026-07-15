@@ -40,12 +40,21 @@ function initFooterScrollReveal(): void {
     return;
   }
 
+  const minScroll = 40;
   let formTitleDone = false;
   let formContentDone = false;
   let contactTitleDone = false;
   let contactContentDone = false;
   let buttonDone = false;
   let buttonTimer: number | null = null;
+
+  const revealAfterPaint = (callback: () => void) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.setTimeout(callback, 48);
+      });
+    });
+  };
 
   const cleanup = () => {
     window.removeEventListener("scroll", onScroll);
@@ -67,52 +76,56 @@ function initFooterScrollReveal(): void {
 
     buttonDone = true;
     buttonTimer = window.setTimeout(() => {
-      revealButton();
+      revealAfterPaint(revealButton);
       cleanup();
     }, 320);
   };
 
   const tryRevealFormTitle = () => {
     if (formTitleDone) return;
+    if (window.scrollY < minScroll) return;
 
     const rect = formSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.92) return;
+    if (rect.top > window.innerHeight * 0.98) return;
 
     formTitleDone = true;
-    revealFormTitle();
+    revealAfterPaint(revealFormTitle);
     tryRevealButton();
   };
 
   const tryRevealFormContent = () => {
     if (formContentDone) return;
+    if (window.scrollY < minScroll) return;
 
     const rect = formSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.72) return;
+    if (rect.top > window.innerHeight * 0.82) return;
 
     formContentDone = true;
-    revealFormContent();
+    revealAfterPaint(revealFormContent);
     tryRevealButton();
   };
 
   const tryRevealContactTitle = () => {
     if (contactTitleDone) return;
+    if (window.scrollY < minScroll) return;
 
     const rect = contactSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.92) return;
+    if (rect.top > window.innerHeight * 0.98) return;
 
     contactTitleDone = true;
-    revealContactTitle();
+    revealAfterPaint(revealContactTitle);
     tryRevealButton();
   };
 
   const tryRevealContactContent = () => {
     if (contactContentDone) return;
+    if (window.scrollY < minScroll) return;
 
     const rect = contactSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.72) return;
+    if (rect.top > window.innerHeight * 0.82) return;
 
     contactContentDone = true;
-    revealContactContent();
+    revealAfterPaint(revealContactContent);
     tryRevealButton();
   };
 
@@ -124,38 +137,33 @@ function initFooterScrollReveal(): void {
     tryRevealButton();
   };
 
+  const observerOptions: IntersectionObserverInit = {
+    threshold: 0,
+    rootMargin: "0px 0px 10% 0px",
+  };
+
   const formTitleObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) tryRevealFormTitle();
-    },
-    { threshold: 0.08 },
+    () => tryRevealFormTitle(),
+    observerOptions,
   );
   const formContentObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) tryRevealFormContent();
-    },
-    { threshold: 0.08 },
+    () => tryRevealFormContent(),
+    observerOptions,
   );
   const contactTitleObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting))
-        tryRevealContactTitle();
-    },
-    { threshold: 0.08 },
+    () => tryRevealContactTitle(),
+    observerOptions,
   );
   const contactContentObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        tryRevealContactContent();
-      }
-    },
-    { threshold: 0.08 },
+    () => tryRevealContactContent(),
+    observerOptions,
   );
 
   formTitleObserver.observe(formSection);
   formContentObserver.observe(formSection);
   contactTitleObserver.observe(contactSection);
   contactContentObserver.observe(contactSection);
+  void (footer as HTMLElement).offsetWidth;
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 }

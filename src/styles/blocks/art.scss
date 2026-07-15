@@ -22,7 +22,8 @@
       grid-template-columns:
         variables.$gallery-grid-column-fluid minmax(0, 2fr)
         variables.$gallery-grid-column-fluid;
-      grid-template-rows: auto auto;
+      @include gallery-page-mixins.gallery-page-tablet-equal-rows;
+      align-items: stretch;
       gap: variables.$gallery-grid-gap-tablet;
       margin-top: 0;
     }
@@ -35,16 +36,16 @@
   &__item {
     @include gallery-page-mixins.gallery-page-card-item;
     @include gallery-page-mixins.gallery-page-reveal-card;
-    min-height: 0;
-    height: fit-content;
-    align-self: start;
+
+    @include mixin.on-tablet {
+      @include gallery-page-mixins.gallery-page-tablet-cover-item;
+    }
 
     &--featured {
-      grid-column: 1;
-
       @include mixin.on-tablet {
         grid-column: 2;
         grid-row: 1 / span 2;
+        @include gallery-page-mixins.gallery-page-tablet-portrait-featured;
       }
     }
 
@@ -80,8 +81,18 @@
     object-fit: unset;
   }
 
+  @include mixin.on-tablet {
+    &__link {
+      @include gallery-page-mixins.gallery-page-tablet-cover-link;
+    }
+
+    &__image {
+      @include gallery-page-mixins.gallery-page-tablet-cover-image;
+    }
+  }
+
   @include mixin.on-hover-capable {
-    &__item:hover &__link {
+    &__link:hover {
       @include gallery-page-mixins.gallery-hover-link-active;
     }
   }

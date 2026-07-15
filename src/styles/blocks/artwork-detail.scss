@@ -2,6 +2,48 @@
 @use "variables";
 @use "contact-actions";
 
+@mixin artwork-detail-reveal {
+  @include mixin.on-tablet {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+
+    &.artwork-detail__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@mixin artwork-detail-reveal-large {
+  @include mixin.on-tablet {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-large);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+
+    &.artwork-detail__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .artwork-detail {
   padding-top: 40px;
 
@@ -41,6 +83,7 @@
   }
 
   &__title {
+    @include artwork-detail-reveal;
     font-family: variables.$font-family-cinzel;
     font-size: 16px;
     font-weight: 700;
@@ -62,6 +105,7 @@
   }
 
   &__main-image {
+    @include artwork-detail-reveal-large;
     position: relative;
     padding-bottom: 24px;
 
@@ -94,6 +138,7 @@
   }
 
   &__description {
+    @include artwork-detail-reveal;
     font-family: variables.$font-family-roboto;
     font-size: 15px;
     font-weight: 400;
@@ -109,6 +154,7 @@
 
   &__medium,
   &__size {
+    @include artwork-detail-reveal;
     font-family: variables.$font-family-roboto;
     font-size: 16px;
     font-weight: 400;
@@ -121,6 +167,7 @@
   }
 
   &__price {
+    @include artwork-detail-reveal;
     font-family: variables.$font-family-roboto;
     font-size: 20px;
     font-weight: 700;
@@ -134,6 +181,7 @@
   }
 
   &__additional-title {
+    @include artwork-detail-reveal;
     font-family: variables.$font-family-cinzel;
     font-size: 16px;
     font-weight: 400;
@@ -157,15 +205,21 @@
   }
 
   &__gallery-item {
+    @include artwork-detail-reveal-large;
     overflow: hidden;
     box-shadow: variables.$box-shadow;
-    transition:
-      transform variables.$effect-duration variables.$transition,
-      box-shadow variables.$effect-duration variables.$transition;
+
+    @include mixin.on-tablet {
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized,
+        box-shadow variables.$effect-duration variables.$transition;
+    }
 
     @include mixin.on-hover-capable {
       @include mixin.on-tablet {
-        &:hover {
+        &.artwork-detail__target--visible:hover {
           transform: variables.$scale-max-hover;
           box-shadow: variables.$box-shadow-hover;
         }
@@ -219,7 +273,7 @@
     @include mixin.on-tablet {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: start;
+      align-items: stretch;
       column-gap: 56px;
     }
 
@@ -232,9 +286,16 @@
 
   &__footer-section {
     min-width: 0;
+
+    @include mixin.on-tablet {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
   }
 
   &__footer-title {
+    @include artwork-detail-reveal;
     font-family: variables.$font-family-cinzel;
     font-size: 18px;
     font-weight: 700;
@@ -254,6 +315,7 @@
   }
 
   &__footer-text {
+    @include artwork-detail-reveal;
     font-family: variables.$font-family-roboto;
     font-size: 14px;
     font-weight: 400;
@@ -272,6 +334,7 @@
   }
 
   &__footer-link {
+    @include artwork-detail-reveal;
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -295,7 +358,13 @@
       color variables.$effect-duration variables.$transition,
       border-color variables.$effect-duration variables.$transition,
       box-shadow variables.$effect-duration variables.$transition,
-      transform variables.$effect-duration-hover variables.$ease-smooth;
+      transform variables.$effect-duration-hover variables.$ease-smooth,
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized;
+
+    @include mixin.on-tablet {
+      margin-top: auto;
+      align-self: flex-start;
+    }
 
     &::after {
       content: "→";
@@ -319,7 +388,7 @@
     }
 
     @include mixin.on-hover-capable {
-      &:hover {
+      &.artwork-detail__target--visible:hover {
         @include contact-actions.contact-actions-link-filled;
         transform: translateY(-2px);
 
@@ -328,7 +397,7 @@
         }
       }
 
-      &:active {
+      &.artwork-detail__target--visible:active {
         transform: translateY(-1px);
       }
     }
@@ -351,10 +420,11 @@
   }
 
   &__footer-actions {
+    @include artwork-detail-reveal;
     margin-top: 16px;
 
     @include mixin.on-tablet {
-      margin-top: 20px;
+      margin-top: auto;
     }
   }
 
@@ -376,18 +446,11 @@
   }
 
   &__footer-copyright {
-    font-family: variables.$font-family-roboto;
+    @include artwork-detail-reveal;
+    font-family: variables.$font-family-cinzel;
     font-size: 12px;
     font-weight: 400;
     color: variables.$main-color;
-    opacity: 0.7;
-
-    @include mixin.on-tablet {
-      font-size: 13px;
-    }
-
-    @include mixin.on-desktop {
-      font-size: 14px;
-    }
+    text-align: center;
   }
 }

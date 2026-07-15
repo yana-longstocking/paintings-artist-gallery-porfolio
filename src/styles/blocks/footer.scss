@@ -99,7 +99,7 @@
           variables.$ease-emphasized;
     }
 
-    &__form-section--visible &__title {
+    &--scroll-reveal &__form-section--visible &__title {
       opacity: 1;
       transform: translateY(0);
       transition-delay: 0.08s;
@@ -110,9 +110,9 @@
       }
     }
 
-    &__form-section--content-visible &__input,
-    &__form-section--content-visible &__message,
-    &__form-section--content-visible &__success {
+    &--scroll-reveal &__form-section--content-visible &__input,
+    &--scroll-reveal &__form-section--content-visible &__message,
+    &--scroll-reveal &__form-section--content-visible &__success {
       opacity: 1;
       transform: translateX(0);
       transition-delay: 0.1s;
@@ -125,7 +125,7 @@
       transition-delay: 0.12s;
     }
 
-    &__contact-section--visible &__contact-title {
+    &--scroll-reveal &__contact-section--visible &__contact-title {
       opacity: 1;
       transform: translateY(0);
       transition-delay: 0.08s;
@@ -136,13 +136,13 @@
       }
     }
 
-    &__contact-section--content-visible &__contact-item {
+    &--scroll-reveal &__contact-section--content-visible &__contact-item {
       opacity: 1;
       transform: translateX(0);
       transition-delay: 0.1s;
     }
 
-    &__contact-section--content-visible &__contact-actions {
+    &--scroll-reveal &__contact-section--content-visible &__contact-actions {
       opacity: 1;
       transform: translateX(0);
       transition-delay: 0.22s;
@@ -183,8 +183,33 @@
     margin-bottom: 24px;
 
     @include mixin.on-tablet {
-      padding-bottom: 28px;
+      font-size: 24px;
+      line-height: 24px;
+      min-height: 24px;
+      padding-bottom: 24px;
       margin-bottom: 20px;
+    }
+  }
+
+  &--landing &__contact-item {
+    @include mixin.on-tablet {
+      margin-bottom: 17px;
+    }
+  }
+
+  &--landing &__contact-actions {
+    @include mixin.on-tablet {
+      margin-top: 0;
+    }
+  }
+
+  &--landing &__content {
+    @include mixin.on-tablet {
+      gap: 72px;
+
+      @include mixin.on-desktop {
+        gap: 36px;
+      }
     }
   }
 
@@ -194,6 +219,7 @@
 
     @include mixin.on-tablet {
       grid-template-columns: repeat(2, 1fr);
+      align-items: start;
     }
   }
 

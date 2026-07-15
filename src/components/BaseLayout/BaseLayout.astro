@@ -1,7 +1,6 @@
 ---
 import "../../styles/global.scss";
 import Header from "../Header.astro";
-import FooterScrollReveal from "../FooterScrollReveal.astro";
 import GalleryScrollReveal from "../GalleryScrollReveal.astro";
 
 export type PageSurface = "default" | "landing";
@@ -69,7 +68,6 @@ const { title, surface = "default" } = Astro.props;
 
     <slot name="scripts" />
 
-    <FooterScrollReveal />
     <GalleryScrollReveal />
 
     <script>

@@ -1,6 +1,7 @@
 ---
 import ImageModal from "./ImageModal/ImageModal.astro";
 import ContactActionButtons from "./ContactActionButtons.astro";
+import ArtworkDetailScrollReveal from "./ArtworkDetailScrollReveal.astro";
 import type { ArtworkItem } from "../types/gallery";
 import type { ArtworkTranslations } from "../i18n/types";
 
@@ -71,9 +72,7 @@ const { image, translations, galleryLink } = Astro.props;
   <footer class="artwork-detail__footer">
     <div class="artwork-detail__footer-container">
       <div class="artwork-detail__footer-content">
-        <div
-          class="artwork-detail__footer-section artwork-detail__footer-section--about"
-        >
+        <div class="artwork-detail__footer-section">
           <h3 class="artwork-detail__footer-title">
             {translations.footerTitle}
           </h3>
@@ -97,8 +96,10 @@ const { image, translations, galleryLink } = Astro.props;
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="artwork-detail__footer-bottom">
+    <div class="artwork-detail__footer-bottom">
+      <div class="artwork-detail__footer-container">
         <p class="artwork-detail__footer-copyright">
           {translations.footerCopyright}
         </p>
@@ -108,3 +109,4 @@ const { image, translations, galleryLink } = Astro.props;
 </main>
 
 <ImageModal imageData={image} />
+<ArtworkDetailScrollReveal />

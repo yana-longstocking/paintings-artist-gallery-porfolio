@@ -66,7 +66,7 @@
     }
 
     @include mixin.on-desktop {
-      margin-top: variables.$hero-mosaic-viewport-margin-top-desktop;
+      margin-top: 44px;
     }
   }
 
@@ -84,7 +84,7 @@
     @include mixin.on-tablet {
       flex: 1 1 auto;
       display: block;
-      margin-bottom: 20px;
+      margin-bottom: 0;
       padding: 0 8px;
 
       @include mixin.on-desktop {
@@ -134,7 +134,12 @@
     padding: 60px variables.$hero-mosaic-padding-inline
       variables.$hero-mosaic-padding-inline;
     pointer-events: none;
-    background: variables.$hero-mosaic-mobile-copy-gradient;
+    background: linear-gradient(
+      180deg,
+      rgba(242, 240, 246, 0) 0%,
+      rgba(242, 240, 246, 0.45) 50%,
+      rgba(242, 240, 246, 0.88) 100%
+    );
   }
 
   &__mobile-tagline {
@@ -268,18 +273,20 @@
       display: flex;
       grid-column: 5 / 6;
       grid-row: 1 / -1;
+      z-index: 3;
+      box-sizing: border-box;
+      pointer-events: auto;
       align-self: center;
       justify-self: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      padding: 0 6px;
+      width: auto;
+      max-width: 100%;
+      height: auto;
       transform: translateY(150px);
 
       @include mixin.on-desktop {
         align-self: end;
         justify-self: stretch;
-        height: auto;
+        width: 100%;
         padding: 0 4px 10px;
         transform: none;
       }
@@ -287,7 +294,6 @@
   }
 
   &__cta-link {
-    pointer-events: auto;
     display: none;
     position: relative;
     isolation: isolate;
@@ -296,11 +302,8 @@
     justify-content: center;
     gap: 3px;
     width: auto;
-    max-width: 144px;
     min-height: 28px;
-    padding: 6px 16px;
     font-family: variables.$font-family-cinzel;
-    font-size: variables.$hero-mosaic-font-size-caption;
     font-weight: 600;
     letter-spacing: 0.7px;
     text-transform: uppercase;
@@ -308,7 +311,6 @@
     color: variables.$color-text;
     background: variables.$background-color;
     border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow: 0 2px 10px rgba(209, 45, 53, 0.24);
     transition:
       background variables.$hero-mosaic-interaction-duration
         variables.$ease-smooth,
@@ -318,8 +320,6 @@
         variables.$ease-smooth;
 
     &--ready {
-      display: inline-flex;
-      pointer-events: auto;
       animation: hero-mosaic-cta-enter 1.35s variables.$ease-emphasized both;
     }
 
@@ -377,13 +377,14 @@
     @include mixin.on-tablet {
       display: inline-flex;
       opacity: 0;
-      pointer-events: none;
-      max-width: 108px;
-      min-height: 22px;
-      padding: 4px 9px;
+      pointer-events: auto;
+      box-sizing: border-box;
+      width: 104px;
+      max-width: 104px;
+      min-height: 28px;
+      padding: 6px 9px;
       font-size: 7px;
       line-height: 8px;
-      text-align: center;
       white-space: normal;
       box-shadow: 0 2px 8px rgba(209, 45, 53, 0.22);
 
@@ -485,6 +486,7 @@
       &--g {
         grid-column: 5 / 6;
         grid-row: 1 / 7;
+        z-index: 1;
       }
     }
   }
@@ -535,7 +537,6 @@
     }
 
     &__cta-link--ready {
-      display: inline-flex;
       animation: none;
       opacity: 1;
       transform: none;

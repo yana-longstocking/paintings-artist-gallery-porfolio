@@ -200,7 +200,7 @@
 
   &__hero-text-line {
     font-family: variables.$font-family-cinzel;
-    font-size: variables.$gallery-page-body-font-size-desktop;
+    font-size: 16px;
     font-weight: 400;
     line-height: variables.$line-height-body-27;
     color: variables.$main-color;
@@ -231,11 +231,23 @@
       margin-top: 48px;
 
       @include mixin.on-tablet {
-        margin-top: 160px;
+        margin-top: 40px;
+        visibility: hidden;
+        pointer-events: none;
+
+        &.gallery-page__section--intro-ready {
+          visibility: visible;
+          pointer-events: auto;
+        }
       }
 
       @include mixin.on-desktop {
         margin-top: 200px;
+      }
+
+      @include mixin.on-reduced-motion {
+        visibility: visible;
+        pointer-events: auto;
       }
     }
   }
@@ -245,11 +257,11 @@
     flex-direction: column;
     gap: 24px;
     padding-block: 32px 28px;
-    border-top: 1px solid variables.$gallery-page-border-subtle;
+    border-top: 1px solid rgba(22, 22, 22, 0.12);
 
     @include mixin.on-tablet {
       flex-direction: row;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
       gap: 32px;
       padding-block: 40px 34px;
@@ -264,30 +276,30 @@
   &__footer-lead {
     @include gallery-page-mixins.gallery-page-reveal-footer-text;
     font-family: variables.$font-family-roboto;
-    font-size: variables.$gallery-page-body-font-size-mobile;
-    line-height: variables.$gallery-page-footer-line-height-22;
+    font-size: 14px;
+    line-height: 22px;
     color: rgba(22, 22, 22, 0.72);
 
     @include mixin.on-tablet {
-      font-size: variables.$gallery-page-body-font-size-tablet;
+      font-size: 15px;
       line-height: variables.$line-height-body-24;
     }
 
     @include mixin.on-desktop {
-      font-size: variables.$gallery-page-body-font-size-desktop;
+      font-size: 16px;
       line-height: 26px;
     }
   }
 
   &__footer-shell {
-    padding-bottom: variables.$gallery-footer-padding-mobile;
+    padding-bottom: 20px;
 
     @include mixin.on-tablet {
-      padding-bottom: variables.$gallery-footer-padding-tablet;
+      padding-bottom: 24px;
     }
 
     @include mixin.on-desktop {
-      padding-bottom: variables.$gallery-footer-padding-desktop;
+      padding-bottom: 28px;
     }
   }
 
@@ -297,20 +309,20 @@
     @include gallery-page-mixins.gallery-page-section-title-accent;
     margin-bottom: 14px;
     font-family: variables.$font-family-cinzel;
-    font-size: variables.$gallery-footer-heading-font-size-mobile;
+    font-size: 22px;
     font-weight: 700;
     line-height: 26px;
     letter-spacing: 1px;
     color: variables.$main-color;
 
     @include mixin.on-tablet {
-      font-size: variables.$gallery-footer-heading-font-size-tablet;
+      font-size: 25px;
       margin-bottom: 16px;
       line-height: 30px;
     }
 
     @include mixin.on-desktop {
-      font-size: variables.$gallery-footer-heading-font-size-desktop;
+      font-size: 28px;
       margin-bottom: 18px;
       line-height: 34px;
       letter-spacing: 1.1px;
@@ -337,16 +349,16 @@
   }
 
   &__scroll-top-bar {
-    margin-top: 20px;
+    margin-top: 16px;
     margin-bottom: 32px;
 
     @include mixin.on-tablet {
-      margin-top: 26px;
+      margin-top: 20px;
       margin-bottom: 44px;
     }
 
     @include mixin.on-desktop {
-      margin-top: 32px;
+      margin-top: 24px;
       margin-bottom: 56px;
     }
   }
@@ -371,11 +383,6 @@
       transform: translateY(0);
       pointer-events: auto;
     }
-  }
-
-  &__scroll-top-wrap--visible &__scroll-top-accent {
-    animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
-      variables.$ease-emphasized variables.$effect-duration-short forwards;
   }
 
   &__scroll-top {
@@ -439,6 +446,11 @@
     transform-origin: left center;
     opacity: 0;
     background: variables.$accent-line-gradient;
+
+    &--visible {
+      animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
+        variables.$ease-emphasized variables.$effect-duration-short forwards;
+    }
   }
 
   @include mixin.on-reduced-motion {
@@ -478,7 +490,7 @@
         visibility variables.$effect-duration-short;
     }
 
-    &__scroll-top-wrap--visible &__scroll-top-accent {
+    &__scroll-top-accent--visible {
       animation: none;
       opacity: 1;
       transform: none;

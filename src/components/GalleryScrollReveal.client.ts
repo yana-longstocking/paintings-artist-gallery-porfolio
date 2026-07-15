@@ -1,4 +1,7 @@
-import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
+import {
+  GALLERY_HERO_INTRO_MS,
+  galleryRevealStaggerDelaySeconds,
+} from "../constants/gallery-reveal";
 import { isMobileLayout } from "../constants/breakpoints";
 
 function initGalleryScrollReveal(): void {
@@ -15,8 +18,21 @@ function initGalleryScrollReveal(): void {
     target.classList.add("gallery-page__target--visible");
   };
 
+  const markReady = (section: Element) => {
+    section.classList.add("gallery-page__section--intro-ready");
+  };
+
+  const prepareTarget = (target: Element, index: number | null) => {
+    const element = target as HTMLElement;
+    target.classList.add("gallery-page__target");
+    if (index !== null) {
+      element.style.transitionDelay = `${galleryRevealStaggerDelaySeconds(index)}s`;
+    }
+  };
+
   if (isMobileLayout()) {
     sections.forEach((section) => {
+      markReady(section);
       section
         .querySelectorAll(`${titleSelector}, ${imageSelector}`)
         .forEach((target) => {
@@ -31,6 +47,7 @@ function initGalleryScrollReveal(): void {
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     sections.forEach((section) => {
+      markReady(section);
       section
         .querySelectorAll(`${titleSelector}, ${imageSelector}`)
         .forEach((target) => {
@@ -43,38 +60,80 @@ function initGalleryScrollReveal(): void {
     return;
   }
 
+  const heroIntroReady = new Promise<void>((resolve) => {
+    window.setTimeout(resolve, GALLERY_HERO_INTRO_MS);
+  });
+
+  const revealAfterPaint = (targets: Element[]) => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.setTimeout(() => {
+          targets.forEach((target) => revealTarget(target));
+        }, 48);
+      });
+    });
+  };
+
+  const isNearViewport = (target: Element) =>
+    target.getBoundingClientRect().top < window.innerHeight * 0.92;
+
+  const observeTarget = (target: Element) => {
+    let revealed = false;
+    const tryReveal = () => {
+      if (revealed) return;
+      revealed = true;
+      revealTarget(target);
+      observer.disconnect();
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          tryReveal();
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
+    );
+
+    observer.observe(target);
+
+    if (isNearViewport(target)) {
+      tryReveal();
+    }
+  };
+
   sections.forEach((section) => {
     const titles = Array.from(section.querySelectorAll(titleSelector));
     const images = Array.from(section.querySelectorAll(imageSelector));
+    const waitForHeroIntro = section.classList.contains(
+      "gallery-page__section--first",
+    );
 
-    const observeTarget = (target: Element, index: number | null) => {
-      const element = target as HTMLElement;
-      target.classList.add("gallery-page__target");
-      if (index !== null) {
-        element.style.transitionDelay = `${galleryRevealStaggerDelaySeconds(index)}s`;
-      }
+    titles.forEach((target) => prepareTarget(target, null));
+    images.forEach((target, index) => prepareTarget(target, index));
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            revealTarget(entry.target);
-            observer.disconnect();
-          });
-        },
-        { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
-      );
+    if (waitForHeroIntro) {
+      void heroIntroReady.then(() => {
+        markReady(section);
+        void (section as HTMLElement).offsetWidth;
 
-      observer.observe(target);
+        // Only fly in what's on screen after intro; below-fold cards wait for scroll.
+        const immediate: Element[] = [...titles];
+        images.forEach((target) => {
+          if (isNearViewport(target)) {
+            immediate.push(target);
+          } else {
+            observeTarget(target);
+          }
+        });
+        revealAfterPaint(immediate);
+      });
+      return;
+    }
 
-      if (target.getBoundingClientRect().top < window.innerHeight * 0.92) {
-        revealTarget(target);
-        observer.disconnect();
-      }
-    };
-
-    titles.forEach((target) => observeTarget(target, null));
-    images.forEach((target, index) => observeTarget(target, index));
+    titles.forEach((target) => observeTarget(target));
+    images.forEach((target) => observeTarget(target));
   });
 }
 

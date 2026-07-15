@@ -2,19 +2,13 @@
 @use "variables";
 
 .artist-bio {
-  padding-bottom: 100px;
-
-  @include mixin.on-tablet {
-    padding-bottom: 140px;
-  }
-
   &--landing {
     position: relative;
     z-index: 1;
     padding-bottom: 40px;
 
     @include mixin.on-tablet {
-      padding-bottom: 140px;
+      padding-bottom: 88px;
     }
   }
 
@@ -81,10 +75,10 @@
       transition-delay: 0.18s;
     }
 
-    &--content-visible &__text {
+    &--text-visible &__text {
       opacity: 1;
       transform: translateX(0) translateY(0);
-      transition-delay: 0.28s;
+      transition-delay: 0.1s;
     }
   }
 
@@ -217,6 +211,12 @@
     @include mixin.on-desktop {
       text-align: left;
       padding-bottom: 90px;
+    }
+  }
+
+  &--landing &__text {
+    @include mixin.on-tablet {
+      padding-bottom: 72px;
     }
   }
 }

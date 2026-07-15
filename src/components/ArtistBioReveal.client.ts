@@ -5,13 +5,16 @@ function initArtistBioReveal(): void {
   if (!bio) return;
 
   const wrapper = bio.querySelector(".artist-bio__wrapper");
-  if (!wrapper) return;
+  const text = bio.querySelector(".artist-bio__text");
+  if (!wrapper || !text) return;
 
   const revealTitle = () => bio.classList.add("artist-bio--visible");
   const revealContent = () => bio.classList.add("artist-bio--content-visible");
+  const revealText = () => bio.classList.add("artist-bio--text-visible");
   const revealAll = () => {
     revealTitle();
     revealContent();
+    revealText();
   };
 
   if (isMobileLayout()) {
@@ -32,11 +35,13 @@ function initArtistBioReveal(): void {
   const minScroll = 40;
   let titleDone = false;
   let contentDone = false;
+  let textDone = false;
 
   const cleanup = () => {
     window.removeEventListener("scroll", onScroll);
     titleObserver.disconnect();
     contentObserver.disconnect();
+    textObserver.disconnect();
   };
 
   const tryRevealTitle = () => {
@@ -48,7 +53,7 @@ function initArtistBioReveal(): void {
 
     titleDone = true;
     revealTitle();
-    if (contentDone) cleanup();
+    if (contentDone && textDone) cleanup();
   };
 
   const tryRevealContent = () => {
@@ -56,16 +61,29 @@ function initArtistBioReveal(): void {
     if (window.scrollY < minScroll) return;
 
     const rect = wrapper.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.58) return;
+    if (rect.top > window.innerHeight * 0.78) return;
 
     contentDone = true;
     revealContent();
-    if (titleDone) cleanup();
+    if (titleDone && textDone) cleanup();
+  };
+
+  const tryRevealText = () => {
+    if (textDone) return;
+    if (window.scrollY < minScroll) return;
+
+    const rect = text.getBoundingClientRect();
+    if (rect.top > window.innerHeight * 0.9) return;
+
+    textDone = true;
+    revealText();
+    if (titleDone && contentDone) cleanup();
   };
 
   const onScroll = () => {
     tryRevealTitle();
     tryRevealContent();
+    tryRevealText();
   };
 
   const titleObserver = new IntersectionObserver(() => tryRevealTitle(), {
@@ -74,9 +92,13 @@ function initArtistBioReveal(): void {
   const contentObserver = new IntersectionObserver(() => tryRevealContent(), {
     threshold: 0,
   });
+  const textObserver = new IntersectionObserver(() => tryRevealText(), {
+    threshold: 0,
+  });
 
   titleObserver.observe(bio);
   contentObserver.observe(wrapper);
+  textObserver.observe(text);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 }

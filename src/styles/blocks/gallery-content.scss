@@ -9,24 +9,29 @@
   @include mixin.on-tablet {
     display: block;
     padding-top: 0;
-    padding-bottom: 108px;
+    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
   }
 
   @include mixin.on-desktop {
-    padding-bottom: 130px;
+    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
   }
 
   &__featured {
     @include gallery-page-mixins.gallery-page-card-item;
     @include gallery-page-mixins.gallery-page-reveal-card;
 
+    @include mixin.on-tablet {
+      min-width: 0;
+      margin-bottom: variables.$gallery-section-padding-bottom-tablet;
+    }
+
     @include mixin.on-desktop {
-      margin-bottom: 28px;
+      margin-bottom: variables.$gallery-section-padding-bottom-desktop;
       min-height: 420px;
     }
   }
 
-  &__featured &__link {
+  &__link {
     @include gallery-page-mixins.gallery-page-item-link;
   }
 
@@ -34,7 +39,12 @@
     @include gallery-page-mixins.gallery-page-card-image;
 
     @include mixin.on-tablet {
+      display: block;
+      width: 100%;
       min-height: 280px;
+      height: auto;
+      object-fit: cover;
+      object-position: center top;
     }
 
     @include mixin.on-desktop {
@@ -47,23 +57,24 @@
 
     @include mixin.on-tablet {
       display: grid;
-      @include gallery-page-mixins.gallery-content-grid-columns-tablet;
-      grid-template-rows: auto auto;
+      @include gallery-page-mixins.gallery-content-grid-columns;
+      @include gallery-page-mixins.gallery-page-tablet-equal-rows;
+      align-items: stretch;
       gap: variables.$gallery-grid-gap-tablet;
     }
 
     @include mixin.on-desktop {
       gap: variables.$gallery-grid-gap-desktop;
-      @include gallery-page-mixins.gallery-content-grid-columns-desktop;
     }
   }
 
   &__item {
     @include gallery-page-mixins.gallery-page-card-item;
     @include gallery-page-mixins.gallery-page-reveal-card;
-    min-height: 0;
-    height: fit-content;
-    align-self: start;
+
+    @include mixin.on-tablet {
+      @include gallery-page-mixins.gallery-page-tablet-cover-item;
+    }
 
     &--prisme-light {
       @include mixin.on-tablet {
@@ -111,29 +122,8 @@
       @include mixin.on-tablet {
         grid-column: 4 / 6;
         grid-row: 1 / 3;
-        align-self: stretch;
-        height: auto;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
+        @include gallery-page-mixins.gallery-page-tablet-portrait-featured;
       }
-    }
-  }
-
-  &__item &__link {
-    @include gallery-page-mixins.gallery-page-grid-item-link;
-  }
-
-  @include mixin.on-tablet {
-    &__item--portrait &__link {
-      flex: 1 1 auto;
-    }
-
-    &__item--portrait &__image {
-      height: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      object-position: center top;
     }
   }
 
@@ -142,9 +132,18 @@
     object-fit: unset;
   }
 
+  @include mixin.on-tablet {
+    &__link {
+      @include gallery-page-mixins.gallery-page-tablet-cover-link;
+    }
+
+    &__image {
+      @include gallery-page-mixins.gallery-page-tablet-cover-image;
+    }
+  }
+
   @include mixin.on-hover-capable {
-    &__featured:hover &__link,
-    &__item:hover &__link {
+    &__link:hover {
       @include gallery-page-mixins.gallery-hover-link-active;
     }
   }

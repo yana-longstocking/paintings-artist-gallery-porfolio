@@ -25,12 +25,8 @@
       variables.$accent-line-offset-bottom;
 
     @include mixin.on-tablet {
-      padding-bottom: 0;
-      margin-bottom: 16px;
-    }
-
-    @include mixin.on-desktop {
-      margin-bottom: 20px;
+      margin-bottom: 0;
+      padding-bottom: 10px;
     }
   }
 
@@ -42,13 +38,14 @@
       grid-template-columns:
         variables.$gallery-grid-column-fluid variables.$gallery-grid-column-fluid
         minmax(0, 2fr);
-      grid-template-rows: auto auto;
+      @include gallery-page-mixins.gallery-page-tablet-equal-rows;
+      align-items: stretch;
       gap: variables.$gallery-grid-gap-tablet;
-      margin-top: 56px;
+      margin-top: 30px;
     }
 
     @include mixin.on-desktop {
-      margin-top: 72px;
+      margin-top: 48px;
       gap: variables.$gallery-grid-gap-desktop;
     }
   }
@@ -56,17 +53,16 @@
   &__item {
     @include gallery-page-mixins.gallery-page-card-item;
     @include gallery-page-mixins.gallery-page-reveal-card;
-    min-height: 0;
-    height: fit-content;
-    align-self: start;
+
+    @include mixin.on-tablet {
+      @include gallery-page-mixins.gallery-page-tablet-cover-item;
+    }
 
     &--featured {
-      grid-column: 1;
-
       @include mixin.on-tablet {
         grid-column: 3;
         grid-row: 1 / 3;
-        justify-self: stretch;
+        @include gallery-page-mixins.gallery-page-tablet-portrait-featured;
       }
     }
 
@@ -108,8 +104,18 @@
     object-fit: unset;
   }
 
+  @include mixin.on-tablet {
+    &__link {
+      @include gallery-page-mixins.gallery-page-tablet-cover-link;
+    }
+
+    &__image {
+      @include gallery-page-mixins.gallery-page-tablet-cover-image;
+    }
+  }
+
   @include mixin.on-hover-capable {
-    &__item:hover &__link {
+    &__link:hover {
       @include gallery-page-mixins.gallery-hover-link-active;
     }
   }

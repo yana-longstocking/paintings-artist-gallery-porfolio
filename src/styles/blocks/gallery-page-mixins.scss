@@ -50,6 +50,11 @@
   line-height: 24px;
 
   @include mixin.on-tablet {
+    font-size: 25px;
+    line-height: 32px;
+  }
+
+  @include mixin.on-desktop {
     font-size: 32px;
     line-height: 45px;
   }
@@ -69,22 +74,8 @@
   line-height: 0;
 }
 
-@mixin gallery-content-grid-columns-tablet {
-  grid-template-columns:
-    minmax(0, variables.$gallery-content-grid-track-narrow-tablet)
-    minmax(0, variables.$gallery-content-grid-track-narrow-tablet)
-    minmax(0, variables.$gallery-content-grid-track-narrow-tablet)
-    minmax(0, variables.$gallery-content-grid-track-wide-tablet)
-    minmax(0, variables.$gallery-content-grid-track-wide-tablet);
-}
-
-@mixin gallery-content-grid-columns-desktop {
-  grid-template-columns:
-    minmax(0, variables.$gallery-content-grid-track-narrow-desktop)
-    minmax(0, variables.$gallery-content-grid-track-narrow-desktop)
-    minmax(0, variables.$gallery-content-grid-track-narrow-desktop)
-    minmax(0, variables.$gallery-content-grid-track-wide-desktop)
-    minmax(0, variables.$gallery-content-grid-track-wide-desktop);
+@mixin gallery-content-grid-columns {
+  grid-template-columns: repeat(5, variables.$gallery-grid-column-fluid);
 }
 
 @mixin gallery-card-image {
@@ -104,10 +95,8 @@
 }
 
 @mixin gallery-hover-link-active {
-  @include mixin.on-hover-capable {
-    transform: translateY(-4px);
-    box-shadow: variables.$box-shadow-hover;
-  }
+  transform: translateY(-4px);
+  box-shadow: variables.$box-shadow-hover;
 
   @include mixin.on-reduced-motion {
     transform: none;
@@ -135,10 +124,6 @@
 
 @mixin gallery-page-card-item {
   position: relative;
-
-  &.gallery-page__target--visible:hover {
-    transform: translateY(0);
-  }
 }
 
 @mixin gallery-page-card-image {
@@ -147,21 +132,53 @@
   transition: transform variables.$effect-duration-hover variables.$ease-smooth;
 }
 
+@mixin gallery-page-tablet-equal-rows {
+  grid-template-rows: repeat(2, variables.$gallery-grid-column-fluid);
+}
+
+@mixin gallery-page-tablet-cover-item {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+@mixin gallery-page-tablet-cover-link {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+}
+
+@mixin gallery-page-tablet-cover-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@mixin gallery-page-tablet-portrait-featured {
+  aspect-ratio: 3 / 4;
+  height: auto;
+}
+
 @mixin gallery-page-reveal-title {
   @include mixin.on-tablet {
-    &.gallery-page__target {
-      opacity: 0;
-      transform: translateY(variables.$reveal-offset-y-medium);
-      transition:
-        opacity variables.$reveal-duration-opacity-long
-          variables.$ease-emphasized,
-        transform variables.$reveal-duration-transform-long
-          variables.$ease-emphasized;
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    transition:
+      opacity variables.$reveal-duration-opacity-long variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform-long
+        variables.$ease-emphasized;
 
-      &::after {
-        transform: scaleX(0);
-        opacity: 0;
-      }
+    &::after {
+      transform: scaleX(0);
+      opacity: 0;
     }
 
     &.gallery-page__target--visible {
@@ -178,13 +195,11 @@
   }
 
   @include mixin.on-reduced-motion {
-    &.gallery-page__target {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    opacity: 1;
+    transform: none;
+    transition: none;
 
-    &.gallery-page__target::after {
+    &::after {
       transform: none;
       opacity: 1;
       animation: none;
@@ -194,14 +209,11 @@
 
 @mixin gallery-page-reveal-card {
   @include mixin.on-tablet {
-    &.gallery-page__target {
-      opacity: 0;
-      transform: translateY(variables.$reveal-offset-y-large);
-      transition:
-        opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
-        transform variables.$reveal-duration-transform
-          variables.$ease-emphasized;
-    }
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-large);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
 
     &.gallery-page__target--visible {
       opacity: 1;
@@ -210,24 +222,19 @@
   }
 
   @include mixin.on-reduced-motion {
-    &.gallery-page__target {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
 @mixin gallery-page-reveal-footer-text {
   @include mixin.on-tablet {
-    &.gallery-page__target {
-      opacity: 0;
-      transform: translateY(variables.$reveal-offset-y-medium);
-      transition:
-        opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
-        transform variables.$reveal-duration-transform
-          variables.$ease-emphasized;
-    }
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
 
     &.gallery-page__target--visible {
       opacity: 1;
@@ -236,11 +243,9 @@
   }
 
   @include mixin.on-reduced-motion {
-    &.gallery-page__target {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 

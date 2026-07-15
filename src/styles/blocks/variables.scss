@@ -57,19 +57,8 @@ $color-text: #fff;
 $gallery-grid-gap-tablet: 18px;
 $gallery-grid-gap-desktop: 24px;
 $gallery-page-mobile-item-gap: 24px;
-$gallery-section-padding-bottom-tablet: 88px;
-$gallery-section-padding-bottom-desktop: 110px;
-$gallery-footer-padding-mobile: 20px;
-$gallery-footer-padding-tablet: 24px;
-$gallery-footer-padding-desktop: 28px;
-$gallery-footer-heading-font-size-mobile: 22px;
-$gallery-footer-heading-font-size-tablet: 25px;
-$gallery-footer-heading-font-size-desktop: 28px;
-$gallery-page-body-font-size-mobile: 14px;
-$gallery-page-body-font-size-tablet: 15px;
-$gallery-page-body-font-size-desktop: 16px;
-$gallery-page-footer-line-height-22: 22px;
-$gallery-page-border-subtle: rgba(22, 22, 22, 0.12);
+$gallery-section-padding-bottom-tablet: 36px;
+$gallery-section-padding-bottom-desktop: 48px;
 $gallery-page-hero-muted-color: rgba(22, 22, 22, 0.2);
 $gallery-page-hero-title-letter-spacing-from-mobile: 15px;
 $gallery-page-hero-title-letter-spacing-to-mobile: 2px;
@@ -80,20 +69,9 @@ $gallery-page-hero-title-letter-spacing-to-desktop: 3px;
 
 // Grid tracks (minmax prevents image overflow in CSS Grid)
 $gallery-grid-column-fluid: minmax(0, 1fr);
-$gallery-content-grid-track-narrow-tablet: 0.82fr;
-$gallery-content-grid-track-wide-tablet: 1.27fr;
-$gallery-content-grid-track-narrow-desktop: 0.78fr;
-$gallery-content-grid-track-wide-desktop: 1.33fr;
 
 // Hero mosaic (3+ uses in hero-mosaic.scss)
 $hero-mosaic-padding-inline: 18px;
 $hero-mosaic-font-size-caption: 9px;
 $hero-mosaic-transition-duration: 0.35s;
 $hero-mosaic-interaction-duration: 0.4s;
-$hero-mosaic-mobile-copy-gradient: linear-gradient(
-  180deg,
-  rgba(242, 240, 246, 0) 0%,
-  rgba(242, 240, 246, 0.45) 50%,
-  rgba(242, 240, 246, 0.88) 100%
-);
-$hero-mosaic-viewport-margin-top-desktop: 44px;

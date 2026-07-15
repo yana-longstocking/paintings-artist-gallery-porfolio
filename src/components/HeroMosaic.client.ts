@@ -19,7 +19,6 @@ function showMosaicCtaWhenReady() {
   const reveal = () => {
     if (revealed) return;
     revealed = true;
-    ctaWrap.classList.add("hero-mosaic__cta--ready");
     cta.classList.add("hero-mosaic__cta-link--ready");
   };
 
