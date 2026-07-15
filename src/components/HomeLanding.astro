@@ -130,8 +130,8 @@ const heroMosaicPieces = [
   .map((p) => ({ id: p.id, src: p.src, alt: p.alt }));
 ---
 
-<main class="hero-mosaic-page">
-  <div class="hero-mosaic-viewport">
+<main class="hero-mosaic">
+  <div class="hero-mosaic__viewport hero-mosaic-viewport">
     <HeroMosaic
       pieces={heroMosaicPieces}
       artworkLinkPrefix={artworkLinkPrefix}

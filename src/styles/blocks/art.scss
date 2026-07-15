@@ -3,10 +3,6 @@
 @use "gallery-page-mixins";
 
 .art {
-  padding-top: 0;
-  padding-bottom: 0;
-  cursor: pointer;
-
   @include mixin.on-tablet {
     padding-bottom: variables.$gallery-section-padding-bottom-tablet;
   }
@@ -17,14 +13,11 @@
 
   &__grid {
     display: grid;
-    margin: 0;
     margin-top: variables.$gallery-page-mobile-item-gap;
     gap: variables.$gallery-page-mobile-item-gap;
     align-items: start;
     grid-template-columns: variables.$gallery-grid-column-fluid;
     width: 100%;
-    max-width: none;
-    margin-inline: 0;
 
     @include mixin.on-tablet {
       grid-template-columns:
@@ -56,26 +49,6 @@
       }
     }
 
-    &--dancer.gallery-page__target--visible {
-      transition-delay: 0.14s;
-    }
-
-    &--blue-haze.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    &--sunkissed.gallery-page__target--visible {
-      transition-delay: 0.22s;
-    }
-
-    &--intimessy.gallery-page__target--visible {
-      transition-delay: 0.06s;
-    }
-
-    &--beach-spirit.gallery-page__target--visible {
-      transition-delay: 0.22s;
-    }
-
     @include mixin.on-tablet {
       &--blue-haze {
         grid-column: 1;
@@ -85,7 +58,6 @@
       &--sunkissed {
         grid-column: 1;
         grid-row: 2;
-        width: 100%;
       }
 
       &--intimessy {
@@ -102,17 +74,16 @@
 
   &__link {
     @include gallery-page-mixins.gallery-page-grid-item-link;
-
-    @include mixin.on-hover-capable {
-      .art__item:hover & {
-        @include gallery-page-mixins.gallery-hover-link-active;
-      }
-    }
   }
 
   &__image {
     @include gallery-page-mixins.gallery-page-card-image;
-    max-height: none;
     object-fit: unset;
+  }
+
+  @include mixin.on-hover-capable {
+    &__item:hover &__link {
+      @include gallery-page-mixins.gallery-hover-link-active;
+    }
   }
 }

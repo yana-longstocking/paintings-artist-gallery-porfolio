@@ -1,3 +1,5 @@
+import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
+
 function initGalleryScrollReveal(): void {
   const sections = Array.from(
     document.querySelectorAll(".gallery-page .gallery-page__section--reveal"),
@@ -31,9 +33,10 @@ function initGalleryScrollReveal(): void {
     const images = Array.from(section.querySelectorAll(imageSelector));
 
     const observeTarget = (target: Element, index: number | null) => {
+      const element = target as HTMLElement;
       target.classList.add("gallery-page__target");
       if (index !== null) {
-        (target as HTMLElement).style.setProperty("--reveal-i", String(index));
+        element.style.transitionDelay = `${galleryRevealStaggerDelaySeconds(index)}s`;
       }
 
       const observer = new IntersectionObserver(

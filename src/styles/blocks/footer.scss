@@ -22,10 +22,10 @@
     content: "";
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: variables.$accent-line-offset-bottom;
     width: 84px;
-    height: 2px;
-    border-radius: 2px;
+    height: variables.$accent-line-height;
+    border-radius: variables.$border-radius-accent;
     transform-origin: left center;
     background: variables.$accent-line-gradient;
   }
@@ -33,13 +33,13 @@
 
 @mixin footer-section-heading {
   position: relative;
-  font-family: "Cinzel", sans-serif;
+  font-family: variables.$font-family-cinzel;
   font-size: 32px;
   font-weight: 700;
   line-height: 32px;
   color: variables.$main-color;
   padding-bottom: 28px;
-  margin: 0 0 16px;
+  margin-bottom: 16px;
 
   @include mixin.on-desktop {
     margin-bottom: 24px;
@@ -53,130 +53,122 @@
   z-index: 1;
   padding-bottom: 20px;
 
-  &--scroll-reveal {
-    .footer__title,
-    .footer__contact-title {
+  &--scroll-reveal &__title,
+  &--scroll-reveal &__contact-title {
+    opacity: 0;
+    transform: translateY(36px);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+
+    &::after {
+      transform: scaleX(0);
       opacity: 0;
-      transform: translateY(36px);
-      transition:
-        opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-
-      &::after {
-        transform: scaleX(0);
-        opacity: 0;
-      }
     }
+  }
 
-    .footer__input,
-    .footer__message,
-    .footer__success {
-      opacity: 0;
-      transform: translateX(-36px);
-      transition:
-        opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  &--scroll-reveal &__input,
+  &--scroll-reveal &__message,
+  &--scroll-reveal &__success {
+    opacity: 0;
+    transform: translateX(-36px);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+  }
+
+  &--scroll-reveal &__button {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    pointer-events: none;
+    transition:
+      opacity 0.95s variables.$ease-smooth,
+      transform 1s variables.$ease-emphasized;
+  }
+
+  &--scroll-reveal &__contact-item,
+  &--scroll-reveal &__contact-actions {
+    opacity: 0;
+    transform: translateX(36px);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+  }
+
+  &__form-section--visible &__title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.08s;
+
+    &::after {
+      animation: footer-title-line-enter variables.$reveal-duration-opacity
+        variables.$ease-emphasized 0.38s both;
     }
+  }
 
-    .footer__button {
-      opacity: 0;
-      transform: translateY(24px);
-      pointer-events: none;
-      transition:
-        opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  &__form-section--content-visible &__input,
+  &__form-section--content-visible &__message,
+  &__form-section--content-visible &__success {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
+  }
+
+  &--scroll-reveal.footer--button-visible &__button {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition-delay: 0.12s;
+  }
+
+  &__contact-section--visible &__contact-title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.08s;
+
+    &::after {
+      animation: footer-title-line-enter variables.$reveal-duration-opacity
+        variables.$ease-emphasized 0.38s both;
     }
+  }
 
-    .footer__contact-item,
-    .footer__contact-actions {
-      opacity: 0;
-      transform: translateX(36px);
-      transition:
-        opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+  &__contact-section--content-visible &__contact-item {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.1s;
+  }
 
-    .footer__form-section.footer__form-section--visible .footer__title {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.08s;
-
-      &::after {
-        animation: footer-title-line-enter 1.1s cubic-bezier(0.16, 1, 0.3, 1)
-          0.38s both;
-      }
-    }
-
-    .footer__form-section.footer__form-section--content-visible {
-      .footer__input,
-      .footer__message,
-      .footer__success {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.1s;
-      }
-    }
-
-    &.footer--button-visible .footer__button {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-      transition-delay: 0.12s;
-    }
-
-    .footer__contact-section.footer__contact-section--visible
-      .footer__contact-title {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.08s;
-
-      &::after {
-        animation: footer-title-line-enter 1.1s cubic-bezier(0.16, 1, 0.3, 1)
-          0.38s both;
-      }
-    }
-
-    .footer__contact-section.footer__contact-section--content-visible {
-      .footer__contact-item {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.1s;
-      }
-
-      .footer__contact-actions {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.22s;
-      }
-    }
+  &__contact-section--content-visible &__contact-actions {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.22s;
   }
 
   @include mixin.on-reduced-motion {
-    &--scroll-reveal {
-      .footer__title,
-      .footer__contact-title,
-      .footer__input,
-      .footer__message,
-      .footer__success,
-      .footer__button,
-      .footer__contact-item,
-      .footer__contact-actions {
-        opacity: 1;
-        transform: none;
-        transition: none;
-        pointer-events: auto;
-      }
+    &--scroll-reveal &__title,
+    &--scroll-reveal &__contact-title,
+    &--scroll-reveal &__input,
+    &--scroll-reveal &__message,
+    &--scroll-reveal &__success,
+    &--scroll-reveal &__button,
+    &--scroll-reveal &__contact-item,
+    &--scroll-reveal &__contact-actions {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      pointer-events: auto;
+    }
 
-      .footer__title::after,
-      .footer__contact-title::after {
-        transform: none;
-        opacity: 1;
-        animation: none;
-      }
+    &--scroll-reveal &__title::after,
+    &--scroll-reveal &__contact-title::after {
+      transform: none;
+      opacity: 1;
+      animation: none;
     }
   }
 
-  &__title {
+  &__title,
+  &__contact-title {
     @include footer-section-heading;
   }
 
@@ -200,11 +192,11 @@
   }
 
   &__input {
-    padding: 12px 16px;
-    border: 1px solid rgba(175, 165, 205, 0.42);
-    border-radius: 6px;
+    padding: variables.$form-field-padding;
+    border: 1px solid variables.$color-border-lavender;
+    border-radius: variables.$border-radius-input;
     background-color: rgba(255, 255, 255, 0.9);
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 16px;
     font-weight: 400;
     color: variables.$main-color;
@@ -226,11 +218,11 @@
   }
 
   &__message {
-    padding: 12px 16px;
-    border: 1px solid rgba(175, 165, 205, 0.42);
-    border-radius: 6px;
+    padding: variables.$form-field-padding;
+    border: 1px solid variables.$color-border-lavender;
+    border-radius: variables.$border-radius-input;
     background-color: rgba(255, 255, 255, 0.9);
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 16px;
     font-weight: 400;
     color: variables.$main-color;
@@ -260,9 +252,9 @@
     background-color: variables.$background-color;
     color: variables.$color-text;
     border: none;
-    border-radius: 6px;
+    border-radius: variables.$border-radius-input;
     padding: 12px 24px;
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -294,29 +286,25 @@
     }
   }
 
-  &__contact-title {
-    @include footer-section-heading;
-  }
-
   &__contact-item {
     margin-bottom: 24px;
   }
 
   &__contact-label {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 14px;
     font-weight: 400;
     color: variables.$main-color;
-    margin: 0 0 8px;
+    margin-bottom: 8px;
   }
 
   &__contact-value {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 14px;
     font-weight: 700;
     color: variables.$main-color;
     text-decoration: none;
-    line-height: 1.4;
+    line-height: 20px;
     display: block;
 
     @include mixin.on-hover-capable {
@@ -331,11 +319,10 @@
   }
 
   &__copyright-text {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 12px;
     color: variables.$main-color;
     text-align: center;
-    margin: 0;
   }
 
   &__success {
@@ -350,10 +337,9 @@
   }
 
   &__success-message {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 18px;
     font-weight: 500;
     color: variables.$main-color;
-    margin: 0;
   }
 }

@@ -1,7 +1,7 @@
 import { TABLET_MIN_WIDTH } from "../constants/breakpoints";
 
 function showMosaicCtaWhenReady() {
-  const mosaic = document.querySelector(".hero-mosaic--under-nav");
+  const mosaic = document.querySelector(".hero-mosaic");
   if (!mosaic) return;
 
   if (!window.matchMedia(`(min-width: ${TABLET_MIN_WIDTH}px)`).matches) {

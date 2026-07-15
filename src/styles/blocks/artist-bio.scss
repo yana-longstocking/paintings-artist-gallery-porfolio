@@ -13,93 +13,87 @@
     z-index: 1;
   }
 
-  &--reveal {
-    .artist-bio__title {
-      opacity: 0;
-      transform: translateY(32px);
-      transition:
-        opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  &--reveal &__title {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-large);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+  }
+
+  &--reveal &__image {
+    opacity: 0;
+    transform: translateX(-24px) scale(0.97);
+    transition:
+      opacity variables.$reveal-duration-opacity-long variables.$ease-smooth,
+      transform variables.$reveal-duration-transform-long
+        variables.$ease-emphasized;
+  }
+
+  &--reveal &__image-img {
+    transform: scale(1.05);
+    transition: transform variables.$effect-duration-long
+      variables.$ease-emphasized;
+  }
+
+  &--reveal &__text {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+  }
+
+  @include mixin.on-desktop {
+    &--reveal &__image {
+      transform: translateX(-36px) scale(0.96);
     }
 
-    .artist-bio__image {
-      opacity: 0;
-      transform: translateX(-24px) scale(0.97);
-      transition:
-        opacity 1.15s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .artist-bio__image-img {
-      transform: scale(1.05);
-      transition: transform 1.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .artist-bio__text {
-      opacity: 0;
-      transform: translateY(24px);
-      transition:
-        opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @include mixin.on-desktop {
-      .artist-bio__image {
-        transform: translateX(-36px) scale(0.96);
-      }
-
-      .artist-bio__text {
-        transform: translateX(36px);
-      }
+    &--reveal &__text {
+      transform: translateX(36px);
     }
   }
 
-  &--visible {
-    .artist-bio__title {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.1s;
-    }
+  &--visible &__title {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
   }
 
-  &--content-visible {
-    .artist-bio__image {
-      opacity: 1;
-      transform: translateX(0) scale(1);
-      transition-delay: 0.1s;
-    }
+  &--content-visible &__image {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    transition-delay: 0.1s;
+  }
 
-    .artist-bio__image-img {
-      transform: scale(1);
-      transition-delay: 0.18s;
-    }
+  &--content-visible &__image-img {
+    transform: scale(1);
+    transition-delay: 0.18s;
+  }
 
-    .artist-bio__text {
-      opacity: 1;
-      transform: translateX(0) translateY(0);
-      transition-delay: 0.28s;
-    }
+  &--content-visible &__text {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    transition-delay: 0.28s;
   }
 
   @include mixin.on-reduced-motion {
-    &--reveal {
-      .artist-bio__title,
-      .artist-bio__image,
-      .artist-bio__text {
-        opacity: 1;
-        transform: none;
-        transition: none;
-      }
+    &--reveal &__title,
+    &--reveal &__image,
+    &--reveal &__text {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
 
-      .artist-bio__image-img {
-        transform: none;
-        transition: none;
-      }
+    &--reveal &__image-img {
+      transform: none;
+      transition: none;
     }
   }
 
   &__title {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 32px;
     font-weight: 700;
     line-height: 32px;
@@ -131,13 +125,11 @@
 
   &__image-img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline: auto;
     width: 100%;
     margin-bottom: 40px;
     object-fit: cover;
     object-position: center;
-    border-radius: 20px;
     box-shadow: variables.$box-shadow;
     border: 3px solid rgba(255, 255, 255, 0.8);
     transition:
@@ -164,7 +156,7 @@
   }
 
   &__text {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -180,8 +172,8 @@
       left: 25px;
       font-size: 80px;
       color: variables.$hover-color;
-      font-family: "Cinzel", sans-serif;
-      line-height: 1;
+      font-family: variables.$font-family-cinzel;
+      line-height: 80px;
       opacity: 0.2;
     }
 
@@ -192,14 +184,14 @@
       right: 25px;
       font-size: 80px;
       color: variables.$background-color;
-      font-family: "Cinzel", sans-serif;
-      line-height: 1;
+      font-family: variables.$font-family-cinzel;
+      line-height: 80px;
       opacity: 0.2;
     }
 
     @include mixin.on-tablet {
       font-size: 16px;
-      line-height: 27px;
+      line-height: variables.$line-height-body-27;
       padding: 45px 60px 100px;
     }
 

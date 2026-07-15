@@ -1,38 +1,95 @@
 @use "mixin";
 @use "variables";
-@use "hero-mosaic-mixins";
 
-.hero-mosaic--under-nav {
-  position: relative;
-  z-index: 0;
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  height: auto;
-  margin: 0 0 16px;
-  width: 100%;
-  max-width: 100%;
+@mixin hero-mosaic-column-template {
+  grid-template-columns:
+    minmax(0, 0.88fr) minmax(0, 1.05fr) minmax(0, 1.36fr)
+    minmax(0, 1.05fr) minmax(0, 0.88fr);
 
-  @include mixin.on-tablet {
-    flex: 1 1 auto;
-    margin: 0;
+  @include mixin.on-desktop {
+    grid-template-columns:
+      minmax(0, 0.82fr) minmax(0, 1.05fr) minmax(0, 1.48fr)
+      minmax(0, 1.05fr) minmax(0, 0.82fr);
+  }
+}
+
+@keyframes hero-mosaic-cell-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-10px) translateY(6px) scale(0.99);
   }
 
-  .hero-mosaic__inner {
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-mosaic-cta-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+
+  55% {
+    opacity: 0.72;
+    transform: translateY(4px) scale(0.995);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-mosaic-cta-shine {
+  from {
+    transform: translateX(-120px) skewX(-18deg);
+  }
+
+  to {
+    transform: translateX(220px) skewX(-18deg);
+  }
+}
+
+.hero-mosaic {
+  position: relative;
+  z-index: 0;
+
+  &__viewport {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 36px;
+    min-height: 0;
+    flex: none;
+    box-sizing: border-box;
+
+    @include mixin.on-tablet {
+      margin-top: 40px;
+      flex: 1 1 auto;
+    }
+
+    @include mixin.on-desktop {
+      margin-top: variables.$hero-mosaic-viewport-margin-top-desktop;
+    }
+  }
+
+  &__inner {
     position: relative;
     flex: none;
     display: flex;
     flex-direction: column;
+    width: 100%;
     min-height: 0;
-    height: auto;
-    max-width: 100%;
-    padding: 0 18px;
+    margin: 0 auto 16px;
+    padding: 0 variables.$hero-mosaic-padding-inline;
     box-sizing: border-box;
 
     @include mixin.on-tablet {
       flex: 1 1 auto;
       display: block;
+      margin-bottom: 20px;
       padding: 0 8px;
 
       @include mixin.on-desktop {
@@ -41,176 +98,18 @@
     }
   }
 
-  .hero-mosaic__grid {
-    display: none;
-
-    @include mixin.on-tablet {
-      display: grid;
-      flex: none;
-      min-height: 0;
-      height: auto;
-      max-height: min(78dvh, 1000px);
-      min-height: min(480px, 68dvh);
-      gap: 8px;
-      padding: 0;
-      box-sizing: border-box;
-      position: relative;
-
-      @include mixin.on-desktop {
-        max-height: min(80dvh, 1080px);
-        gap: 10px;
-      }
-    }
-  }
-
-  .hero-mosaic__cta {
-    display: none;
-    pointer-events: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 6px;
-    justify-content: center;
-    z-index: 3;
-    padding: 0;
-    margin: 0;
-
-    &--ready {
-      display: flex;
-    }
-
-    @include mixin.on-tablet {
-      grid-column: 5 / 6;
-      grid-row: 1 / -1;
-      align-self: center;
-      justify-self: center;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      padding: 0 6px;
-      margin: 0;
-      z-index: 3;
-      transform: translateY(150px);
-
-      @include mixin.on-desktop {
-        align-self: end;
-        justify-self: stretch;
-        height: auto;
-        padding: 0 4px 10px;
-        transform: none;
-      }
-    }
-  }
-
-  .hero-mosaic__cta-link {
-    pointer-events: auto;
-    display: none;
-    width: auto;
-    max-width: 9rem;
-
-    &--ready {
-      display: inline-flex;
-    }
-
-    @include mixin.on-tablet {
-      max-width: 6.75rem;
-      min-height: 22px;
-      padding: 4px 9px;
-      font-size: 6.5px;
-      letter-spacing: 0.05em;
-      line-height: 1.25;
-      text-align: center;
-      white-space: normal;
-      box-shadow: 0 2px 8px rgba(209, 45, 53, 0.22);
-
-      &::after {
-        font-size: 7px;
-      }
-
-      @include mixin.on-desktop {
-        max-width: 10rem;
-        min-height: 30px;
-        padding: 7px 14px;
-        font-size: 8px;
-        letter-spacing: 0.07em;
-        line-height: 1.3;
-        box-shadow: 0 2px 12px rgba(209, 45, 53, 0.26);
-
-        &::after {
-          font-size: 9px;
-        }
-      }
-    }
-  }
-
-  .hero-mosaic__cell {
-    background-color: transparent;
-    box-shadow: none;
-    border-radius: 4px;
-    opacity: 1;
-    animation: hero-mosaic-cell-enter 1.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-
-    &--a {
-      animation-delay: 0.15s;
-    }
-
-    &--b {
-      animation-delay: 0.3s;
-    }
-
-    &--c {
-      animation-delay: 0.45s;
-    }
-
-    &--d {
-      animation-delay: 0.6s;
-      animation-duration: 2s;
-    }
-
-    &--e {
-      animation-delay: 0.75s;
-    }
-
-    &--f {
-      animation-delay: 0.9s;
-    }
-
-    &--g {
-      animation-delay: 1.05s;
-    }
-  }
-
-  .hero-mosaic__img {
-    object-fit: contain;
-    object-position: center;
-  }
-}
-
-.hero-mosaic {
-  width: 100%;
-  margin: 0 0 20px;
-  padding: 0;
-  background: transparent;
-
-  &__mobile-hero {
+  &__mobile-feature {
     display: block;
+    position: relative;
     width: 100%;
+    max-width: variables.$mobile-min-width;
+    margin: 0 auto;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
 
     @include mixin.on-tablet {
       display: none;
     }
-  }
-
-  &__mobile-feature {
-    position: relative;
-    width: min(100%, 20rem);
-    margin: 0 auto;
-    aspect-ratio: 4 / 5;
-    min-height: min(58dvh, 420px);
-    max-height: min(68dvh, 500px);
-    overflow: hidden;
-    border-radius: 0;
   }
 
   &__mobile-photo {
@@ -237,23 +136,17 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    padding: 60px 18px 18px;
+    padding: 60px variables.$hero-mosaic-padding-inline
+      variables.$hero-mosaic-padding-inline;
     pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      rgba(242, 240, 246, 0) 0%,
-      rgba(242, 240, 246, 0.45) 50%,
-      rgba(242, 240, 246, 0.88) 100%
-    );
+    background: variables.$hero-mosaic-mobile-copy-gradient;
   }
 
   &__mobile-tagline {
-    margin: 0;
-    font-family: "Roboto", sans-serif;
-    font-size: 9px;
+    font-family: variables.$font-family-roboto;
+    font-size: variables.$hero-mosaic-font-size-caption;
     font-weight: 400;
-    line-height: 1.35;
-    letter-spacing: 0.02em;
+    line-height: 12px;
     color: rgba(26, 26, 26, 0.62);
   }
 
@@ -264,30 +157,29 @@
     overflow: hidden;
     align-items: center;
     justify-content: center;
-    gap: 0.25em;
-    margin: 0;
+    gap: 2px;
     min-height: 20px;
     padding: 4px 8px 4px 7px;
-    font-family: "Cinzel", sans-serif;
-    font-size: 6.5px;
+    font-family: variables.$font-family-cinzel;
+    font-size: 7px;
     font-weight: 600;
-    letter-spacing: 0.05em;
     text-transform: uppercase;
     text-decoration: none;
     color: variables.$color-text;
     background: variables.$background-color;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 0;
     box-shadow:
       0 1px 6px rgba(209, 45, 53, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    animation: hero-mosaic-cta-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s
-      both;
+    animation: hero-mosaic-cta-enter 0.85s variables.$ease-smooth 0.12s both;
     pointer-events: auto;
     transition:
-      background 0.35s ease,
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.35s ease;
+      background variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth,
+      transform variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth,
+      box-shadow variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth;
 
     &::before {
       content: "";
@@ -299,7 +191,7 @@
         rgba(255, 255, 255, 0.28) 50%,
         transparent 65%
       );
-      transform: translateX(-120%) skewX(-18deg);
+      transform: translateX(-120px) skewX(-18deg);
       pointer-events: none;
     }
 
@@ -310,9 +202,10 @@
         -apple-system,
         sans-serif;
       font-size: 6px;
-      line-height: 1;
+      line-height: 6px;
       opacity: 0.92;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth;
     }
 
     &:focus-visible {
@@ -327,7 +220,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
 
-    @media (hover: hover) and (pointer: fine) {
+    @include mixin.on-hover-capable {
       &:hover {
         background: variables.$hover-color;
         transform: translateY(-1px);
@@ -336,7 +229,7 @@
           inset 0 1px 0 rgba(255, 255, 255, 0.16);
 
         &::before {
-          animation: hero-mosaic-cta-shine 0.8s ease forwards;
+          animation: hero-mosaic-cta-shine 0.8s variables.$ease-smooth forwards;
         }
 
         &::after {
@@ -350,63 +243,91 @@
     }
   }
 
-  &__mobile-copy &__mobile-cta {
-    pointer-events: auto;
-  }
-
-  &__inner {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0;
+  &__grid {
+    display: none;
     box-sizing: border-box;
+    width: 100%;
+
+    @include mixin.on-tablet {
+      @include hero-mosaic-column-template;
+      display: grid;
+      grid-template-rows: repeat(6, minmax(0, 1fr));
+      flex: none;
+      position: relative;
+      min-height: 480px;
+      max-height: 562px;
+      gap: 8px;
+
+      @include mixin.on-desktop {
+        max-height: 576px;
+        gap: 10px;
+      }
+    }
   }
 
   &__cta {
-    flex-shrink: 0;
     display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
     pointer-events: none;
 
     &--ready {
       display: flex;
     }
+
+    @include mixin.on-tablet {
+      grid-column: 5 / 6;
+      grid-row: 1 / -1;
+      align-self: center;
+      justify-self: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      padding: 0 6px;
+      transform: translateY(150px);
+
+      @include mixin.on-desktop {
+        align-self: end;
+        justify-self: stretch;
+        height: auto;
+        padding: 0 4px 10px;
+        transform: none;
+      }
+    }
   }
 
   &__cta-link {
+    pointer-events: auto;
     display: none;
     position: relative;
     isolation: isolate;
     overflow: hidden;
     align-items: center;
     justify-content: center;
-    gap: 0.3em;
+    gap: 3px;
     width: auto;
-    max-width: 9rem;
+    max-width: 144px;
     min-height: 28px;
     padding: 6px 16px;
-    font-family: "Cinzel", sans-serif;
-    font-size: 9px;
+    font-family: variables.$font-family-cinzel;
+    font-size: variables.$hero-mosaic-font-size-caption;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.7px;
     text-transform: uppercase;
     text-decoration: none;
     color: variables.$color-text;
     background: variables.$background-color;
     border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 0;
     box-shadow: 0 2px 10px rgba(209, 45, 53, 0.24);
-    animation: none;
     transition:
-      background 0.4s ease,
-      transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s ease;
+      background variables.$hero-mosaic-interaction-duration
+        variables.$ease-smooth,
+      transform variables.$hero-mosaic-interaction-duration
+        variables.$ease-smooth,
+      box-shadow variables.$hero-mosaic-interaction-duration
+        variables.$ease-smooth;
 
     &--ready {
       display: inline-flex;
-      animation: hero-mosaic-cta-enter 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation: hero-mosaic-cta-enter 0.95s variables.$ease-smooth both;
     }
 
     &::before {
@@ -419,7 +340,7 @@
         rgba(255, 255, 255, 0.28) 50%,
         transparent 65%
       );
-      transform: translateX(-120%) skewX(-18deg);
+      transform: translateX(-120px) skewX(-18deg);
       pointer-events: none;
     }
 
@@ -429,19 +350,20 @@
         system-ui,
         -apple-system,
         sans-serif;
-      font-size: 9px;
-      line-height: 1;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      font-size: variables.$hero-mosaic-font-size-caption;
+      line-height: 9px;
+      transition: transform variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth;
     }
 
-    @media (hover: hover) and (pointer: fine) {
+    @include mixin.on-hover-capable {
       &:hover {
         background: variables.$hover-color;
         transform: translateY(-2px);
         box-shadow: 0 8px 28px rgba(209, 45, 53, 0.42);
 
         &::before {
-          animation: hero-mosaic-cta-shine 0.8s ease forwards;
+          animation: hero-mosaic-cta-shine 0.8s variables.$ease-smooth forwards;
         }
 
         &::after {
@@ -460,166 +382,179 @@
     }
 
     @include mixin.on-tablet {
-      font-size: 9px;
-      min-height: 30px;
-      padding: 7px 16px;
-    }
-  }
+      max-width: 108px;
+      min-height: 22px;
+      padding: 4px 9px;
+      font-size: 7px;
+      line-height: 8px;
+      text-align: center;
+      white-space: normal;
+      box-shadow: 0 2px 8px rgba(209, 45, 53, 0.22);
 
-  &__grid {
-    box-sizing: border-box;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    height: min(62dvh, 600px);
-    max-height: 68dvh;
-    min-height: min(320px, 52dvh);
+      &::after {
+        font-size: 7px;
+      }
+
+      @include mixin.on-desktop {
+        max-width: 160px;
+        min-height: 30px;
+        padding: 7px 14px;
+        font-size: 8px;
+        letter-spacing: 0.6px;
+        line-height: 10px;
+        box-shadow: 0 2px 12px rgba(209, 45, 53, 0.26);
+
+        &::after {
+          font-size: variables.$hero-mosaic-font-size-caption;
+        }
+      }
+    }
   }
 
   &__cell {
     position: relative;
     display: block;
     overflow: hidden;
-    border-radius: 4px;
-    min-height: 0;
     text-decoration: none;
-    flex: 1 1 auto;
-    min-height: 120px;
-    box-shadow: 0 1px 0 rgba(22, 22, 22, 0.06);
+    animation: hero-mosaic-cell-enter 1.9s variables.$ease-emphasized both;
 
     &:focus-visible {
       outline: 3px solid variables.$hover-color;
       outline-offset: 2px;
       z-index: 2;
     }
+
+    &--a {
+      animation-delay: 0.15s;
+    }
+
+    &--b {
+      animation-delay: 0.3s;
+    }
+
+    &--c {
+      animation-delay: variables.$effect-duration-hover;
+    }
+
+    &--d {
+      animation-delay: 0.6s;
+      animation-duration: 2s;
+    }
+
+    &--e {
+      animation-delay: 0.75s;
+    }
+
+    &--f {
+      animation-delay: 0.9s;
+    }
+
+    &--g {
+      animation-delay: 1.05s;
+    }
+
+    @include mixin.on-tablet {
+      min-height: 0;
+
+      &--a {
+        grid-column: 1 / 2;
+        grid-row: 1 / 7;
+      }
+
+      &--b {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+      }
+
+      &--c {
+        grid-column: 2 / 3;
+        grid-row: 3 / 7;
+      }
+
+      &--d {
+        grid-column: 3 / 4;
+        grid-row: 1 / 7;
+      }
+
+      &--e {
+        grid-column: 4 / 5;
+        grid-row: 1 / 3;
+      }
+
+      &--f {
+        grid-column: 4 / 5;
+        grid-row: 3 / 7;
+      }
+
+      &--g {
+        grid-column: 5 / 6;
+        grid-row: 1 / 7;
+      }
+    }
   }
 
   &__img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     display: block;
     transition:
-      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      filter 0.4s ease;
+      transform variables.$effect-duration-medium variables.$ease-smooth,
+      filter variables.$hero-mosaic-interaction-duration variables.$ease-smooth;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    &__cell:hover .hero-mosaic__img {
+  @include mixin.on-hover-capable {
+    &__cell:hover &__img {
       transform: scale(1.02);
       filter: saturate(1.04);
     }
   }
-}
 
-@include mixin.on-tablet {
-  .hero-mosaic__grid {
-    display: grid;
-    grid-template-columns:
-      minmax(0, 0.88fr) minmax(0, 1.05fr) minmax(0, 1.36fr)
-      minmax(0, 1.05fr) minmax(0, 0.88fr);
-    grid-template-rows: repeat(6, minmax(0, 1fr));
-    gap: 3px;
-
-    @include mixin.on-desktop {
-      grid-template-columns:
-        minmax(0, 0.82fr) minmax(0, 1.05fr) minmax(0, 1.48fr)
-        minmax(0, 1.05fr) minmax(0, 0.82fr);
-      gap: 4px;
+  @include mixin.on-reduced-motion {
+    &__cell {
+      animation: none;
+      opacity: 1;
+      transform: none;
     }
 
-    height: min(88dvh, 960px);
-    max-height: 92dvh;
-    min-height: min(480px, 70dvh);
-  }
+    &__img {
+      transition: none;
+    }
 
-  .hero-mosaic--under-nav .hero-mosaic__grid {
-    height: auto;
-  }
+    &__cell:hover &__img {
+      transform: none;
+      filter: none;
+    }
 
-  .hero-mosaic__cell {
-    border-radius: 4px;
-    min-height: 0;
-    box-shadow: none;
-  }
+    &__mobile-cta {
+      animation: none;
+    }
 
-  .hero-mosaic__cell--a {
-    grid-column: 1 / 2;
-    grid-row: 1 / 7;
-  }
+    &__cta--ready {
+      display: flex;
+    }
 
-  .hero-mosaic__cell--b {
-    grid-column: 2 / 3;
-    grid-row: 1 / 3;
-  }
+    &__cta-link--ready {
+      display: inline-flex;
+      animation: none;
+      transform: none;
+    }
 
-  .hero-mosaic__cell--c {
-    grid-column: 2 / 3;
-    grid-row: 3 / 7;
-  }
+    &__cta-link,
+    &__cta-link::after,
+    &__cta-link::before {
+      animation: none;
+      transition: none;
+    }
 
-  .hero-mosaic__cell--d {
-    grid-column: 3 / 4;
-    grid-row: 1 / 7;
-  }
+    &__cta-link:hover,
+    &__cta-link:active {
+      transform: none;
+    }
 
-  .hero-mosaic__cell--e {
-    grid-column: 4 / 5;
-    grid-row: 1 / 3;
-  }
-
-  .hero-mosaic__cell--f {
-    grid-column: 4 / 5;
-    grid-row: 3 / 7;
-  }
-
-  .hero-mosaic__cell--g {
-    grid-column: 5 / 6;
-    grid-row: 1 / 7;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-mosaic--under-nav .hero-mosaic__cell {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .hero-mosaic__img {
-    transition: none;
-  }
-
-  .hero-mosaic__cell:hover .hero-mosaic__img {
-    transform: none;
-    filter: none;
-  }
-
-  .hero-mosaic__cta--ready {
-    display: flex;
-  }
-
-  .hero-mosaic__cta-link--ready {
-    display: inline-flex;
-    animation: none;
-    transform: none;
-  }
-
-  .hero-mosaic__cta-link,
-  .hero-mosaic__cta-link::after,
-  .hero-mosaic__cta-link::before {
-    animation: none !important;
-    transition: none;
-  }
-
-  .hero-mosaic__cta-link:hover,
-  .hero-mosaic__cta-link:active {
-    transform: none;
-  }
-
-  .hero-mosaic__cta-link:hover::after {
-    transform: none;
+    &__cta-link:hover::after {
+      transform: none;
+    }
   }
 }

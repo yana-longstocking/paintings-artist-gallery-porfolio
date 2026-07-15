@@ -17,8 +17,8 @@
 @keyframes gallery-page-hero-title-in {
   0% {
     opacity: 0;
-    color: rgba(22, 22, 22, 0.2);
-    transform: translateY(32px) scale(1.05);
+    color: variables.$gallery-page-hero-muted-color;
+    transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
     letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
   }
 
@@ -34,8 +34,8 @@
   @keyframes gallery-page-hero-title-in {
     0% {
       opacity: 0;
-      color: rgba(22, 22, 22, 0.2);
-      transform: translateY(32px) scale(1.05);
+      color: variables.$gallery-page-hero-muted-color;
+      transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
       letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
     }
 
@@ -52,8 +52,8 @@
   @keyframes gallery-page-hero-title-in {
     0% {
       opacity: 0;
-      color: rgba(22, 22, 22, 0.2);
-      transform: translateY(32px) scale(1.05);
+      color: variables.$gallery-page-hero-muted-color;
+      transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
       letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-desktop;
     }
 
@@ -85,7 +85,7 @@
 @keyframes gallery-page-hero-line-in {
   0% {
     opacity: 0;
-    color: rgba(22, 22, 22, 0.2);
+    color: variables.$gallery-page-hero-muted-color;
     transform: translateY(20px);
     clip-path: inset(0 45% 0 45%);
   }
@@ -130,16 +130,15 @@
   }
 
   &__hero-title {
-    margin: 0;
     font-family: variables.$font-family-cinzel;
     font-size: 40px;
     font-weight: 700;
-    line-height: 100%;
+    line-height: 40px;
     text-align: center;
     color: variables.$main-color;
     opacity: 0;
     letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
-    animation: gallery-page-hero-title-in 2.6s cubic-bezier(0.16, 1, 0.3, 1)
+    animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
       forwards;
 
     @include mixin.on-tablet {
@@ -157,11 +156,11 @@
 
   &__hero-accent {
     display: block;
-    width: min(120px, 22vw);
-    height: 2px;
+    width: 70px;
+    height: variables.$accent-line-height;
     margin-top: 18px;
     margin-bottom: 14px;
-    border-radius: 2px;
+    border-radius: variables.$border-radius-accent;
     transform: scaleX(0);
     opacity: 0;
     transform-origin: center center;
@@ -170,13 +169,14 @@
       transparent 0%,
       variables.$background-color 16%,
       rgba(209, 45, 53, 0.88) 52%,
-      rgba(175, 165, 205, 0.42) 84%,
+      variables.$color-border-lavender 84%,
       transparent 100%
     );
-    animation: gallery-page-hero-accent-in 1.35s cubic-bezier(0.16, 1, 0.3, 1)
-      1.1s forwards;
+    animation: gallery-page-hero-accent-in variables.$effect-duration-long
+      variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
 
     @include mixin.on-tablet {
+      width: 120px;
       margin-top: 22px;
       margin-bottom: 18px;
     }
@@ -192,24 +192,24 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    width: min(100%, 325px);
+    width: 325px;
+    max-width: 100%;
     margin-inline: auto;
     text-align: center;
   }
 
   &__hero-text-line {
-    margin: 0;
     font-family: variables.$font-family-cinzel;
     font-size: variables.$gallery-page-body-font-size-desktop;
     font-weight: 400;
-    line-height: 27px;
+    line-height: variables.$line-height-body-27;
     color: variables.$main-color;
     opacity: 0;
-    animation: gallery-page-hero-line-in 1.8s cubic-bezier(0.16, 1, 0.3, 1)
+    animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
       forwards;
 
     &--first {
-      animation-delay: 1.35s;
+      animation-delay: variables.$effect-duration-long;
     }
 
     &--second {
@@ -223,8 +223,7 @@
     opacity: 0;
     transform: scaleX(0);
     transform-origin: left center;
-    animation: gallery-page-divider-in 1s cubic-bezier(0.22, 1, 0.36, 1) 2.1s
-      forwards;
+    animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s forwards;
   }
 
   &__section {
@@ -264,7 +263,6 @@
 
   &__footer-lead {
     @include gallery-page-mixins.gallery-page-reveal-footer-text;
-    margin: 0;
     font-family: variables.$font-family-roboto;
     font-size: variables.$gallery-page-body-font-size-mobile;
     line-height: variables.$gallery-page-footer-line-height-22;
@@ -272,7 +270,7 @@
 
     @include mixin.on-tablet {
       font-size: variables.$gallery-page-body-font-size-tablet;
-      line-height: 24px;
+      line-height: variables.$line-height-body-24;
     }
 
     @include mixin.on-desktop {
@@ -297,7 +295,7 @@
     @include gallery-page-mixins.gallery-page-reveal-footer-text;
     @include gallery-page-mixins.gallery-page-reveal-footer-heading-accent;
     @include gallery-page-mixins.gallery-page-section-title-accent;
-    margin: 0 0 14px;
+    margin-bottom: 14px;
     font-family: variables.$font-family-cinzel;
     font-size: variables.$gallery-footer-heading-font-size-mobile;
     font-weight: 700;
@@ -321,7 +319,6 @@
 
   &__footer-copy {
     @include gallery-page-mixins.gallery-page-reveal-footer-text;
-    margin: 0;
     padding-top: 16px;
     font-family: variables.$font-family-cinzel;
     font-size: 12px;
@@ -361,24 +358,24 @@
     gap: 6px;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(24px);
+    transform: translateY(variables.$reveal-offset-y-medium);
     pointer-events: none;
     transition:
-      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      visibility 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity variables.$effect-duration-medium variables.$ease-smooth,
+      visibility variables.$effect-duration-medium variables.$ease-smooth,
+      transform 0.65s variables.$ease-emphasized;
 
     &--visible {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
       pointer-events: auto;
-
-      .gallery-page__scroll-top-accent {
-        animation: gallery-page-accent-line-in 1.1s
-          cubic-bezier(0.16, 1, 0.3, 1) variables.$effect-duration-short forwards;
-      }
     }
+  }
+
+  &__scroll-top-wrap--visible &__scroll-top-accent {
+    animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
+      variables.$ease-emphasized variables.$effect-duration-short forwards;
   }
 
   &__scroll-top {
@@ -399,7 +396,7 @@
       border-color variables.$effect-duration variables.$transition,
       color variables.$effect-duration variables.$transition,
       box-shadow variables.$effect-duration variables.$transition,
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      transform variables.$effect-duration-hover variables.$ease-smooth;
 
     @include mixin.on-hover-capable {
       &:hover {
@@ -437,7 +434,7 @@
     display: block;
     width: 36px;
     height: 1.5px;
-    border-radius: 2px;
+    border-radius: variables.$border-radius-accent;
     transform: scaleX(0);
     transform-origin: left center;
     opacity: 0;
@@ -479,14 +476,12 @@
       transition:
         opacity variables.$effect-duration-short,
         visibility variables.$effect-duration-short;
+    }
 
-      &--visible {
-        .gallery-page__scroll-top-accent {
-          animation: none;
-          opacity: 1;
-          transform: none;
-        }
-      }
+    &__scroll-top-wrap--visible &__scroll-top-accent {
+      animation: none;
+      opacity: 1;
+      transform: none;
     }
   }
 }

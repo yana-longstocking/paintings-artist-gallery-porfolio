@@ -42,25 +42,21 @@
     grid-column: 1;
     display: flex;
     align-items: center;
+  }
 
-    &-link {
-      display: flex;
-      align-items: center;
-    }
+  &__logo-link {
+    display: flex;
+    align-items: center;
+  }
 
-    &-image {
-      height: 40px;
-      width: 40px;
-      transition: transform variables.$effect-duration;
+  &__logo-image {
+    height: 40px;
+    width: 40px;
+    transition: transform variables.$effect-duration;
 
-      &:hover {
-        transform: scale(1.2);
-      }
-
-      @include mixin.on-desktop {
-        width: 50px;
-        height: 50px;
-      }
+    @include mixin.on-desktop {
+      width: 50px;
+      height: 50px;
     }
   }
 
@@ -77,57 +73,47 @@
     display: flex;
     flex-direction: column;
     transform: translateX(-100%);
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.5s variables.$ease-smooth;
     overflow: hidden;
     z-index: 999;
     position: fixed;
     background: linear-gradient(180deg, #f4f1f8 0%, #ebe7f2 52%, #e3deec 100%);
     width: 100vw;
-    margin: 0;
-    padding: 0;
     height: 100vh;
     left: 0;
     top: 0;
 
     &:target {
       transform: translateX(0);
-
-      .header__menu-list
-        li:not(.header__close):nth-child(1)
-        .header__menu-link {
-        animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s
-          forwards;
-      }
-
-      .header__menu-list
-        li:not(.header__close):nth-child(2)
-        .header__menu-link {
-        animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.18s
-          forwards;
-      }
-
-      .header__menu-list
-        li:not(.header__close):nth-child(3)
-        .header__menu-link {
-        animation: header-menu-link-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.26s
-          forwards;
-      }
     }
 
     @include mixin.on-desktop {
       display: block;
-      transition: all 0s;
+      transition: none;
       transform: translateX(0);
       background: transparent;
       height: auto;
       width: auto;
-      padding: 0;
-      margin: 0;
       left: auto;
       top: auto;
       position: relative;
       overflow: visible;
     }
+  }
+
+  &__menu-wrapper:target &__menu-item--1 &__menu-link {
+    animation: header-menu-link-in variables.$effect-duration-medium
+      variables.$ease-emphasized 0.1s forwards;
+  }
+
+  &__menu-wrapper:target &__menu-item--2 &__menu-link {
+    animation: header-menu-link-in variables.$effect-duration-medium
+      variables.$ease-emphasized 0.18s forwards;
+  }
+
+  &__menu-wrapper:target &__menu-item--3 &__menu-link {
+    animation: header-menu-link-in variables.$effect-duration-medium
+      variables.$ease-emphasized 0.26s forwards;
   }
 
   &__menu-logo {
@@ -137,7 +123,6 @@
     z-index: 1;
     display: flex;
     justify-content: space-between;
-    padding: 0;
 
     @include mixin.on-tablet {
       top: 50px;
@@ -153,13 +138,7 @@
     height: 40px;
     width: 40px;
     object-fit: contain;
-    filter: none;
     transition: transform variables.$effect-duration;
-    cursor: pointer;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 
   &__menu-list {
@@ -171,9 +150,8 @@
     gap: 18px;
     margin: 0;
     padding: 0 25px;
-    line-height: normal;
     text-align: center;
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-weight: 700;
     list-style: none;
 
@@ -184,14 +162,12 @@
 
     @include mixin.on-desktop {
       flex: none;
-      display: flex;
       flex-direction: row;
       justify-content: center;
       color: variables.$main-color;
       font-size: 50px;
       gap: 50px;
       padding: 0;
-      text-align: center;
     }
   }
 
@@ -212,22 +188,15 @@
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 0;
+      bottom: variables.$accent-line-offset-bottom;
       width: 100%;
       height: 1.5px;
-      border-radius: 2px;
+      border-radius: variables.$border-radius-accent;
       background: variables.$accent-line-gradient;
       transform: scaleX(0);
       transform-origin: center center;
-      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    &:hover {
-      color: variables.$background-color;
-    }
-
-    &:hover::after {
-      transform: scaleX(1);
+      transition: transform variables.$effect-duration-medium
+        variables.$ease-emphasized;
     }
 
     @include mixin.on-tablet {
@@ -243,14 +212,6 @@
 
       &::after {
         display: none;
-      }
-
-      &:hover {
-        color: variables.$hover-color;
-      }
-
-      &:hover::after {
-        transform: scaleX(0);
       }
     }
   }
@@ -270,10 +231,6 @@
     @include mixin.on-desktop {
       display: none;
     }
-
-    &:hover {
-      transform: scale(1.2);
-    }
   }
 
   &__close-btn {
@@ -282,10 +239,6 @@
     line-height: 1;
     color: variables.$main-color;
     text-decoration: none;
-
-    &:hover {
-      color: variables.$background-color;
-    }
   }
 
   &__burger {
@@ -302,21 +255,6 @@
 
     @include mixin.on-desktop {
       display: none;
-    }
-
-    &:hover {
-      background-image: url("../../public/icons/hovered-burger.svg");
-      transform: scale(1.2);
-    }
-  }
-
-  &__burger-icon {
-    width: 23px;
-    height: 28px;
-
-    @include mixin.on-tablet {
-      width: 24px;
-      height: 24px;
     }
   }
 
@@ -341,10 +279,6 @@
     &--lang {
       gap: 7px;
     }
-
-    &:hover {
-      opacity: 0.8;
-    }
   }
 
   &__action-lang {
@@ -355,7 +289,7 @@
 
   &__action-text {
     display: none;
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     color: variables.$main-color;
 
     @include mixin.on-desktop {
@@ -367,15 +301,6 @@
   &__action-image {
     width: 23px;
     height: 23px;
-
-    &:hover path {
-      fill: variables.$hover-color;
-    }
-
-    &--lang {
-      width: 23px;
-      height: 23px;
-    }
   }
 
   &__language-dropdown {
@@ -395,7 +320,10 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: all variables.$effect-duration variables.$transition;
+    transition:
+      opacity variables.$effect-duration variables.$transition,
+      visibility variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration variables.$transition;
     z-index: 1000;
     overflow: hidden;
 
@@ -413,9 +341,9 @@
   &__language-option {
     display: block;
     width: 100%;
-    padding: 12px 16px;
+    padding: variables.$form-field-padding;
     text-align: left;
-    font-family: "Roboto", sans-serif;
+    font-family: variables.$font-family-roboto;
     font-size: 14px;
     color: variables.$main-color;
     background: none;
@@ -427,10 +355,6 @@
 
     &:last-child {
       border-bottom: none;
-    }
-
-    &:hover {
-      background-color: rgba(22, 22, 22, 0.05);
     }
 
     &--active {
@@ -445,15 +369,64 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    &__menu-wrapper {
-      transition: transform 0.2s ease;
+  @include mixin.on-hover-capable {
+    &__logo-link:hover &__logo-image {
+      transform: scale(1.2);
+    }
 
-      &:target .header__menu-link {
-        animation: none;
-        opacity: 1;
-        transform: none;
+    &__menu-logo-image:hover {
+      transform: scale(1.1);
+    }
+
+    &__menu-link:hover {
+      color: variables.$background-color;
+    }
+
+    &__menu-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    &__close:hover {
+      transform: scale(1.2);
+    }
+
+    &__close-btn:hover {
+      color: variables.$background-color;
+    }
+
+    &__burger:hover {
+      background-image: url("../../public/icons/hovered-burger.svg");
+      transform: scale(1.2);
+    }
+
+    &__action:hover {
+      opacity: 0.8;
+    }
+
+    &__action-image:hover path {
+      fill: variables.$hover-color;
+    }
+
+    &__language-option:hover {
+      background-color: rgba(22, 22, 22, 0.05);
+    }
+
+    @include mixin.on-desktop {
+      &__menu-link:hover {
+        color: variables.$hover-color;
       }
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &__menu-wrapper {
+      transition: transform variables.$effect-duration-short ease;
+    }
+
+    &__menu-wrapper:target &__menu-item &__menu-link {
+      animation: none;
+      opacity: 1;
+      transform: none;
     }
   }
 
@@ -462,15 +435,20 @@
     z-index: 10;
 
     @include mixin.on-desktop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
       padding: 28px 0 8px;
     }
+  }
 
-    .header__nav {
-      padding-top: 8px;
+  &--landing &__nav {
+    padding-top: 8px;
 
-      @include mixin.on-tablet {
-        padding-top: 20px;
-      }
+    @include mixin.on-tablet {
+      padding-top: 20px;
     }
   }
 }

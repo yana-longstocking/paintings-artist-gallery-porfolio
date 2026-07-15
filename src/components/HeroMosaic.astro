@@ -36,44 +36,42 @@ const featuredIndex = Math.min(3, pieces.length - 1);
 const featuredPiece = pieces[featuredIndex] ?? pieces[0];
 ---
 
-<section class="hero-mosaic hero-mosaic--under-nav" aria-label="Welcome">
+<section aria-label="Welcome">
   <div class="hero-mosaic__inner">
-    <div class="hero-mosaic__mobile-hero">
-      <div class="hero-mosaic__mobile-feature">
+    <div class="hero-mosaic__mobile-feature">
+      {
+        featuredPiece && (
+          <a
+            href={`/${artworkLinkPrefix}artwork/${featuredPiece.id}`}
+            class="hero-mosaic__mobile-photo"
+            aria-label={featuredPiece.alt}
+          >
+            <img
+              src={`/${featuredPiece.src}`}
+              alt={featuredPiece.alt}
+              class="hero-mosaic__mobile-photo-img"
+              width="800"
+              height="1000"
+              loading="eager"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </a>
+        )
+      }
+      <div class="hero-mosaic__mobile-copy">
         {
-          featuredPiece && (
-            <a
-              href={`/${artworkLinkPrefix}artwork/${featuredPiece.id}`}
-              class="hero-mosaic__mobile-photo"
-              aria-label={featuredPiece.alt}
-            >
-              <img
-                src={`/${featuredPiece.src}`}
-                alt={featuredPiece.alt}
-                class="hero-mosaic__mobile-photo-img"
-                width="800"
-                height="1000"
-                loading="eager"
-                decoding="async"
-                fetchpriority="high"
-              />
+          mobileHeroTagline && (
+            <p class="hero-mosaic__mobile-tagline">{mobileHeroTagline}</p>
+          )
+        }
+        {
+          galleryHref && galleryLabel && (
+            <a href={galleryHref} class="hero-mosaic__mobile-cta">
+              {galleryLabel}
             </a>
           )
         }
-        <div class="hero-mosaic__mobile-copy">
-          {
-            mobileHeroTagline && (
-              <p class="hero-mosaic__mobile-tagline">{mobileHeroTagline}</p>
-            )
-          }
-          {
-            galleryHref && galleryLabel && (
-              <a href={galleryHref} class="hero-mosaic__mobile-cta">
-                {galleryLabel}
-              </a>
-            )
-          }
-        </div>
       </div>
     </div>
 
