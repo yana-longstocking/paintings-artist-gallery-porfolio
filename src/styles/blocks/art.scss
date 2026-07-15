@@ -3,7 +3,10 @@
 @use "gallery-page-mixins";
 
 .art {
+  padding-top: variables.$gallery-page-mobile-item-gap;
+
   @include mixin.on-tablet {
+    padding-top: 0;
     padding-bottom: variables.$gallery-section-padding-bottom-tablet;
   }
 
@@ -12,14 +15,10 @@
   }
 
   &__grid {
-    display: grid;
-    margin-top: variables.$gallery-page-mobile-item-gap;
-    gap: variables.$gallery-page-mobile-item-gap;
-    align-items: start;
-    grid-template-columns: variables.$gallery-grid-column-fluid;
-    width: 100%;
+    @include gallery-page-mixins.gallery-page-mobile-stack;
 
     @include mixin.on-tablet {
+      display: grid;
       grid-template-columns:
         variables.$gallery-grid-column-fluid minmax(0, 2fr)
         variables.$gallery-grid-column-fluid;

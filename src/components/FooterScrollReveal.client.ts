@@ -1,3 +1,5 @@
+import { isMobileLayout } from "../constants/breakpoints";
+
 function initFooterScrollReveal(): void {
   const footer = document.querySelector(".footer--scroll-reveal");
   if (!footer) return;
@@ -22,6 +24,11 @@ function initFooterScrollReveal(): void {
     revealContactContent();
     revealButton();
   };
+
+  if (isMobileLayout()) {
+    revealAll();
+    return;
+  }
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     revealAll();

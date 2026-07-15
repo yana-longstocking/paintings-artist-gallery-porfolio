@@ -3,7 +3,7 @@
 @use "gallery-page-mixins";
 
 .photo-gallery {
-  padding-top: 40px;
+  padding-top: 24px;
 
   @include mixin.on-tablet {
     padding-top: 56px;
@@ -21,18 +21,18 @@
     @include gallery-page-mixins.gallery-page-reveal-title;
     color: variables.$main-color;
     text-align: left;
-    padding-bottom: variables.$gallery-page-mobile-item-gap;
+    padding-bottom: 14px;
+    margin-bottom: variables.$gallery-page-mobile-item-gap -
+      variables.$accent-line-offset-bottom;
 
     @include mixin.on-tablet {
+      margin-bottom: 0;
       padding-bottom: 0;
     }
   }
 
   &__grid {
-    display: grid;
-    gap: variables.$gallery-page-mobile-item-gap;
-    align-items: start;
-    grid-template-columns: variables.$gallery-grid-column-fluid;
+    @include gallery-page-mixins.gallery-page-mobile-stack;
 
     @include mixin.on-tablet {
       display: flex;
@@ -50,7 +50,7 @@
   }
 
   &__side {
-    display: contents;
+    @include gallery-page-mixins.gallery-page-mobile-stack;
 
     @include mixin.on-tablet {
       flex: 1 1 50%;

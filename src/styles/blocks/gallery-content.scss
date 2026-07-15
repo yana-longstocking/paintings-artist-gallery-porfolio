@@ -3,7 +3,12 @@
 @use "gallery-page-mixins";
 
 .gallery-content {
+  @include gallery-page-mixins.gallery-page-mobile-stack;
+  padding-top: variables.$gallery-page-mobile-item-gap;
+
   @include mixin.on-tablet {
+    display: block;
+    padding-top: 0;
     padding-bottom: 108px;
   }
 
@@ -14,13 +19,6 @@
   &__featured {
     @include gallery-page-mixins.gallery-page-card-item;
     @include gallery-page-mixins.gallery-page-reveal-card;
-    margin-top: variables.$gallery-page-mobile-item-gap;
-    margin-bottom: variables.$gallery-page-mobile-item-gap;
-
-    @include mixin.on-tablet {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
 
     @include mixin.on-desktop {
       margin-bottom: 28px;
@@ -45,13 +43,10 @@
   }
 
   &__grid {
-    display: grid;
-    gap: variables.$gallery-page-mobile-item-gap;
-    align-items: start;
-    grid-template-columns: variables.$gallery-grid-column-fluid;
-    width: 100%;
+    @include gallery-page-mixins.gallery-page-mobile-stack;
 
     @include mixin.on-tablet {
+      display: grid;
       @include gallery-page-mixins.gallery-content-grid-columns-tablet;
       grid-template-rows: auto auto;
       gap: variables.$gallery-grid-gap-tablet;

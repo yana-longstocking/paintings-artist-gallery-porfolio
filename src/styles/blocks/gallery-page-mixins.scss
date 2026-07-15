@@ -31,18 +31,23 @@
     width: 72px;
     height: variables.$accent-line-height;
     border-radius: variables.$border-radius-accent;
-    transform: scaleX(0);
+    transform: scaleX(1);
     transform-origin: left center;
-    opacity: 0;
+    opacity: 1;
     background: variables.$accent-line-gradient;
+
+    @include mixin.on-tablet {
+      transform: scaleX(0);
+      opacity: 0;
+    }
   }
 }
 
 @mixin gallery-page-collection-title-typography {
   font-family: variables.$font-family-cinzel;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: variables.$line-height-body-24;
+  line-height: 24px;
 
   @include mixin.on-tablet {
     font-size: 32px;
@@ -121,6 +126,13 @@
   @include gallery-hover-link;
 }
 
+@mixin gallery-page-mobile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$gallery-page-mobile-item-gap;
+  width: 100%;
+}
+
 @mixin gallery-page-card-item {
   position: relative;
 
@@ -136,29 +148,32 @@
 }
 
 @mixin gallery-page-reveal-title {
-  &.gallery-page__target {
-    opacity: 0;
-    transform: translateY(variables.$reveal-offset-y-medium);
-    transition:
-      opacity variables.$reveal-duration-opacity-long variables.$ease-emphasized,
-      transform variables.$reveal-duration-transform-long
-        variables.$ease-emphasized;
-
-    &::after {
-      transform: scaleX(0);
+  @include mixin.on-tablet {
+    &.gallery-page__target {
       opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-medium);
+      transition:
+        opacity variables.$reveal-duration-opacity-long
+          variables.$ease-emphasized,
+        transform variables.$reveal-duration-transform-long
+          variables.$ease-emphasized;
+
+      &::after {
+        transform: scaleX(0);
+        opacity: 0;
+      }
     }
-  }
 
-  &.gallery-page__target--visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.04s;
+    &.gallery-page__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.04s;
 
-    &::after {
-      animation: gallery-page-section-title-line
-        variables.$reveal-duration-opacity-long variables.$ease-emphasized 0.28s
-        both;
+      &::after {
+        animation: gallery-page-section-title-line
+          variables.$reveal-duration-opacity-long variables.$ease-emphasized
+          0.28s both;
+      }
     }
   }
 
@@ -178,17 +193,20 @@
 }
 
 @mixin gallery-page-reveal-card {
-  &.gallery-page__target {
-    opacity: 0;
-    transform: translateY(variables.$reveal-offset-y-large);
-    transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
-  }
+  @include mixin.on-tablet {
+    &.gallery-page__target {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-large);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
 
-  &.gallery-page__target--visible {
-    opacity: 1;
-    transform: translateY(0);
+    &.gallery-page__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @include mixin.on-reduced-motion {
@@ -201,17 +219,20 @@
 }
 
 @mixin gallery-page-reveal-footer-text {
-  &.gallery-page__target {
-    opacity: 0;
-    transform: translateY(variables.$reveal-offset-y-medium);
-    transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
-  }
+  @include mixin.on-tablet {
+    &.gallery-page__target {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-medium);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
 
-  &.gallery-page__target--visible {
-    opacity: 1;
-    transform: translateY(0);
+    &.gallery-page__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @include mixin.on-reduced-motion {
@@ -224,18 +245,20 @@
 }
 
 @mixin gallery-page-reveal-footer-heading-accent {
-  &.gallery-page__target {
-    &::after {
-      transform: scaleX(0);
-      opacity: 0;
+  @include mixin.on-tablet {
+    &.gallery-page__target {
+      &::after {
+        transform: scaleX(0);
+        opacity: 0;
+      }
     }
-  }
 
-  &.gallery-page__target--visible {
-    &::after {
-      animation: gallery-page-section-title-line
-        variables.$reveal-duration-opacity-long variables.$ease-emphasized 0.22s
-        both;
+    &.gallery-page__target--visible {
+      &::after {
+        animation: gallery-page-section-title-line
+          variables.$reveal-duration-opacity-long variables.$ease-emphasized
+          0.22s both;
+      }
     }
   }
 }

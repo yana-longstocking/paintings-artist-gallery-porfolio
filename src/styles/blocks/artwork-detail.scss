@@ -1,5 +1,6 @@
 @use "mixin";
 @use "variables";
+@use "contact-actions";
 
 .artwork-detail {
   padding-top: 40px;
@@ -216,32 +217,28 @@
     gap: 32px;
 
     @include mixin.on-tablet {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 40px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: start;
+      column-gap: 56px;
     }
 
     @include mixin.on-desktop {
-      gap: 60px;
+      column-gap: 88px;
+      max-width: 1040px;
+      margin-inline: auto;
     }
   }
 
   &__footer-section {
-    flex: 1;
-
-    &--about {
-      @include mixin.on-tablet {
-        max-width: 400px;
-      }
-    }
+    min-width: 0;
   }
 
   &__footer-title {
     font-family: variables.$font-family-cinzel;
     font-size: 18px;
     font-weight: 700;
-    color: variables.$background-color;
+    color: variables.$main-color;
     margin-bottom: 16px;
     line-height: variables.$line-height-body-27;
 
@@ -277,52 +274,78 @@
   &__footer-link {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
+    min-height: 30px;
     margin-top: 8px;
-    padding: 6px 12px;
-    border: 1.5px solid variables.$background-color;
-    border-radius: 4px;
-    font-family: variables.$font-family-roboto;
-    font-size: 13px;
-    font-weight: 700;
-    color: variables.$background-color;
+    padding: 4px 10px 4px 8px;
+    border: 1px solid rgba(139, 127, 168, 0.45);
+    border-radius: variables.$border-radius-accent;
+    color: rgba(107, 95, 138, 0.98);
+    background: rgba(255, 255, 255, 0.82);
     text-decoration: none;
+    box-shadow: 0 2px 10px rgba(107, 95, 138, 0.08);
+    font-family: variables.$font-family-roboto;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 8px;
+    white-space: nowrap;
     transition:
-      color variables.$effect-duration variables.$transition,
       background-color variables.$effect-duration variables.$transition,
-      transform variables.$effect-duration variables.$transition,
-      box-shadow variables.$effect-duration variables.$transition;
-
-    @include mixin.on-tablet {
-      font-size: 14px;
-      padding: 7px 14px;
-    }
-
-    @include mixin.on-desktop {
-      font-size: 15px;
-      padding: 8px 16px;
-    }
+      color variables.$effect-duration variables.$transition,
+      border-color variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration-hover variables.$ease-smooth;
 
     &::after {
       content: "→";
-      font-size: 12px;
-      transition: transform variables.$effect-duration variables.$transition;
+      font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+      font-size: 8px;
+      line-height: 8px;
+      transition: transform variables.$effect-duration-hover
+        variables.$ease-smooth;
+    }
 
-      @include mixin.on-desktop {
-        font-size: 14px;
-      }
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 3px;
+    }
+
+    &:active {
+      @include contact-actions.contact-actions-link-filled;
     }
 
     @include mixin.on-hover-capable {
       &:hover {
-        color: variables.$color-text;
-        background-color: variables.$background-color;
-        transform: variables.$transform-hover;
-        box-shadow: variables.$box-shadow;
+        @include contact-actions.contact-actions-link-filled;
+        transform: translateY(-2px);
 
         &::after {
-          transform: translateX(4px);
+          transform: translateX(2px);
         }
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+    }
+
+    @include mixin.on-reduced-motion {
+      transition:
+        background-color variables.$effect-duration-short,
+        color variables.$effect-duration-short,
+        border-color variables.$effect-duration-short;
+
+      &:hover,
+      &:active {
+        transform: none;
+      }
+
+      &::after {
+        transition: none;
       }
     }
   }

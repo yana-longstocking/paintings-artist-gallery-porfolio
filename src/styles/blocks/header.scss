@@ -445,9 +445,11 @@
   }
 
   &--landing &__nav {
-    padding-top: 8px;
-
     @include mixin.on-tablet {
+      padding-top: 25px;
+    }
+
+    @include mixin.on-desktop {
       padding-top: 20px;
     }
   }

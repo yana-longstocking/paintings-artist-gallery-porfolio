@@ -28,12 +28,7 @@
 @keyframes hero-mosaic-cta-enter {
   0% {
     opacity: 0;
-    transform: translateY(14px) scale(0.97);
-  }
-
-  55% {
-    opacity: 0.72;
-    transform: translateY(4px) scale(0.995);
+    transform: translateY(18px) scale(0.95);
   }
 
   100% {
@@ -171,7 +166,7 @@
     box-shadow:
       0 1px 6px rgba(209, 45, 53, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    animation: hero-mosaic-cta-enter 0.85s variables.$ease-smooth 0.12s both;
+    animation: hero-mosaic-cta-enter 1.2s variables.$ease-emphasized 0.28s both;
     pointer-events: auto;
     transition:
       background variables.$hero-mosaic-transition-duration
@@ -269,11 +264,8 @@
     display: none;
     pointer-events: none;
 
-    &--ready {
-      display: flex;
-    }
-
     @include mixin.on-tablet {
+      display: flex;
       grid-column: 5 / 6;
       grid-row: 1 / -1;
       align-self: center;
@@ -327,7 +319,8 @@
 
     &--ready {
       display: inline-flex;
-      animation: hero-mosaic-cta-enter 0.95s variables.$ease-smooth both;
+      pointer-events: auto;
+      animation: hero-mosaic-cta-enter 1.35s variables.$ease-emphasized both;
     }
 
     &::before {
@@ -382,6 +375,9 @@
     }
 
     @include mixin.on-tablet {
+      display: inline-flex;
+      opacity: 0;
+      pointer-events: none;
       max-width: 108px;
       min-height: 22px;
       padding: 4px 9px;
@@ -529,15 +525,19 @@
 
     &__mobile-cta {
       animation: none;
+      opacity: 1;
+      transform: none;
     }
 
-    &__cta--ready {
-      display: flex;
+    &__cta-link {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     &__cta-link--ready {
       display: inline-flex;
       animation: none;
+      opacity: 1;
       transform: none;
     }
 

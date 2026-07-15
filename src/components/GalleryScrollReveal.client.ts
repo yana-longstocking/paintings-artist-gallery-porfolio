@@ -1,4 +1,5 @@
 import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
+import { isMobileLayout } from "../constants/breakpoints";
 
 function initGalleryScrollReveal(): void {
   const sections = Array.from(
@@ -13,6 +14,20 @@ function initGalleryScrollReveal(): void {
   const revealTarget = (target: Element) => {
     target.classList.add("gallery-page__target--visible");
   };
+
+  if (isMobileLayout()) {
+    sections.forEach((section) => {
+      section
+        .querySelectorAll(`${titleSelector}, ${imageSelector}`)
+        .forEach((target) => {
+          target.classList.add(
+            "gallery-page__target",
+            "gallery-page__target--visible",
+          );
+        });
+    });
+    return;
+  }
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     sections.forEach((section) => {

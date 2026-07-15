@@ -1,3 +1,5 @@
+import { isMobileLayout } from "../constants/breakpoints";
+
 function initArtistBioReveal(): void {
   const bio = document.querySelector(".artist-bio--reveal");
   if (!bio) return;
@@ -11,6 +13,11 @@ function initArtistBioReveal(): void {
     revealTitle();
     revealContent();
   };
+
+  if (isMobileLayout()) {
+    revealAll();
+    return;
+  }
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     revealAll();

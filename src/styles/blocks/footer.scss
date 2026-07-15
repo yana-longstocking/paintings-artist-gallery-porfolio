@@ -53,95 +53,100 @@
   z-index: 1;
   padding-bottom: 20px;
 
-  &--scroll-reveal &__title,
-  &--scroll-reveal &__contact-title {
-    opacity: 0;
-    transform: translateY(36px);
-    transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
-
-    &::after {
-      transform: scaleX(0);
+  @include mixin.on-tablet {
+    &--scroll-reveal &__title,
+    &--scroll-reveal &__contact-title {
       opacity: 0;
+      transform: translateY(36px);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+
+      &::after {
+        transform: scaleX(0);
+        opacity: 0;
+      }
     }
-  }
 
-  &--scroll-reveal &__input,
-  &--scroll-reveal &__message,
-  &--scroll-reveal &__success {
-    opacity: 0;
-    transform: translateX(-36px);
-    transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
-  }
-
-  &--scroll-reveal &__button {
-    opacity: 0;
-    transform: translateY(variables.$reveal-offset-y-medium);
-    pointer-events: none;
-    transition:
-      opacity 0.95s variables.$ease-smooth,
-      transform 1s variables.$ease-emphasized;
-  }
-
-  &--scroll-reveal &__contact-item,
-  &--scroll-reveal &__contact-actions {
-    opacity: 0;
-    transform: translateX(36px);
-    transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
-  }
-
-  &__form-section--visible &__title {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.08s;
-
-    &::after {
-      animation: footer-title-line-enter variables.$reveal-duration-opacity
-        variables.$ease-emphasized 0.38s both;
+    &--scroll-reveal &__input,
+    &--scroll-reveal &__message,
+    &--scroll-reveal &__success {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
     }
-  }
 
-  &__form-section--content-visible &__input,
-  &__form-section--content-visible &__message,
-  &__form-section--content-visible &__success {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
-  }
-
-  &--scroll-reveal.footer--button-visible &__button {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    transition-delay: 0.12s;
-  }
-
-  &__contact-section--visible &__contact-title {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.08s;
-
-    &::after {
-      animation: footer-title-line-enter variables.$reveal-duration-opacity
-        variables.$ease-emphasized 0.38s both;
+    &--scroll-reveal &__button {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-medium);
+      pointer-events: none;
+      transition:
+        opacity 0.95s variables.$ease-smooth,
+        transform 1s variables.$ease-emphasized;
     }
-  }
 
-  &__contact-section--content-visible &__contact-item {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.1s;
-  }
+    &--scroll-reveal &__contact-item,
+    &--scroll-reveal &__contact-actions {
+      opacity: 0;
+      transform: translateX(36px);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
 
-  &__contact-section--content-visible &__contact-actions {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.22s;
+    &__form-section--visible &__title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.08s;
+
+      &::after {
+        animation: footer-title-line-enter variables.$reveal-duration-opacity
+          variables.$ease-emphasized 0.38s both;
+      }
+    }
+
+    &__form-section--content-visible &__input,
+    &__form-section--content-visible &__message,
+    &__form-section--content-visible &__success {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.1s;
+    }
+
+    &--scroll-reveal.footer--button-visible &__button {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition-delay: 0.12s;
+    }
+
+    &__contact-section--visible &__contact-title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.08s;
+
+      &::after {
+        animation: footer-title-line-enter variables.$reveal-duration-opacity
+          variables.$ease-emphasized 0.38s both;
+      }
+    }
+
+    &__contact-section--content-visible &__contact-item {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.1s;
+    }
+
+    &__contact-section--content-visible &__contact-actions {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.22s;
+    }
   }
 
   @include mixin.on-reduced-motion {
@@ -170,6 +175,17 @@
   &__title,
   &__contact-title {
     @include footer-section-heading;
+  }
+
+  &--landing &__title,
+  &--landing &__contact-title {
+    padding-bottom: 14px;
+    margin-bottom: 24px;
+
+    @include mixin.on-tablet {
+      padding-bottom: 28px;
+      margin-bottom: 20px;
+    }
   }
 
   &__content {

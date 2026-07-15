@@ -11,37 +11,46 @@
   &--landing {
     position: relative;
     z-index: 1;
+    padding-bottom: 40px;
+
+    @include mixin.on-tablet {
+      padding-bottom: 140px;
+    }
   }
 
-  &--reveal &__title {
-    opacity: 0;
-    transform: translateY(variables.$reveal-offset-y-large);
-    transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
-  }
+  @include mixin.on-tablet {
+    &--reveal &__title {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-large);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
 
-  &--reveal &__image {
-    opacity: 0;
-    transform: translateX(-24px) scale(0.97);
-    transition:
-      opacity variables.$reveal-duration-opacity-long variables.$ease-smooth,
-      transform variables.$reveal-duration-transform-long
+    &--reveal &__image {
+      opacity: 0;
+      transform: translateX(-24px) scale(0.97);
+      transition:
+        opacity variables.$reveal-duration-opacity-long variables.$ease-smooth,
+        transform variables.$reveal-duration-transform-long
+          variables.$ease-emphasized;
+    }
+
+    &--reveal &__image-img {
+      transform: scale(1.05);
+      transition: transform variables.$effect-duration-long
         variables.$ease-emphasized;
-  }
+    }
 
-  &--reveal &__image-img {
-    transform: scale(1.05);
-    transition: transform variables.$effect-duration-long
-      variables.$ease-emphasized;
-  }
-
-  &--reveal &__text {
-    opacity: 0;
-    transform: translateY(variables.$reveal-offset-y-medium);
-    transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-smooth,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+    &--reveal &__text {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-medium);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
   }
 
   @include mixin.on-desktop {
@@ -54,27 +63,29 @@
     }
   }
 
-  &--visible &__title {
-    opacity: 1;
-    transform: translateY(0);
-    transition-delay: 0.1s;
-  }
+  @include mixin.on-tablet {
+    &--visible &__title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.1s;
+    }
 
-  &--content-visible &__image {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    transition-delay: 0.1s;
-  }
+    &--content-visible &__image {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition-delay: 0.1s;
+    }
 
-  &--content-visible &__image-img {
-    transform: scale(1);
-    transition-delay: 0.18s;
-  }
+    &--content-visible &__image-img {
+      transform: scale(1);
+      transition-delay: 0.18s;
+    }
 
-  &--content-visible &__text {
-    opacity: 1;
-    transform: translateX(0) translateY(0);
-    transition-delay: 0.28s;
+    &--content-visible &__text {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+      transition-delay: 0.28s;
+    }
   }
 
   @include mixin.on-reduced-motion {
@@ -163,13 +174,13 @@
     color: variables.$main-color;
     text-align: center;
     position: relative;
-    padding: 25px 30px 80px;
+    padding: 25px 36px 80px;
 
     &::before {
       content: '"';
       position: absolute;
       top: 0;
-      left: 25px;
+      left: 28px;
       font-size: 80px;
       color: variables.$hover-color;
       font-family: variables.$font-family-cinzel;
@@ -181,7 +192,7 @@
       content: '"';
       position: absolute;
       bottom: 0;
-      right: 25px;
+      right: 28px;
       font-size: 80px;
       color: variables.$background-color;
       font-family: variables.$font-family-cinzel;
@@ -193,6 +204,14 @@
       font-size: 16px;
       line-height: variables.$line-height-body-27;
       padding: 45px 60px 100px;
+
+      &::before {
+        left: 25px;
+      }
+
+      &::after {
+        right: 25px;
+      }
     }
 
     @include mixin.on-desktop {
