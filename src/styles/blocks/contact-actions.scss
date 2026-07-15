@@ -1,5 +1,6 @@
 @use "mixin";
 @use "variables";
+@use "gallery-page-mixins";
 
 @mixin contact-actions-link-filled {
   background-color: variables.$background-color;
@@ -14,6 +15,10 @@
   gap: 6px;
 
   &__link {
+    &.gallery-page__target {
+      @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    }
+
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -54,9 +59,9 @@
 
     @include mixin.on-reduced-motion {
       transition:
-        background-color 0.2s,
-        color 0.2s,
-        border-color 0.2s;
+        background-color variables.$effect-duration-short,
+        color variables.$effect-duration-short,
+        border-color variables.$effect-duration-short;
 
       &:hover,
       &:active {
@@ -94,7 +99,7 @@
   }
 
   &__label {
-    font-family: "Roboto", sans-serif;
+    font-family: variables.$font-family-roboto;
     font-size: 8px;
     font-weight: 500;
     text-transform: uppercase;
