@@ -1,7 +1,4 @@
-import {
-  isMobileLayout,
-  isTabletLayout,
-} from "../constants/breakpoints";
+import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
 
 const MIN_SCROLL_PX = 40;
 const CONTENT_DELAY_MS = 240;
