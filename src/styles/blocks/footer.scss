@@ -39,11 +39,6 @@
   line-height: 32px;
   color: variables.$main-color;
   padding-bottom: 28px;
-  margin-bottom: 16px;
-
-  @include mixin.on-desktop {
-    margin-bottom: 24px;
-  }
 
   @include footer-title-accent-line;
 }
@@ -177,28 +172,6 @@
     }
   }
 
-  &--landing &__contact-item {
-    @include mixin.on-tablet {
-      margin-bottom: 17px;
-    }
-  }
-
-  &--landing &__contact-actions {
-    @include mixin.on-tablet {
-      margin-top: 16px;
-    }
-  }
-
-  &--landing &__content {
-    @include mixin.on-tablet {
-      gap: 72px;
-    }
-
-    @include mixin.on-desktop {
-      gap: 50px;
-    }
-  }
-
   &--letter &__heading {
     @include footer-section-heading;
     margin-bottom: 12px;
@@ -212,8 +185,6 @@
     }
 
     @include mixin.on-tablet {
-      font-size: 32px;
-      line-height: 32px;
       padding-bottom: 20px;
       margin-bottom: 40px;
 
@@ -240,19 +211,17 @@
     font-weight: 400;
     line-height: 20px;
     color: rgba(22, 22, 22, 0.62);
-    margin: 0 0 7px;
+    margin: 28px 0 7px;
     text-align: left;
 
     @include mixin.on-tablet {
       font-size: 16px;
       line-height: 24px;
+      margin-top: 0;
     }
   }
 
   &--letter &__contact-label {
-    font-family: variables.$font-family-cinzel;
-    font-size: 14px;
-    font-weight: 400;
     line-height: 20px;
     color: rgba(22, 22, 22, 0.62);
     margin: 0 0 8px;
@@ -267,7 +236,6 @@
     @include mixin.on-tablet {
       gap: 48px;
       grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.85fr);
-      align-items: start;
     }
 
     @include mixin.on-desktop {
@@ -280,18 +248,6 @@
     min-width: 0;
   }
 
-  &--letter &__contact-section {
-    padding-top: 0;
-
-    @include mixin.on-tablet {
-      padding-top: 31px;
-    }
-  }
-
-  &--letter &__contact-item {
-    margin-bottom: 24px;
-  }
-
   &--letter &__fields-row {
     display: flex;
     flex-direction: column;
@@ -300,7 +256,6 @@
     @include mixin.on-tablet {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
       align-items: stretch;
     }
   }
@@ -315,20 +270,12 @@
   &--letter &__button {
     @include mixin.on-tablet {
       width: 100%;
-      max-width: none;
       align-self: stretch;
     }
 
     @include mixin.on-desktop {
       width: 240px;
-      max-width: none;
       align-self: flex-start;
-    }
-  }
-
-  &--letter &__contact-actions {
-    @include mixin.on-tablet {
-      margin-top: 28px;
     }
   }
 
@@ -337,7 +284,6 @@
     @include mixin.page-grid;
 
     @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
       align-items: start;
     }
   }
@@ -390,7 +336,7 @@
     outline: none;
     resize: none;
     min-height: 100px;
-    margin-bottom: 32px;
+    margin-bottom: 12px;
     transition:
       border-color variables.$effect-duration variables.$transition,
       box-shadow variables.$effect-duration variables.$transition,
@@ -419,6 +365,7 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+    margin-bottom: 25px;
     box-shadow: 0 4px 18px rgba(209, 45, 53, 0.22);
     transition:
       background-color variables.$effect-duration variables.$transition,
@@ -435,15 +382,15 @@
     }
 
     @include mixin.on-tablet {
-      width: 288px;
+      margin-bottom: 0;
     }
   }
 
   &__contact-section {
-    padding-top: 50px;
+    padding-top: 0;
 
     @include mixin.on-tablet {
-      padding-top: 0;
+      padding-top: 31px;
     }
   }
 
@@ -476,7 +423,7 @@
   }
 
   &__contact-actions {
-    margin-top: 8px;
+    margin-top: 28px;
   }
 
   &__copyright-text {
