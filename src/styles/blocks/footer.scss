@@ -215,7 +215,7 @@
       font-size: 32px;
       line-height: 32px;
       padding-bottom: 20px;
-      margin-bottom: 16px;
+      margin-bottom: 40px;
 
       &::after {
         width: 120px;
@@ -266,7 +266,7 @@
   &--letter &__content {
     @include mixin.on-tablet {
       gap: 48px;
-      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.85fr);
       align-items: start;
     }
 
@@ -315,12 +315,14 @@
   &--letter &__button {
     @include mixin.on-tablet {
       width: 100%;
-      max-width: 280px;
+      max-width: none;
+      align-self: stretch;
     }
 
     @include mixin.on-desktop {
-      max-width: none;
       width: 240px;
+      max-width: none;
+      align-self: flex-start;
     }
   }
 

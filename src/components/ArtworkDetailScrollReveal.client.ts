@@ -1,5 +1,5 @@
 import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
-import { isMobileLayout } from "../constants/breakpoints";
+import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
 
 const INTRO_SELECTOR = [
   ".artwork-detail__main-image",
@@ -29,6 +29,12 @@ function initArtworkDetailScrollReveal(): void {
 
   const introTargets = Array.from(root.querySelectorAll(INTRO_SELECTOR));
   const detailsTargets = Array.from(root.querySelectorAll(DETAILS_SELECTOR));
+  const additionalTitle = root.querySelector(
+    ".artwork-detail__additional-title",
+  );
+  const galleryItems = Array.from(
+    root.querySelectorAll(".artwork-detail__gallery-item"),
+  );
   const footerTextTargets = Array.from(
     root.querySelectorAll(FOOTER_TEXT_SELECTOR),
   );
@@ -77,6 +83,7 @@ function initArtworkDetailScrollReveal(): void {
   }
 
   const skipUpperMotion = isMobileLayout();
+  const tabletLayout = isTabletLayout();
 
   if (skipUpperMotion) {
     revealAll([...introTargets, ...detailsTargets]);
@@ -93,6 +100,7 @@ function initArtworkDetailScrollReveal(): void {
   let footerTextDone = footerTextTargets.length === 0;
   let footerActionsDone = footerActionTargets.length === 0;
   let copyrightDone = !footerCopyright;
+  let detailsStarted = false;
   let detailsTimer: number | null = null;
   let footerActionsTimer: number | null = null;
 
@@ -135,11 +143,34 @@ function initArtworkDetailScrollReveal(): void {
     return rect.top < window.innerHeight && rect.bottom > 0;
   };
 
+  const isDetailsInView = (target: Element) => {
+    const rect = target.getBoundingClientRect();
+    if (tabletLayout) {
+      return rect.top < window.innerHeight * 0.7 && rect.bottom > 80;
+    }
+    return isEntering(target);
+  };
+
   const tryRevealOnScroll = (target: Element) => {
     if (skipUpperMotion || revealed.has(target)) return;
     if (window.scrollY < MIN_SCROLL_PX) return;
     if (!isEntering(target)) return;
     markRevealed(target);
+  };
+
+  const tryRevealDetailsOnTablet = () => {
+    if (!tabletLayout || detailsStarted || !additionalTitle) return;
+    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (!isDetailsInView(additionalTitle)) return;
+
+    detailsStarted = true;
+    markRevealed(additionalTitle);
+
+    detailsTimer = window.setTimeout(() => {
+      detailsTimer = null;
+      galleryItems.forEach((target) => markRevealed(target));
+      maybeCleanup();
+    }, AFTER_TEXT_DELAY_MS);
   };
 
   const tryRevealFooterText = () => {
@@ -172,7 +203,11 @@ function initArtworkDetailScrollReveal(): void {
 
   const onScroll = () => {
     if (!skipUpperMotion) {
-      detailsTargets.forEach((target) => tryRevealOnScroll(target));
+      if (tabletLayout) {
+        tryRevealDetailsOnTablet();
+      } else {
+        detailsTargets.forEach((target) => tryRevealOnScroll(target));
+      }
       introTargets.forEach((target) => tryRevealOnScroll(target));
     }
     tryRevealFooterText();
@@ -180,20 +215,32 @@ function initArtworkDetailScrollReveal(): void {
     maybeCleanup();
   };
 
-  const observe = (target: Element | null, handler: () => void) => {
+  const observe = (
+    target: Element | null,
+    handler: () => void,
+    options?: IntersectionObserverInit,
+  ) => {
     if (!target) return;
     const observer = new IntersectionObserver(() => handler(), {
       threshold: 0,
       rootMargin: "0px 0px 12% 0px",
+      ...options,
     });
     observer.observe(target);
     observers.push(observer);
   };
 
   if (!skipUpperMotion) {
-    detailsTargets.forEach((target) => {
-      observe(target, () => tryRevealOnScroll(target));
-    });
+    if (tabletLayout && additionalTitle) {
+      observe(additionalTitle, tryRevealDetailsOnTablet, {
+        threshold: 0.25,
+        rootMargin: "0px",
+      });
+    } else {
+      detailsTargets.forEach((target) => {
+        observe(target, () => tryRevealOnScroll(target));
+      });
+    }
   }
   observe(footerContent, tryRevealFooterText);
   observe(footerCopyright ?? footerBottom, tryRevealCopyright);
@@ -211,13 +258,15 @@ function initArtworkDetailScrollReveal(): void {
             if (inView(target)) markRevealed(target);
           });
 
-          const detailsInView = detailsTargets.filter(inView);
-          if (detailsInView.length) {
-            detailsTimer = window.setTimeout(() => {
-              detailsTimer = null;
-              detailsInView.forEach((target) => markRevealed(target));
-              maybeCleanup();
-            }, AFTER_TEXT_DELAY_MS);
+          if (!tabletLayout) {
+            const detailsInView = detailsTargets.filter(inView);
+            if (detailsInView.length) {
+              detailsTimer = window.setTimeout(() => {
+                detailsTimer = null;
+                detailsInView.forEach((target) => markRevealed(target));
+                maybeCleanup();
+              }, AFTER_TEXT_DELAY_MS);
+            }
           }
         }, 48);
       });
