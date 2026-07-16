@@ -120,7 +120,7 @@ Never write raw `@media` queries for **layout breakpoints**. Use the mixins from
 | `@include mixin.on-mobile`        | 320px     | Optional tweaks from small-phone width up |
 | `@include mixin.on-tablet`        | 744px     | Tablet layout and up                      |
 | `@include mixin.on-desktop`       | 1260px    | Desktop layout and up                     |
-| `@include mixin.on-large-desktop` | 1600px    | Large screens and up                      |
+| `@include mixin.on-large-desktop` | 1440px    | Large screens and up                      |
 
 Breakpoint values are defined once in `src/styles/blocks/variables.scss`. Do not hardcode pixel values for these breakpoints elsewhere (including `matchMedia` in client scripts — use `src/constants/breakpoints.ts`, which must stay in sync).
 
