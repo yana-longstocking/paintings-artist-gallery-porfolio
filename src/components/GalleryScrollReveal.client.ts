@@ -93,7 +93,7 @@ function initGalleryScrollReveal(): void {
           tryReveal();
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
+      { threshold: 0, rootMargin: "0px 0px -2% 0px" },
     );
 
     observer.observe(target);
@@ -118,9 +118,9 @@ function initGalleryScrollReveal(): void {
         markReady(section);
         void (section as HTMLElement).offsetWidth;
 
-        // Only fly in what's on screen after intro; below-fold cards wait for scroll.
-        const immediate: Element[] = [...titles];
-        images.forEach((target) => {
+        // Only fly in what's on screen after intro; below-fold content waits for scroll.
+        const immediate: Element[] = [];
+        [...titles, ...images].forEach((target) => {
           if (isNearViewport(target)) {
             immediate.push(target);
           } else {

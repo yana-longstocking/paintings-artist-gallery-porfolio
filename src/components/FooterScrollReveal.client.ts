@@ -8,21 +8,20 @@ function initFooterScrollReveal(): void {
   const contactSection = footer.querySelector(".footer__contact-section");
   if (!formSection || !contactSection) return;
 
-  const revealFormTitle = () =>
-    formSection.classList.add("footer__form-section--visible");
   const revealFormContent = () =>
     formSection.classList.add("footer__form-section--content-visible");
-  const revealContactTitle = () =>
-    contactSection.classList.add("footer__contact-section--visible");
   const revealContactContent = () =>
     contactSection.classList.add("footer__contact-section--content-visible");
+  const revealHeading = () => footer.classList.add("footer--heading-visible");
   const revealButton = () => footer.classList.add("footer--button-visible");
+  const revealCopyright = () =>
+    footer.classList.add("footer--copyright-visible");
   const revealAll = () => {
-    revealFormTitle();
+    revealHeading();
     revealFormContent();
-    revealContactTitle();
     revealContactContent();
     revealButton();
+    revealCopyright();
   };
 
   if (isMobileLayout()) {
@@ -41,56 +40,64 @@ function initFooterScrollReveal(): void {
   }
 
   const minScroll = 40;
-  let formTitleDone = false;
+  let headingDone = false;
   let formContentDone = false;
-  let contactTitleDone = false;
   let contactContentDone = false;
   let buttonDone = false;
+  let copyrightDone = false;
   let buttonTimer: number | null = null;
-
-  const revealAfterPaint = (callback: () => void) => {
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        window.setTimeout(callback, 48);
-      });
-    });
-  };
 
   const cleanup = () => {
     window.removeEventListener("scroll", onScroll);
-    formTitleObserver.disconnect();
+    headingObserver.disconnect();
     formContentObserver.disconnect();
-    contactTitleObserver.disconnect();
     contactContentObserver.disconnect();
-    if (buttonTimer) window.clearTimeout(buttonTimer);
+    copyrightObserver.disconnect();
   };
 
-  const footerContentDone = () =>
-    formTitleDone && formContentDone && contactTitleDone && contactContentDone;
-
   const tryRevealButton = () => {
-    if (buttonDone || !footerContentDone()) return;
+    if (buttonDone || !formContentDone) return;
 
-    const rect = footer.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.55) return;
+    const button = footer.querySelector(".footer__button");
+    if (!button) return;
+
+    const rect = button.getBoundingClientRect();
+    if (rect.top >= window.innerHeight * 0.98) return;
 
     buttonDone = true;
     buttonTimer = window.setTimeout(() => {
-      revealAfterPaint(revealButton);
-      cleanup();
-    }, 320);
+      buttonTimer = null;
+      revealButton();
+      if (copyrightDone) cleanup();
+    }, 180);
   };
 
-  const tryRevealFormTitle = () => {
-    if (formTitleDone) return;
+  const tryRevealCopyright = () => {
+    if (copyrightDone) return;
     if (window.scrollY < minScroll) return;
 
-    const rect = formSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.98) return;
+    const copyright = footer.querySelector(".footer__copyright-text");
+    if (!copyright) return;
 
-    formTitleDone = true;
-    revealAfterPaint(revealFormTitle);
-    tryRevealButton();
+    const rect = copyright.getBoundingClientRect();
+    if (rect.top >= window.innerHeight) return;
+
+    copyrightDone = true;
+    revealCopyright();
+    if (buttonDone && !buttonTimer) cleanup();
+  };
+
+  const tryRevealHeading = () => {
+    if (headingDone) return;
+    if (window.scrollY < minScroll) return;
+
+    const heading = footer.querySelector(".footer__heading");
+    const target = heading ?? formSection;
+    const rect = target.getBoundingClientRect();
+    if (rect.top >= window.innerHeight) return;
+
+    headingDone = true;
+    revealHeading();
   };
 
   const tryRevealFormContent = () => {
@@ -98,22 +105,10 @@ function initFooterScrollReveal(): void {
     if (window.scrollY < minScroll) return;
 
     const rect = formSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.82) return;
+    if (rect.top >= window.innerHeight * 0.9) return;
 
     formContentDone = true;
-    revealAfterPaint(revealFormContent);
-    tryRevealButton();
-  };
-
-  const tryRevealContactTitle = () => {
-    if (contactTitleDone) return;
-    if (window.scrollY < minScroll) return;
-
-    const rect = contactSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.98) return;
-
-    contactTitleDone = true;
-    revealAfterPaint(revealContactTitle);
+    revealFormContent();
     tryRevealButton();
   };
 
@@ -122,48 +117,48 @@ function initFooterScrollReveal(): void {
     if (window.scrollY < minScroll) return;
 
     const rect = contactSection.getBoundingClientRect();
-    if (rect.top > window.innerHeight * 0.82) return;
+    if (rect.top >= window.innerHeight * 0.9) return;
 
     contactContentDone = true;
-    revealAfterPaint(revealContactContent);
+    revealContactContent();
     tryRevealButton();
   };
 
   const onScroll = () => {
-    tryRevealFormTitle();
+    tryRevealHeading();
     tryRevealFormContent();
-    tryRevealContactTitle();
     tryRevealContactContent();
     tryRevealButton();
+    tryRevealCopyright();
   };
 
   const observerOptions: IntersectionObserverInit = {
     threshold: 0,
-    rootMargin: "0px 0px 10% 0px",
   };
 
-  const formTitleObserver = new IntersectionObserver(
-    () => tryRevealFormTitle(),
+  const headingEl = footer.querySelector(".footer__heading");
+  const headingObserver = new IntersectionObserver(
+    () => tryRevealHeading(),
     observerOptions,
   );
   const formContentObserver = new IntersectionObserver(
     () => tryRevealFormContent(),
     observerOptions,
   );
-  const contactTitleObserver = new IntersectionObserver(
-    () => tryRevealContactTitle(),
-    observerOptions,
-  );
   const contactContentObserver = new IntersectionObserver(
     () => tryRevealContactContent(),
     observerOptions,
   );
+  const copyrightEl = footer.querySelector(".footer__copyright-text");
+  const copyrightObserver = new IntersectionObserver(
+    () => tryRevealCopyright(),
+    observerOptions,
+  );
 
-  formTitleObserver.observe(formSection);
+  if (headingEl) headingObserver.observe(headingEl);
   formContentObserver.observe(formSection);
-  contactTitleObserver.observe(contactSection);
   contactContentObserver.observe(contactSection);
-  void (footer as HTMLElement).offsetWidth;
+  if (copyrightEl) copyrightObserver.observe(copyrightEl);
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 }

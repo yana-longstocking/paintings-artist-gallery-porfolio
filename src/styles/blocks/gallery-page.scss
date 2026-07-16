@@ -115,11 +115,11 @@
     padding: 80px 0 24px;
 
     @include mixin.on-tablet {
-      padding: 129px 0 100px;
+      padding: 173px 0 100px;
     }
 
     @include mixin.on-desktop {
-      padding: 83px 0 100px;
+      padding: 250px 0 100px;
     }
   }
 
@@ -242,7 +242,7 @@
       }
 
       @include mixin.on-desktop {
-        margin-top: 200px;
+        margin-top: 45px;
       }
 
       @include mixin.on-reduced-motion {

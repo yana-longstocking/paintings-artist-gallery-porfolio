@@ -1,124 +1,230 @@
 import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
 import { isMobileLayout } from "../constants/breakpoints";
 
-const HERO_SELECTOR = [
+const INTRO_SELECTOR = [
   ".artwork-detail__main-image",
   ".artwork-detail__title",
   ".artwork-detail__description",
   ".artwork-detail__medium",
   ".artwork-detail__size",
   ".artwork-detail__price",
+].join(", ");
+
+const DETAILS_SELECTOR = [
   ".artwork-detail__additional-title",
   ".artwork-detail__gallery-item",
 ].join(", ");
 
-const FOOTER_SELECTOR = [
-  ".artwork-detail__footer-title",
-  ".artwork-detail__footer-text",
-  ".artwork-detail__footer-link",
-  ".artwork-detail__footer-actions",
-  ".artwork-detail__footer-copyright",
-].join(", ");
+const FOOTER_TEXT_SELECTOR =
+  ".artwork-detail__footer-title, .artwork-detail__footer-text";
+const FOOTER_ACTION_SELECTOR =
+  ".artwork-detail__footer-link, .artwork-detail__footer-actions";
+
+const MIN_SCROLL_PX = 40;
+const AFTER_TEXT_DELAY_MS = 900;
 
 function initArtworkDetailScrollReveal(): void {
   const root = document.querySelector(".artwork-detail");
   if (!root) return;
 
-  const heroTargets = Array.from(root.querySelectorAll(HERO_SELECTOR));
-  const footerTargets = Array.from(root.querySelectorAll(FOOTER_SELECTOR));
-  const targets = [...heroTargets, ...footerTargets];
-  if (!targets.length) return;
+  const introTargets = Array.from(root.querySelectorAll(INTRO_SELECTOR));
+  const detailsTargets = Array.from(root.querySelectorAll(DETAILS_SELECTOR));
+  const footerTextTargets = Array.from(
+    root.querySelectorAll(FOOTER_TEXT_SELECTOR),
+  );
+  const footerActionTargets = Array.from(
+    root.querySelectorAll(FOOTER_ACTION_SELECTOR),
+  );
+  const footerCopyright = root.querySelector(
+    ".artwork-detail__footer-copyright",
+  );
+  const footerContent = root.querySelector(".artwork-detail__footer-content");
+  const footerBottom = root.querySelector(".artwork-detail__footer-bottom");
 
-  const revealTarget = (target: Element) => {
+  const footerTargets = [
+    ...footerTextTargets,
+    ...footerActionTargets,
+    ...(footerCopyright ? [footerCopyright] : []),
+  ];
+
+  const allTargets = [...introTargets, ...detailsTargets, ...footerTargets];
+  if (!allTargets.length) return;
+
+  const reveal = (target: Element) => {
     target.classList.add("artwork-detail__target--visible");
   };
 
-  const prepareTarget = (target: Element, index: number | null) => {
-    const element = target as HTMLElement;
+  const prepare = (target: Element, index: number | null) => {
     target.classList.add("artwork-detail__target");
     if (index !== null) {
-      element.style.transitionDelay = `${galleryRevealStaggerDelaySeconds(index)}s`;
+      (target as HTMLElement).style.transitionDelay =
+        `${galleryRevealStaggerDelaySeconds(index)}s`;
     }
   };
 
-  if (isMobileLayout()) {
+  const revealAll = (targets: Element[]) => {
     targets.forEach((target) => {
       target.classList.add(
         "artwork-detail__target",
         "artwork-detail__target--visible",
       );
     });
-    return;
-  }
+  };
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    targets.forEach((target) => {
-      target.classList.add(
-        "artwork-detail__target",
-        "artwork-detail__target--visible",
-      );
-    });
+    revealAll(allTargets);
     return;
   }
 
-  const isNearViewport = (target: Element) =>
-    target.getBoundingClientRect().top < window.innerHeight * 0.92;
+  const skipUpperMotion = isMobileLayout();
 
-  const observeTarget = (target: Element) => {
-    let revealed = false;
-    const tryReveal = () => {
-      if (revealed) return;
-      revealed = true;
-      revealTarget(target);
-      observer.disconnect();
-    };
+  if (skipUpperMotion) {
+    revealAll([...introTargets, ...detailsTargets]);
+  } else {
+    introTargets.forEach((target, index) => prepare(target, index));
+    detailsTargets.forEach((target, index) => prepare(target, index));
+  }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          tryReveal();
-        });
-      },
-      // Positive bottom margin so last footer lines still trigger near page end.
-      { threshold: 0, rootMargin: "0px 0px 12% 0px" },
-    );
+  footerTextTargets.forEach((target, index) => prepare(target, index));
+  footerActionTargets.forEach((target, index) => prepare(target, index));
+  if (footerCopyright) prepare(footerCopyright, null);
 
-    observer.observe(target);
+  const revealed = new Set<Element>();
+  let footerTextDone = footerTextTargets.length === 0;
+  let footerActionsDone = footerActionTargets.length === 0;
+  let copyrightDone = !footerCopyright;
+  let detailsTimer: number | null = null;
+  let footerActionsTimer: number | null = null;
 
-    if (isNearViewport(target)) {
-      tryReveal();
+  const markRevealed = (target: Element) => {
+    if (revealed.has(target)) return;
+    revealed.add(target);
+    reveal(target);
+  };
+
+  const observers: IntersectionObserver[] = [];
+
+  const cleanup = () => {
+    window.removeEventListener("scroll", onScroll);
+    observers.forEach((observer) => observer.disconnect());
+    if (detailsTimer !== null) {
+      window.clearTimeout(detailsTimer);
+      detailsTimer = null;
+    }
+    if (footerActionsTimer !== null) {
+      window.clearTimeout(footerActionsTimer);
+      footerActionsTimer = null;
     }
   };
 
-  const immediate: Element[] = [];
-
-  heroTargets.forEach((target, index) => {
-    prepareTarget(target, index);
-    if (isNearViewport(target)) {
-      immediate.push(target);
-    } else {
-      observeTarget(target);
+  const maybeCleanup = () => {
+    if (!footerTextDone || !footerActionsDone || !copyrightDone) return;
+    if (detailsTimer !== null || footerActionsTimer !== null) return;
+    if (!skipUpperMotion) {
+      const upper = introTargets.length + detailsTargets.length;
+      const upperDone = [...introTargets, ...detailsTargets].every((target) =>
+        revealed.has(target),
+      );
+      if (!upperDone && upper > 0) return;
     }
-  });
+    cleanup();
+  };
 
-  footerTargets.forEach((target, index) => {
-    prepareTarget(target, index);
-    if (isNearViewport(target)) {
-      immediate.push(target);
-    } else {
-      observeTarget(target);
+  const isEntering = (target: Element) => {
+    const rect = target.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  };
+
+  const tryRevealOnScroll = (target: Element) => {
+    if (skipUpperMotion || revealed.has(target)) return;
+    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (!isEntering(target)) return;
+    markRevealed(target);
+  };
+
+  const tryRevealFooterText = () => {
+    if (footerTextDone || !footerContent) return;
+    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (!isEntering(footerContent)) return;
+
+    footerTextDone = true;
+    footerTextTargets.forEach((target) => markRevealed(target));
+
+    footerActionsTimer = window.setTimeout(() => {
+      footerActionsTimer = null;
+      footerActionsDone = true;
+      footerActionTargets.forEach((target) => markRevealed(target));
+      tryRevealCopyright();
+      maybeCleanup();
+    }, AFTER_TEXT_DELAY_MS);
+  };
+
+  const tryRevealCopyright = () => {
+    if (copyrightDone || !footerCopyright) return;
+    if (!footerTextDone) return;
+    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (!isEntering(footerCopyright)) return;
+
+    copyrightDone = true;
+    markRevealed(footerCopyright);
+    maybeCleanup();
+  };
+
+  const onScroll = () => {
+    if (!skipUpperMotion) {
+      detailsTargets.forEach((target) => tryRevealOnScroll(target));
+      introTargets.forEach((target) => tryRevealOnScroll(target));
     }
-  });
+    tryRevealFooterText();
+    tryRevealCopyright();
+    maybeCleanup();
+  };
 
-  // Paint hidden state first so the opener fly-in always runs.
-  window.requestAnimationFrame(() => {
-    window.requestAnimationFrame(() => {
-      window.setTimeout(() => {
-        immediate.forEach((target) => revealTarget(target));
-      }, 48);
+  const observe = (target: Element | null, handler: () => void) => {
+    if (!target) return;
+    const observer = new IntersectionObserver(() => handler(), {
+      threshold: 0,
+      rootMargin: "0px 0px 12% 0px",
     });
-  });
+    observer.observe(target);
+    observers.push(observer);
+  };
+
+  if (!skipUpperMotion) {
+    detailsTargets.forEach((target) => {
+      observe(target, () => tryRevealOnScroll(target));
+    });
+  }
+  observe(footerContent, tryRevealFooterText);
+  observe(footerCopyright ?? footerBottom, tryRevealCopyright);
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  if (!skipUpperMotion) {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        window.setTimeout(() => {
+          const inView = (target: Element) =>
+            target.getBoundingClientRect().top < window.innerHeight * 0.92;
+
+          introTargets.forEach((target) => {
+            if (inView(target)) markRevealed(target);
+          });
+
+          const detailsInView = detailsTargets.filter(inView);
+          if (detailsInView.length) {
+            detailsTimer = window.setTimeout(() => {
+              detailsTimer = null;
+              detailsInView.forEach((target) => markRevealed(target));
+              maybeCleanup();
+            }, AFTER_TEXT_DELAY_MS);
+          }
+        }, 48);
+      });
+    });
+  }
+
+  onScroll();
 }
 
 if (document.readyState === "loading") {

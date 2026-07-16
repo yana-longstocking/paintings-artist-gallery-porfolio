@@ -36,36 +36,44 @@ const {
 } = Astro.props;
 ---
 
-<footer class="footer footer--scroll-reveal footer--landing" id="contact-us">
+<footer
+  class="footer footer--scroll-reveal footer--landing footer--letter"
+  id="contact-us"
+>
   <div class="container">
+    <h2 class="footer__heading" id="footer-heading">{contactTitle}</h2>
+
     <div class="footer__content">
       <div class="footer__form-section">
-        <h2 class="footer__title">{title}</h2>
+        <p class="footer__lead">{title}</p>
         <form
           id="form"
           class="footer__form"
           action="https://api.web3forms.com/submit"
           method="POST"
+          aria-labelledby="footer-heading"
           data-sending-text={formSendingText}
           data-error-message={formErrorMessage}
           data-error-generic={formErrorGeneric}
         >
-          <input
-            class="footer__input"
-            type="text"
-            name="name"
-            placeholder={formNamePlaceholder}
-            required
-          />
+          <div class="footer__fields-row">
+            <input
+              class="footer__input"
+              type="text"
+              name="name"
+              placeholder={formNamePlaceholder}
+              required
+            />
 
-          <input
-            type="email"
-            class="footer__input"
-            id="email"
-            name="email"
-            placeholder={formEmailPlaceholder}
-            required
-          />
+            <input
+              type="email"
+              class="footer__input"
+              id="email"
+              name="email"
+              placeholder={formEmailPlaceholder}
+              required
+            />
+          </div>
 
           <textarea
             id="message"
@@ -86,11 +94,8 @@ const {
       </div>
 
       <div class="footer__contact-section">
-        <h2 class="footer__contact-title">{contactTitle}</h2>
         <div class="footer__contact-item">
-          <p class="footer__contact-label">
-            {contactLabelAddress}
-          </p>
+          <p class="footer__contact-label">{contactLabelAddress}</p>
 
           <a
             class="footer__contact-value"
@@ -115,5 +120,4 @@ const {
   </div>
 </footer>
 
-<script src="./ContactForm.client.ts"></script>
-<script src="./FooterScrollReveal.client.ts"></script>
+<script src="./ContactFooter.client.ts"></script>

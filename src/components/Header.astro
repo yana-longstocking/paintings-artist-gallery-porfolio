@@ -11,11 +11,20 @@ const pathname = Astro.url.pathname;
 const isSpanish = pathname.startsWith("/es");
 const homeHref = isSpanish ? "/es/" : "/";
 const galleryHref = isSpanish ? "/es/gallery" : "/gallery";
+const isGalleryPage = pathname === "/gallery" || pathname === "/es/gallery";
+const isArtworkPage = /^\/(?:es\/)?artwork\//.test(pathname);
 const isHomePage =
   pathname === "/" || pathname === "/es" || pathname === "/es/";
 ---
 
-<header class:list={["header", surface === "landing" && "header--landing"]}>
+<header
+  class:list={[
+    "header",
+    surface === "landing" && "header--landing",
+    isGalleryPage && "header--gallery",
+    isArtworkPage && "header--artwork",
+  ]}
+>
   <div class="container">
     <nav class="header__nav">
       <div class="header__logo">

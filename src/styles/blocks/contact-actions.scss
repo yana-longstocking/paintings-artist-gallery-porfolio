@@ -17,6 +17,7 @@
   &--landing {
     @include mixin.on-tablet {
       gap: 10px;
+      align-items: stretch;
     }
   }
 
@@ -102,6 +103,15 @@
     text-transform: uppercase;
     line-height: 8px;
     white-space: nowrap;
+  }
+
+  &--landing &__link {
+    @include mixin.on-tablet {
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: 3px;
+      justify-content: center;
+    }
   }
 
   @include mixin.on-hover-capable {

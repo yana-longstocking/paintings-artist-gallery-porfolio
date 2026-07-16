@@ -4,8 +4,6 @@ $desktop-min-width: 1260px;
 $large-desktop-min-width: 1600px;
 $main-color: #161616;
 $hover-color: #ae1c23;
-
-// Motion
 $effect-duration: 0.3s;
 $effect-duration-short: 0.2s;
 $effect-duration-hover: 0.45s;
@@ -23,8 +21,6 @@ $ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 $transform-hover: translateY(-8px);
 $scale-min-hover: scale(1.01);
 $scale-max-hover: scale(1.05);
-
-// Color & surfaces
 $bg-color: #f2f0f6;
 $background-color: #d12d35;
 $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
@@ -36,29 +32,22 @@ $accent-line-gradient: linear-gradient(
   rgba(175, 165, 205, 0.38) 100%
 );
 $color-border-lavender: rgba(175, 165, 205, 0.42);
-
-// Typography
 $font-family-cinzel: "Cinzel", sans-serif;
 $font-family-roboto: "Roboto", sans-serif;
 $line-height-body-24: 24px;
 $line-height-body-27: 27px;
-
-// Shape & form fields
 $accent-line-height: 2px;
 $accent-line-offset-bottom: 4px;
 $border-radius-accent: 2px;
 $border-radius-input: 6px;
 $form-field-padding: 12px 16px;
 $modal-animation-padding: 24px;
-
 $color-text: #fff;
-
-// Repeated spacing (3+ uses)
 $gallery-grid-gap-tablet: 18px;
 $gallery-grid-gap-desktop: 24px;
 $gallery-page-mobile-item-gap: 24px;
-$gallery-section-padding-bottom-tablet: 36px;
-$gallery-section-padding-bottom-desktop: 48px;
+$gallery-section-padding-bottom-tablet: 25px;
+$gallery-section-padding-bottom-desktop: 30px;
 $gallery-page-hero-muted-color: rgba(22, 22, 22, 0.2);
 $gallery-page-hero-title-letter-spacing-from-mobile: 15px;
 $gallery-page-hero-title-letter-spacing-to-mobile: 2px;
@@ -66,11 +55,7 @@ $gallery-page-hero-title-letter-spacing-from-tablet: 24px;
 $gallery-page-hero-title-letter-spacing-to-tablet: 3px;
 $gallery-page-hero-title-letter-spacing-from-desktop: 30px;
 $gallery-page-hero-title-letter-spacing-to-desktop: 3px;
-
-// Grid tracks (minmax prevents image overflow in CSS Grid)
 $gallery-grid-column-fluid: minmax(0, 1fr);
-
-// Hero mosaic (3+ uses in hero-mosaic.scss)
 $hero-mosaic-padding-inline: 18px;
 $hero-mosaic-font-size-caption: 9px;
 $hero-mosaic-transition-duration: 0.35s;

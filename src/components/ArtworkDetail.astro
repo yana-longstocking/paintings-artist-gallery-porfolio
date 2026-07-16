@@ -12,11 +12,18 @@ interface Props {
 }
 
 const { image, translations, galleryLink } = Astro.props;
+const hasAdditionalPhotos =
+  image.additionalPhotos && image.additionalPhotos.length > 0;
 ---
 
 <main class="artwork-detail">
   <div class="artwork-detail__container">
-    <div class="artwork-detail__wrapper">
+    <div
+      class:list={[
+        "artwork-detail__wrapper",
+        { "artwork-detail__wrapper--with-gallery": hasAdditionalPhotos },
+      ]}
+    >
       <div class="artwork-detail__main-image">
         <img
           src={`${import.meta.env.BASE_URL}${image.src}`}
@@ -42,13 +49,13 @@ const { image, translations, galleryLink } = Astro.props;
         {image.price && <p class="artwork-detail__price">{image.price}</p>}
 
         {
-          image.additionalPhotos && image.additionalPhotos.length > 0 && (
+          hasAdditionalPhotos && (
             <div class="artwork-detail__additional-photos">
               <h2 class="artwork-detail__additional-title">
                 {translations.additionalDetailsTitle}
               </h2>
               <div class="artwork-detail__gallery">
-                {image.additionalPhotos.map((photo) => (
+                {image.additionalPhotos!.map((photo) => (
                   <div class="artwork-detail__gallery-item">
                     <img
                       src={`${import.meta.env.BASE_URL}${photo.src}`}
@@ -70,40 +77,36 @@ const { image, translations, galleryLink } = Astro.props;
   </div>
 
   <footer class="artwork-detail__footer">
-    <div class="artwork-detail__footer-container">
-      <div class="artwork-detail__footer-content">
-        <div class="artwork-detail__footer-section">
-          <h3 class="artwork-detail__footer-title">
-            {translations.footerTitle}
-          </h3>
-          <p class="artwork-detail__footer-text">
-            {translations.footerText}
-          </p>
-          <a href={galleryLink} class="artwork-detail__footer-link">
-            {translations.footerLinkText}
-          </a>
-        </div>
+    <div class="artwork-detail__footer-content">
+      <div class="artwork-detail__footer-section">
+        <h3 class="artwork-detail__footer-title">
+          {translations.footerTitle}
+        </h3>
+        <p class="artwork-detail__footer-text">
+          {translations.footerText}
+        </p>
+        <a href={galleryLink} class="artwork-detail__footer-link">
+          {translations.footerLinkText}
+        </a>
+      </div>
 
-        <div class="artwork-detail__footer-section">
-          <h3 class="artwork-detail__footer-title">
-            {translations.footerContactTitle}
-          </h3>
-          <p class="artwork-detail__footer-text">
-            {translations.footerContactText}
-          </p>
-          <div class="artwork-detail__footer-actions">
-            <ContactActionButtons />
-          </div>
+      <div class="artwork-detail__footer-section">
+        <h3 class="artwork-detail__footer-title">
+          {translations.footerContactTitle}
+        </h3>
+        <p class="artwork-detail__footer-text">
+          {translations.footerContactText}
+        </p>
+        <div class="artwork-detail__footer-actions">
+          <ContactActionButtons />
         </div>
       </div>
     </div>
 
     <div class="artwork-detail__footer-bottom">
-      <div class="artwork-detail__footer-container">
-        <p class="artwork-detail__footer-copyright">
-          {translations.footerCopyright}
-        </p>
-      </div>
+      <p class="artwork-detail__footer-copyright">
+        {translations.footerCopyright}
+      </p>
     </div>
   </footer>
 </main>

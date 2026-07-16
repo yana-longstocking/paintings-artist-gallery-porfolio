@@ -50,6 +50,7 @@
 .hero-mosaic {
   position: relative;
   z-index: 0;
+  margin-bottom: 50px;
 
   &__viewport {
     display: flex;
@@ -278,16 +279,18 @@
       pointer-events: auto;
       align-self: center;
       justify-self: center;
-      width: auto;
+      justify-content: center;
+      width: 100%;
       max-width: 100%;
       height: auto;
-      transform: translateY(150px);
+      transform: translateY(136px);
 
       @include mixin.on-desktop {
         align-self: end;
         justify-self: stretch;
+        justify-content: center;
         width: 100%;
-        padding: 0 4px 10px;
+        padding: 0 4px 60px;
         transform: none;
       }
     }
@@ -302,7 +305,7 @@
     justify-content: center;
     gap: 3px;
     width: auto;
-    min-height: 28px;
+    min-height: 32px;
     font-family: variables.$font-family-cinzel;
     font-weight: 600;
     letter-spacing: 0.7px;
@@ -381,7 +384,7 @@
       box-sizing: border-box;
       width: 104px;
       max-width: 104px;
-      min-height: 28px;
+      min-height: 35px;
       padding: 6px 9px;
       font-size: 7px;
       line-height: 8px;
@@ -393,8 +396,9 @@
       }
 
       @include mixin.on-desktop {
-        max-width: 160px;
-        min-height: 30px;
+        width: 134px;
+        max-width: 134px;
+        min-height: 40px;
         padding: 7px 14px;
         font-size: 8px;
         letter-spacing: 0.6px;

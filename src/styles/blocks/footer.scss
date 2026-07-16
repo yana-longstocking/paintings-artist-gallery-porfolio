@@ -54,8 +54,7 @@
   padding-bottom: 20px;
 
   @include mixin.on-tablet {
-    &--scroll-reveal &__title,
-    &--scroll-reveal &__contact-title {
+    &--scroll-reveal &__heading {
       opacity: 0;
       transform: translateY(36px);
       transition:
@@ -69,6 +68,7 @@
       }
     }
 
+    &--scroll-reveal &__lead,
     &--scroll-reveal &__input,
     &--scroll-reveal &__message,
     &--scroll-reveal &__success {
@@ -99,7 +99,16 @@
           variables.$ease-emphasized;
     }
 
-    &--scroll-reveal &__form-section--visible &__title {
+    &--scroll-reveal &__copyright-text {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-medium);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
+
+    &--scroll-reveal.footer--heading-visible &__heading {
       opacity: 1;
       transform: translateY(0);
       transition-delay: 0.08s;
@@ -110,6 +119,7 @@
       }
     }
 
+    &--scroll-reveal &__form-section--content-visible &__lead,
     &--scroll-reveal &__form-section--content-visible &__input,
     &--scroll-reveal &__form-section--content-visible &__message,
     &--scroll-reveal &__form-section--content-visible &__success {
@@ -125,17 +135,6 @@
       transition-delay: 0.12s;
     }
 
-    &--scroll-reveal &__contact-section--visible &__contact-title {
-      opacity: 1;
-      transform: translateY(0);
-      transition-delay: 0.08s;
-
-      &::after {
-        animation: footer-title-line-enter variables.$reveal-duration-opacity
-          variables.$ease-emphasized 0.38s both;
-      }
-    }
-
     &--scroll-reveal &__contact-section--content-visible &__contact-item {
       opacity: 1;
       transform: translateX(0);
@@ -147,47 +146,34 @@
       transform: translateX(0);
       transition-delay: 0.22s;
     }
+
+    &--scroll-reveal.footer--copyright-visible &__copyright-text {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.14s;
+    }
   }
 
   @include mixin.on-reduced-motion {
-    &--scroll-reveal &__title,
-    &--scroll-reveal &__contact-title,
+    &--scroll-reveal &__heading,
+    &--scroll-reveal &__lead,
     &--scroll-reveal &__input,
     &--scroll-reveal &__message,
     &--scroll-reveal &__success,
     &--scroll-reveal &__button,
     &--scroll-reveal &__contact-item,
-    &--scroll-reveal &__contact-actions {
+    &--scroll-reveal &__contact-actions,
+    &--scroll-reveal &__copyright-text {
       opacity: 1;
       transform: none;
       transition: none;
       pointer-events: auto;
     }
 
-    &--scroll-reveal &__title::after,
-    &--scroll-reveal &__contact-title::after {
+    &--scroll-reveal &__heading::after {
       transform: none;
       opacity: 1;
       animation: none;
-    }
-  }
-
-  &__title,
-  &__contact-title {
-    @include footer-section-heading;
-  }
-
-  &--landing &__title,
-  &--landing &__contact-title {
-    padding-bottom: 14px;
-    margin-bottom: 24px;
-
-    @include mixin.on-tablet {
-      font-size: 24px;
-      line-height: 24px;
-      min-height: 24px;
-      padding-bottom: 24px;
-      margin-bottom: 20px;
     }
   }
 
@@ -199,22 +185,153 @@
 
   &--landing &__contact-actions {
     @include mixin.on-tablet {
-      margin-top: 0;
+      margin-top: 16px;
     }
   }
 
   &--landing &__content {
     @include mixin.on-tablet {
       gap: 72px;
+    }
 
-      @include mixin.on-desktop {
-        gap: 36px;
+    @include mixin.on-desktop {
+      gap: 50px;
+    }
+  }
+
+  &--letter &__heading {
+    @include footer-section-heading;
+    margin-bottom: 12px;
+    text-align: center;
+
+    &::after {
+      left: 0;
+      right: 0;
+      margin-inline: auto;
+      transform-origin: center;
+    }
+
+    @include mixin.on-tablet {
+      font-size: 32px;
+      line-height: 32px;
+      padding-bottom: 20px;
+      margin-bottom: 16px;
+
+      &::after {
+        width: 120px;
+      }
+    }
+
+    @include mixin.on-desktop {
+      font-size: 40px;
+      line-height: 40px;
+      padding-bottom: 24px;
+      margin-bottom: 50px;
+
+      &::after {
+        width: 160px;
       }
     }
   }
 
+  &--letter &__lead {
+    font-family: variables.$font-family-cinzel;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgba(22, 22, 22, 0.62);
+    margin: 0 0 7px;
+    text-align: left;
+
+    @include mixin.on-tablet {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  &--letter &__contact-label {
+    font-family: variables.$font-family-cinzel;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgba(22, 22, 22, 0.62);
+    margin: 0 0 8px;
+
+    @include mixin.on-tablet {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  &--letter &__content {
+    @include mixin.on-tablet {
+      gap: 48px;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+      align-items: start;
+    }
+
+    @include mixin.on-desktop {
+      gap: 64px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    }
+  }
+
+  &--letter &__form-section {
+    min-width: 0;
+  }
+
+  &--letter &__contact-section {
+    padding-top: 0;
+
+    @include mixin.on-tablet {
+      padding-top: 31px;
+    }
+  }
+
+  &--letter &__contact-item {
+    margin-bottom: 24px;
+  }
+
+  &--letter &__fields-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include mixin.on-tablet {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+  }
+
+  &--letter &__message {
+    @include mixin.on-tablet {
+      min-height: 120px;
+      margin-bottom: 8px;
+    }
+  }
+
+  &--letter &__button {
+    @include mixin.on-tablet {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    @include mixin.on-desktop {
+      max-width: none;
+      width: 240px;
+    }
+  }
+
+  &--letter &__contact-actions {
+    @include mixin.on-tablet {
+      margin-top: 28px;
+    }
+  }
+
   &__content {
-    padding-bottom: 50px;
+    padding-bottom: 90px;
     @include mixin.page-grid;
 
     @include mixin.on-tablet {
