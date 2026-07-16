@@ -1,5 +1,23 @@
 @use "variables";
 
+@mixin page-background {
+  background-color: variables.$bg-color;
+  background-image:
+    radial-gradient(
+      ellipse 80% 120% at 0% 50%,
+      rgba(210, 198, 235, 0.22) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 80% 120% at 100% 50%,
+      rgba(175, 165, 205, 0.16) 0%,
+      transparent 62%
+    ),
+    linear-gradient(90deg, #f9f6fd 0%, #f4f1f8 45%, #ece8f3 55%, #dedae6 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 @mixin on-mobile {
   @media (min-width: variables.$mobile-min-width) {
     @content;
@@ -24,40 +42,32 @@
   }
 }
 
-@mixin hover($_property, $_toValue) {
-  transition: #{$_property} 0.3s;
-  &:hover {
-    #{$_property}: $_toValue;
+@mixin on-hover-capable {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin on-reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
   }
 }
 
 @mixin page-grid {
-  --colums: 2;
-
   display: grid;
   gap: 24px;
   margin: 0 auto;
 
   @include on-tablet {
-    --colums: 6;
-
     gap: 28px;
   }
 
   @include on-desktop {
-    --colums: 12;
     gap: 36px;
   }
 
   @include on-large-desktop {
     gap: 40px;
   }
-}
-
-@mixin transition-mixin {
-  transition-duration: variables.$effect-duration;
-}
-
-@mixin button-mixin {
-  transition-duration: variables.$effect-duration;
 }

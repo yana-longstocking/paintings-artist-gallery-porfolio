@@ -1,0 +1,269 @@
+@use "mixin";
+@use "variables";
+
+@keyframes gallery-page-section-title-line {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@mixin gallery-page-section-title-accent {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 18px;
+  margin-bottom: 8px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: variables.$accent-line-offset-bottom;
+    width: 72px;
+    height: variables.$accent-line-height;
+    border-radius: variables.$border-radius-accent;
+    transform: scaleX(1);
+    transform-origin: left center;
+    opacity: 1;
+    background: variables.$accent-line-gradient;
+
+    @include mixin.on-tablet {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+  }
+}
+
+@mixin gallery-page-collection-title-typography {
+  font-family: variables.$font-family-cinzel;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+
+  @include mixin.on-tablet {
+    font-size: 25px;
+    line-height: 32px;
+  }
+
+  @include mixin.on-desktop {
+    font-size: 32px;
+    line-height: 45px;
+  }
+}
+
+@mixin gallery-card-link {
+  display: block;
+  height: 100%;
+  min-height: 100%;
+}
+
+@mixin gallery-page-grid-link {
+  display: block;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+@mixin gallery-content-grid-columns {
+  grid-template-columns: repeat(5, variables.$gallery-grid-column-fluid);
+}
+
+@mixin gallery-card-image {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+@mixin gallery-hover-link {
+  box-shadow: none;
+  transition:
+    transform variables.$effect-duration-hover variables.$ease-smooth,
+    box-shadow variables.$effect-duration variables.$transition;
+}
+
+@mixin gallery-hover-link-active {
+  transform: translateY(-4px);
+  box-shadow: variables.$box-shadow-hover;
+
+  @include mixin.on-reduced-motion {
+    transform: none;
+  }
+}
+
+@mixin gallery-page-item-link {
+  @include gallery-card-link;
+  @include gallery-hover-link;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@mixin gallery-page-grid-item-link {
+  @include gallery-page-grid-link;
+  @include gallery-hover-link;
+}
+
+@mixin gallery-page-mobile-stack {
+  display: flex;
+  flex-direction: column;
+  gap: variables.$gallery-page-mobile-item-gap;
+  width: 100%;
+}
+
+@mixin gallery-page-card-item {
+  position: relative;
+}
+
+@mixin gallery-page-card-image {
+  @include gallery-card-image;
+  transform: none;
+  transition: transform variables.$effect-duration-hover variables.$ease-smooth;
+}
+
+@mixin gallery-page-tablet-equal-rows {
+  grid-template-rows: repeat(2, variables.$gallery-grid-column-fluid);
+}
+
+@mixin gallery-page-tablet-cover-item {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+@mixin gallery-page-tablet-cover-link {
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+}
+
+@mixin gallery-page-tablet-cover-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@mixin gallery-page-tablet-portrait-featured {
+  aspect-ratio: 3 / 4;
+  height: auto;
+}
+
+@mixin gallery-page-reveal-title {
+  @include mixin.on-tablet {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    transition:
+      opacity variables.$reveal-duration-opacity-long variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform-long
+        variables.$ease-emphasized;
+
+    &::after {
+      transform: scaleX(0);
+      opacity: 0;
+    }
+
+    &.gallery-page__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.04s;
+
+      &::after {
+        animation: gallery-page-section-title-line
+          variables.$reveal-duration-opacity-long variables.$ease-emphasized
+          0.28s both;
+      }
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+
+    &::after {
+      transform: none;
+      opacity: 1;
+      animation: none;
+    }
+  }
+}
+
+@mixin gallery-page-reveal-card {
+  @include mixin.on-tablet {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-large);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+
+    &.gallery-page__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@mixin gallery-page-reveal-footer-text {
+  @include mixin.on-tablet {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+
+    &.gallery-page__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@mixin gallery-page-reveal-footer-heading-accent {
+  @include mixin.on-tablet {
+    &.gallery-page__target {
+      &::after {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+    }
+
+    &.gallery-page__target--visible {
+      &::after {
+        animation: gallery-page-section-title-line
+          variables.$reveal-duration-opacity-long variables.$ease-emphasized
+          0.22s both;
+      }
+    }
+  }
+}

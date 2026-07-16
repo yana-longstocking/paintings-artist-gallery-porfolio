@@ -36,7 +36,7 @@ const LANGUAGES: Record<LanguageCode, LanguageConfig> = {
     pathPrefix: "/es",
     menuTranslations: {
       gallery: "Galería",
-      artistBio: "Biografía de la Artista",
+      artistBio: "Biografía",
       contactUs: "Contáctanos",
     },
   },
@@ -63,6 +63,7 @@ const MENU_KEYWORDS: Record<string, keyof LanguageConfig["menuTranslations"]> =
     bio: "artistBio",
     biografía: "artistBio",
     contact: "contactUs",
+    contacto: "contactUs",
     contáctanos: "contactUs",
   };
 

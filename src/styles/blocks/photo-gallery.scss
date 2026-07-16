@@ -1,98 +1,107 @@
 @use "mixin";
 @use "variables";
+@use "gallery-page-mixins";
 
 .photo-gallery {
-  padding: 50px 0 126px;
-  cursor: pointer;
+  padding-top: 24px;
 
-  &__grid {
-    @include mixin.page-grid;
+  @include mixin.on-tablet {
+    padding-bottom: 56px;
+  }
+
+  @include mixin.on-desktop {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  &__title {
+    @include gallery-page-mixins.gallery-page-collection-title-typography;
+    @include gallery-page-mixins.gallery-page-section-title-accent;
+    @include gallery-page-mixins.gallery-page-reveal-title;
+    color: variables.$main-color;
+    text-align: left;
+    padding-bottom: 14px;
+    margin-bottom: variables.$gallery-page-mobile-item-gap -
+      variables.$accent-line-offset-bottom;
 
     @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 0;
+      padding-bottom: 10px;
+    }
+  }
+
+  &__grid {
+    @include gallery-page-mixins.gallery-page-mobile-stack;
+
+    @include mixin.on-tablet {
+      display: grid;
+      grid-template-columns: repeat(2, variables.$gallery-grid-column-fluid);
+      align-items: stretch;
+      width: 100%;
+      margin-top: 30px;
+      gap: variables.$gallery-grid-gap-tablet;
     }
 
     @include mixin.on-desktop {
-      grid-template-columns: repeat(4, 1fr);
+      margin-top: 48px;
+      gap: variables.$gallery-grid-gap-desktop;
+    }
+  }
+
+  &__side {
+    @include gallery-page-mixins.gallery-page-mobile-stack;
+
+    @include mixin.on-tablet {
+      min-width: 0;
+      min-height: 0;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, variables.$gallery-grid-column-fluid);
+      @include gallery-page-mixins.gallery-page-tablet-equal-rows;
+      gap: inherit;
+      align-items: stretch;
+      align-content: stretch;
     }
   }
 
   &__item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
+    @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
 
     @include mixin.on-tablet {
-      &:hover {
-        transform: variables.$scale-max-hover;
-      }
-    }
-
-    @include mixin.on-desktop {
-      transform: variables.$transform-hover;
-      box-shadow: variables.$box-shadow-hover;
+      @include gallery-page-mixins.gallery-page-tablet-cover-item;
     }
 
     &--featured {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-
       @include mixin.on-tablet {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
-
-      @include mixin.on-desktop {
-        grid-column: span 2;
-        grid-row: span 2;
-      }
-
-      @include mixin.on-large-desktop {
-        grid-column: span 2;
-        grid-row: span 2;
+        @include gallery-page-mixins.gallery-page-tablet-portrait-featured;
+        align-self: stretch;
       }
     }
+  }
+
+  &__link {
+    @include gallery-page-mixins.gallery-page-grid-item-link;
   }
 
   &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform variables.$effect-duration variables.$transition;
+    @include gallery-page-mixins.gallery-page-card-image;
+    object-fit: unset;
+  }
 
-    .photo-gallery__item:hover & {
-      @include mixin.on-tablet {
-        transform: variables.$scale-max-hover;
-      }
+  @include mixin.on-tablet {
+    &__link {
+      @include gallery-page-mixins.gallery-page-tablet-cover-link;
+    }
+
+    &__image {
+      @include gallery-page-mixins.gallery-page-tablet-cover-image;
     }
   }
 
-  &__title {
-    font-family: "Cinzel", sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 24px;
-    padding: 30px 0 24px;
-    color: variables.$background-color;
-    text-align: center;
-
-    @include mixin.on-tablet {
-      font-size: 32px;
-    }
-
-    @include mixin.on-tablet {
-      padding: 50px 0 32px;
-      grid-column: span 2;
-      line-height: 140%;
-    }
-
-    @include mixin.on-desktop {
-      text-align: left;
+  @include mixin.on-hover-capable {
+    &__link:hover {
+      @include gallery-page-mixins.gallery-hover-link-active;
     }
   }
 }

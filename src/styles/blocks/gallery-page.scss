@@ -1,0 +1,499 @@
+@use "mixin";
+@use "variables";
+@use "gallery-page-mixins";
+
+@keyframes gallery-page-accent-line-in {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes gallery-page-hero-title-in {
+  0% {
+    opacity: 0;
+    color: variables.$gallery-page-hero-muted-color;
+    transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
+    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
+  }
+
+  100% {
+    opacity: 1;
+    color: variables.$main-color;
+    transform: translateY(0) scale(1);
+    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-mobile;
+  }
+}
+
+@include mixin.on-tablet {
+  @keyframes gallery-page-hero-title-in {
+    0% {
+      opacity: 0;
+      color: variables.$gallery-page-hero-muted-color;
+      transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
+    }
+
+    100% {
+      opacity: 1;
+      color: variables.$main-color;
+      transform: translateY(0) scale(1);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-tablet;
+    }
+  }
+}
+
+@include mixin.on-desktop {
+  @keyframes gallery-page-hero-title-in {
+    0% {
+      opacity: 0;
+      color: variables.$gallery-page-hero-muted-color;
+      transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-desktop;
+    }
+
+    100% {
+      opacity: 1;
+      color: variables.$main-color;
+      transform: translateY(0) scale(1);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-desktop;
+    }
+  }
+}
+
+@keyframes gallery-page-hero-accent-in {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes gallery-page-hero-line-in {
+  0% {
+    opacity: 0;
+    color: variables.$gallery-page-hero-muted-color;
+    transform: translateY(20px);
+    clip-path: inset(0 45% 0 45%);
+  }
+
+  100% {
+    opacity: 1;
+    color: variables.$main-color;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes gallery-page-divider-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.gallery-page {
+  &__hero {
+    padding: 80px 0 24px;
+
+    @include mixin.on-tablet {
+      padding: 173px 0 100px;
+    }
+
+    @include mixin.on-desktop {
+      padding: 250px 0 100px;
+    }
+  }
+
+  &__hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__hero-title {
+    font-family: variables.$font-family-cinzel;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    color: variables.$main-color;
+    opacity: 0;
+    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
+    animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
+      forwards;
+
+    @include mixin.on-tablet {
+      font-size: 64px;
+      line-height: 64px;
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 80px;
+      line-height: 80px;
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-desktop;
+    }
+  }
+
+  &__hero-accent {
+    display: block;
+    width: 70px;
+    height: variables.$accent-line-height;
+    margin-top: 18px;
+    margin-bottom: 14px;
+    border-radius: variables.$border-radius-accent;
+    transform: scaleX(0);
+    opacity: 0;
+    transform-origin: center center;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      variables.$background-color 16%,
+      rgba(209, 45, 53, 0.88) 52%,
+      variables.$color-border-lavender 84%,
+      transparent 100%
+    );
+    animation: gallery-page-hero-accent-in variables.$effect-duration-long
+      variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
+
+    @include mixin.on-tablet {
+      width: 120px;
+      margin-top: 22px;
+      margin-bottom: 18px;
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 28px;
+      margin-bottom: 22px;
+    }
+  }
+
+  &__hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 325px;
+    max-width: 100%;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  &__hero-text-line {
+    font-family: variables.$font-family-cinzel;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: variables.$line-height-body-27;
+    color: variables.$main-color;
+    opacity: 0;
+    animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
+      forwards;
+
+    &--first {
+      animation-delay: variables.$effect-duration-long;
+    }
+
+    &--second {
+      animation-delay: 1.65s;
+    }
+  }
+
+  &__divider {
+    width: 100%;
+    border-bottom: 5px solid variables.$hover-color;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s forwards;
+  }
+
+  &__section {
+    &--first {
+      margin-top: 48px;
+
+      @include mixin.on-tablet {
+        margin-top: 40px;
+        visibility: hidden;
+        pointer-events: none;
+
+        &.gallery-page__section--intro-ready {
+          visibility: visible;
+          pointer-events: auto;
+        }
+      }
+
+      @include mixin.on-desktop {
+        margin-top: 45px;
+      }
+
+      @include mixin.on-reduced-motion {
+        visibility: visible;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &__footer-split {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-block: 32px 28px;
+    border-top: 1px solid rgba(22, 22, 22, 0.12);
+
+    @include mixin.on-tablet {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      padding-block: 40px 34px;
+    }
+
+    @include mixin.on-desktop {
+      gap: 48px;
+      padding-block: 44px 36px;
+    }
+  }
+
+  &__footer-lead {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    font-family: variables.$font-family-roboto;
+    font-size: 14px;
+    line-height: 22px;
+    color: rgba(22, 22, 22, 0.72);
+
+    @include mixin.on-tablet {
+      font-size: 15px;
+      line-height: variables.$line-height-body-24;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 16px;
+      line-height: 26px;
+    }
+  }
+
+  &__footer-shell {
+    padding-bottom: 20px;
+
+    @include mixin.on-tablet {
+      padding-bottom: 24px;
+    }
+
+    @include mixin.on-desktop {
+      padding-bottom: 28px;
+    }
+  }
+
+  &__footer-heading {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    @include gallery-page-mixins.gallery-page-reveal-footer-heading-accent;
+    @include gallery-page-mixins.gallery-page-section-title-accent;
+    margin-bottom: 14px;
+    font-family: variables.$font-family-cinzel;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: 1px;
+    color: variables.$main-color;
+
+    @include mixin.on-tablet {
+      font-size: 25px;
+      margin-bottom: 16px;
+      line-height: 30px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 28px;
+      margin-bottom: 18px;
+      line-height: 34px;
+      letter-spacing: 1.1px;
+    }
+  }
+
+  &__footer-copy {
+    @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    padding-top: 16px;
+    font-family: variables.$font-family-cinzel;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: rgba(22, 22, 22, 0.62);
+
+    @include mixin.on-tablet {
+      padding-top: 19px;
+    }
+
+    @include mixin.on-desktop {
+      padding-top: 22px;
+    }
+  }
+
+  &__scroll-top-bar {
+    margin-top: 16px;
+    margin-bottom: 32px;
+
+    @include mixin.on-tablet {
+      margin-top: 20px;
+      margin-bottom: 44px;
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 24px;
+      margin-bottom: 56px;
+    }
+  }
+
+  &__scroll-top-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    pointer-events: none;
+    transition:
+      opacity variables.$effect-duration-medium variables.$ease-smooth,
+      visibility variables.$effect-duration-medium variables.$ease-smooth,
+      transform 0.65s variables.$ease-emphasized;
+
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  &__scroll-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(139, 127, 168, 0.55);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.55);
+    color: rgba(107, 95, 138, 0.98);
+    box-shadow: 0 3px 12px rgba(107, 95, 138, 0.16);
+    cursor: pointer;
+    transition:
+      background-color variables.$effect-duration variables.$transition,
+      border-color variables.$effect-duration variables.$transition,
+      color variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration-hover variables.$ease-smooth;
+
+    @include mixin.on-hover-capable {
+      &:hover {
+        background-color: variables.$background-color;
+        border-color: variables.$background-color;
+        color: variables.$color-text;
+        box-shadow: 0 8px 24px rgba(209, 45, 53, 0.28);
+        transform: translateY(-3px);
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+    }
+
+    &:active {
+      background-color: variables.$background-color;
+      border-color: variables.$background-color;
+      color: variables.$color-text;
+      box-shadow: 0 6px 20px rgba(209, 45, 53, 0.28);
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 3px;
+    }
+  }
+
+  &__scroll-top-icon {
+    display: block;
+  }
+
+  &__scroll-top-accent {
+    display: block;
+    width: 36px;
+    height: 1.5px;
+    border-radius: variables.$border-radius-accent;
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 0;
+    background: variables.$accent-line-gradient;
+
+    &--visible {
+      animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
+        variables.$ease-emphasized variables.$effect-duration-short forwards;
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &__hero-title,
+    &__hero-accent,
+    &__hero-text-line {
+      animation: none;
+      opacity: 1;
+      color: variables.$main-color;
+      transform: none;
+      clip-path: none;
+      letter-spacing: normal;
+    }
+
+    &__hero-accent {
+      transform: scaleX(1);
+    }
+
+    &__divider {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    &__scroll-top {
+      transition: background-color variables.$effect-duration-short;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    &__scroll-top-wrap {
+      transform: none;
+      transition:
+        opacity variables.$effect-duration-short,
+        visibility variables.$effect-duration-short;
+    }
+
+    &__scroll-top-accent--visible {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

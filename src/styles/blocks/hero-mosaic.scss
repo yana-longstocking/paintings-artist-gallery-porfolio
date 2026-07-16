@@ -1,0 +1,570 @@
+@use "mixin";
+@use "variables";
+
+@mixin hero-mosaic-column-template {
+  grid-template-columns:
+    minmax(0, 0.88fr) minmax(0, 1.05fr) minmax(0, 1.36fr)
+    minmax(0, 1.05fr) minmax(0, 0.88fr);
+
+  @include mixin.on-desktop {
+    grid-template-columns:
+      minmax(0, 0.82fr) minmax(0, 1.05fr) minmax(0, 1.48fr)
+      minmax(0, 1.05fr) minmax(0, 0.82fr);
+  }
+}
+
+@keyframes hero-mosaic-cell-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-10px) translateY(6px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-mosaic-cta-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-mosaic-cta-shine {
+  from {
+    transform: translateX(-120px) skewX(-18deg);
+  }
+
+  to {
+    transform: translateX(220px) skewX(-18deg);
+  }
+}
+
+.hero-mosaic {
+  position: relative;
+  z-index: 0;
+  margin-bottom: 50px;
+
+  &__viewport {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 36px;
+    min-height: 0;
+    flex: none;
+    box-sizing: border-box;
+
+    @include mixin.on-tablet {
+      margin-top: 40px;
+      flex: 1 1 auto;
+    }
+
+    @include mixin.on-desktop {
+      margin-top: 44px;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+    margin: 0 auto 16px;
+    padding: 0 variables.$hero-mosaic-padding-inline;
+    box-sizing: border-box;
+
+    @include mixin.on-tablet {
+      flex: 1 1 auto;
+      display: block;
+      margin-bottom: 0;
+      padding: 0 8px;
+
+      @include mixin.on-desktop {
+        padding: 0 10px;
+      }
+    }
+  }
+
+  &__mobile-feature {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: variables.$mobile-min-width;
+    margin: 0 auto;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+  }
+
+  &__mobile-photo {
+    position: absolute;
+    inset: 0;
+    display: block;
+    text-decoration: none;
+  }
+
+  &__mobile-photo-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    opacity: 0.58;
+  }
+
+  &__mobile-copy {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 60px variables.$hero-mosaic-padding-inline
+      variables.$hero-mosaic-padding-inline;
+    pointer-events: none;
+    background: linear-gradient(
+      180deg,
+      rgba(242, 240, 246, 0) 0%,
+      rgba(242, 240, 246, 0.45) 50%,
+      rgba(242, 240, 246, 0.88) 100%
+    );
+  }
+
+  &__mobile-tagline {
+    font-family: variables.$font-family-roboto;
+    font-size: variables.$hero-mosaic-font-size-caption;
+    font-weight: 400;
+    line-height: 12px;
+    color: rgba(26, 26, 26, 0.62);
+  }
+
+  &__mobile-cta {
+    display: inline-flex;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 20px;
+    padding: 4px 8px 4px 7px;
+    font-family: variables.$font-family-cinzel;
+    font-size: 7px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: variables.$color-text;
+    background: variables.$background-color;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 1px 6px rgba(209, 45, 53, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    animation: hero-mosaic-cta-enter 1.2s variables.$ease-emphasized 0.28s both;
+    pointer-events: auto;
+    transition:
+      background variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth,
+      transform variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth,
+      box-shadow variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.28) 50%,
+        transparent 65%
+      );
+      transform: translateX(-120px) skewX(-18deg);
+      pointer-events: none;
+    }
+
+    &::after {
+      content: "→";
+      font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+      font-size: 6px;
+      line-height: 6px;
+      opacity: 0.92;
+      transition: transform variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth;
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.97);
+      box-shadow:
+        0 1px 6px rgba(209, 45, 53, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    @include mixin.on-hover-capable {
+      &:hover {
+        background: variables.$hover-color;
+        transform: translateY(-1px);
+        box-shadow:
+          0 6px 20px rgba(209, 45, 53, 0.38),
+          inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+        &::before {
+          animation: hero-mosaic-cta-shine 0.8s variables.$ease-smooth forwards;
+        }
+
+        &::after {
+          transform: translateX(3px);
+        }
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  &__grid {
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+
+    @include mixin.on-tablet {
+      @include hero-mosaic-column-template;
+      display: grid;
+      grid-template-rows: repeat(6, minmax(0, 1fr));
+      flex: none;
+      position: relative;
+      min-height: 480px;
+      max-height: 562px;
+      gap: 8px;
+
+      @include mixin.on-desktop {
+        max-height: 576px;
+        gap: 10px;
+      }
+    }
+  }
+
+  &__cta {
+    display: none;
+    pointer-events: none;
+
+    @include mixin.on-tablet {
+      display: flex;
+      grid-column: 5 / 6;
+      grid-row: 1 / -1;
+      z-index: 3;
+      box-sizing: border-box;
+      pointer-events: auto;
+      align-self: center;
+      justify-self: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      transform: translateY(136px);
+
+      @include mixin.on-desktop {
+        align-self: end;
+        justify-self: stretch;
+        justify-content: center;
+        width: 100%;
+        padding: 0 4px 60px;
+        transform: none;
+      }
+
+      @include mixin.on-large-desktop {
+        padding: 0 4px;
+        transform: translateY(-20px);
+      }
+    }
+  }
+
+  &__cta-link {
+    display: none;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    width: auto;
+    min-height: 32px;
+    font-family: variables.$font-family-cinzel;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: variables.$color-text;
+    background: variables.$background-color;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transition:
+      background variables.$hero-mosaic-interaction-duration
+        variables.$ease-smooth,
+      transform variables.$hero-mosaic-interaction-duration
+        variables.$ease-smooth,
+      box-shadow variables.$hero-mosaic-interaction-duration
+        variables.$ease-smooth;
+
+    &--ready {
+      animation: hero-mosaic-cta-enter 1.35s variables.$ease-emphasized both;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.28) 50%,
+        transparent 65%
+      );
+      transform: translateX(-120px) skewX(-18deg);
+      pointer-events: none;
+    }
+
+    &::after {
+      content: "→";
+      font-family:
+        system-ui,
+        -apple-system,
+        sans-serif;
+      font-size: variables.$hero-mosaic-font-size-caption;
+      line-height: 9px;
+      transition: transform variables.$hero-mosaic-transition-duration
+        variables.$ease-smooth;
+    }
+
+    @include mixin.on-hover-capable {
+      &:hover {
+        background: variables.$hover-color;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(209, 45, 53, 0.42);
+
+        &::before {
+          animation: hero-mosaic-cta-shine 0.8s variables.$ease-smooth forwards;
+        }
+
+        &::after {
+          transform: translateX(4px);
+        }
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 3px;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    @include mixin.on-tablet {
+      display: inline-flex;
+      opacity: 0;
+      pointer-events: auto;
+      box-sizing: border-box;
+      width: 104px;
+      max-width: 104px;
+      min-height: 35px;
+      padding: 6px 9px;
+      font-size: 7px;
+      line-height: 8px;
+      white-space: normal;
+      box-shadow: 0 2px 8px rgba(209, 45, 53, 0.22);
+
+      &::after {
+        font-size: 7px;
+      }
+
+      @include mixin.on-desktop {
+        width: 134px;
+        max-width: 134px;
+        min-height: 40px;
+        padding: 7px 14px;
+        font-size: 8px;
+        letter-spacing: 0.6px;
+        line-height: 10px;
+        box-shadow: 0 2px 12px rgba(209, 45, 53, 0.26);
+
+        &::after {
+          font-size: variables.$hero-mosaic-font-size-caption;
+        }
+      }
+    }
+  }
+
+  &__cell {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    animation: hero-mosaic-cell-enter 1.9s variables.$ease-emphasized both;
+
+    &:focus-visible {
+      outline: 3px solid variables.$hover-color;
+      outline-offset: 2px;
+      z-index: 2;
+    }
+
+    &--a {
+      animation-delay: 0.15s;
+    }
+
+    &--b {
+      animation-delay: 0.3s;
+    }
+
+    &--c {
+      animation-delay: variables.$effect-duration-hover;
+    }
+
+    &--d {
+      animation-delay: 0.6s;
+      animation-duration: 2s;
+    }
+
+    &--e {
+      animation-delay: 0.75s;
+    }
+
+    &--f {
+      animation-delay: 0.9s;
+    }
+
+    &--g {
+      animation-delay: 1.05s;
+    }
+
+    @include mixin.on-tablet {
+      min-height: 0;
+
+      &--a {
+        grid-column: 1 / 2;
+        grid-row: 1 / 7;
+      }
+
+      &--b {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
+      }
+
+      &--c {
+        grid-column: 2 / 3;
+        grid-row: 3 / 7;
+      }
+
+      &--d {
+        grid-column: 3 / 4;
+        grid-row: 1 / 7;
+      }
+
+      &--e {
+        grid-column: 4 / 5;
+        grid-row: 1 / 3;
+      }
+
+      &--f {
+        grid-column: 4 / 5;
+        grid-row: 3 / 7;
+      }
+
+      &--g {
+        grid-column: 5 / 6;
+        grid-row: 1 / 7;
+        z-index: 1;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transition:
+      transform variables.$effect-duration-medium variables.$ease-smooth,
+      filter variables.$hero-mosaic-interaction-duration variables.$ease-smooth;
+  }
+
+  @include mixin.on-hover-capable {
+    &__cell:hover &__img {
+      transform: scale(1.02);
+      filter: saturate(1.04);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &__cell {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    &__img {
+      transition: none;
+    }
+
+    &__cell:hover &__img {
+      transform: none;
+      filter: none;
+    }
+
+    &__mobile-cta {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    &__cta-link {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    &__cta-link--ready {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    &__cta-link,
+    &__cta-link::after,
+    &__cta-link::before {
+      animation: none;
+      transition: none;
+    }
+
+    &__cta-link:hover,
+    &__cta-link:active {
+      transform: none;
+    }
+
+    &__cta-link:hover::after {
+      transform: none;
+    }
+  }
+}

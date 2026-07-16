@@ -1,12 +1,8 @@
 @use "mixin";
-@use "variables";
 
 .container {
   margin-inline: auto;
-
-  @include mixin.on-mobile {
-    padding-inline: 20px;
-  }
+  padding-inline: 20px;
 
   @include mixin.on-tablet {
     padding-inline: 72px;
@@ -16,20 +12,17 @@
     padding-inline: 120px;
   }
 
-  &__line {
-    border-bottom: 5px solid variables.$hover-color;
-    animation: slidein 3s alternate 1;
-  }
+  &--landing {
+    position: relative;
+    z-index: 1;
+    padding-top: 50px;
 
-  @keyframes slidein {
-    from {
-      margin-left: 100%;
-      width: 300%;
+    @include mixin.on-tablet {
+      padding-top: 32px;
     }
 
-    to {
-      margin-left: 0%;
-      width: 100%;
+    @include mixin.on-desktop {
+      padding-top: 102px;
     }
   }
 }

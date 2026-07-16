@@ -371,43 +371,6 @@
           "srcOriginal": "photo/art_original/power-pose_det-4.jpg"
         }
       ]
-    },
-    {
-      "id": "beach-spirit",
-      "src": "photo/art/beach-spirit.jpg",
-      "srcOriginal": "photo/art_original/beach-spirit.jpg",
-      "alt": "Espíritu de playa",
-      "description": "",
-      "medium": "Técnica: carbón sobre papel",
-      "size": "Medidas: 29.7 x 42 cm",
-      "price": "500€",
-      "featured": true,
-      "additionalPhotos": [
-        {
-          "id": "beach-spirit-det-1",
-          "src": "photo/art/beach-spirit_det-1.jpg",
-          "alt": "Espíritu de playa",
-          "srcOriginal": "photo/art_original/beach-spirit_det-1.jpg"
-        },
-        {
-          "id": "beach-spirit-det-2",
-          "src": "photo/art/beach-spirit_det-2.jpg",
-          "alt": "Espíritu de playa",
-          "srcOriginal": "photo/art_original/beach-spirit_det-2.jpg"
-        },
-        {
-          "id": "beach-spirit-det-3",
-          "src": "photo/art/beach-spirit_det-3.jpg",
-          "alt": "Espíritu de playa",
-          "srcOriginal": "photo/art_original/beach-spirit_det-3.jpg"
-        },
-        {
-          "id": "beach-spirit-det-4",
-          "src": "photo/art/beach-spirit_det-4.jpg",
-          "alt": "Espíritu de playa",
-          "srcOriginal": "photo/art_original/beach-spirit_det-4.jpg"
-        }
-      ]
     }
   ],
   "artCollection": [
@@ -486,43 +449,6 @@
       ]
     },
     {
-      "id": "myst",
-      "src": "photo/art/myst.jpg",
-      "srcOriginal": "photo/art_original/myst.jpg",
-      "alt": "Myst",
-      "description": "",
-      "medium": "Técnica: lápices sobre papel",
-      "size": "Medidas: 29.7 x 42 cm",
-      "price": "600€",
-      "featured": false,
-      "additionalPhotos": [
-        {
-          "id": "myst-det-1",
-          "src": "photo/art/myst_det-1.jpg",
-          "alt": "Myst",
-          "srcOriginal": "photo/art_original/myst_det-1.jpg"
-        },
-        {
-          "id": "myst-det-2",
-          "src": "photo/art/myst_det-2.jpg",
-          "alt": "Myst",
-          "srcOriginal": "photo/art_original/myst_det-2.jpg"
-        },
-        {
-          "id": "myst-det-3",
-          "src": "photo/art/myst_det-3.jpg",
-          "alt": "Myst",
-          "srcOriginal": "photo/art_original/myst_det-3.jpg"
-        },
-        {
-          "id": "myst-det-4",
-          "src": "photo/art/myst_det-4.jpg",
-          "alt": "Myst",
-          "srcOriginal": "photo/art_original/myst_det-4.jpg"
-        }
-      ]
-    },
-    {
       "id": "sunkissed",
       "src": "photo/art/sunkissed.jpg",
       "srcOriginal": "photo/art_original/sunkissed.jpg",
@@ -593,6 +519,43 @@
           "src": "photo/art/intiMessy_det-4.jpg",
           "srcOriginal": "photo/art_original/intiMessy_det-4.jpg",
           "alt": "intiMessy"
+        }
+      ]
+    },
+    {
+      "id": "beach-spirit",
+      "src": "photo/art/beach-spirit.jpg",
+      "srcOriginal": "photo/art_original/beach-spirit.jpg",
+      "alt": "Espíritu de playa",
+      "description": "",
+      "medium": "Técnica: carbón sobre papel",
+      "size": "Medidas: 29.7 x 42 cm",
+      "price": "500€",
+      "featured": false,
+      "additionalPhotos": [
+        {
+          "id": "beach-spirit-det-1",
+          "src": "photo/art/beach-spirit_det-1.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-1.jpg"
+        },
+        {
+          "id": "beach-spirit-det-2",
+          "src": "photo/art/beach-spirit_det-2.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-2.jpg"
+        },
+        {
+          "id": "beach-spirit-det-3",
+          "src": "photo/art/beach-spirit_det-3.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-3.jpg"
+        },
+        {
+          "id": "beach-spirit-det-4",
+          "src": "photo/art/beach-spirit_det-4.jpg",
+          "alt": "Espíritu de playa",
+          "srcOriginal": "photo/art_original/beach-spirit_det-4.jpg"
         }
       ]
     }
@@ -670,6 +633,43 @@
             "src": "photo/art/prisme-light_det-4.jpg",
             "srcOriginal": "photo/art_original/prisme-light_det-4.jpg",
             "alt": "Luz prisma"
+          }
+        ]
+      },
+      {
+        "id": "myst",
+        "src": "photo/art/myst.jpg",
+        "srcOriginal": "photo/art_original/myst.jpg",
+        "alt": "Myst",
+        "description": "",
+        "medium": "Técnica: lápices sobre papel",
+        "size": "Medidas: 29.7 x 42 cm",
+        "price": "600€",
+        "featured": false,
+        "additionalPhotos": [
+          {
+            "id": "myst-det-1",
+            "src": "photo/art/myst_det-1.jpg",
+            "alt": "Myst",
+            "srcOriginal": "photo/art_original/myst_det-1.jpg"
+          },
+          {
+            "id": "myst-det-2",
+            "src": "photo/art/myst_det-2.jpg",
+            "alt": "Myst",
+            "srcOriginal": "photo/art_original/myst_det-2.jpg"
+          },
+          {
+            "id": "myst-det-3",
+            "src": "photo/art/myst_det-3.jpg",
+            "alt": "Myst",
+            "srcOriginal": "photo/art_original/myst_det-3.jpg"
+          },
+          {
+            "id": "myst-det-4",
+            "src": "photo/art/myst_det-4.jpg",
+            "alt": "Myst",
+            "srcOriginal": "photo/art_original/myst_det-4.jpg"
           }
         ]
       },

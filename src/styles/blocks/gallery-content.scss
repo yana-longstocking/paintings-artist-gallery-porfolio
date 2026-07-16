@@ -1,87 +1,150 @@
 @use "mixin";
 @use "variables";
+@use "gallery-page-mixins";
 
 .gallery-content {
-  padding-bottom: 100px;
-  cursor: pointer;
+  @include gallery-page-mixins.gallery-page-mobile-stack;
+  padding-top: variables.$gallery-page-mobile-item-gap;
 
   @include mixin.on-tablet {
-    padding-bottom: 140px;
+    display: block;
+    padding-top: 0;
+    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
+  }
+
+  @include mixin.on-desktop {
+    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
   }
 
   &__featured {
-    width: 100%;
-    margin-bottom: 24px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
-
-    @include mixin.on-desktop {
-      margin-bottom: 36px;
-    }
+    @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
 
     @include mixin.on-tablet {
-      &:hover {
-        transform: variables.$scale-min-hover;
-        box-shadow: variables.$box-shadow-hover;
-      }
+      min-width: 0;
+      margin-bottom: variables.$gallery-section-padding-bottom-tablet;
     }
+
+    @include mixin.on-desktop {
+      margin-bottom: variables.$gallery-section-padding-bottom-desktop;
+      min-height: 420px;
+    }
+  }
+
+  &__link {
+    @include gallery-page-mixins.gallery-page-item-link;
   }
 
   &__featured-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  &__grid {
-    @include mixin.page-grid;
+    @include gallery-page-mixins.gallery-page-card-image;
 
     @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
+      display: block;
+      width: 100%;
+      min-height: 280px;
+      height: auto;
+      object-fit: cover;
+      object-position: center top;
     }
 
     @include mixin.on-desktop {
-      grid-template-columns: repeat(3, 1fr);
+      min-height: 420px;
+    }
+  }
+
+  &__grid {
+    @include gallery-page-mixins.gallery-page-mobile-stack;
+
+    @include mixin.on-tablet {
+      display: grid;
+      @include gallery-page-mixins.gallery-content-grid-columns;
+      @include gallery-page-mixins.gallery-page-tablet-equal-rows;
+      align-items: stretch;
+      gap: variables.$gallery-grid-gap-tablet;
+    }
+
+    @include mixin.on-desktop {
+      gap: variables.$gallery-grid-gap-desktop;
     }
   }
 
   &__item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
+    @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
 
     @include mixin.on-tablet {
-      &:hover {
-        box-shadow: variables.$box-shadow-hover;
-        transform: variables.$scale-min-hover;
+      @include gallery-page-mixins.gallery-page-tablet-cover-item;
+    }
+
+    &--prisme-light {
+      @include mixin.on-tablet {
+        grid-column: 1;
+        grid-row: 1;
       }
     }
 
-    @include mixin.on-desktop {
-      transform: variables.$transform-hover;
-      box-shadow: variables.$box-shadow-hover;
+    &--shevchenkos-kateryna {
+      @include mixin.on-tablet {
+        grid-column: 2;
+        grid-row: 1;
+      }
+    }
+
+    &--wind {
+      @include mixin.on-tablet {
+        grid-column: 3;
+        grid-row: 1;
+      }
+    }
+
+    &--myst {
+      @include mixin.on-tablet {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
+    &--pretty-girls-do-cry-1 {
+      @include mixin.on-tablet {
+        grid-column: 2;
+        grid-row: 2;
+      }
+    }
+
+    &--pretty-girls-do-cry-2 {
+      @include mixin.on-tablet {
+        grid-column: 3;
+        grid-row: 2;
+      }
+    }
+
+    &--portrait {
+      @include mixin.on-tablet {
+        grid-column: 4 / 6;
+        grid-row: 1 / 3;
+        @include gallery-page-mixins.gallery-page-tablet-portrait-featured;
+      }
     }
   }
 
   &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform variables.$effect-duration variables.$transition;
+    @include gallery-page-mixins.gallery-page-card-image;
+    object-fit: unset;
+  }
 
-    .gallery-content__item:hover & {
-      @include mixin.on-tablet {
-        transform: variables.$scale-min-hover;
-        box-shadow: variables.$box-shadow-hover;
-      }
+  @include mixin.on-tablet {
+    &__link {
+      @include gallery-page-mixins.gallery-page-tablet-cover-link;
+    }
+
+    &__image {
+      @include gallery-page-mixins.gallery-page-tablet-cover-image;
+    }
+  }
+
+  @include mixin.on-hover-capable {
+    &__link:hover {
+      @include gallery-page-mixins.gallery-hover-link-active;
     }
   }
 }

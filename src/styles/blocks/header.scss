@@ -1,7 +1,21 @@
 @use "mixin";
 @use "variables";
 
+@keyframes header-menu-link-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .header {
+  background-color: transparent;
+
   @include mixin.on-desktop {
     padding: 50px 0 129px;
   }
@@ -28,25 +42,21 @@
     grid-column: 1;
     display: flex;
     align-items: center;
+  }
 
-    &-link {
-      display: flex;
-      align-items: center;
-    }
+  &__logo-link {
+    display: flex;
+    align-items: center;
+  }
 
-    &-image {
-      height: 40px;
-      width: 40px;
-      transition: transform variables.$effect-duration;
+  &__logo-image {
+    height: 40px;
+    width: 40px;
+    transition: transform variables.$effect-duration;
 
-      &:hover {
-        transform: scale(1.2);
-      }
-
-      @include mixin.on-desktop {
-        width: 50px;
-        height: 50px;
-      }
+    @include mixin.on-desktop {
+      width: 50px;
+      height: 50px;
     }
   }
 
@@ -60,15 +70,15 @@
   }
 
   &__menu-wrapper {
+    display: flex;
+    flex-direction: column;
     transform: translateX(-100%);
-    transition: all variables.$effect-duration;
-    display: block;
+    transition: transform 0.5s variables.$ease-smooth;
+    overflow: hidden;
     z-index: 999;
     position: fixed;
-    background-color: variables.$background-color;
+    background: linear-gradient(180deg, #f4f1f8 0%, #ebe7f2 52%, #e3deec 100%);
     width: 100vw;
-    margin: 0;
-    padding: 0;
     height: 100vh;
     left: 0;
     top: 0;
@@ -78,26 +88,45 @@
     }
 
     @include mixin.on-desktop {
-      transition: all 0s;
+      display: block;
+      transition: none;
       transform: translateX(0);
-      background-color: white;
+      background: transparent;
       height: auto;
       width: auto;
-      padding: 0;
-      margin: 0;
       left: auto;
       top: auto;
       position: relative;
+      overflow: visible;
     }
   }
 
+  &__menu-wrapper:target &__menu-item--1 &__menu-link {
+    animation: header-menu-link-in variables.$effect-duration-medium
+      variables.$ease-emphasized 0.1s forwards;
+  }
+
+  &__menu-wrapper:target &__menu-item--2 &__menu-link {
+    animation: header-menu-link-in variables.$effect-duration-medium
+      variables.$ease-emphasized 0.18s forwards;
+  }
+
+  &__menu-wrapper:target &__menu-item--3 &__menu-link {
+    animation: header-menu-link-in variables.$effect-duration-medium
+      variables.$ease-emphasized 0.26s forwards;
+  }
+
   &__menu-logo {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
-    padding: 20px 25px;
 
     @include mixin.on-tablet {
-      padding: 50px 64px;
+      top: 50px;
+      left: 64px;
     }
 
     @include mixin.on-desktop {
@@ -109,74 +138,80 @@
     height: 40px;
     width: 40px;
     object-fit: contain;
-    filter: brightness(1) invert(1);
     transition: transform variables.$effect-duration;
-    cursor: pointer;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 
   &__menu-list {
-    display: block;
-    text-align: start;
-    padding-left: 25px;
-
-    font-family: "Cinzel", sans-serif;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin: 0;
+    padding: 0 25px;
+    text-align: center;
+    font-family: variables.$font-family-cinzel;
     font-weight: 700;
-    line-height: 30px;
     list-style: none;
 
     @include mixin.on-tablet {
-      padding-left: 64px;
+      gap: 22px;
+      padding: 0 64px;
     }
 
     @include mixin.on-desktop {
+      flex: none;
+      flex-direction: row;
+      justify-content: center;
       color: variables.$main-color;
       font-size: 50px;
-      display: flex;
-      justify-content: center;
-      text-align: center;
       gap: 50px;
-      margin: 0;
       padding: 0;
     }
   }
 
   &__menu-link {
-    font-size: 22px;
-    line-height: 50px;
-    color: variables.$color-text;
-    text-decoration: none;
+    display: inline-block;
     position: relative;
+    font-size: 28px;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    color: variables.$main-color;
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(16px);
     transition: color variables.$effect-duration ease;
 
     &::after {
       content: "";
       position: absolute;
-      top: 30px;
       left: 0;
-      width: 0;
-      height: 2px;
-      transition: width variables.$effect-duration ease;
+      right: 0;
+      bottom: variables.$accent-line-offset-bottom;
+      width: 100%;
+      height: 1.5px;
+      border-radius: variables.$border-radius-accent;
+      background: variables.$accent-line-gradient;
+      transform: scaleX(0);
+      transform-origin: center center;
+      transition: transform variables.$effect-duration-medium
+        variables.$ease-emphasized;
     }
 
-    &:hover {
-      color: variables.$color-text;
-
-      &::after {
-        width: 100%;
-        background-color: variables.$color-text;
-      }
+    @include mixin.on-tablet {
+      font-size: 34px;
     }
 
     @include mixin.on-desktop {
-      line-height: 22px;
-      color: variables.$main-color;
+      font-size: 20px;
+      line-height: 20px;
+      letter-spacing: normal;
+      opacity: 1;
+      transform: none;
 
-      &:hover {
-        color: variables.$hover-color;
+      &::after {
+        display: none;
       }
     }
   }
@@ -184,28 +219,25 @@
   &__close {
     position: absolute;
     top: 25px;
-    right: 40px;
+    right: 25px;
     display: block;
     transition: transform variables.$effect-duration;
 
     @include mixin.on-tablet {
       top: 50px;
+      right: 64px;
     }
 
     @include mixin.on-desktop {
       display: none;
     }
-
-    &:hover {
-      transform: scale(1.2);
-    }
   }
 
   &__close-btn {
     cursor: pointer;
-
-    font-size: 50px;
-    color: variables.$color-text;
+    font-size: 44px;
+    line-height: 1;
+    color: variables.$main-color;
     text-decoration: none;
   }
 
@@ -223,21 +255,6 @@
 
     @include mixin.on-desktop {
       display: none;
-    }
-
-    &:hover {
-      background-image: url("../../public/icons/hovered-burger.svg");
-      transform: scale(1.2);
-    }
-  }
-
-  &__burger-icon {
-    width: 23px;
-    height: 28px;
-
-    @include mixin.on-tablet {
-      width: 24px;
-      height: 24px;
     }
   }
 
@@ -262,10 +279,6 @@
     &--lang {
       gap: 7px;
     }
-
-    &:hover {
-      opacity: 0.8;
-    }
   }
 
   &__action-lang {
@@ -276,7 +289,7 @@
 
   &__action-text {
     display: none;
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     color: variables.$main-color;
 
     @include mixin.on-desktop {
@@ -288,15 +301,6 @@
   &__action-image {
     width: 23px;
     height: 23px;
-
-    &:hover path {
-      fill: variables.$hover-color;
-    }
-
-    &--lang {
-      width: 23px;
-      height: 23px;
-    }
   }
 
   &__language-dropdown {
@@ -316,7 +320,10 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: all variables.$effect-duration variables.$transition;
+    transition:
+      opacity variables.$effect-duration variables.$transition,
+      visibility variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration variables.$transition;
     z-index: 1000;
     overflow: hidden;
 
@@ -334,9 +341,9 @@
   &__language-option {
     display: block;
     width: 100%;
-    padding: 12px 16px;
+    padding: variables.$form-field-padding;
     text-align: left;
-    font-family: "Roboto", sans-serif;
+    font-family: variables.$font-family-roboto;
     font-size: 14px;
     color: variables.$main-color;
     background: none;
@@ -350,10 +357,6 @@
       border-bottom: none;
     }
 
-    &:hover {
-      background-color: rgba(22, 22, 22, 0.05);
-    }
-
     &--active {
       background-color: rgba(209, 45, 53, 0.1);
       color: variables.$background-color;
@@ -363,6 +366,109 @@
     @include mixin.on-tablet {
       font-size: 15px;
       padding: 14px 18px;
+    }
+  }
+
+  @include mixin.on-hover-capable {
+    &__logo-link:hover &__logo-image {
+      transform: scale(1.2);
+    }
+
+    &__menu-logo-image:hover {
+      transform: scale(1.1);
+    }
+
+    &__menu-link:hover {
+      color: variables.$background-color;
+    }
+
+    &__menu-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    &__close:hover {
+      transform: scale(1.2);
+    }
+
+    &__close-btn:hover {
+      color: variables.$background-color;
+    }
+
+    &__burger:hover {
+      background-image: url("../../public/icons/hovered-burger.svg");
+      transform: scale(1.2);
+    }
+
+    &__action:hover {
+      opacity: 0.8;
+    }
+
+    &__action-image:hover path {
+      fill: variables.$hover-color;
+    }
+
+    &__language-option:hover {
+      background-color: rgba(22, 22, 22, 0.05);
+    }
+
+    @include mixin.on-desktop {
+      &__menu-link:hover {
+        color: variables.$hover-color;
+      }
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &__menu-wrapper {
+      transition: transform variables.$effect-duration-short ease;
+    }
+
+    &__menu-wrapper:target &__menu-item &__menu-link {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  &--landing {
+    position: relative;
+    z-index: 10;
+
+    @include mixin.on-desktop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      padding: 28px 0 8px;
+    }
+  }
+
+  &--landing &__nav {
+    @include mixin.on-tablet {
+      padding-top: 25px;
+    }
+
+    @include mixin.on-desktop {
+      padding-top: 20px;
+    }
+  }
+
+  &--gallery,
+  &--artwork {
+    @include mixin.on-desktop {
+      padding: 28px 0 8px;
+    }
+  }
+
+  &--gallery &__nav,
+  &--artwork &__nav {
+    @include mixin.on-tablet {
+      padding-top: 25px;
+    }
+
+    @include mixin.on-desktop {
+      padding-top: 20px;
     }
   }
 }

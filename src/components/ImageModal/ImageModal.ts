@@ -1,3 +1,5 @@
+import { TABLET_MIN_WIDTH } from "../../constants/breakpoints";
+
 /**
  * CSS classes for slide animations
  */
@@ -74,7 +76,6 @@ const ZOOM_ICONS = {
   SQUARE_OUT: "icons/zoom-out-square.svg",
 } as const;
 
-const TABLET_MIN_WIDTH = 744;
 /**
  * Represents an image in the carousel
  */

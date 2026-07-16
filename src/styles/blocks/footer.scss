@@ -1,22 +1,294 @@
 @use "mixin";
 @use "variables";
 
+@keyframes footer-title-line-enter {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+@mixin footer-title-accent-line {
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: variables.$accent-line-offset-bottom;
+    width: 84px;
+    height: variables.$accent-line-height;
+    border-radius: variables.$border-radius-accent;
+    transform-origin: left center;
+    background: variables.$accent-line-gradient;
+  }
+}
+
+@mixin footer-section-heading {
+  position: relative;
+  font-family: variables.$font-family-cinzel;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 32px;
+  color: variables.$main-color;
+  padding-bottom: 28px;
+
+  @include footer-title-accent-line;
+}
+
 .footer {
+  position: relative;
+  z-index: 1;
   padding-bottom: 20px;
 
-  &__title {
-    font-family: "Cinzel", sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 32px;
-    padding-bottom: 40px;
+  @include mixin.on-tablet {
+    &--scroll-reveal &__heading {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-large);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+
+      &::after {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+    }
+
+    &--scroll-reveal &__lead,
+    &--scroll-reveal &__input,
+    &--scroll-reveal &__message,
+    &--scroll-reveal &__success {
+      opacity: 0;
+      transform: translate(-36px, variables.$reveal-offset-y-large);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
+
+    &--scroll-reveal &__button {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-medium);
+      pointer-events: none;
+      transition:
+        opacity 0.95s variables.$ease-smooth,
+        transform 1s variables.$ease-emphasized;
+    }
+
+    &--scroll-reveal &__contact-item,
+    &--scroll-reveal &__contact-actions {
+      opacity: 0;
+      transform: translate(36px, variables.$reveal-offset-y-large);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
+
+    &--scroll-reveal &__copyright-text {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-medium);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
+
+    &--scroll-reveal.footer--heading-visible &__heading {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.08s;
+
+      &::after {
+        animation: footer-title-line-enter variables.$reveal-duration-opacity
+          variables.$ease-emphasized 0.38s both;
+      }
+    }
+
+    &--scroll-reveal &__form-section--content-visible &__lead,
+    &--scroll-reveal &__form-section--content-visible &__input,
+    &--scroll-reveal &__form-section--content-visible &__message,
+    &--scroll-reveal &__form-section--content-visible &__success {
+      opacity: 1;
+      transform: translate(0, 0);
+      transition-delay: 0.1s;
+    }
+
+    &--scroll-reveal.footer--button-visible &__button {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition-delay: 0.12s;
+    }
+
+    &--scroll-reveal &__contact-section--content-visible &__contact-item {
+      opacity: 1;
+      transform: translate(0, 0);
+      transition-delay: 0.1s;
+    }
+
+    &--scroll-reveal &__contact-section--content-visible &__contact-actions {
+      opacity: 1;
+      transform: translate(0, 0);
+      transition-delay: 0.22s;
+    }
+
+    &--scroll-reveal.footer--copyright-visible &__copyright-text {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.14s;
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &--scroll-reveal &__heading,
+    &--scroll-reveal &__lead,
+    &--scroll-reveal &__input,
+    &--scroll-reveal &__message,
+    &--scroll-reveal &__success,
+    &--scroll-reveal &__button,
+    &--scroll-reveal &__contact-item,
+    &--scroll-reveal &__contact-actions,
+    &--scroll-reveal &__copyright-text {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      pointer-events: auto;
+    }
+
+    &--scroll-reveal &__heading::after {
+      transform: none;
+      opacity: 1;
+      animation: none;
+    }
+  }
+
+  &--letter &__heading {
+    @include footer-section-heading;
+    margin-bottom: 12px;
+    text-align: center;
+
+    &::after {
+      left: 0;
+      right: 0;
+      margin-inline: auto;
+      transform-origin: center;
+    }
+
+    @include mixin.on-tablet {
+      padding-bottom: 20px;
+      margin-bottom: 40px;
+
+      &::after {
+        width: 120px;
+      }
+    }
+
+    @include mixin.on-desktop {
+      font-size: 40px;
+      line-height: 40px;
+      padding-bottom: 24px;
+      margin-bottom: 50px;
+
+      &::after {
+        width: 160px;
+      }
+    }
+  }
+
+  &--letter &__lead {
+    font-family: variables.$font-family-cinzel;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgba(22, 22, 22, 0.62);
+    margin: 28px 0 7px;
+    text-align: left;
+
+    @include mixin.on-tablet {
+      font-size: 16px;
+      line-height: 24px;
+      margin-top: 0;
+    }
+  }
+
+  &--letter &__contact-label {
+    line-height: 20px;
+    color: rgba(22, 22, 22, 0.62);
+    margin: 0 0 8px;
+
+    @include mixin.on-tablet {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
+  &--letter &__content {
+    @include mixin.on-tablet {
+      gap: 48px;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.85fr);
+    }
+
+    @include mixin.on-desktop {
+      gap: 64px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    }
+
+    @include mixin.on-large-desktop {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &--letter &__form-section {
+    min-width: 0;
+  }
+
+  &--letter &__fields-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include mixin.on-tablet {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
+    }
+  }
+
+  &--letter &__message {
+    @include mixin.on-tablet {
+      min-height: 120px;
+      margin-bottom: 8px;
+    }
+  }
+
+  &--letter &__button {
+    @include mixin.on-tablet {
+      width: 100%;
+      align-self: stretch;
+    }
+
+    @include mixin.on-desktop {
+      width: 240px;
+      align-self: flex-start;
+    }
   }
 
   &__content {
-    padding-bottom: 50px;
+    padding-bottom: 90px;
     @include mixin.page-grid;
+
     @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
+      align-items: start;
     }
   }
 
@@ -24,46 +296,64 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    &--hidden {
+      display: none;
+    }
   }
 
   &__input {
-    padding: 12px 16px;
-    border: 1px solid variables.$bg-color;
-    border-radius: 4px;
-    background-color: variables.$color-text;
-    font-family: "Cinzel", sans-serif;
+    padding: variables.$form-field-padding;
+    border: 1px solid variables.$color-border-lavender;
+    border-radius: variables.$border-radius-input;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: variables.$font-family-cinzel;
     font-size: 16px;
     font-weight: 400;
-    color: variables.$color-input;
+    color: variables.$main-color;
     outline: none;
-    transition: border-color variables.$effect-duration variables.$transition;
+    transition:
+      border-color variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition,
+      background-color variables.$effect-duration variables.$transition;
+
+    &::placeholder {
+      color: rgba(126, 115, 145, 0.68);
+    }
 
     &:focus {
-      border-color: variables.$hover-color;
+      border-color: variables.$background-color;
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(209, 45, 53, 0.1);
     }
   }
 
   &__message {
-    padding: 12px 16px;
-    border: 1px solid variables.$bg-color;
-    border-radius: 4px;
-    background-color: variables.$color-text;
-    font-family: "Cinzel", sans-serif;
+    padding: variables.$form-field-padding;
+    border: 1px solid variables.$color-border-lavender;
+    border-radius: variables.$border-radius-input;
+    background-color: rgba(255, 255, 255, 0.9);
+    font-family: variables.$font-family-cinzel;
     font-size: 16px;
     font-weight: 400;
-    color: variables.$color-input;
+    color: variables.$main-color;
     outline: none;
     resize: none;
     min-height: 100px;
-    transition: border-color variables.$effect-duration variables.$transition;
-    margin-bottom: 32px;
+    margin-bottom: 12px;
+    transition:
+      border-color variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition,
+      background-color variables.$effect-duration variables.$transition;
+
+    &::placeholder {
+      color: rgba(126, 115, 145, 0.68);
+    }
 
     &:focus {
       border-color: variables.$background-color;
-    }
-
-    &::placeholder {
-      color: #999;
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(209, 45, 53, 0.1);
     }
   }
 
@@ -73,39 +363,39 @@
     background-color: variables.$background-color;
     color: variables.$color-text;
     border: none;
-    border-radius: 4px;
+    border-radius: variables.$border-radius-input;
     padding: 12px 24px;
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color variables.$effect-duration
-      variables.$transition;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 18px rgba(209, 45, 53, 0.22);
+    transition:
+      background-color variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration variables.$transition;
     align-self: flex-start;
 
-    &:hover {
-      background-color: variables.$hover-color;
+    @include mixin.on-hover-capable {
+      &:hover {
+        background-color: variables.$hover-color;
+        box-shadow: 0 6px 24px rgba(174, 28, 35, 0.28);
+        transform: translateY(-1px);
+      }
     }
 
     @include mixin.on-tablet {
-      width: 288px;
+      margin-bottom: 0;
     }
   }
 
   &__contact-section {
-    padding-top: 50px;
+    padding-top: 0;
 
     @include mixin.on-tablet {
-      padding-top: 0;
+      padding-top: 31px;
     }
-  }
-
-  &__contact-title {
-    font-family: "Cinzel", sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 32px;
-    padding-bottom: 40px;
   }
 
   &__contact-item {
@@ -113,64 +403,55 @@
   }
 
   &__contact-label {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 14px;
     font-weight: 400;
     color: variables.$main-color;
-    margin: 0 0 8px 0;
+    margin-bottom: 8px;
   }
 
   &__contact-value {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 14px;
     font-weight: 700;
     color: variables.$main-color;
     text-decoration: none;
-    line-height: 1.4;
+    line-height: 20px;
     display: block;
 
-    &:hover {
-      color: variables.$background-color;
+    @include mixin.on-hover-capable {
+      &:hover {
+        color: variables.$background-color;
+      }
     }
   }
 
-  &__social {
-    font-family: "Cinzel", sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    color: variables.$main-color;
-    margin-bottom: 10px;
-  }
-
-  &__image {
-    width: 32px;
-    height: 32px;
-
-    &:hover {
-      fill: variables.$hover-color;
-    }
+  &__contact-actions {
+    margin-top: 28px;
   }
 
   &__copyright-text {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 12px;
-
     color: variables.$main-color;
     text-align: center;
   }
 
   &__success {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     min-height: 200px;
+
+    &--visible {
+      display: flex;
+    }
   }
 
   &__success-message {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-size: 18px;
     font-weight: 500;
     color: variables.$main-color;
-    margin: 0;
   }
 }

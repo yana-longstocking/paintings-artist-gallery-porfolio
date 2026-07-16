@@ -1,0 +1,128 @@
+@use "mixin";
+@use "variables";
+@use "gallery-page-mixins";
+
+@mixin contact-actions-link-filled {
+  background-color: variables.$background-color;
+  border-color: variables.$background-color;
+  color: variables.$color-text;
+  box-shadow: 0 6px 18px rgba(209, 45, 53, 0.24);
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  &--landing {
+    @include mixin.on-tablet {
+      gap: 10px;
+      align-items: stretch;
+    }
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 30px;
+    padding: 4px 10px 4px 8px;
+    border: 1px solid rgba(139, 127, 168, 0.45);
+    border-radius: variables.$border-radius-accent;
+    color: rgba(107, 95, 138, 0.98);
+    background: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(107, 95, 138, 0.08);
+    transition:
+      background-color variables.$effect-duration variables.$transition,
+      color variables.$effect-duration variables.$transition,
+      border-color variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration-hover variables.$ease-smooth;
+
+    &.gallery-page__target {
+      @include gallery-page-mixins.gallery-page-reveal-footer-text;
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 3px;
+    }
+
+    &:active {
+      @include contact-actions-link-filled;
+    }
+
+    @include mixin.on-hover-capable {
+      &:hover {
+        @include contact-actions-link-filled;
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+    }
+
+    @include mixin.on-reduced-motion {
+      transition:
+        background-color variables.$effect-duration-short,
+        color variables.$effect-duration-short,
+        border-color variables.$effect-duration-short;
+
+      &:hover,
+      &:active {
+        transform: none;
+      }
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    transition: transform variables.$effect-duration-hover
+      variables.$ease-smooth;
+
+    @include mixin.on-reduced-motion {
+      transition: none;
+    }
+  }
+
+  &__svg {
+    display: block;
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+  }
+
+  &__label {
+    font-family: variables.$font-family-roboto;
+    font-size: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 8px;
+    white-space: nowrap;
+  }
+
+  &--landing &__link {
+    @include mixin.on-tablet {
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: 3px;
+      justify-content: center;
+    }
+  }
+
+  @include mixin.on-hover-capable {
+    &__link:hover &__icon {
+      transform: scale(1.06);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &__link:hover &__icon {
+      transform: none;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+/**
+ * Layout breakpoint values — must stay in sync with src/styles/blocks/variables.scss.
+ */
+export const MOBILE_MIN_WIDTH = 320;
+export const TABLET_MIN_WIDTH = 744;
+export const DESKTOP_MIN_WIDTH = 1260;
+export const LARGE_DESKTOP_MIN_WIDTH = 1440;
+
+export function isMobileLayout(): boolean {
+  return !window.matchMedia(`(min-width: ${TABLET_MIN_WIDTH}px)`).matches;
+}
+
+export function isTabletLayout(): boolean {
+  return (
+    window.matchMedia(`(min-width: ${TABLET_MIN_WIDTH}px)`).matches &&
+    !window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`).matches
+  );
+}

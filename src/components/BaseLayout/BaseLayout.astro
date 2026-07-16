@@ -1,16 +1,20 @@
 ---
 import "../../styles/global.scss";
 import Header from "../Header.astro";
+import GalleryScrollReveal from "../GalleryScrollReveal.astro";
+
+export type PageSurface = "default" | "landing";
 
 interface Props {
   title: string;
+  surface?: PageSurface;
 }
 
-const { title } = Astro.props;
+const { title, surface = "default" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class:list={[{ "html--landing": surface === "landing" }]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,11 +62,13 @@ const { title } = Astro.props;
     </script>
   </head>
   <body>
-    <Header />
+    <Header surface={surface} />
 
     <slot />
 
     <slot name="scripts" />
+
+    <GalleryScrollReveal />
 
     <script>
       import "./LanguageSwitcher.client.ts";

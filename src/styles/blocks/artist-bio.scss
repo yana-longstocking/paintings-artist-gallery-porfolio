@@ -1,30 +1,167 @@
 @use "mixin";
 @use "variables";
 
+@keyframes artist-bio-title-line-enter {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
 .artist-bio {
-  padding-bottom: 100px;
+  &--landing {
+    position: relative;
+    z-index: 1;
+    padding-bottom: 40px;
+
+    @include mixin.on-tablet {
+      padding-bottom: 88px;
+    }
+
+    @include mixin.on-large-desktop {
+      padding-bottom: 48px;
+    }
+  }
 
   @include mixin.on-tablet {
-    padding-bottom: 140px;
+    &--reveal &__title {
+      opacity: 0;
+      transform: translateY(variables.$reveal-offset-y-large);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+
+      &::after {
+        transform: scaleX(0);
+        opacity: 0;
+      }
+    }
+
+    &--reveal &__image {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
+
+    &--reveal &__text {
+      opacity: 0;
+      transform: translateX(36px);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-smooth,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
+
+    &--visible &__title {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.1s;
+
+      &::after {
+        animation: artist-bio-title-line-enter
+          variables.$reveal-duration-opacity variables.$ease-emphasized 0.38s
+          both;
+      }
+    }
+
+    &--content-visible &__image {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.1s;
+    }
+
+    &--text-visible &__text {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.1s;
+    }
+  }
+
+  @include mixin.on-desktop {
+    &--content-visible &__text {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.1s;
+    }
+
+    &--text-visible:not(&--content-visible) &__text {
+      opacity: 0;
+      transform: translateX(36px);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &--reveal &__title,
+    &--reveal &__image,
+    &--reveal &__text {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    &--reveal &__title::after {
+      transform: none;
+      opacity: 1;
+      animation: none;
+    }
   }
 
   &__title {
-    font-family: "Cinzel", sans-serif;
+    position: relative;
+    font-family: variables.$font-family-cinzel;
     font-size: 32px;
     font-weight: 700;
     line-height: 32px;
     text-align: center;
     color: variables.$main-color;
-    padding-bottom: 40px;
+    padding-bottom: 14px;
+    margin-bottom: 26px;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: variables.$accent-line-offset-bottom;
+      width: 84px;
+      height: variables.$accent-line-height;
+      margin-inline: auto;
+      border-radius: variables.$border-radius-accent;
+      transform-origin: center;
+      background: variables.$accent-line-gradient;
+    }
 
     @include mixin.on-tablet {
-      padding-bottom: 48px;
+      padding-bottom: 16px;
+      margin-bottom: 32px;
       font-size: 48px;
       line-height: 48px;
+
+      &::after {
+        width: 120px;
+      }
     }
 
     @include mixin.on-desktop {
-      padding-bottom: 60px;
+      padding-bottom: 18px;
+      margin-bottom: 80px;
+
+      &::after {
+        width: 160px;
+      }
     }
   }
 
@@ -36,43 +173,36 @@
       flex-direction: row;
       align-items: center;
       gap: 50px;
+      margin-bottom: 100px;
     }
   }
 
   &__image {
-    transition: all variables.$effect-duration variables.$transition;
-
-    &:hover {
-      transform: variables.$transform-hover variables.$scale-min-hover;
-
-      &::before {
-        opacity: 0.1;
-      }
+    @include mixin.on-tablet {
+      margin-inline: auto;
     }
   }
 
   &__image-img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline: auto;
     width: 100%;
-    height: 100%;
     margin-bottom: 40px;
     object-fit: cover;
     object-position: center;
-    border-radius: 20px;
     box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
     border: 3px solid rgba(255, 255, 255, 0.8);
+    transition: transform variables.$effect-duration variables.$transition;
+
+    @include mixin.on-hover-capable {
+      &:hover {
+        transform: variables.$transform-hover variables.$scale-min-hover;
+      }
+    }
 
     @include mixin.on-tablet {
       width: 350px;
       height: 450px;
-
-      &:hover {
-        box-shadow: variables.$box-shadow-hover;
-        transform: variables.$scale-min-hover;
-      }
     }
 
     @include mixin.on-desktop {
@@ -83,51 +213,62 @@
   }
 
   &__text {
-    font-family: "Cinzel", sans-serif;
+    font-family: variables.$font-family-cinzel;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     color: variables.$main-color;
     text-align: center;
     position: relative;
-    padding: 30px 30px;
+    padding: 25px 36px 80px;
 
     &::before {
       content: '"';
       position: absolute;
-      top: -5px;
-      left: 25px;
+      top: 0;
+      left: 28px;
       font-size: 80px;
       color: variables.$hover-color;
-      font-family: "Cinzel", sans-serif;
-      line-height: 1;
+      font-family: variables.$font-family-cinzel;
+      line-height: 80px;
       opacity: 0.2;
     }
 
     &::after {
       content: '"';
       position: absolute;
-      bottom: -50px;
-      right: 25px;
+      bottom: 0;
+      right: 28px;
       font-size: 80px;
       color: variables.$background-color;
-      font-family: "Cinzel", sans-serif;
-      line-height: 1;
+      font-family: variables.$font-family-cinzel;
+      line-height: 80px;
       opacity: 0.2;
-
-      @include mixin.on-desktop {
-        bottom: -40px;
-      }
     }
 
     @include mixin.on-tablet {
       font-size: 16px;
-      line-height: 27px;
-      padding: 50px 60px;
+      line-height: variables.$line-height-body-27;
+      padding: 45px 60px 100px;
+
+      &::before {
+        left: 25px;
+      }
+
+      &::after {
+        right: 25px;
+      }
     }
 
     @include mixin.on-desktop {
       text-align: left;
+      padding-bottom: 90px;
+    }
+  }
+
+  &--landing &__text {
+    @include mixin.on-tablet {
+      padding-bottom: 72px;
     }
   }
 }

@@ -1,72 +1,122 @@
 @use "mixin";
 @use "variables";
+@use "gallery-page-mixins";
 
 .photo-art {
-  padding-bottom: 24px;
-  cursor: pointer;
+  padding-top: 50px;
 
-  &__grid {
-    @include mixin.page-grid;
+  @include mixin.on-tablet {
+    padding-top: 0;
+    padding-bottom: variables.$gallery-section-padding-bottom-tablet;
+  }
+
+  @include mixin.on-desktop {
+    padding-bottom: variables.$gallery-section-padding-bottom-desktop;
+  }
+
+  &__title {
+    @include gallery-page-mixins.gallery-page-collection-title-typography;
+    @include gallery-page-mixins.gallery-page-section-title-accent;
+    @include gallery-page-mixins.gallery-page-reveal-title;
+    color: variables.$main-color;
+    text-align: left;
+    padding-bottom: 14px;
+    margin-bottom: variables.$gallery-page-mobile-item-gap -
+      variables.$accent-line-offset-bottom;
 
     @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 0;
+      padding-bottom: 10px;
+    }
+  }
+
+  &__grid {
+    @include gallery-page-mixins.gallery-page-mobile-stack;
+
+    @include mixin.on-tablet {
+      display: grid;
+      grid-template-columns:
+        variables.$gallery-grid-column-fluid variables.$gallery-grid-column-fluid
+        minmax(0, 2fr);
+      @include gallery-page-mixins.gallery-page-tablet-equal-rows;
+      align-items: stretch;
+      gap: variables.$gallery-grid-gap-tablet;
+      margin-top: 30px;
     }
 
     @include mixin.on-desktop {
-      grid-template-columns: repeat(3, 1fr);
+      margin-top: 48px;
+      gap: variables.$gallery-grid-gap-desktop;
     }
   }
 
   &__item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: variables.$box-shadow;
-    transition: all variables.$effect-duration variables.$transition;
+    @include gallery-page-mixins.gallery-page-card-item;
+    @include gallery-page-mixins.gallery-page-reveal-card;
 
     @include mixin.on-tablet {
-      &:hover {
-        box-shadow: variables.$box-shadow-hover;
-        transform: variables.$scale-min-hover;
+      @include gallery-page-mixins.gallery-page-tablet-cover-item;
+    }
+
+    &--featured {
+      @include mixin.on-tablet {
+        grid-column: 3;
+        grid-row: 1 / 3;
+        @include gallery-page-mixins.gallery-page-tablet-portrait-featured;
       }
     }
 
-    @include mixin.on-desktop {
-      transform: variables.$transform-hover;
+    &--2 {
+      @include mixin.on-tablet {
+        grid-column: 1;
+        grid-row: 1;
+      }
     }
+
+    &--3 {
+      @include mixin.on-tablet {
+        grid-column: 2;
+        grid-row: 1;
+      }
+    }
+
+    &--4 {
+      @include mixin.on-tablet {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
+    &--5 {
+      @include mixin.on-tablet {
+        grid-column: 2;
+        grid-row: 2;
+      }
+    }
+  }
+
+  &__link {
+    @include gallery-page-mixins.gallery-page-grid-item-link;
   }
 
   &__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: transform variables.$effect-duration variables.$transition;
-    border-radius: 12px;
+    @include gallery-page-mixins.gallery-page-card-image;
+    object-fit: unset;
+  }
 
-    @include mixin.on-desktop {
-      transform: variables.$scale-min-hover;
+  @include mixin.on-tablet {
+    &__link {
+      @include gallery-page-mixins.gallery-page-tablet-cover-link;
+    }
+
+    &__image {
+      @include gallery-page-mixins.gallery-page-tablet-cover-image;
     }
   }
 
-  &__title {
-    font-family: "Cinzel", sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 30px;
-    padding-bottom: 24px;
-    color: variables.$background-color;
-    text-align: center;
-
-    @include mixin.on-tablet {
-      font-size: 32px;
-      padding-bottom: 32px;
-      line-height: 140%;
-    }
-
-    @include mixin.on-desktop {
-      text-align: left;
+  @include mixin.on-hover-capable {
+    &__link:hover {
+      @include gallery-page-mixins.gallery-hover-link-active;
     }
   }
 }

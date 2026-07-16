@@ -24,7 +24,7 @@
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
     z-index: 1000;
-    transition: opacity 0.2s ease-out;
+    transition: opacity variables.$effect-duration-short ease-out;
     transform: translateX(0);
 
     @include mixin.on-tablet {

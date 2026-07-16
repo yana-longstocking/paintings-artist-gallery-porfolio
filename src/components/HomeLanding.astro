@@ -1,0 +1,167 @@
+---
+import HeroMosaic from "./HeroMosaic.astro";
+import ArtistBio from "./ArtistBio.astro";
+import ContactFooter from "./ContactFooter.astro";
+import type { GalleryData } from "../types/gallery";
+import type { HomeTranslations } from "../i18n/types";
+
+interface Props {
+  galleryData: GalleryData;
+  artworkLinkPrefix: string;
+  galleryHref: string;
+  translations: HomeTranslations;
+}
+
+const {
+  galleryData: data,
+  artworkLinkPrefix,
+  galleryHref,
+  translations,
+} = Astro.props;
+
+type MosaicItem = { id: string; src: string; alt: string };
+
+const featuredPiece: MosaicItem = {
+  id: data.galleryContent.featured.id,
+  src: data.galleryContent.featured.src,
+  alt: data.galleryContent.featured.alt,
+};
+
+const mosaicBuckets: MosaicItem[][] = [
+  data.freedomCollection as MosaicItem[],
+  data.allPaintingCollection as MosaicItem[],
+  data.artCollection as MosaicItem[],
+  data.galleryContent.items as MosaicItem[],
+];
+
+const seenIds = new Set<string>([featuredPiece.id]);
+const sidePicks: MosaicItem[] = [];
+const cursor = [0, 0, 0, 0];
+
+const takeNextFrom = (bucketIndex: number): MosaicItem | null => {
+  const list = mosaicBuckets[bucketIndex];
+  while (cursor[bucketIndex] < list.length) {
+    const p = list[cursor[bucketIndex]++];
+    if (seenIds.has(p.id)) continue;
+    seenIds.add(p.id);
+    return p;
+  }
+  return null;
+};
+
+while (sidePicks.length < 6) {
+  let addedThisRound = false;
+  for (let b = 0; b < mosaicBuckets.length; b++) {
+    if (sidePicks.length >= 6) break;
+    const next = takeNextFrom(b);
+    if (next) {
+      sidePicks.push(next);
+      addedThisRound = true;
+    }
+  }
+  if (!addedThisRound) break;
+}
+
+if (sidePicks.length < 6) {
+  const fallback = [
+    ...(data.freedomCollection as MosaicItem[]),
+    ...(data.allPaintingCollection as MosaicItem[]),
+    ...(data.artCollection as MosaicItem[]),
+    ...(data.galleryContent.items as MosaicItem[]),
+  ];
+  for (const p of fallback) {
+    if (sidePicks.length >= 6) break;
+    if (seenIds.has(p.id)) continue;
+    seenIds.add(p.id);
+    sidePicks.push(p);
+  }
+}
+
+const isFreedomSeries = (p: MosaicItem) => p.id.startsWith("series-freedom-");
+const freedomIdx = sidePicks
+  .map((p, i) => (isFreedomSeries(p) ? i : -1))
+  .filter((i) => i >= 0);
+if (freedomIdx.length >= 2) {
+  const usedIds = new Set<string>([
+    featuredPiece.id,
+    ...sidePicks.map((p) => p.id),
+  ]);
+  const pool: MosaicItem[] = [
+    ...(data.allPaintingCollection as MosaicItem[]),
+    ...(data.artCollection as MosaicItem[]),
+    ...(data.galleryContent.items as MosaicItem[]),
+  ];
+  const replacement = pool.find(
+    (p) => !usedIds.has(p.id) && !isFreedomSeries(p),
+  );
+  if (replacement) {
+    sidePicks[freedomIdx[1]] = replacement;
+  }
+}
+
+const findMosaicItem = (id: string): MosaicItem | undefined => {
+  const all: MosaicItem[] = [
+    ...(data.freedomCollection as MosaicItem[]),
+    ...(data.allPaintingCollection as MosaicItem[]),
+    ...(data.artCollection as MosaicItem[]),
+    data.galleryContent.featured as MosaicItem,
+    ...(data.galleryContent.items as MosaicItem[]),
+  ];
+  return all.find((item) => item.id === id);
+};
+
+const mapDancerForHero = (p: MosaicItem): MosaicItem => {
+  if (p.id !== "dancer") return p;
+  const replacement = findMosaicItem("pretty-girls-do-cry-2");
+  return replacement ?? p;
+};
+
+const heroMosaicPieces = [
+  sidePicks[0],
+  sidePicks[1],
+  sidePicks[2],
+  featuredPiece,
+  sidePicks[3],
+  sidePicks[4],
+  sidePicks[5],
+]
+  .filter((p): p is MosaicItem => Boolean(p))
+  .map(mapDancerForHero)
+  .map((p) => ({ id: p.id, src: p.src, alt: p.alt }));
+---
+
+<main class="hero-mosaic">
+  <div class="hero-mosaic__viewport">
+    <HeroMosaic
+      pieces={heroMosaicPieces}
+      artworkLinkPrefix={artworkLinkPrefix}
+      galleryHref={galleryHref}
+      galleryLabel={translations.viewAllWorksLabel}
+      mobileHeroTagline={translations.mobileHeroTagline}
+    />
+  </div>
+</main>
+
+<ArtistBio
+  variant="landing"
+  title={translations.artistBioTitle}
+  text={translations.artistBioText}
+  image={data.artistBio}
+/>
+
+<ContactFooter
+  title={translations.footerTitle}
+  formNamePlaceholder={translations.footerFormNamePlaceholder}
+  formEmailPlaceholder={translations.footerFormEmailPlaceholder}
+  formMessagePlaceholder={translations.footerFormMessagePlaceholder}
+  formButtonText={translations.footerFormButtonText}
+  formSendingText={translations.footerFormSendingText}
+  formSuccessMessage={translations.footerFormSuccessMessage}
+  formErrorMessage={translations.footerFormErrorMessage}
+  formErrorGeneric={translations.footerFormErrorGeneric}
+  contactTitle={translations.footerContactTitle}
+  contactLabelEmail={translations.footerContactLabelEmail}
+  contactLabelAddress={translations.footerContactLabelAddress}
+  contactAddress={translations.footerContactAddress}
+  copyright={translations.footerCopyright}
+/>

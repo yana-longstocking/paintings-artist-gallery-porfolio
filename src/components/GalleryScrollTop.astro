@@ -1,0 +1,35 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="gallery-page__scroll-top-wrap">
+  <button
+    type="button"
+    class="gallery-page__scroll-top"
+    aria-label={label}
+    title={label}
+  >
+    <svg
+      class="gallery-page__scroll-top-icon"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 18V6M7 11l5-5 5 5"></path>
+    </svg>
+  </button>
+  <span class="gallery-page__scroll-top-accent" aria-hidden="true"></span>
+</div>
+
+<script src="./GalleryScrollTop.client.ts"></script>

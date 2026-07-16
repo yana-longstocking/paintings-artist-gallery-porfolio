@@ -1,0 +1,45 @@
+---
+import ContactActionButtons from "./ContactActionButtons.astro";
+
+interface Props {
+  copyright: string;
+  contactTitle: string;
+  emailLabel: string;
+  address: string;
+}
+
+const { copyright, contactTitle, emailLabel, address } = Astro.props;
+
+const email = "iryromanska@gmail.com";
+const instagram =
+  "https://www.instagram.com/romanska13?igsh=MXcxdGticmZvd3Y4bQ==";
+---
+
+<footer class="gallery-page__footer" id="contact-us">
+  <div
+    class="container gallery-page__footer-shell gallery-page__section--reveal"
+  >
+    <div class="gallery-page__footer-split">
+      <div>
+        <h2 class="gallery-page__footer-heading gallery-page__target">
+          {contactTitle}
+        </h2>
+        <p class="gallery-page__footer-lead gallery-page__target">
+          {address} · Iryna Romanska
+        </p>
+      </div>
+
+      <ContactActionButtons
+        emailLabel={emailLabel}
+        instagramLabel="Instagram"
+        email={email}
+        instagramUrl={instagram}
+        actionClass="gallery-page__target"
+      />
+    </div>
+
+    <p class="gallery-page__footer-copy gallery-page__target">
+      {copyright}
+    </p>
+  </div>
+</footer>

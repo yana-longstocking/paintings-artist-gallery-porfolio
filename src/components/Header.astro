@@ -1,14 +1,39 @@
 ---
+import type { PageSurface } from "./BaseLayout/BaseLayout.astro";
+
+interface Props {
+  surface?: PageSurface;
+}
+
+const { surface = "default" } = Astro.props;
+
 const pathname = Astro.url.pathname;
 const isSpanish = pathname.startsWith("/es");
 const homeHref = isSpanish ? "/es/" : "/";
+const galleryHref = isSpanish ? "/es/gallery" : "/gallery";
+const isGalleryPage = pathname === "/gallery" || pathname === "/es/gallery";
+const isArtworkPage = /^\/(?:es\/)?artwork\//.test(pathname);
+const isHomePage =
+  pathname === "/" || pathname === "/es" || pathname === "/es/";
 ---
 
-<header class="header">
+<header
+  class:list={[
+    "header",
+    surface === "landing" && "header--landing",
+    isGalleryPage && "header--gallery",
+    isArtworkPage && "header--artwork",
+  ]}
+>
   <div class="container">
     <nav class="header__nav">
       <div class="header__logo">
-        <a href={homeHref} class="header__logo-link">
+        <a
+          href={homeHref}
+          class="header__logo-link"
+          data-home-logo
+          data-is-home={isHomePage ? "true" : "false"}
+        >
           <img
             src="/icons/logo.svg"
             alt="portfolio"
@@ -28,24 +53,23 @@ const homeHref = isSpanish ? "/es/" : "/";
             />
           </div>
           <ul class="header__menu-list">
-            <li>
-              <a href={`${homeHref}#gallery`} class="header__menu-link"
-                >Gallery</a
-              >
+            <li class="header__menu-item header__menu-item--1">
+              <a href={galleryHref} class="header__menu-link">Gallery</a>
             </li>
-            <li>
+            <li class="header__menu-item header__menu-item--2">
               <a href={`${homeHref}#artist-bio`} class="header__menu-link"
                 >Artist Bio</a
               >
             </li>
-            <li>
+            <li class="header__menu-item header__menu-item--3">
               <a href={`${homeHref}#contact-us`} class="header__menu-link"
                 >Contact us</a
               >
             </li>
 
             <li class="header__close">
-              <a href="#" class="header__close-btn"> × </a>
+              <a href="#" class="header__close-btn" aria-label="Close menu">×</a
+              >
             </li>
           </ul>
         </div>
@@ -174,3 +198,5 @@ const homeHref = isSpanish ? "/es/" : "/";
     </nav>
   </div>
 </header>
+
+<script src="./Header.client.ts"></script>
