@@ -293,6 +293,11 @@
         padding: 0 4px 60px;
         transform: none;
       }
+
+      @include mixin.on-large-desktop {
+        padding: 0 4px;
+        transform: translateY(-20px);
+      }
     }
   }
 

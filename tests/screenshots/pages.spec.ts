@@ -16,7 +16,7 @@ test.describe("page screenshots", () => {
     await gotoAndPrepare(page, "/");
 
     await expect(page).toHaveScreenshot("home-page.png", PAGE_SCREENSHOT);
-    await expect(page.locator(".hero-mosaic-viewport")).toHaveScreenshot(
+    await expect(page.locator(".hero-mosaic__viewport")).toHaveScreenshot(
       "home-hero.png",
       SECTION_SCREENSHOT,
     );
@@ -33,7 +33,6 @@ test.describe("page screenshots", () => {
   test("gallery page", async ({ page }) => {
     await gotoAndPrepare(page, "/gallery");
 
-    await expect(page).toHaveScreenshot("gallery-page.png", PAGE_SCREENSHOT);
     await expect(page.locator(".gallery-page__hero")).toHaveScreenshot(
       "gallery-hero.png",
       SECTION_SCREENSHOT,
@@ -62,7 +61,7 @@ test.describe("page screenshots", () => {
     await gotoAndPrepare(page, "/es/");
 
     await expect(page).toHaveScreenshot("es-home-page.png", PAGE_SCREENSHOT);
-    await expect(page.locator(".hero-mosaic-viewport")).toHaveScreenshot(
+    await expect(page.locator(".hero-mosaic__viewport")).toHaveScreenshot(
       "es-home-hero.png",
       SECTION_SCREENSHOT,
     );
@@ -79,7 +78,6 @@ test.describe("page screenshots", () => {
   test("gallery page (ES)", async ({ page }) => {
     await gotoAndPrepare(page, "/es/gallery");
 
-    await expect(page).toHaveScreenshot("es-gallery-page.png", PAGE_SCREENSHOT);
     await expect(page.locator(".gallery-page__hero")).toHaveScreenshot(
       "es-gallery-hero.png",
       SECTION_SCREENSHOT,

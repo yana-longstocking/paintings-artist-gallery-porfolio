@@ -9,3 +9,10 @@ export const LARGE_DESKTOP_MIN_WIDTH = 1600;
 export function isMobileLayout(): boolean {
   return !window.matchMedia(`(min-width: ${TABLET_MIN_WIDTH}px)`).matches;
 }
+
+export function isTabletLayout(): boolean {
+  return (
+    window.matchMedia(`(min-width: ${TABLET_MIN_WIDTH}px)`).matches &&
+    !window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`).matches
+  );
+}

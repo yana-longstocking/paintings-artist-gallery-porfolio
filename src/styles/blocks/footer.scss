@@ -51,7 +51,7 @@
   @include mixin.on-tablet {
     &--scroll-reveal &__heading {
       opacity: 0;
-      transform: translateY(36px);
+      transform: translateY(variables.$reveal-offset-y-large);
       transition:
         opacity variables.$reveal-duration-opacity variables.$ease-smooth,
         transform variables.$reveal-duration-transform
@@ -68,7 +68,7 @@
     &--scroll-reveal &__message,
     &--scroll-reveal &__success {
       opacity: 0;
-      transform: translateX(-36px);
+      transform: translate(-36px, variables.$reveal-offset-y-large);
       transition:
         opacity variables.$reveal-duration-opacity variables.$ease-smooth,
         transform variables.$reveal-duration-transform
@@ -87,7 +87,7 @@
     &--scroll-reveal &__contact-item,
     &--scroll-reveal &__contact-actions {
       opacity: 0;
-      transform: translateX(36px);
+      transform: translate(36px, variables.$reveal-offset-y-large);
       transition:
         opacity variables.$reveal-duration-opacity variables.$ease-smooth,
         transform variables.$reveal-duration-transform
@@ -119,7 +119,7 @@
     &--scroll-reveal &__form-section--content-visible &__message,
     &--scroll-reveal &__form-section--content-visible &__success {
       opacity: 1;
-      transform: translateX(0);
+      transform: translate(0, 0);
       transition-delay: 0.1s;
     }
 
@@ -132,13 +132,13 @@
 
     &--scroll-reveal &__contact-section--content-visible &__contact-item {
       opacity: 1;
-      transform: translateX(0);
+      transform: translate(0, 0);
       transition-delay: 0.1s;
     }
 
     &--scroll-reveal &__contact-section--content-visible &__contact-actions {
       opacity: 1;
-      transform: translateX(0);
+      transform: translate(0, 0);
       transition-delay: 0.22s;
     }
 
@@ -241,6 +241,10 @@
     @include mixin.on-desktop {
       gap: 64px;
       grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    }
+
+    @include mixin.on-large-desktop {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

@@ -161,10 +161,7 @@
     }
 
     @include mixin.on-desktop {
-      padding-top: 50px;
-      padding-right: 0;
       padding-bottom: 24px;
-      padding-left: 0;
       font-size: 20px;
       line-height: 28px;
       text-align: left;
@@ -316,15 +313,11 @@
       flex: 1 1 auto;
       width: 100%;
       margin: 0;
-      gap: 12px;
+      gap: 28px;
       min-height: 0;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-rows: repeat(2, minmax(0, 1fr));
       align-content: stretch;
-    }
-
-    @include mixin.on-large-desktop {
-      gap: 28px;
     }
   }
 

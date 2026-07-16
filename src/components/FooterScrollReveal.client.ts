@@ -1,4 +1,11 @@
-import { isMobileLayout } from "../constants/breakpoints";
+import {
+  isMobileLayout,
+  isTabletLayout,
+} from "../constants/breakpoints";
+
+const MIN_SCROLL_PX = 40;
+const CONTENT_DELAY_MS = 240;
+const BUTTON_DELAY_MS = 520;
 
 function initFooterScrollReveal(): void {
   const footer = document.querySelector(".footer--scroll-reveal");
@@ -7,6 +14,9 @@ function initFooterScrollReveal(): void {
   const formSection = footer.querySelector(".footer__form-section");
   const contactSection = footer.querySelector(".footer__contact-section");
   if (!formSection || !contactSection) return;
+
+  const heading = footer.querySelector(".footer__heading");
+  const copyright = footer.querySelector(".footer__copyright-text");
 
   const revealFormContent = () =>
     formSection.classList.add("footer__form-section--content-visible");
@@ -34,132 +44,126 @@ function initFooterScrollReveal(): void {
     return;
   }
 
-  if (window.location.hash === "#contact-us") {
-    revealAll();
-    return;
-  }
+  // Start only when the block is clearly on screen, so the slide-up is visible.
+  const enterRatio = isTabletLayout() ? 0.72 : 0.78;
 
-  const minScroll = 40;
-  let headingDone = false;
-  let formContentDone = false;
-  let contactContentDone = false;
-  let buttonDone = false;
-  let copyrightDone = false;
+  let sequenceStarted = false;
+  let copyrightDone = !copyright;
+  let contentTimer: number | null = null;
   let buttonTimer: number | null = null;
+  const observers: IntersectionObserver[] = [];
 
   const cleanup = () => {
     window.removeEventListener("scroll", onScroll);
-    headingObserver.disconnect();
-    formContentObserver.disconnect();
-    contactContentObserver.disconnect();
-    copyrightObserver.disconnect();
+    observers.forEach((observer) => observer.disconnect());
+    if (contentTimer !== null) {
+      window.clearTimeout(contentTimer);
+      contentTimer = null;
+    }
+    if (buttonTimer !== null) {
+      window.clearTimeout(buttonTimer);
+      buttonTimer = null;
+    }
   };
 
-  const tryRevealButton = () => {
-    if (buttonDone || !formContentDone) return;
+  const maybeCleanup = () => {
+    if (!sequenceStarted || !copyrightDone) return;
+    if (contentTimer !== null || buttonTimer !== null) return;
+    cleanup();
+  };
 
-    const button = footer.querySelector(".footer__button");
-    if (!button) return;
+  const isEntering = (target: Element, ratio = enterRatio) => {
+    const rect = target.getBoundingClientRect();
+    return rect.top < window.innerHeight * ratio && rect.bottom > 0;
+  };
 
-    const rect = button.getBoundingClientRect();
-    if (rect.top >= window.innerHeight * 0.98) return;
+  const startSequence = () => {
+    if (sequenceStarted) return;
+    sequenceStarted = true;
 
-    buttonDone = true;
-    buttonTimer = window.setTimeout(() => {
-      buttonTimer = null;
-      revealButton();
-      if (copyrightDone) cleanup();
-    }, 180);
+    // Double rAF so opacity/transform transitions always run.
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        revealHeading();
+
+        contentTimer = window.setTimeout(() => {
+          contentTimer = null;
+          revealFormContent();
+          revealContactContent();
+          maybeCleanup();
+        }, CONTENT_DELAY_MS);
+
+        buttonTimer = window.setTimeout(() => {
+          buttonTimer = null;
+          revealButton();
+          maybeCleanup();
+        }, BUTTON_DELAY_MS);
+
+        tryRevealCopyright();
+      });
+    });
+  };
+
+  const tryStartSequence = () => {
+    if (sequenceStarted) return;
+    if (window.scrollY < MIN_SCROLL_PX) return;
+
+    const trigger = heading ?? formSection;
+    if (!isEntering(trigger)) return;
+
+    startSequence();
   };
 
   const tryRevealCopyright = () => {
-    if (copyrightDone) return;
-    if (window.scrollY < minScroll) return;
-
-    const copyright = footer.querySelector(".footer__copyright-text");
-    if (!copyright) return;
-
-    const rect = copyright.getBoundingClientRect();
-    if (rect.top >= window.innerHeight) return;
+    if (copyrightDone || !copyright) return;
+    if (!sequenceStarted) return;
+    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (!isEntering(copyright, 1)) return;
 
     copyrightDone = true;
     revealCopyright();
-    if (buttonDone && !buttonTimer) cleanup();
-  };
-
-  const tryRevealHeading = () => {
-    if (headingDone) return;
-    if (window.scrollY < minScroll) return;
-
-    const heading = footer.querySelector(".footer__heading");
-    const target = heading ?? formSection;
-    const rect = target.getBoundingClientRect();
-    if (rect.top >= window.innerHeight) return;
-
-    headingDone = true;
-    revealHeading();
-  };
-
-  const tryRevealFormContent = () => {
-    if (formContentDone) return;
-    if (window.scrollY < minScroll) return;
-
-    const rect = formSection.getBoundingClientRect();
-    if (rect.top >= window.innerHeight * 0.9) return;
-
-    formContentDone = true;
-    revealFormContent();
-    tryRevealButton();
-  };
-
-  const tryRevealContactContent = () => {
-    if (contactContentDone) return;
-    if (window.scrollY < minScroll) return;
-
-    const rect = contactSection.getBoundingClientRect();
-    if (rect.top >= window.innerHeight * 0.9) return;
-
-    contactContentDone = true;
-    revealContactContent();
-    tryRevealButton();
+    maybeCleanup();
   };
 
   const onScroll = () => {
-    tryRevealHeading();
-    tryRevealFormContent();
-    tryRevealContactContent();
-    tryRevealButton();
+    tryStartSequence();
     tryRevealCopyright();
   };
 
-  const observerOptions: IntersectionObserverInit = {
-    threshold: 0,
+  const observe = (target: Element | null, handler: () => void) => {
+    if (!target) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        handler();
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -12% 0px",
+      },
+    );
+    observer.observe(target);
+    observers.push(observer);
   };
 
-  const headingEl = footer.querySelector(".footer__heading");
-  const headingObserver = new IntersectionObserver(
-    () => tryRevealHeading(),
-    observerOptions,
-  );
-  const formContentObserver = new IntersectionObserver(
-    () => tryRevealFormContent(),
-    observerOptions,
-  );
-  const contactContentObserver = new IntersectionObserver(
-    () => tryRevealContactContent(),
-    observerOptions,
-  );
-  const copyrightEl = footer.querySelector(".footer__copyright-text");
-  const copyrightObserver = new IntersectionObserver(
-    () => tryRevealCopyright(),
-    observerOptions,
-  );
+  observe(heading ?? footer, tryStartSequence);
+  observe(formSection, tryStartSequence);
+  observe(copyright, tryRevealCopyright);
 
-  if (headingEl) headingObserver.observe(headingEl);
-  formContentObserver.observe(formSection);
-  contactContentObserver.observe(contactSection);
-  if (copyrightEl) copyrightObserver.observe(copyrightEl);
   window.addEventListener("scroll", onScroll, { passive: true });
+
+  if (window.location.hash === "#contact-us") {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        startSequence();
+        copyrightDone = true;
+        revealCopyright();
+        maybeCleanup();
+      });
+    });
+    return;
+  }
+
   onScroll();
 }
 

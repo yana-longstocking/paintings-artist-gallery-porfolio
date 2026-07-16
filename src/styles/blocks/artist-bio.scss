@@ -26,6 +26,10 @@
     @include mixin.on-tablet {
       padding-bottom: 88px;
     }
+
+    @include mixin.on-large-desktop {
+      padding-bottom: 48px;
+    }
   }
 
   @include mixin.on-tablet {

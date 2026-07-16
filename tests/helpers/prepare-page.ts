@@ -34,23 +34,25 @@ export async function preparePageForScreenshot(page: Page): Promise<void> {
   await page.evaluate(() => {
     document
       .querySelector(".artist-bio--reveal")
-      ?.classList.add("artist-bio--visible", "artist-bio--content-visible");
+      ?.classList.add(
+        "artist-bio--visible",
+        "artist-bio--content-visible",
+        "artist-bio--text-visible",
+      );
 
     const footer = document.querySelector(".footer--scroll-reveal");
     if (footer) {
       footer
         .querySelector(".footer__form-section")
-        ?.classList.add(
-          "footer__form-section--visible",
-          "footer__form-section--content-visible",
-        );
+        ?.classList.add("footer__form-section--content-visible");
       footer
         .querySelector(".footer__contact-section")
-        ?.classList.add(
-          "footer__contact-section--visible",
-          "footer__contact-section--content-visible",
-        );
-      footer.classList.add("footer--button-visible");
+        ?.classList.add("footer__contact-section--content-visible");
+      footer.classList.add(
+        "footer--heading-visible",
+        "footer--button-visible",
+        "footer--copyright-visible",
+      );
     }
 
     const galleryRevealSelector =
@@ -62,5 +64,33 @@ export async function preparePageForScreenshot(page: Page): Promise<void> {
         "gallery-page__target--visible",
       );
     });
+
+    document.querySelectorAll(".artwork-detail__target").forEach((target) => {
+      target.classList.add("artwork-detail__target--visible");
+    });
+    document
+      .querySelectorAll(
+        [
+          ".artwork-detail__main-image",
+          ".artwork-detail__title",
+          ".artwork-detail__description",
+          ".artwork-detail__medium",
+          ".artwork-detail__size",
+          ".artwork-detail__price",
+          ".artwork-detail__additional-title",
+          ".artwork-detail__gallery-item",
+          ".artwork-detail__footer-title",
+          ".artwork-detail__footer-text",
+          ".artwork-detail__footer-link",
+          ".artwork-detail__footer-actions",
+          ".artwork-detail__footer-copyright",
+        ].join(", "),
+      )
+      .forEach((target) => {
+        target.classList.add(
+          "artwork-detail__target",
+          "artwork-detail__target--visible",
+        );
+      });
   });
 }
