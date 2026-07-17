@@ -14,22 +14,6 @@
   }
 }
 
-@keyframes gallery-page-hero-title-in {
-  0% {
-    opacity: 0;
-    color: variables.$gallery-page-hero-muted-color;
-    transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
-    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
-  }
-
-  100% {
-    opacity: 1;
-    color: variables.$main-color;
-    transform: translateY(0) scale(1);
-    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-mobile;
-  }
-}
-
 @include mixin.on-tablet {
   @keyframes gallery-page-hero-title-in {
     0% {
@@ -111,6 +95,14 @@
 }
 
 .gallery-page {
+  @include mixin.on-tablet {
+    overflow-x: hidden;
+
+    @include mixin.on-desktop {
+      overflow-x: visible;
+    }
+  }
+
   &__hero {
     padding: 115px 0 24px;
 
@@ -290,7 +282,7 @@
 
   &__footer {
     @include mixin.on-tablet {
-      overflow: clip;
+      overflow: hidden;
 
       @include mixin.on-desktop {
         overflow: visible;

@@ -8,9 +8,13 @@ body {
   @include mixin.page-background;
 
   @include mixin.on-tablet {
+    width: 100%;
+    max-width: 100%;
     background-attachment: scroll;
 
     @include mixin.on-desktop {
+      width: auto;
+      max-width: none;
       background-attachment: fixed;
     }
   }
@@ -21,7 +25,7 @@ html {
 
   @include mixin.on-tablet {
     min-height: auto;
-    overflow-x: clip;
+    overflow-x: hidden;
     background: none;
 
     @include mixin.on-desktop {
@@ -39,7 +43,7 @@ html {
 
 body {
   @include mixin.on-tablet {
-    overflow-x: clip;
+    overflow-x: hidden;
 
     @include mixin.on-desktop {
       overflow-x: visible;

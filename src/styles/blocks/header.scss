@@ -88,28 +88,32 @@
     }
 
     @include mixin.on-tablet {
+      width: auto;
+      height: auto;
+      left: auto;
+      top: auto;
+      right: auto;
+      bottom: auto;
+
       &:not(:target) {
-        visibility: hidden;
-        pointer-events: none;
-        inset: auto;
-        width: 0;
-        height: 0;
-        overflow: hidden;
+        display: none;
+        transform: none;
       }
 
       &:target {
+        display: flex;
         inset: 0;
         width: auto;
         height: auto;
-        visibility: visible;
-        pointer-events: auto;
         overflow: hidden;
+        transform: translateX(0);
       }
     }
 
     @include mixin.on-desktop {
       &:not(:target),
       &:target {
+        display: block;
         visibility: visible;
         pointer-events: auto;
         inset: auto;
@@ -118,6 +122,7 @@
         height: auto;
         left: auto;
         top: auto;
+        transform: none;
       }
 
       display: block;
@@ -154,7 +159,6 @@
     left: 25px;
     z-index: 1;
     display: flex;
-    justify-content: space-between;
 
     @include mixin.on-tablet {
       top: 50px;
@@ -188,9 +192,8 @@
     list-style: none;
 
     @include mixin.on-tablet {
-      justify-content: center;
       gap: 22px;
-      padding: 0 64px;
+      padding: 220px 64px 0;
     }
 
     @include mixin.on-desktop {
@@ -201,22 +204,6 @@
       font-size: 50px;
       gap: 50px;
       padding: 0;
-    }
-  }
-
-  &__menu-wrapper:target &__menu-list {
-    @include mixin.on-tablet {
-      justify-content: center;
-    }
-  }
-
-  &__menu-wrapper:target &__menu-item {
-    @include mixin.on-tablet {
-      transform: translateY(80px);
-
-      @include mixin.on-desktop {
-        transform: none;
-      }
     }
   }
 

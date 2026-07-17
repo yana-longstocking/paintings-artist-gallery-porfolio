@@ -371,7 +371,7 @@
     @include mixin.on-tablet {
       margin-top: 80px;
       padding-top: 60px;
-      overflow: clip;
+      overflow: hidden;
 
       @include mixin.on-desktop {
         overflow: visible;
@@ -530,9 +530,6 @@
         opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
         transform variables.$reveal-duration-transform
           variables.$ease-emphasized;
-    }
-
-    @include mixin.on-tablet {
       margin-top: auto;
       align-self: flex-start;
     }
