@@ -141,10 +141,15 @@
     @include mixin.on-tablet {
       opacity: 0;
       letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
-      animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
+      animation: gallery-page-hero-title-in 1.35s variables.$ease-emphasized
         forwards;
       font-size: 64px;
       line-height: 64px;
+
+      @include mixin.on-desktop {
+        animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
+          forwards;
+      }
     }
 
     @include mixin.on-desktop {
@@ -177,8 +182,13 @@
       margin-bottom: 18px;
       transform: scaleX(0);
       opacity: 0;
-      animation: gallery-page-hero-accent-in variables.$effect-duration-long
-        variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
+      animation: gallery-page-hero-accent-in 0.8s variables.$ease-emphasized
+        0.7s forwards;
+
+      @include mixin.on-desktop {
+        animation: gallery-page-hero-accent-in variables.$effect-duration-long
+          variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
+      }
     }
 
     @include mixin.on-desktop {
@@ -207,15 +217,28 @@
 
     @include mixin.on-tablet {
       opacity: 0;
-      animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
+      animation: gallery-page-hero-line-in 1.2s variables.$ease-emphasized
         forwards;
 
       &--first {
-        animation-delay: variables.$effect-duration-long;
+        animation-delay: 0.85s;
       }
 
       &--second {
-        animation-delay: 1.65s;
+        animation-delay: 1.05s;
+      }
+
+      @include mixin.on-desktop {
+        animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
+          forwards;
+
+        &--first {
+          animation-delay: variables.$effect-duration-long;
+        }
+
+        &--second {
+          animation-delay: 1.65s;
+        }
       }
     }
   }
@@ -229,7 +252,13 @@
     animation: gallery-page-divider-in 0.3s variables.$ease-smooth 0.6s forwards;
 
     @include mixin.on-tablet {
-      animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s forwards;
+      animation: gallery-page-divider-in 0.65s variables.$ease-smooth 1.35s
+        forwards;
+
+      @include mixin.on-desktop {
+        animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s
+          forwards;
+      }
     }
   }
 
@@ -255,6 +284,16 @@
       @include mixin.on-reduced-motion {
         visibility: visible;
         pointer-events: auto;
+      }
+    }
+  }
+
+  &__footer {
+    @include mixin.on-tablet {
+      overflow: clip;
+
+      @include mixin.on-desktop {
+        overflow: visible;
       }
     }
   }

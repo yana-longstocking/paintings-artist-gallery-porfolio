@@ -1,8 +1,9 @@
 import {
   GALLERY_HERO_INTRO_MS,
+  GALLERY_HERO_INTRO_MS_TABLET,
   galleryRevealStaggerDelaySeconds,
 } from "../constants/gallery-reveal";
-import { isMobileLayout } from "../constants/breakpoints";
+import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
 
 function initGalleryScrollReveal(): void {
   const sections = Array.from(
@@ -60,8 +61,12 @@ function initGalleryScrollReveal(): void {
     return;
   }
 
+  const heroIntroMs = isTabletLayout()
+    ? GALLERY_HERO_INTRO_MS_TABLET
+    : GALLERY_HERO_INTRO_MS;
+
   const heroIntroReady = new Promise<void>((resolve) => {
-    window.setTimeout(resolve, GALLERY_HERO_INTRO_MS);
+    window.setTimeout(resolve, heroIntroMs);
   });
 
   const revealAfterPaint = (targets: Element[]) => {

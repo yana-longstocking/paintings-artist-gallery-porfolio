@@ -1,14 +1,4 @@
-@use "variables";
 @use "mixin";
-
-html {
-  min-height: 100%;
-
-  &--landing {
-    overflow-x: clip;
-    scroll-padding-top: 96px;
-  }
-}
 
 html,
 body {
@@ -16,6 +6,45 @@ body {
   margin: 0;
   padding: 0;
   @include mixin.page-background;
+
+  @include mixin.on-tablet {
+    background-attachment: scroll;
+
+    @include mixin.on-desktop {
+      background-attachment: fixed;
+    }
+  }
+}
+
+html {
+  min-height: 100%;
+
+  @include mixin.on-tablet {
+    min-height: auto;
+    overflow-x: clip;
+    background: none;
+
+    @include mixin.on-desktop {
+      min-height: 100%;
+      overflow-x: visible;
+      @include mixin.page-background;
+    }
+  }
+
+  &--landing {
+    overflow-x: clip;
+    scroll-padding-top: 96px;
+  }
+}
+
+body {
+  @include mixin.on-tablet {
+    overflow-x: clip;
+
+    @include mixin.on-desktop {
+      overflow-x: visible;
+    }
+  }
 }
 
 h1,

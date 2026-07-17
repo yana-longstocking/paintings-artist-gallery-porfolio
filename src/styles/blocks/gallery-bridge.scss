@@ -8,10 +8,50 @@
 }
 
 .gallery-bridge {
-  display: block;
   padding: 4px 0 80px;
 
   @include mixin.on-tablet {
+    padding: 8px 0 88px;
+
+    &__lead {
+      max-width: 320px;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    &__accent {
+      width: 84px;
+      margin-bottom: 22px;
+    }
+
+    &__link {
+      max-width: 280px;
+      min-height: 52px;
+    }
+
+    &__link-text {
+      font-size: 12px;
+      line-height: 12px;
+    }
+
+    &--reveal &__inner {
+      opacity: 0;
+      transform: translateY(56px) scale(0.97);
+      transition:
+        opacity variables.$reveal-duration-opacity-long
+          variables.$ease-emphasized,
+        transform variables.$reveal-duration-transform-long
+          variables.$ease-emphasized;
+    }
+
+    &--reveal.gallery-bridge--visible &__inner {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      transition-delay: 0.06s;
+    }
+  }
+
+  @include mixin.on-desktop {
     display: none;
   }
 
@@ -137,12 +177,6 @@
         &::after {
           transform: scaleX(1);
         }
-
-        .gallery-bridge__link-icon {
-          color: variables.$main-color;
-          background: rgba(175, 165, 205, 0.2);
-          transform: translateX(2px);
-        }
       }
 
       &:active {
@@ -168,10 +202,6 @@
 
       &:hover::before {
         animation: none;
-      }
-
-      .gallery-bridge__link-icon {
-        transition: none;
       }
     }
   }
@@ -212,5 +242,27 @@
       transform variables.$effect-duration-hover variables.$ease-smooth,
       background-color variables.$effect-duration variables.$transition,
       color variables.$effect-duration variables.$transition;
+  }
+
+  @include mixin.on-hover-capable {
+    &__link:hover &__link-icon {
+      color: variables.$main-color;
+      background: rgba(175, 165, 205, 0.2);
+      transform: translateX(2px);
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &__link &__link-icon {
+      transition: none;
+    }
+
+    @include mixin.on-tablet {
+      &--reveal &__inner {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
   }
 }

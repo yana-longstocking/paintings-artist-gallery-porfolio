@@ -24,6 +24,10 @@
     padding-bottom: 4px;
 
     @include mixin.on-tablet {
+      padding-bottom: 24px;
+    }
+
+    @include mixin.on-desktop {
       padding-bottom: 88px;
     }
 
@@ -174,12 +178,6 @@
       align-items: center;
       gap: 50px;
       margin-bottom: 100px;
-    }
-  }
-
-  &__image {
-    @include mixin.on-tablet {
-      margin-inline: auto;
     }
   }
 

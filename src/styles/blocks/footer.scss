@@ -49,6 +49,12 @@
   padding-bottom: 20px;
 
   @include mixin.on-tablet {
+    overflow: clip;
+
+    @include mixin.on-desktop {
+      overflow: visible;
+    }
+
     &--scroll-reveal &__heading {
       opacity: 0;
       transform: translateY(variables.$reveal-offset-y-large);

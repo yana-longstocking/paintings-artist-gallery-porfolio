@@ -8,7 +8,7 @@ interface Props {
 const { galleryHref, lead, label } = Astro.props;
 ---
 
-<section class="gallery-bridge" aria-label={label}>
+<section class="gallery-bridge gallery-bridge--reveal" aria-label={label}>
   <div class="container">
     <div class="gallery-bridge__inner">
       <p class="gallery-bridge__lead">{lead}</p>
@@ -22,3 +22,5 @@ const { galleryHref, lead, label } = Astro.props;
     </div>
   </div>
 </section>
+
+<script src="./GalleryBridgeReveal.client.ts"></script>

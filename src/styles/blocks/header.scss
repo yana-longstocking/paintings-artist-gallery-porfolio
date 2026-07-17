@@ -87,16 +87,48 @@
       transform: translateX(0);
     }
 
+    @include mixin.on-tablet {
+      &:not(:target) {
+        visibility: hidden;
+        pointer-events: none;
+        inset: auto;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+      }
+
+      &:target {
+        inset: 0;
+        width: auto;
+        height: auto;
+        visibility: visible;
+        pointer-events: auto;
+        overflow: hidden;
+      }
+    }
+
     @include mixin.on-desktop {
+      &:not(:target),
+      &:target {
+        visibility: visible;
+        pointer-events: auto;
+        inset: auto;
+        overflow: visible;
+        width: auto;
+        height: auto;
+        left: auto;
+        top: auto;
+      }
+
       display: block;
+      position: relative;
       transition: none;
       transform: translateX(0);
       background: transparent;
-      height: auto;
       width: auto;
+      height: auto;
       left: auto;
       top: auto;
-      position: relative;
       overflow: visible;
     }
   }
@@ -172,6 +204,22 @@
     }
   }
 
+  &__menu-wrapper:target &__menu-list {
+    @include mixin.on-tablet {
+      justify-content: center;
+    }
+  }
+
+  &__menu-wrapper:target &__menu-item {
+    @include mixin.on-tablet {
+      transform: translateY(80px);
+
+      @include mixin.on-desktop {
+        transform: none;
+      }
+    }
+  }
+
   &__menu-link {
     display: inline-block;
     position: relative;
@@ -221,6 +269,7 @@
     position: absolute;
     top: 25px;
     right: 25px;
+    z-index: 2;
     display: block;
     transition: transform variables.$effect-duration;
 

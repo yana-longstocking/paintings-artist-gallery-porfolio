@@ -371,6 +371,11 @@
     @include mixin.on-tablet {
       margin-top: 80px;
       padding-top: 60px;
+      overflow: clip;
+
+      @include mixin.on-desktop {
+        overflow: visible;
+      }
     }
 
     @include mixin.on-desktop {
