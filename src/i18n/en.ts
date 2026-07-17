@@ -23,6 +23,8 @@ export const home = {
     2022, I have continued to expand my practice, producing intricate and
     precise works that reflect both personal expression and technical
     discipline.`,
+  mobileGalleryBridgeLead: "Explore the full collection",
+  mobileGalleryBridgeLabel: "View Gallery",
   footerTitle: "Send us a message",
   footerFormNamePlaceholder: "Name",
   footerFormEmailPlaceholder: "Email",

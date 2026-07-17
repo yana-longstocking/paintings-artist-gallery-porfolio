@@ -1,0 +1,216 @@
+@use "mixin";
+@use "variables";
+
+@keyframes gallery-bridge-link-shine {
+  to {
+    transform: translateX(120%) skewX(-18deg);
+  }
+}
+
+.gallery-bridge {
+  display: block;
+  padding: 4px 0 80px;
+
+  @include mixin.on-tablet {
+    display: none;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  &__lead {
+    max-width: 240px;
+    margin-bottom: 16px;
+    font-family: variables.$font-family-cinzel;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(22, 22, 22, 0.78);
+  }
+
+  &__accent {
+    display: block;
+    width: 70px;
+    height: variables.$accent-line-height;
+    margin-bottom: 20px;
+    border-radius: variables.$border-radius-accent;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      variables.$background-color 16%,
+      rgba(209, 45, 53, 0.88) 52%,
+      variables.$color-border-lavender 84%,
+      transparent 100%
+    );
+  }
+
+  &__link {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: stretch;
+    overflow: hidden;
+    width: 100%;
+    max-width: 240px;
+    min-height: 48px;
+    border: 1px solid rgba(175, 165, 205, 0.42);
+    border-radius: 4px;
+    color: rgba(74, 64, 102, 0.96);
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(247, 244, 252, 0.9) 52%,
+      rgba(240, 236, 248, 0.88) 100%
+    );
+    text-decoration: none;
+    box-shadow:
+      0 10px 26px rgba(107, 95, 138, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.92);
+    transition:
+      transform variables.$effect-duration-hover variables.$ease-smooth,
+      box-shadow variables.$effect-duration variables.$transition,
+      border-color variables.$effect-duration variables.$transition,
+      color variables.$effect-duration variables.$transition;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        105deg,
+        transparent 34%,
+        rgba(255, 255, 255, 0.55) 50%,
+        transparent 66%
+      );
+      transform: translateX(-130%) skewX(-18deg);
+      pointer-events: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 0;
+      height: 1.5px;
+      border-radius: variables.$border-radius-accent;
+      background: variables.$accent-line-gradient;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform variables.$effect-duration-medium
+        variables.$ease-emphasized;
+      pointer-events: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 3px;
+    }
+
+    &:active {
+      transform: scale(0.99);
+      box-shadow:
+        0 6px 18px rgba(107, 95, 138, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    }
+
+    @include mixin.on-hover-capable {
+      &:hover {
+        border-color: rgba(139, 127, 168, 0.62);
+        color: variables.$main-color;
+        transform: translateY(-2px);
+        box-shadow:
+          0 14px 32px rgba(107, 95, 138, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.96);
+
+        &::before {
+          animation: gallery-bridge-link-shine 0.9s variables.$ease-smooth
+            forwards;
+        }
+
+        &::after {
+          transform: scaleX(1);
+        }
+
+        .gallery-bridge__link-icon {
+          color: variables.$main-color;
+          background: rgba(175, 165, 205, 0.2);
+          transform: translateX(2px);
+        }
+      }
+
+      &:active {
+        transform: translateY(-1px) scale(0.995);
+      }
+    }
+
+    @include mixin.on-reduced-motion {
+      transition:
+        border-color variables.$effect-duration-short,
+        color variables.$effect-duration-short,
+        box-shadow variables.$effect-duration-short;
+
+      &::after {
+        transform: scaleX(1);
+        transition: none;
+      }
+
+      &:hover,
+      &:active {
+        transform: none;
+      }
+
+      &:hover::before {
+        animation: none;
+      }
+
+      .gallery-bridge__link-icon {
+        transition: none;
+      }
+    }
+  }
+
+  &__link-body {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 16px;
+  }
+
+  &__link-text {
+    font-family: variables.$font-family-cinzel;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  &__link-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    border-left: 1px solid rgba(175, 165, 205, 0.32);
+    background: rgba(175, 165, 205, 0.14);
+    color: rgba(107, 95, 138, 0.92);
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
+    font-size: 14px;
+    line-height: 1;
+    transition:
+      transform variables.$effect-duration-hover variables.$ease-smooth,
+      background-color variables.$effect-duration variables.$transition,
+      color variables.$effect-duration variables.$transition;
+  }
+}

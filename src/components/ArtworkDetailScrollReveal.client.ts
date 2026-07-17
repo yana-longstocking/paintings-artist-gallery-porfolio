@@ -86,12 +86,12 @@ function initArtworkDetailScrollReveal(): void {
   const tabletLayout = isTabletLayout();
 
   if (skipUpperMotion) {
-    revealAll([...introTargets, ...detailsTargets]);
-  } else {
-    introTargets.forEach((target, index) => prepare(target, index));
-    detailsTargets.forEach((target, index) => prepare(target, index));
+    revealAll(allTargets);
+    return;
   }
 
+  introTargets.forEach((target, index) => prepare(target, index));
+  detailsTargets.forEach((target, index) => prepare(target, index));
   footerTextTargets.forEach((target, index) => prepare(target, index));
   footerActionTargets.forEach((target, index) => prepare(target, index));
   if (footerCopyright) prepare(footerCopyright, null);

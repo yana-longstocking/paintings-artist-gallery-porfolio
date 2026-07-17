@@ -61,15 +61,17 @@
 }
 
 @mixin artwork-detail-footer-reveal {
-  opacity: 0;
-  transform: translateY(variables.$reveal-offset-y-medium);
-  transition:
-    opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
-    transform variables.$reveal-duration-transform variables.$ease-emphasized;
+  @include mixin.on-tablet {
+    opacity: 0;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    transition:
+      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+      transform variables.$reveal-duration-transform variables.$ease-emphasized;
 
-  &.artwork-detail__target--visible {
-    opacity: 1;
-    transform: translateY(0);
+    &.artwork-detail__target--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @include mixin.on-reduced-motion {
@@ -512,9 +514,18 @@
       background-color variables.$effect-duration variables.$transition,
       color variables.$effect-duration variables.$transition,
       border-color variables.$effect-duration variables.$transition,
-      box-shadow variables.$effect-duration variables.$transition,
-      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+      box-shadow variables.$effect-duration variables.$transition;
+
+    @include mixin.on-tablet {
+      transition:
+        background-color variables.$effect-duration variables.$transition,
+        color variables.$effect-duration variables.$transition,
+        border-color variables.$effect-duration variables.$transition,
+        box-shadow variables.$effect-duration variables.$transition,
+        opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
+    }
 
     @include mixin.on-tablet {
       margin-top: auto;

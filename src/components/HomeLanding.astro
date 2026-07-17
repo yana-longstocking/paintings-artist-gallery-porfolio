@@ -1,6 +1,7 @@
 ---
 import HeroMosaic from "./HeroMosaic.astro";
 import ArtistBio from "./ArtistBio.astro";
+import GalleryBridge from "./GalleryBridge.astro";
 import ContactFooter from "./ContactFooter.astro";
 import type { GalleryData } from "../types/gallery";
 import type { HomeTranslations } from "../i18n/types";
@@ -147,6 +148,12 @@ const heroMosaicPieces = [
   title={translations.artistBioTitle}
   text={translations.artistBioText}
   image={data.artistBio}
+/>
+
+<GalleryBridge
+  galleryHref={galleryHref}
+  lead={translations.mobileGalleryBridgeLead}
+  label={translations.mobileGalleryBridgeLabel}
 />
 
 <ContactFooter

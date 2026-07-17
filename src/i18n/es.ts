@@ -23,6 +23,8 @@ export const home = {
     visual distintivo. Desde que me mudé a Madrid en 2022, he continuado
     expandiendo mi práctica, produciendo obras intrincadas y precisas que
     reflejan tanto la expresión personal como la disciplina técnica.`,
+  mobileGalleryBridgeLead: "Explora toda la colección",
+  mobileGalleryBridgeLabel: "Ver Galería",
   footerTitle: "Envíanos un mensaje",
   footerFormNamePlaceholder: "Nombre",
   footerFormEmailPlaceholder: "Email",

@@ -1,0 +1,24 @@
+---
+interface Props {
+  galleryHref: string;
+  lead: string;
+  label: string;
+}
+
+const { galleryHref, lead, label } = Astro.props;
+---
+
+<section class="gallery-bridge" aria-label={label}>
+  <div class="container">
+    <div class="gallery-bridge__inner">
+      <p class="gallery-bridge__lead">{lead}</p>
+      <span class="gallery-bridge__accent" aria-hidden="true"></span>
+      <a href={galleryHref} class="gallery-bridge__link">
+        <span class="gallery-bridge__link-body">
+          <span class="gallery-bridge__link-text">{label}</span>
+        </span>
+        <span class="gallery-bridge__link-icon" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>

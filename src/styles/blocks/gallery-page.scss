@@ -112,7 +112,7 @@
 
 .gallery-page {
   &__hero {
-    padding: 80px 0 24px;
+    padding: 115px 0 24px;
 
     @include mixin.on-tablet {
       padding: 173px 0 100px;
@@ -136,15 +136,15 @@
     line-height: 40px;
     text-align: center;
     color: variables.$main-color;
-    opacity: 0;
-    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-mobile;
-    animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
-      forwards;
+    letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-mobile;
 
     @include mixin.on-tablet {
+      opacity: 0;
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
+      animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
+        forwards;
       font-size: 64px;
       line-height: 64px;
-      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
     }
 
     @include mixin.on-desktop {
@@ -161,8 +161,6 @@
     margin-top: 18px;
     margin-bottom: 14px;
     border-radius: variables.$border-radius-accent;
-    transform: scaleX(0);
-    opacity: 0;
     transform-origin: center center;
     background: linear-gradient(
       90deg,
@@ -172,13 +170,15 @@
       variables.$color-border-lavender 84%,
       transparent 100%
     );
-    animation: gallery-page-hero-accent-in variables.$effect-duration-long
-      variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
 
     @include mixin.on-tablet {
       width: 120px;
       margin-top: 22px;
       margin-bottom: 18px;
+      transform: scaleX(0);
+      opacity: 0;
+      animation: gallery-page-hero-accent-in variables.$effect-duration-long
+        variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
     }
 
     @include mixin.on-desktop {
@@ -204,16 +204,19 @@
     font-weight: 400;
     line-height: variables.$line-height-body-27;
     color: variables.$main-color;
-    opacity: 0;
-    animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
-      forwards;
 
-    &--first {
-      animation-delay: variables.$effect-duration-long;
-    }
+    @include mixin.on-tablet {
+      opacity: 0;
+      animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
+        forwards;
 
-    &--second {
-      animation-delay: 1.65s;
+      &--first {
+        animation-delay: variables.$effect-duration-long;
+      }
+
+      &--second {
+        animation-delay: 1.65s;
+      }
     }
   }
 
@@ -223,7 +226,11 @@
     opacity: 0;
     transform: scaleX(0);
     transform-origin: left center;
-    animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s forwards;
+    animation: gallery-page-divider-in 0.3s variables.$ease-smooth 0.6s forwards;
+
+    @include mixin.on-tablet {
+      animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s forwards;
+    }
   }
 
   &__section {

@@ -145,17 +145,18 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     gap: 18px;
     margin: 0;
-    padding: 0 25px;
+    padding: 200px 25px 0;
     text-align: center;
     font-family: variables.$font-family-cinzel;
     font-weight: 700;
     list-style: none;
 
     @include mixin.on-tablet {
+      justify-content: center;
       gap: 22px;
       padding: 0 64px;
     }
@@ -431,14 +432,12 @@
   }
 
   &--landing {
-    position: relative;
-    z-index: 10;
-
     @include mixin.on-desktop {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
+      z-index: 10;
       width: 100%;
       padding: 28px 0 8px;
     }
