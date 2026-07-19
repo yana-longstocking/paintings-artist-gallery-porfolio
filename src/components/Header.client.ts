@@ -1,8 +1,10 @@
+import { getScrollX, getScrollY, scrollTo } from "../utils/scrollRoot";
+
 const MENU_HASH = "menu-toggle";
 
 function restoreScrollPosition(scrollX: number, scrollY: number): void {
   const jump = () => {
-    window.scrollTo({ left: scrollX, top: scrollY, behavior: "auto" });
+    scrollTo({ left: scrollX, top: scrollY, behavior: "auto" });
   };
 
   jump();
@@ -19,7 +21,8 @@ function initHeaderMenuHash(): void {
       return;
 
     event.preventDefault();
-    const { scrollX, scrollY } = window;
+    const scrollX = getScrollX();
+    const scrollY = getScrollY();
     window.location.hash = MENU_HASH;
     restoreScrollPosition(scrollX, scrollY);
   });
@@ -30,7 +33,8 @@ function initHeaderMenuHash(): void {
       return;
 
     event.preventDefault();
-    const { scrollX, scrollY } = window;
+    const scrollX = getScrollX();
+    const scrollY = getScrollY();
     const { pathname, search } = window.location;
     // Clear hash for :target without relying on href="#", which scrolls to top.
     window.location.hash = "";

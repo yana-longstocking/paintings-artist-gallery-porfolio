@@ -1,4 +1,5 @@
 import { isMobileLayout } from "../constants/breakpoints";
+import { getScrollRoot, getScrollY } from "../utils/scrollRoot";
 
 function initArtistBioReveal(): void {
   const bio = document.querySelector(".artist-bio--reveal");
@@ -36,9 +37,10 @@ function initArtistBioReveal(): void {
   let titleDone = false;
   let contentDone = false;
   let textDone = false;
+  const scroller = getScrollRoot();
 
   const cleanup = () => {
-    window.removeEventListener("scroll", onScroll);
+    scroller.removeEventListener("scroll", onScroll);
     titleObserver.disconnect();
     contentObserver.disconnect();
     textObserver.disconnect();
@@ -46,7 +48,7 @@ function initArtistBioReveal(): void {
 
   const tryRevealTitle = () => {
     if (titleDone) return;
-    if (window.scrollY < minScroll) return;
+    if (getScrollY() < minScroll) return;
 
     const rect = bio.getBoundingClientRect();
     if (rect.top > window.innerHeight * 0.88) return;
@@ -58,7 +60,7 @@ function initArtistBioReveal(): void {
 
   const tryRevealContent = () => {
     if (contentDone) return;
-    if (window.scrollY < minScroll) return;
+    if (getScrollY() < minScroll) return;
 
     const rect = wrapper.getBoundingClientRect();
     if (rect.top > window.innerHeight * 0.78) return;
@@ -70,7 +72,7 @@ function initArtistBioReveal(): void {
 
   const tryRevealText = () => {
     if (textDone) return;
-    if (window.scrollY < minScroll) return;
+    if (getScrollY() < minScroll) return;
 
     const rect = text.getBoundingClientRect();
     if (rect.top > window.innerHeight * 0.9) return;
@@ -99,7 +101,7 @@ function initArtistBioReveal(): void {
   titleObserver.observe(bio);
   contentObserver.observe(wrapper);
   textObserver.observe(text);
-  window.addEventListener("scroll", onScroll, { passive: true });
+  scroller.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 }
 

@@ -1,3 +1,5 @@
+import { scrollTo } from "../utils/scrollRoot";
+
 function initArtworkDetailScrollTop(): void {
   const bar = document.querySelector(".artwork-detail__scroll-top-bar");
   const wrap = document.querySelector(".artwork-detail__scroll-top-wrap");
@@ -31,7 +33,7 @@ function initArtworkDetailScrollTop(): void {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    window.scrollTo({
+    scrollTo({
       top: 0,
       behavior: reduceMotion ? "auto" : "smooth",
     });

@@ -1,4 +1,5 @@
 import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
+import { getScrollRoot, getScrollY } from "../utils/scrollRoot";
 
 const MIN_SCROLL_PX = 40;
 const CONTENT_DELAY_MS = 240;
@@ -49,9 +50,10 @@ function initFooterScrollReveal(): void {
   let contentTimer: number | null = null;
   let buttonTimer: number | null = null;
   const observers: IntersectionObserver[] = [];
+  const scroller = getScrollRoot();
 
   const cleanup = () => {
-    window.removeEventListener("scroll", onScroll);
+    scroller.removeEventListener("scroll", onScroll);
     observers.forEach((observer) => observer.disconnect());
     if (contentTimer !== null) {
       window.clearTimeout(contentTimer);
@@ -103,7 +105,7 @@ function initFooterScrollReveal(): void {
 
   const tryStartSequence = () => {
     if (sequenceStarted) return;
-    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (getScrollY() < MIN_SCROLL_PX) return;
 
     const trigger = heading ?? formSection;
     if (!isEntering(trigger)) return;
@@ -114,7 +116,7 @@ function initFooterScrollReveal(): void {
   const tryRevealCopyright = () => {
     if (copyrightDone || !copyright) return;
     if (!sequenceStarted) return;
-    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (getScrollY() < MIN_SCROLL_PX) return;
     if (!isEntering(copyright, 1)) return;
 
     copyrightDone = true;
@@ -147,7 +149,7 @@ function initFooterScrollReveal(): void {
   observe(formSection, tryStartSequence);
   observe(copyright, tryRevealCopyright);
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  scroller.addEventListener("scroll", onScroll, { passive: true });
 
   if (window.location.hash === "#contact-us") {
     window.requestAnimationFrame(() => {

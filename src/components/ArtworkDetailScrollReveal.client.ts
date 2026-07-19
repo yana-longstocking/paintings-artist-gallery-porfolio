@@ -1,5 +1,6 @@
 import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
 import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
+import { getScrollRoot, getScrollY } from "../utils/scrollRoot";
 
 const INTRO_SELECTOR = [
   ".artwork-detail__main-image",
@@ -111,9 +112,10 @@ function initArtworkDetailScrollReveal(): void {
   };
 
   const observers: IntersectionObserver[] = [];
+  const scroller = getScrollRoot();
 
   const cleanup = () => {
-    window.removeEventListener("scroll", onScroll);
+    scroller.removeEventListener("scroll", onScroll);
     observers.forEach((observer) => observer.disconnect());
     if (detailsTimer !== null) {
       window.clearTimeout(detailsTimer);
@@ -153,14 +155,14 @@ function initArtworkDetailScrollReveal(): void {
 
   const tryRevealOnScroll = (target: Element) => {
     if (skipUpperMotion || revealed.has(target)) return;
-    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (getScrollY() < MIN_SCROLL_PX) return;
     if (!isEntering(target)) return;
     markRevealed(target);
   };
 
   const tryRevealDetailsOnTablet = () => {
     if (!tabletLayout || detailsStarted || !additionalTitle) return;
-    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (getScrollY() < MIN_SCROLL_PX) return;
     if (!isDetailsInView(additionalTitle)) return;
 
     detailsStarted = true;
@@ -175,7 +177,7 @@ function initArtworkDetailScrollReveal(): void {
 
   const tryRevealFooterText = () => {
     if (footerTextDone || !footerContent) return;
-    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (getScrollY() < MIN_SCROLL_PX) return;
     if (!isEntering(footerContent)) return;
 
     footerTextDone = true;
@@ -193,7 +195,7 @@ function initArtworkDetailScrollReveal(): void {
   const tryRevealCopyright = () => {
     if (copyrightDone || !footerCopyright) return;
     if (!footerTextDone) return;
-    if (window.scrollY < MIN_SCROLL_PX) return;
+    if (getScrollY() < MIN_SCROLL_PX) return;
     if (!isEntering(footerCopyright)) return;
 
     copyrightDone = true;
@@ -245,7 +247,7 @@ function initArtworkDetailScrollReveal(): void {
   observe(footerContent, tryRevealFooterText);
   observe(footerCopyright ?? footerBottom, tryRevealCopyright);
 
-  window.addEventListener("scroll", onScroll, { passive: true });
+  scroller.addEventListener("scroll", onScroll, { passive: true });
 
   if (!skipUpperMotion) {
     window.requestAnimationFrame(() => {

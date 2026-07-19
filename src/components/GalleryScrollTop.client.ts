@@ -1,3 +1,5 @@
+import { scrollTo } from "../utils/scrollRoot";
+
 function initGalleryScrollTop(): void {
   const bar = document.querySelector(".gallery-page__scroll-top-bar");
   const wrap = document.querySelector(".gallery-page__scroll-top-wrap");
@@ -31,7 +33,7 @@ function initGalleryScrollTop(): void {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    window.scrollTo({
+    scrollTo({
       top: 0,
       behavior: reduceMotion ? "auto" : "smooth",
     });
