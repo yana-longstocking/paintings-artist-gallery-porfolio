@@ -59,4 +59,5 @@ export const artwork = {
   footerContactText:
     "Follow me and if you have any questions, I am here for you.",
   footerCopyright: `© ${year()} Artist Gallery. All rights reserved.`,
+  scrollToTopLabel: "Back to top",
 } as const;

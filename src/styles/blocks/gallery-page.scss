@@ -95,14 +95,6 @@
 }
 
 .gallery-page {
-  @include mixin.on-tablet {
-    overflow-x: hidden;
-
-    @include mixin.on-desktop {
-      overflow-x: visible;
-    }
-  }
-
   &__hero {
     padding: 115px 0 24px;
 
@@ -276,16 +268,6 @@
       @include mixin.on-reduced-motion {
         visibility: visible;
         pointer-events: auto;
-      }
-    }
-  }
-
-  &__footer {
-    @include mixin.on-tablet {
-      overflow: hidden;
-
-      @include mixin.on-desktop {
-        overflow: visible;
       }
     }
   }

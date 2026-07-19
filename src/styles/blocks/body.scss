@@ -1,39 +1,7 @@
 @use "mixin";
 
-html,
-body {
-  scroll-behavior: smooth;
-  margin: 0;
-  padding: 0;
-  @include mixin.page-background;
-
-  @include mixin.on-tablet {
-    width: 100%;
-    max-width: 100%;
-    background-attachment: scroll;
-
-    @include mixin.on-desktop {
-      width: auto;
-      max-width: none;
-      background-attachment: fixed;
-    }
-  }
-}
-
 html {
   min-height: 100%;
-
-  @include mixin.on-tablet {
-    min-height: auto;
-    overflow-x: hidden;
-    background: none;
-
-    @include mixin.on-desktop {
-      min-height: 100%;
-      overflow-x: visible;
-      @include mixin.page-background;
-    }
-  }
 
   &--landing {
     overflow-x: clip;
@@ -41,14 +9,12 @@ html {
   }
 }
 
+html,
 body {
-  @include mixin.on-tablet {
-    overflow-x: hidden;
-
-    @include mixin.on-desktop {
-      overflow-x: visible;
-    }
-  }
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  @include mixin.page-background;
 }
 
 h1,

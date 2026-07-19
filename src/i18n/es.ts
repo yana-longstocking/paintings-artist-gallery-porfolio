@@ -59,4 +59,5 @@ export const artwork = {
   footerContactText:
     "Sígueme y si tienes alguna pregunta, estaré encantada de contestarte.",
   footerCopyright: `© ${year()} Galería de Artista. Todos los derechos reservados.`,
+  scrollToTopLabel: "Volver arriba",
 } as const;
