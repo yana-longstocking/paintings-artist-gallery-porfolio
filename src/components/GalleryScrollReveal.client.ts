@@ -15,8 +15,18 @@ function initGalleryScrollReveal(): void {
   if (!sections.length) return;
 
   const titleSelector = ".photo-gallery__title, .photo-art__title";
-  const imageSelector =
-    ".photo-gallery__item, .photo-art__item, .art__item, .gallery-content__featured, .gallery-content__item, .gallery-page__footer-heading, .contact-actions__link, .gallery-page__footer-lead, .gallery-page__footer-copy";
+  // Only tablet+ markup — skip `.…__mobile` clones so stagger/observers stay correct.
+  const imageSelector = [
+    ".photo-gallery__grid .photo-gallery__item",
+    ".photo-art__grid .photo-art__item",
+    ".art__item",
+    ".gallery-content__featured",
+    ".gallery-content__grid .gallery-content__item",
+    ".gallery-page__footer-heading",
+    ".contact-actions__link",
+    ".gallery-page__footer-lead",
+    ".gallery-page__footer-copy",
+  ].join(", ");
 
   const revealTarget = (target: Element) => {
     target.classList.add("gallery-page__target--visible");

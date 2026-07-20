@@ -135,19 +135,10 @@
   &:last-child {
     margin-top: 28px;
   }
-
-  @include mixin.on-tablet {
-    display: contents;
-
-    &:last-child {
-      margin-top: 0;
-    }
-  }
 }
 
 @mixin gallery-page-card-item {
   position: relative;
-  width: 100%;
 }
 
 @mixin gallery-page-card-image {
