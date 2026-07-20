@@ -391,14 +391,16 @@
     }
   }
 
+  // Landing used to be `position: absolute`, which sticks to the viewport
+  // because `body` is the scrollport — keep it in normal flow like gallery.
   &--landing {
     @include mixin.on-desktop {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 10;
-      width: 100%;
+      position: relative;
+      top: auto;
+      left: auto;
+      right: auto;
+      z-index: auto;
+      width: auto;
       padding: 28px 0 8px;
     }
   }
