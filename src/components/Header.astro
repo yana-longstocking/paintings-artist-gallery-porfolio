@@ -11,7 +11,7 @@ const pathname = Astro.url.pathname;
 const isSpanish = pathname.startsWith("/es");
 const homeHref = isSpanish ? "/es/" : "/";
 const galleryHref = isSpanish ? "/es/gallery" : "/gallery";
-const isGalleryPage = pathname === "/gallery" || pathname === "/es/gallery";
+const isGalleryPage = /^\/(?:es\/)?gallery\/?$/.test(pathname);
 const isArtworkPage = /^\/(?:es\/)?artwork\//.test(pathname);
 const isHomePage =
   pathname === "/" || pathname === "/es" || pathname === "/es/";

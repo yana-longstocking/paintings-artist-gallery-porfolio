@@ -401,16 +401,6 @@
     }
   }
 
-  &--landing &__nav {
-    @include mixin.on-tablet {
-      padding-top: 25px;
-    }
-
-    @include mixin.on-desktop {
-      padding-top: 20px;
-    }
-  }
-
   &--gallery,
   &--artwork {
     @include mixin.on-desktop {
@@ -418,6 +408,7 @@
     }
   }
 
+  &--landing &__nav,
   &--gallery &__nav,
   &--artwork &__nav {
     @include mixin.on-tablet {
