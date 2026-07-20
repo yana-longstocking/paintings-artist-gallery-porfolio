@@ -6,6 +6,7 @@ const contact = {
   footerContactLabelAddress: "Address",
   footerContactAddress: "Madrid, Spain",
   footerSocialText: "Follow me on Instagram",
+  footerCopyright: `© ${year()} Iryna Romanska. All rights reserved.`,
 } as const;
 
 export const home = {
@@ -36,7 +37,6 @@ export const home = {
   footerFormErrorMessage: "Error",
   footerFormErrorGeneric: "Something went wrong. Please try again.",
   ...contact,
-  footerCopyright: `© ${year()} Gallery. All rights reserved.`,
 } as const;
 
 export const gallery = {
@@ -46,7 +46,6 @@ export const gallery = {
   freedomCollectionTitle: "Freedom Collection",
   allPaintingCollectionTitle: "All Painting Collection",
   ...contact,
-  footerCopyright: `© ${year()} Gallery. All rights reserved.`,
   scrollToTopLabel: "Back to top",
 } as const;
 
@@ -59,6 +58,6 @@ export const artwork = {
   footerContactTitle: "Contact us",
   footerContactText:
     "Follow me and if you have any questions, I am here for you.",
-  footerCopyright: `© ${year()} Artist Gallery. All rights reserved.`,
+  footerCopyright: `© ${year()} Iryna Romanska. All rights reserved.`,
   scrollToTopLabel: "Back to top",
 } as const;

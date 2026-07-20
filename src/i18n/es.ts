@@ -6,6 +6,7 @@ const contact = {
   footerContactLabelAddress: "Dirección",
   footerContactAddress: "Madrid, España",
   footerSocialText: "Sígueme en Instagram",
+  footerCopyright: `© ${year()} Iryna Romanska. Todos los derechos reservados.`,
 } as const;
 
 export const home = {
@@ -36,7 +37,6 @@ export const home = {
   footerFormErrorMessage: "Error",
   footerFormErrorGeneric: "Algo salió mal. Por favor, inténtalo de nuevo.",
   ...contact,
-  footerCopyright: `© ${year()} Galería. Todos los derechos reservados.`,
 } as const;
 
 export const gallery = {
@@ -46,7 +46,6 @@ export const gallery = {
   freedomCollectionTitle: "Colección Libertad",
   allPaintingCollectionTitle: "Colección de Todas las Pinturas",
   ...contact,
-  footerCopyright: `© ${year()} Galería. Todos los derechos reservados.`,
   scrollToTopLabel: "Volver arriba",
 } as const;
 
@@ -59,6 +58,6 @@ export const artwork = {
   footerContactTitle: "Contáctanos",
   footerContactText:
     "Sígueme y si tienes alguna pregunta, estaré encantada de contestarte.",
-  footerCopyright: `© ${year()} Galería de Artista. Todos los derechos reservados.`,
+  footerCopyright: `© ${year()} Iryna Romanska. Todos los derechos reservados.`,
   scrollToTopLabel: "Volver arriba",
 } as const;
