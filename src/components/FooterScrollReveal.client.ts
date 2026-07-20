@@ -1,5 +1,5 @@
 import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
-import { getScrollRoot, getScrollY } from "../utils/scrollRoot";
+import { getScrollY } from "../utils/scrollRoot";
 
 const MIN_SCROLL_PX = 40;
 const CONTENT_DELAY_MS = 240;
@@ -50,10 +50,9 @@ function initFooterScrollReveal(): void {
   let contentTimer: number | null = null;
   let buttonTimer: number | null = null;
   const observers: IntersectionObserver[] = [];
-  const scroller = getScrollRoot();
 
   const cleanup = () => {
-    scroller.removeEventListener("scroll", onScroll);
+    window.removeEventListener("scroll", onScroll);
     observers.forEach((observer) => observer.disconnect());
     if (contentTimer !== null) {
       window.clearTimeout(contentTimer);
@@ -149,7 +148,7 @@ function initFooterScrollReveal(): void {
   observe(formSection, tryStartSequence);
   observe(copyright, tryRevealCopyright);
 
-  scroller.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
 
   if (window.location.hash === "#contact-us") {
     window.requestAnimationFrame(() => {

@@ -1,4 +1,4 @@
-/** Page scroll lives on `body` so iOS Chrome cannot rubber-band the document. */
+/** Shared scroll helpers for document scrolling and timed smooth scroll. */
 
 const SMOOTH_SCROLL_MIN_DURATION_MS = 700;
 const SMOOTH_SCROLL_MAX_DURATION_MS = 2000;
@@ -84,7 +84,14 @@ function unlockScrollBehavior(): void {
   restoreScrollBehavior?.();
 }
 
-function setScrollPosition(root: HTMLElement, top: number, left: number): void {
+function setScrollPosition(
+  _root: HTMLElement,
+  top: number,
+  left: number,
+): void {
+  const root =
+    (document.scrollingElement as HTMLElement | null) ??
+    document.documentElement;
   root.scrollTop = top;
   root.scrollLeft = left;
   window.scrollTo({ top, left, behavior: "auto" });
@@ -146,25 +153,18 @@ function smoothScrollRootTo(
 }
 
 export function getScrollRoot(): HTMLElement {
-  return document.body;
+  return (
+    (document.scrollingElement as HTMLElement | null) ??
+    document.documentElement
+  );
 }
 
 export function getScrollY(): number {
-  return (
-    getScrollRoot().scrollTop ||
-    document.documentElement.scrollTop ||
-    window.scrollY ||
-    0
-  );
+  return window.scrollY || document.documentElement.scrollTop || 0;
 }
 
 export function getScrollX(): number {
-  return (
-    getScrollRoot().scrollLeft ||
-    document.documentElement.scrollLeft ||
-    window.scrollX ||
-    0
-  );
+  return window.scrollX || document.documentElement.scrollLeft || 0;
 }
 
 export function scrollTo(

@@ -1,6 +1,6 @@
 import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
 import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
-import { getScrollRoot, getScrollY } from "../utils/scrollRoot";
+import { getScrollY } from "../utils/scrollRoot";
 
 const INTRO_SELECTOR = [
   ".artwork-detail__main-image",
@@ -112,10 +112,9 @@ function initArtworkDetailScrollReveal(): void {
   };
 
   const observers: IntersectionObserver[] = [];
-  const scroller = getScrollRoot();
 
   const cleanup = () => {
-    scroller.removeEventListener("scroll", onScroll);
+    window.removeEventListener("scroll", onScroll);
     observers.forEach((observer) => observer.disconnect());
     if (detailsTimer !== null) {
       window.clearTimeout(detailsTimer);
@@ -247,7 +246,7 @@ function initArtworkDetailScrollReveal(): void {
   observe(footerContent, tryRevealFooterText);
   observe(footerCopyright ?? footerBottom, tryRevealCopyright);
 
-  scroller.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
 
   if (!skipUpperMotion) {
     window.requestAnimationFrame(() => {

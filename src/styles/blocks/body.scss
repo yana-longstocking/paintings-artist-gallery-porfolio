@@ -1,14 +1,11 @@
 @use "mixin";
 
 html {
-  height: 100%;
-  height: 100dvh;
-  overflow: hidden;
-  overscroll-behavior: none;
-  @include mixin.page-background;
+  min-height: 100%;
 }
 
 .html--landing {
+  overflow-x: clip;
   scroll-padding-top: 96px;
 
   body {
@@ -18,19 +15,10 @@ html {
 
 html,
 body {
+  scroll-behavior: smooth;
   margin: 0;
   padding: 0;
-}
-
-body {
-  height: 100%;
-  height: 100dvh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior-y: none;
-  -webkit-overflow-scrolling: touch;
-  background: transparent;
-  scroll-behavior: smooth;
+  @include mixin.page-background;
 }
 
 h1,

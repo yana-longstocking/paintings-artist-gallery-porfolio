@@ -1,6 +1,5 @@
 import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
 import {
-  getScrollRoot,
   getScrollY,
   scrollTo,
   SMOOTH_SCROLL_TIMING_GALLERY,
@@ -14,8 +13,6 @@ function initGalleryScrollTop(): void {
   const button = document.querySelector(".gallery-page__scroll-top");
   if (!bar || !wrap || !button) return;
 
-  const scroller = getScrollRoot();
-
   const setVisible = (isVisible: boolean): void => {
     wrap.classList.toggle("gallery-page__scroll-top-wrap--visible", isVisible);
     accent?.classList.toggle(
@@ -27,14 +24,14 @@ function initGalleryScrollTop(): void {
   if (isMobileLayout()) {
     const syncMobileVisibility = (): void => {
       const scrollY = getScrollY();
-      const maxScroll = Math.max(
-        0,
-        scroller.scrollHeight - scroller.clientHeight,
-      );
+      const root =
+        (document.scrollingElement as HTMLElement | null) ??
+        document.documentElement;
+      const maxScroll = Math.max(0, root.scrollHeight - root.clientHeight);
       setVisible(scrollY > 160 && scrollY >= maxScroll - 96);
     };
 
-    scroller.addEventListener("scroll", syncMobileVisibility, {
+    window.addEventListener("scroll", syncMobileVisibility, {
       passive: true,
     });
     syncMobileVisibility();
@@ -48,7 +45,6 @@ function initGalleryScrollTop(): void {
       {
         threshold: 0.25,
         rootMargin: "0px 0px -5% 0px",
-        root: scroller,
       },
     );
 

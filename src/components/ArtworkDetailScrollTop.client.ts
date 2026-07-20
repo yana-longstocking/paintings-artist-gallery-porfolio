@@ -1,4 +1,4 @@
-import { getScrollRoot, scrollTo } from "../utils/scrollRoot";
+import { scrollTo } from "../utils/scrollRoot";
 
 function initArtworkDetailScrollTop(): void {
   const bar = document.querySelector(".artwork-detail__scroll-top-bar");
@@ -6,8 +6,6 @@ function initArtworkDetailScrollTop(): void {
   const accent = document.querySelector(".artwork-detail__scroll-top-accent");
   const button = document.querySelector(".artwork-detail__scroll-top");
   if (!bar || !wrap || !button) return;
-
-  const scroller = getScrollRoot();
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -26,7 +24,6 @@ function initArtworkDetailScrollTop(): void {
     {
       threshold: 0.25,
       rootMargin: "0px 0px -5% 0px",
-      root: scroller,
     },
   );
 

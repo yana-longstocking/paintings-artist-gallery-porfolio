@@ -1,5 +1,5 @@
 import { DESKTOP_MIN_WIDTH, isMobileLayout } from "../constants/breakpoints";
-import { getScrollRoot, getScrollY } from "../utils/scrollRoot";
+import { getScrollY } from "../utils/scrollRoot";
 
 const MIN_SCROLL_PX = 24;
 
@@ -26,7 +26,6 @@ function initGalleryBridgeReveal(): void {
   }
 
   let revealed = false;
-  const scroller = getScrollRoot();
 
   const revealAfterPaint = () => {
     window.requestAnimationFrame(() => {
@@ -46,7 +45,7 @@ function initGalleryBridgeReveal(): void {
     revealed = true;
     revealAfterPaint();
     observer.disconnect();
-    scroller.removeEventListener("scroll", tryReveal);
+    window.removeEventListener("scroll", tryReveal);
   };
 
   const observer = new IntersectionObserver(() => tryReveal(), {
@@ -55,7 +54,7 @@ function initGalleryBridgeReveal(): void {
   });
 
   observer.observe(bridge);
-  scroller.addEventListener("scroll", tryReveal, { passive: true });
+  window.addEventListener("scroll", tryReveal, { passive: true });
   tryReveal();
 }
 

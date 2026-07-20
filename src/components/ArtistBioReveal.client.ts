@@ -1,5 +1,5 @@
 import { isMobileLayout } from "../constants/breakpoints";
-import { getScrollRoot, getScrollY } from "../utils/scrollRoot";
+import { getScrollY } from "../utils/scrollRoot";
 
 function initArtistBioReveal(): void {
   const bio = document.querySelector(".artist-bio--reveal");
@@ -37,10 +37,8 @@ function initArtistBioReveal(): void {
   let titleDone = false;
   let contentDone = false;
   let textDone = false;
-  const scroller = getScrollRoot();
-
   const cleanup = () => {
-    scroller.removeEventListener("scroll", onScroll);
+    window.removeEventListener("scroll", onScroll);
     titleObserver.disconnect();
     contentObserver.disconnect();
     textObserver.disconnect();
@@ -101,7 +99,7 @@ function initArtistBioReveal(): void {
   titleObserver.observe(bio);
   contentObserver.observe(wrapper);
   textObserver.observe(text);
-  scroller.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 }
 
