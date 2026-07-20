@@ -387,8 +387,6 @@
     }
   }
 
-  // Landing header overlays the mosaic; body is position:relative on
-  // landing so the header scrolls away with the page.
   &--landing {
     @include mixin.on-desktop {
       position: absolute;
