@@ -107,6 +107,10 @@
     }
 
     @include mixin.on-desktop {
+      padding: 220px 0 100px;
+    }
+
+    @include mixin.on-large-desktop {
       padding: 250px 0 100px;
     }
   }
@@ -134,7 +138,7 @@
       font-size: 64px;
       line-height: 64px;
 
-      @include mixin.on-desktop {
+      @include mixin.on-large-desktop {
         animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
           forwards;
       }
@@ -173,7 +177,7 @@
       animation: gallery-page-hero-accent-in 0.65s variables.$ease-emphasized
         0.55s forwards;
 
-      @include mixin.on-desktop {
+      @include mixin.on-large-desktop {
         animation: gallery-page-hero-accent-in variables.$effect-duration-long
           variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
       }
@@ -216,7 +220,7 @@
         animation-delay: 0.85s;
       }
 
-      @include mixin.on-desktop {
+      @include mixin.on-large-desktop {
         animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
           forwards;
 
@@ -243,7 +247,7 @@
     @include mixin.on-tablet {
       animation-delay: 1.05s;
 
-      @include mixin.on-desktop {
+      @include mixin.on-large-desktop {
         animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s
           forwards;
       }
@@ -273,6 +277,16 @@
         visibility: visible;
         pointer-events: auto;
       }
+    }
+  }
+
+  &__footer {
+    @include mixin.on-desktop {
+      margin-top: 48px;
+    }
+
+    @include mixin.on-large-desktop {
+      margin-top: 0;
     }
   }
 
@@ -382,6 +396,11 @@
     }
 
     @include mixin.on-desktop {
+      display: none;
+    }
+
+    @include mixin.on-large-desktop {
+      display: block;
       margin-top: 24px;
       margin-bottom: 56px;
     }

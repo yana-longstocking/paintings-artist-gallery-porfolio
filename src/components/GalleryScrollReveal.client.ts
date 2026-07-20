@@ -4,7 +4,10 @@ import {
   galleryRevealStaggerDelaySeconds,
   galleryRevealStaggerDelaySecondsTablet,
 } from "../constants/gallery-reveal";
-import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
+import {
+  LARGE_DESKTOP_MIN_WIDTH,
+  isMobileLayout,
+} from "../constants/breakpoints";
 
 function initGalleryScrollReveal(): void {
   const sections = Array.from(
@@ -24,8 +27,11 @@ function initGalleryScrollReveal(): void {
     section.classList.add("gallery-page__section--intro-ready");
   };
 
-  const isTablet = isTabletLayout();
-  const getStaggerDelay = isTablet
+  const isLargeDesktop = window.matchMedia(
+    `(min-width: ${LARGE_DESKTOP_MIN_WIDTH}px)`,
+  ).matches;
+  const useTabletRevealTiming = !isLargeDesktop;
+  const getStaggerDelay = useTabletRevealTiming
     ? galleryRevealStaggerDelaySecondsTablet
     : galleryRevealStaggerDelaySeconds;
 
@@ -67,15 +73,15 @@ function initGalleryScrollReveal(): void {
     return;
   }
 
-  const heroIntroMs = isTablet
-    ? GALLERY_HERO_INTRO_MS_TABLET
-    : GALLERY_HERO_INTRO_MS;
+  const heroIntroMs = isLargeDesktop
+    ? GALLERY_HERO_INTRO_MS
+    : GALLERY_HERO_INTRO_MS_TABLET;
 
   const heroIntroReady = new Promise<void>((resolve) => {
     window.setTimeout(resolve, heroIntroMs);
   });
 
-  const revealPaintDelayMs = isTablet ? 80 : 48;
+  const revealPaintDelayMs = useTabletRevealTiming ? 80 : 48;
 
   const revealAfterPaint = (targets: Element[]) => {
     window.requestAnimationFrame(() => {

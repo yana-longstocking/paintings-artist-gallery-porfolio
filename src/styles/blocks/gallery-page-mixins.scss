@@ -21,7 +21,6 @@
   position: relative;
   display: inline-block;
   padding-bottom: 18px;
-  margin-bottom: 8px;
 
   &::after {
     content: "";
@@ -220,7 +219,7 @@
       transform: translateY(0);
     }
 
-    @include mixin.on-desktop {
+    @include mixin.on-large-desktop {
       transform: translateY(variables.$reveal-offset-y-large);
       transition:
         opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
