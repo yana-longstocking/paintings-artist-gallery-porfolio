@@ -4,6 +4,7 @@ import ArtworkDetail from "../../components/ArtworkDetail.astro";
 import galleryData from "../../data/gallery.json";
 import { artwork as translations } from "../../i18n/en";
 import { getArtworkStaticPaths } from "../../utils/artworkPaths";
+import { SITE_NAME, seoCopy, toAbsoluteUrl } from "../../constants/seo";
 
 export function getStaticPaths() {
   return getArtworkStaticPaths(galleryData);
@@ -12,9 +13,30 @@ export function getStaticPaths() {
 const { image } = Astro.props;
 
 const galleryLink = `${import.meta.env.BASE_URL}gallery`;
+const title = `${image.alt} — ${SITE_NAME}`;
+const description =
+  image.description?.trim() || seoCopy.en.artworkDescriptionFallback(image.alt);
+const imagePath = `/${image.src}`;
+
+const structuredData = {
+  "@type": "VisualArtwork",
+  name: image.alt,
+  description,
+  image: toAbsoluteUrl(imagePath),
+  url: Astro.url.href,
+  creator: { "@id": "https://irynaromanska.com/#person" },
+  artMedium: image.medium?.replace(/^Medium:\s*/i, "") || "pencils on paper",
+  ...(image.size ? { size: image.size.replace(/^Size:\s*/i, "") } : {}),
+};
 ---
 
-<BaseLayout title={`${image.alt} - Artist Gallery Portfolio`}>
+<BaseLayout
+  title={title}
+  description={description}
+  image={imagePath}
+  ogType="article"
+  structuredData={structuredData}
+>
   <ArtworkDetail
     image={image}
     translations={translations}

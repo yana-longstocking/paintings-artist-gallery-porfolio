@@ -3,12 +3,14 @@ import BaseLayout from "../../components/BaseLayout/BaseLayout.astro";
 import HomeLanding from "../../components/HomeLanding.astro";
 import galleryData from "../../data/gallery-es.json";
 import { home as translations } from "../../i18n/es";
+import { seoCopy } from "../../constants/seo";
 
 const artworkLinkPrefix = "es/";
 const galleryHref = "/es/gallery";
+const { homeTitle, homeDescription } = seoCopy.es;
 ---
 
-<BaseLayout title="Portafolio de Galería de Artista" surface="landing">
+<BaseLayout title={homeTitle} description={homeDescription} surface="landing">
   <HomeLanding
     galleryData={galleryData}
     artworkLinkPrefix={artworkLinkPrefix}

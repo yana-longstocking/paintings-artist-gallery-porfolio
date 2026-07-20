@@ -2,22 +2,137 @@
 import "../../styles/global.scss";
 import Header from "../Header.astro";
 import GalleryScrollReveal from "../GalleryScrollReveal.astro";
+import {
+  ARTIST_EMAIL,
+  ARTIST_INSTAGRAM,
+  DEFAULT_OG_IMAGE,
+  SITE_NAME,
+  SITE_URL,
+  getAlternatePaths,
+  getLocaleFromPath,
+  normalizePath,
+  seoCopy,
+  toAbsoluteUrl,
+} from "../../constants/seo";
 
 export type PageSurface = "default" | "landing";
 
 interface Props {
   title: string;
+  description?: string;
+  /** Path or absolute URL for Open Graph / Twitter image */
+  image?: string;
   surface?: PageSurface;
+  /** Open Graph type */
+  ogType?: "website" | "article";
+  /** Extra JSON-LD objects merged into the page graph */
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, surface = "default" } = Astro.props;
+const {
+  title,
+  description,
+  image = DEFAULT_OG_IMAGE,
+  surface = "default",
+  ogType = "website",
+  structuredData,
+} = Astro.props;
+
+const pathname = normalizePath(Astro.url.pathname);
+const locale = getLocaleFromPath(pathname);
+const defaults = seoCopy[locale];
+const metaDescription = description ?? defaults.homeDescription;
+const canonicalUrl = toAbsoluteUrl(pathname, Astro.site?.href ?? SITE_URL);
+const ogImageUrl = toAbsoluteUrl(image, Astro.site?.href ?? SITE_URL);
+const alternates = getAlternatePaths(pathname);
+const siteOrigin = (Astro.site?.href ?? SITE_URL).replace(/\/+$/, "");
+
+const personSchema = {
+  "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  email: ARTIST_EMAIL,
+  jobTitle: locale === "es" ? "Artista" : "Artist",
+  description: defaults.homeDescription,
+  image: toAbsoluteUrl(DEFAULT_OG_IMAGE),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Madrid",
+    addressCountry: "ES",
+  },
+  sameAs: [ARTIST_INSTAGRAM],
+};
+
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  inLanguage: locale === "es" ? "es-ES" : "en",
+  publisher: { "@id": `${SITE_URL}/#person` },
+};
+
+const extraSchema = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [personSchema, websiteSchema, ...extraSchema],
+};
 ---
 
 <!doctype html>
-<html lang="en" class:list={[{ "html--landing": surface === "landing" }]}>
+<html
+  lang={locale === "es" ? "es" : "en"}
+  class:list={[{ "html--landing": surface === "landing" }]}
+>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content={SITE_NAME} />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <link rel="canonical" href={canonicalUrl} />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href={`${siteOrigin}${alternates.en}`}
+    />
+    <link
+      rel="alternate"
+      hreflang="es"
+      href={`${siteOrigin}${alternates.es}`}
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={`${siteOrigin}${alternates.en}`}
+    />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content={locale === "es" ? "es_ES" : "en_US"} />
+    <meta
+      property="og:locale:alternate"
+      content={locale === "es" ? "en_US" : "es_ES"}
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
     <link
       rel="icon"
@@ -48,6 +163,7 @@ const { title, surface = "default" } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
       rel="stylesheet"
     />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-5P6TK27D0K"
     ></script>

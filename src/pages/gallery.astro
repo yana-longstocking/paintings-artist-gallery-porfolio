@@ -3,11 +3,13 @@ import BaseLayout from "../components/BaseLayout/BaseLayout.astro";
 import GalleryIndex from "../components/GalleryIndex.astro";
 import galleryData from "../data/gallery.json";
 import { gallery as translations } from "../i18n/en";
+import { seoCopy } from "../constants/seo";
 
 const artworkLinkPrefix = "";
+const { galleryTitle, galleryDescription } = seoCopy.en;
 ---
 
-<BaseLayout title="Gallery — Artist Portfolio">
+<BaseLayout title={galleryTitle} description={galleryDescription}>
   <div class="gallery-page">
     <GalleryIndex
       galleryData={galleryData}
