@@ -334,11 +334,6 @@
         align-items: stretch;
         gap: 40px;
       }
-
-      @include mixin.on-large-desktop {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
     }
   }
 
@@ -400,11 +395,6 @@
       align-self: stretch;
       height: auto;
       min-height: 0;
-    }
-
-    @include mixin.on-large-desktop {
-      flex: unset;
-      height: 100%;
     }
   }
 

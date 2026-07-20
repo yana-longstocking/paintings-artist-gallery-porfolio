@@ -50,6 +50,24 @@
   }
 }
 
+@include mixin.on-large-desktop {
+  @keyframes gallery-page-hero-title-in {
+    0% {
+      opacity: 0;
+      color: variables.$gallery-page-hero-muted-color;
+      transform: translateY(variables.$reveal-offset-y-large) scale(1.05);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
+    }
+
+    100% {
+      opacity: 1;
+      color: variables.$main-color;
+      transform: translateY(0) scale(1);
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-to-tablet;
+    }
+  }
+}
+
 @keyframes gallery-page-hero-accent-in {
   0% {
     transform: scaleX(0);
@@ -111,7 +129,7 @@
     }
 
     @include mixin.on-large-desktop {
-      padding: 250px 0 100px;
+      padding: 173px 0 100px;
     }
   }
 
@@ -137,17 +155,18 @@
         forwards;
       font-size: 64px;
       line-height: 64px;
-
-      @include mixin.on-large-desktop {
-        animation: gallery-page-hero-title-in 2.6s variables.$ease-emphasized
-          forwards;
-      }
     }
 
     @include mixin.on-desktop {
       font-size: 80px;
       line-height: 80px;
       letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-desktop;
+    }
+
+    @include mixin.on-large-desktop {
+      font-size: 64px;
+      line-height: 64px;
+      letter-spacing: variables.$gallery-page-hero-title-letter-spacing-from-tablet;
     }
   }
 
@@ -176,16 +195,16 @@
       opacity: 0;
       animation: gallery-page-hero-accent-in 0.65s variables.$ease-emphasized
         0.55s forwards;
-
-      @include mixin.on-large-desktop {
-        animation: gallery-page-hero-accent-in variables.$effect-duration-long
-          variables.$ease-emphasized variables.$reveal-duration-opacity forwards;
-      }
     }
 
     @include mixin.on-desktop {
       margin-top: 28px;
       margin-bottom: 22px;
+    }
+
+    @include mixin.on-large-desktop {
+      margin-top: 22px;
+      margin-bottom: 18px;
     }
   }
 
@@ -219,19 +238,6 @@
       &--second {
         animation-delay: 0.85s;
       }
-
-      @include mixin.on-large-desktop {
-        animation: gallery-page-hero-line-in 1.8s variables.$ease-emphasized
-          forwards;
-
-        &--first {
-          animation-delay: variables.$effect-duration-long;
-        }
-
-        &--second {
-          animation-delay: 1.65s;
-        }
-      }
     }
   }
 
@@ -246,11 +252,6 @@
 
     @include mixin.on-tablet {
       animation-delay: 1.05s;
-
-      @include mixin.on-large-desktop {
-        animation: gallery-page-divider-in 1s variables.$ease-smooth 2.1s
-          forwards;
-      }
     }
   }
 
@@ -283,10 +284,6 @@
   &__footer {
     @include mixin.on-desktop {
       margin-top: 48px;
-    }
-
-    @include mixin.on-large-desktop {
-      margin-top: 0;
     }
   }
 
@@ -397,12 +394,6 @@
 
     @include mixin.on-desktop {
       display: none;
-    }
-
-    @include mixin.on-large-desktop {
-      display: block;
-      margin-top: 24px;
-      margin-bottom: 56px;
     }
   }
 

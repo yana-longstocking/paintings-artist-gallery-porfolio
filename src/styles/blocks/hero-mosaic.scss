@@ -69,6 +69,10 @@
     @include mixin.on-desktop {
       margin-top: 44px;
     }
+
+    @include mixin.on-large-desktop {
+      margin-top: 31px;
+    }
   }
 
   &__inner {
@@ -332,8 +336,7 @@
       }
 
       @include mixin.on-large-desktop {
-        padding: 0 4px;
-        transform: translateY(-20px);
+        padding: 0 4px 40px;
       }
     }
   }
@@ -482,29 +485,6 @@
         &::after {
           font-size: variables.$hero-mosaic-font-size-caption;
         }
-
-        @include mixin.on-large-desktop {
-          &::before {
-            inset: 0;
-            width: auto;
-            background: linear-gradient(
-              105deg,
-              transparent 35%,
-              rgba(255, 255, 255, 0.28) 50%,
-              transparent 65%
-            );
-            transform: translateX(-120px) skewX(-18deg);
-            opacity: 1;
-            animation: none;
-          }
-
-          @include mixin.on-hover-capable {
-            &:hover::before {
-              animation: hero-mosaic-cta-shine 0.8s variables.$ease-smooth
-                forwards;
-            }
-          }
-        }
       }
     }
   }
@@ -524,16 +504,6 @@
 
       &--tablet {
         display: inline;
-      }
-
-      @include mixin.on-large-desktop {
-        &--default {
-          display: inline;
-        }
-
-        &--tablet {
-          display: none;
-        }
       }
     }
   }

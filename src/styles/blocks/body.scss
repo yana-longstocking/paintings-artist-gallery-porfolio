@@ -11,6 +11,12 @@ html {
 
 .html--landing {
   scroll-padding-top: 96px;
+
+  // Make body the containing block so an absolute landing header
+  // scrolls with the page instead of sticking to the viewport.
+  body {
+    position: relative;
+  }
 }
 
 html,

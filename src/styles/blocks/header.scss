@@ -30,10 +30,6 @@
     @include mixin.on-desktop {
       transform: translateY(-4px);
     }
-
-    @include mixin.on-large-desktop {
-      transform: none;
-    }
   }
 
   &__logo-link {
@@ -154,7 +150,7 @@
     position: relative;
     font-size: 28px;
     line-height: 1.3;
-    letter-spacing: 0.05em;
+    letter-spacing: 1.4px;
     color: variables.$main-color;
     text-decoration: none;
     transition: color variables.$effect-duration ease;
@@ -391,16 +387,16 @@
     }
   }
 
-  // Landing used to be `position: absolute`, which sticks to the viewport
-  // because `body` is the scrollport — keep it in normal flow like gallery.
+  // Landing header overlays the mosaic; body is position:relative on
+  // landing so the header scrolls away with the page.
   &--landing {
     @include mixin.on-desktop {
-      position: relative;
-      top: auto;
-      left: auto;
-      right: auto;
-      z-index: auto;
-      width: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      width: 100%;
       padding: 28px 0 8px;
     }
   }
@@ -421,10 +417,6 @@
 
     @include mixin.on-desktop {
       padding-top: 40px;
-    }
-
-    @include mixin.on-large-desktop {
-      padding-top: 20px;
     }
   }
 }
