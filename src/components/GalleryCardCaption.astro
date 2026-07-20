@@ -1,0 +1,24 @@
+---
+import { SITE_NAME } from "../constants/seo";
+import {
+  formatGallerySize,
+  formatGalleryTitle,
+} from "../utils/formatGallerySize";
+
+interface Props {
+  title: string;
+  size?: string;
+  price?: string;
+}
+
+const { title, size, price } = Astro.props;
+const titleLabel = formatGalleryTitle(title);
+const sizeLabel = size ? formatGallerySize(size) : undefined;
+---
+
+<div class="gallery-card-caption">
+  <p class="gallery-card-caption__title">{titleLabel}</p>
+  {sizeLabel && <p class="gallery-card-caption__meta">{sizeLabel}</p>}
+  <p class="gallery-card-caption__meta">{SITE_NAME}</p>
+  {price && <p class="gallery-card-caption__price">{price}</p>}
+</div>

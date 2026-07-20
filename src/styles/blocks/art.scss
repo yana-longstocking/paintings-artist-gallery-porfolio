@@ -15,7 +15,7 @@
   }
 
   &__grid {
-    @include gallery-page-mixins.gallery-page-mobile-stack;
+    @include gallery-page-mixins.gallery-page-mobile-masonry;
 
     @include mixin.on-tablet {
       display: grid;
@@ -25,12 +25,15 @@
       @include gallery-page-mixins.gallery-page-tablet-equal-rows;
       align-items: stretch;
       gap: variables.$gallery-grid-gap-tablet;
-      margin-top: 0;
     }
 
     @include mixin.on-desktop {
       gap: variables.$gallery-grid-gap-desktop;
     }
+  }
+
+  &__col {
+    @include gallery-page-mixins.gallery-page-mobile-masonry-col;
   }
 
   &__item {
@@ -78,7 +81,6 @@
 
   &__image {
     @include gallery-page-mixins.gallery-page-card-image;
-    object-fit: unset;
   }
 
   @include mixin.on-tablet {

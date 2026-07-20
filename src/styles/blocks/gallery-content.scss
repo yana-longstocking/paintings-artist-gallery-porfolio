@@ -3,17 +3,26 @@
 @use "gallery-page-mixins";
 
 .gallery-content {
-  @include gallery-page-mixins.gallery-page-mobile-stack;
+  @include gallery-page-mixins.gallery-page-mobile-masonry;
   padding-top: variables.$gallery-page-mobile-item-gap;
 
   @include mixin.on-tablet {
-    display: block;
+    display: grid;
+    @include gallery-page-mixins.gallery-content-grid-columns;
+    grid-template-rows: auto repeat(2, variables.$gallery-grid-column-fluid);
+    align-items: stretch;
+    gap: variables.$gallery-grid-gap-tablet;
     padding-top: 0;
     padding-bottom: variables.$gallery-section-padding-bottom-tablet;
   }
 
   @include mixin.on-desktop {
+    gap: variables.$gallery-grid-gap-desktop;
     padding-bottom: variables.$gallery-section-padding-bottom-desktop;
+  }
+
+  &__col {
+    @include gallery-page-mixins.gallery-page-mobile-masonry-col;
   }
 
   &__featured {
@@ -21,12 +30,12 @@
     @include gallery-page-mixins.gallery-page-reveal-card;
 
     @include mixin.on-tablet {
+      grid-column: 1 / -1;
+      grid-row: 1;
       min-width: 0;
-      margin-bottom: variables.$gallery-section-padding-bottom-tablet;
     }
 
     @include mixin.on-desktop {
-      margin-bottom: variables.$gallery-section-padding-bottom-desktop;
       min-height: 420px;
     }
   }
@@ -39,8 +48,6 @@
     @include gallery-page-mixins.gallery-page-card-image;
 
     @include mixin.on-tablet {
-      display: block;
-      width: 100%;
       min-height: 280px;
       height: auto;
       object-fit: cover;
@@ -49,22 +56,6 @@
 
     @include mixin.on-desktop {
       min-height: 420px;
-    }
-  }
-
-  &__grid {
-    @include gallery-page-mixins.gallery-page-mobile-stack;
-
-    @include mixin.on-tablet {
-      display: grid;
-      @include gallery-page-mixins.gallery-content-grid-columns;
-      @include gallery-page-mixins.gallery-page-tablet-equal-rows;
-      align-items: stretch;
-      gap: variables.$gallery-grid-gap-tablet;
-    }
-
-    @include mixin.on-desktop {
-      gap: variables.$gallery-grid-gap-desktop;
     }
   }
 
@@ -79,49 +70,49 @@
     &--prisme-light {
       @include mixin.on-tablet {
         grid-column: 1;
-        grid-row: 1;
+        grid-row: 2;
       }
     }
 
     &--shevchenkos-kateryna {
       @include mixin.on-tablet {
         grid-column: 2;
-        grid-row: 1;
+        grid-row: 2;
       }
     }
 
     &--wind {
       @include mixin.on-tablet {
         grid-column: 3;
-        grid-row: 1;
+        grid-row: 2;
       }
     }
 
     &--myst {
       @include mixin.on-tablet {
         grid-column: 1;
-        grid-row: 2;
+        grid-row: 3;
       }
     }
 
     &--pretty-girls-do-cry-1 {
       @include mixin.on-tablet {
         grid-column: 2;
-        grid-row: 2;
+        grid-row: 3;
       }
     }
 
     &--pretty-girls-do-cry-2 {
       @include mixin.on-tablet {
         grid-column: 3;
-        grid-row: 2;
+        grid-row: 3;
       }
     }
 
     &--portrait {
       @include mixin.on-tablet {
         grid-column: 4 / 6;
-        grid-row: 1 / 3;
+        grid-row: 2 / 4;
         @include gallery-page-mixins.gallery-page-tablet-portrait-featured;
       }
     }
@@ -129,7 +120,6 @@
 
   &__image {
     @include gallery-page-mixins.gallery-page-card-image;
-    object-fit: unset;
   }
 
   @include mixin.on-tablet {

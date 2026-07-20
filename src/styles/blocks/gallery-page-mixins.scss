@@ -70,6 +70,8 @@
   height: auto;
   min-height: 0;
   padding: 0;
+  color: inherit;
+  text-decoration: none;
   line-height: 0;
 }
 
@@ -107,6 +109,8 @@
   @include gallery-hover-link;
   padding: 0;
   box-sizing: border-box;
+  color: inherit;
+  text-decoration: none;
 }
 
 @mixin gallery-page-grid-item-link {
@@ -114,21 +118,41 @@
   @include gallery-hover-link;
 }
 
-@mixin gallery-page-mobile-stack {
+@mixin gallery-page-mobile-masonry {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+@mixin gallery-page-mobile-masonry-col {
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: variables.$gallery-page-mobile-item-gap;
-  width: 100%;
+  gap: 20px;
+
+  &:last-child {
+    margin-top: 28px;
+  }
+
+  @include mixin.on-tablet {
+    display: contents;
+
+    &:last-child {
+      margin-top: 0;
+    }
+  }
 }
 
 @mixin gallery-page-card-item {
   position: relative;
+  width: 100%;
 }
 
 @mixin gallery-page-card-image {
   @include gallery-card-image;
-  transform: none;
-  transition: transform variables.$effect-duration-hover variables.$ease-smooth;
+  object-fit: unset;
 }
 
 @mixin gallery-page-tablet-equal-rows {

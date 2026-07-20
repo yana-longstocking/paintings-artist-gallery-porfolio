@@ -256,6 +256,14 @@
   }
 
   &__section {
+    &--art-tablet {
+      display: none;
+
+      @include mixin.on-tablet {
+        display: block;
+      }
+    }
+
     &--first {
       margin-top: 48px;
 

@@ -31,7 +31,7 @@
   }
 
   &__grid {
-    @include gallery-page-mixins.gallery-page-mobile-stack;
+    @include gallery-page-mixins.gallery-page-mobile-masonry;
 
     @include mixin.on-tablet {
       display: grid;
@@ -50,9 +50,19 @@
     }
   }
 
+  &__col {
+    @include gallery-page-mixins.gallery-page-mobile-masonry-col;
+  }
+
   &__item {
     @include gallery-page-mixins.gallery-page-card-item;
     @include gallery-page-mixins.gallery-page-reveal-card;
+
+    &--mobile-only {
+      @include mixin.on-tablet {
+        display: none;
+      }
+    }
 
     @include mixin.on-tablet {
       @include gallery-page-mixins.gallery-page-tablet-cover-item;
@@ -101,7 +111,6 @@
 
   &__image {
     @include gallery-page-mixins.gallery-page-card-image;
-    object-fit: unset;
   }
 
   @include mixin.on-tablet {

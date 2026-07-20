@@ -1,4 +1,5 @@
 ---
+import GalleryCardCaption from "./GalleryCardCaption.astro";
 import GalleryPageFooter from "./GalleryPageFooter.astro";
 import GalleryPageHero from "./GalleryPageHero.astro";
 import GalleryScrollTop from "./GalleryScrollTop.astro";
@@ -12,6 +13,56 @@ interface Props {
 }
 
 const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
+
+function splitMasonryColumns<T>(items: T[]): [T[], T[]] {
+  const left: T[] = [];
+  const right: T[] = [];
+
+  items.forEach((item, index) => {
+    if (index % 2 === 0) {
+      left.push(item);
+    } else {
+      right.push(item);
+    }
+  });
+
+  return [left, right];
+}
+
+const freedomEntries = data.freedomCollection.map((item, index) => ({
+  item,
+  index,
+}));
+const [freedomLeft, freedomRight] = splitMasonryColumns(freedomEntries);
+
+const paintingEntries = data.allPaintingCollection.map((item, index) => ({
+  item,
+  index,
+  fromArt: false as const,
+}));
+const artEntries = data.artCollection.map((item, index) => ({
+  item,
+  index,
+  fromArt: true as const,
+}));
+// Art has no mobile title — pack it into All Painting columns so no empty gap.
+const [paintingLeft, paintingRight] = splitMasonryColumns([
+  ...paintingEntries,
+  ...artEntries,
+]);
+
+const [artLeft, artRight] = splitMasonryColumns(data.artCollection);
+
+const galleryContentEntries = [
+  { kind: "featured" as const, item: data.galleryContent.featured },
+  ...data.galleryContent.items.map((item) => ({
+    kind: "item" as const,
+    item,
+  })),
+];
+const [galleryContentLeft, galleryContentRight] = splitMasonryColumns(
+  galleryContentEntries,
+);
 ---
 
 <GalleryPageHero
@@ -30,39 +81,13 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
       </h2>
       <div class="photo-gallery__grid">
         {
-          data.freedomCollection.map((item, index) =>
-            item.featured ? (
-              <div
-                class:list={[
-                  "photo-gallery__item",
-                  "photo-gallery__item--featured",
-                  `photo-gallery__item--${index + 1}`,
-                ]}
-              >
-                <a
-                  class="photo-gallery__link"
-                  href={`/${artworkLinkPrefix}artwork/${item.id}`}
-                >
-                  <img
-                    src={`/${item.src}`}
-                    alt={item.alt}
-                    class="photo-gallery__image"
-                    loading="eager"
-                    decoding="async"
-                    fetchpriority="high"
-                  />
-                </a>
-              </div>
-            ) : null,
-          )
-        }
-        <div class="photo-gallery__side">
-          {
-            data.freedomCollection.map((item, index) =>
-              !item.featured ? (
+          [freedomLeft, freedomRight].map((column) => (
+            <div class="photo-gallery__col">
+              {column.map(({ item, index }) => (
                 <div
                   class:list={[
                     "photo-gallery__item",
+                    item.featured && "photo-gallery__item--featured",
                     `photo-gallery__item--${index + 1}`,
                   ]}
                 >
@@ -78,12 +103,17 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
                       decoding="async"
                       fetchpriority={index <= 2 ? "high" : undefined}
                     />
+                    <GalleryCardCaption
+                      title={item.alt}
+                      size={item.size}
+                      price={item.price}
+                    />
                   </a>
                 </div>
-              ) : null,
-            )
-          }
-        </div>
+              ))}
+            </div>
+          ))
+        }
       </div>
     </section>
   </div>
@@ -97,26 +127,36 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
       </h2>
       <div class="photo-art__grid">
         {
-          data.allPaintingCollection.map((item, index) => (
-            <div
-              class:list={[
-                "photo-art__item",
-                index === 0 && "photo-art__item--featured",
-                `photo-art__item--${index + 1}`,
-              ]}
-            >
-              <a
-                class="photo-art__link"
-                href={`/${artworkLinkPrefix}artwork/${item.id}`}
-              >
-                <img
-                  src={`/${item.src}`}
-                  alt={item.alt}
-                  class="photo-art__image"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
+          [paintingLeft, paintingRight].map((column) => (
+            <div class="photo-art__col">
+              {column.map(({ item, index, fromArt }) => (
+                <div
+                  class:list={[
+                    "photo-art__item",
+                    fromArt && "photo-art__item--mobile-only",
+                    !fromArt && index === 0 && "photo-art__item--featured",
+                    !fromArt && `photo-art__item--${index + 1}`,
+                  ]}
+                >
+                  <a
+                    class="photo-art__link"
+                    href={`/${artworkLinkPrefix}artwork/${item.id}`}
+                  >
+                    <img
+                      src={`/${item.src}`}
+                      alt={item.alt}
+                      class="photo-art__image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <GalleryCardCaption
+                      title={item.alt}
+                      size={item.size}
+                      price={item.price}
+                    />
+                  </a>
+                </div>
+              ))}
             </div>
           ))
         }
@@ -125,27 +165,38 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
   </div>
 </article>
 
-<article class="gallery-page__section gallery-page__section--reveal">
+<article
+  class="gallery-page__section gallery-page__section--reveal gallery-page__section--art-tablet"
+>
   <div class="container">
     <section class="art">
       <div class="art__grid">
         {
-          data.artCollection.map((item) => (
-            <div
-              class={`art__item art__item--${item.id} ${item.featured ? "art__item--featured" : ""}`}
-            >
-              <a
-                class="art__link"
-                href={`/${artworkLinkPrefix}artwork/${item.id}`}
-              >
-                <img
-                  src={`/${item.src}`}
-                  alt={item.alt}
-                  class="art__image"
-                  loading="eager"
-                  decoding="async"
-                />
-              </a>
+          [artLeft, artRight].map((column) => (
+            <div class="art__col">
+              {column.map((item) => (
+                <div
+                  class={`art__item art__item--${item.id} ${item.featured ? "art__item--featured" : ""}`}
+                >
+                  <a
+                    class="art__link"
+                    href={`/${artworkLinkPrefix}artwork/${item.id}`}
+                  >
+                    <img
+                      src={`/${item.src}`}
+                      alt={item.alt}
+                      class="art__image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <GalleryCardCaption
+                      title={item.alt}
+                      size={item.size}
+                      price={item.price}
+                    />
+                  </a>
+                </div>
+              ))}
             </div>
           ))
         }
@@ -157,43 +208,58 @@ const { galleryData: data, translations, artworkLinkPrefix } = Astro.props;
 <article class="gallery-page__section gallery-page__section--reveal">
   <div class="container">
     <section class="gallery-content">
-      <div class="gallery-content__featured">
-        <a
-          class="gallery-content__link"
-          href={`/${artworkLinkPrefix}artwork/${data.galleryContent.featured.id}`}
-        >
-          <img
-            src={`/${data.galleryContent.featured.src}`}
-            alt={data.galleryContent.featured.alt}
-            class="gallery-content__featured-image"
-            loading="lazy"
-            decoding="async"
-            fetchpriority="high"
-          />
-        </a>
-      </div>
-      <div class="gallery-content__grid">
-        {
-          data.galleryContent.items.map((item) => (
-            <div
-              class={`gallery-content__item gallery-content__item--${item.id}`}
-            >
-              <a
-                class="gallery-content__link"
-                href={`/${artworkLinkPrefix}artwork/${item.id}`}
-              >
-                <img
-                  src={`/${item.src}`}
-                  alt={item.alt}
-                  class="gallery-content__image"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </a>
-            </div>
-          ))
-        }
-      </div>
+      {
+        [galleryContentLeft, galleryContentRight].map((column) => (
+          <div class="gallery-content__col">
+            {column.map((entry) =>
+              entry.kind === "featured" ? (
+                <div class="gallery-content__featured">
+                  <a
+                    class="gallery-content__link"
+                    href={`/${artworkLinkPrefix}artwork/${entry.item.id}`}
+                  >
+                    <img
+                      src={`/${entry.item.src}`}
+                      alt={entry.item.alt}
+                      class="gallery-content__featured-image"
+                      loading="lazy"
+                      decoding="async"
+                      fetchpriority="high"
+                    />
+                    <GalleryCardCaption
+                      title={entry.item.alt}
+                      size={entry.item.size}
+                      price={entry.item.price}
+                    />
+                  </a>
+                </div>
+              ) : (
+                <div
+                  class={`gallery-content__item gallery-content__item--${entry.item.id}`}
+                >
+                  <a
+                    class="gallery-content__link"
+                    href={`/${artworkLinkPrefix}artwork/${entry.item.id}`}
+                  >
+                    <img
+                      src={`/${entry.item.src}`}
+                      alt={entry.item.alt}
+                      class="gallery-content__image"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <GalleryCardCaption
+                      title={entry.item.alt}
+                      size={entry.item.size}
+                      price={entry.item.price}
+                    />
+                  </a>
+                </div>
+              ),
+            )}
+          </div>
+        ))
+      }
     </section>
   </div>
 </article>
