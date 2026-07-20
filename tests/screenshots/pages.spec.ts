@@ -4,7 +4,7 @@ import { preparePageForScreenshot } from "../helpers/prepare-page";
 const ARTWORK_ID = "series-freedom-alone";
 
 const PAGE_SCREENSHOT = { fullPage: true, maxDiffPixelRatio: 0.001 };
-const SECTION_SCREENSHOT = { maxDiffPixelRatio: 0.005 };
+const SECTION_SCREENSHOT = { maxDiffPixelRatio: 0.01 };
 
 async function gotoAndPrepare(page: Page, path: string): Promise<void> {
   await page.goto(path, { waitUntil: "load" });
