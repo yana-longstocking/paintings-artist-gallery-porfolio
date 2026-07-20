@@ -229,7 +229,8 @@
       transform: translateX(-150%) skewX(-18deg);
       opacity: 0;
       pointer-events: none;
-      animation: gallery-bridge-link-shine 1.85s ease-in-out infinite;
+      animation: gallery-bridge-link-shine variables.$button-shine-cycle
+        ease-in-out infinite;
     }
 
     &::after {
@@ -456,7 +457,8 @@
         );
         transform: translateX(-150%) skewX(-18deg);
         opacity: 0;
-        animation: gallery-bridge-link-shine 1.85s ease-in-out infinite;
+        animation: gallery-bridge-link-shine variables.$button-shine-cycle
+          ease-in-out infinite;
       }
 
       &::after {

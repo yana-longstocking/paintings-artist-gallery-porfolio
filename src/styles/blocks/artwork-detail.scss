@@ -743,7 +743,8 @@
       transform: translateX(-150%) skewX(-18deg);
       opacity: 0;
       pointer-events: none;
-      animation: gallery-bridge-link-shine 1.65s ease-in-out infinite;
+      animation: gallery-bridge-link-shine variables.$button-shine-cycle
+        ease-in-out infinite;
     }
 
     @include mixin.on-tablet {
@@ -758,10 +759,6 @@
           variables.$ease-emphasized;
       margin-top: auto;
       align-self: flex-start;
-
-      &::before {
-        animation-duration: 2.1s;
-      }
 
       @include mixin.on-desktop {
         font-weight: 700;
