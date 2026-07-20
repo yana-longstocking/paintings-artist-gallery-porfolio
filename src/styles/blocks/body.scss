@@ -1,6 +1,5 @@
 @use "mixin";
 
-// html does not scroll — body is the scrollport (fixes iPad Chrome overscroll).
 html {
   height: 100%;
   height: 100dvh;
@@ -12,8 +11,6 @@ html {
 .html--landing {
   scroll-padding-top: 96px;
 
-  // Make body the containing block so an absolute landing header
-  // scrolls with the page instead of sticking to the viewport.
   body {
     position: relative;
   }
