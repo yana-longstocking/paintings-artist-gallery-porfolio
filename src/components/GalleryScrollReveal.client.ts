@@ -2,6 +2,7 @@ import {
   GALLERY_HERO_INTRO_MS,
   GALLERY_HERO_INTRO_MS_TABLET,
   galleryRevealStaggerDelaySeconds,
+  galleryRevealStaggerDelaySecondsTablet,
 } from "../constants/gallery-reveal";
 import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
 
@@ -23,11 +24,16 @@ function initGalleryScrollReveal(): void {
     section.classList.add("gallery-page__section--intro-ready");
   };
 
+  const isTablet = isTabletLayout();
+  const getStaggerDelay = isTablet
+    ? galleryRevealStaggerDelaySecondsTablet
+    : galleryRevealStaggerDelaySeconds;
+
   const prepareTarget = (target: Element, index: number | null) => {
     const element = target as HTMLElement;
     target.classList.add("gallery-page__target");
     if (index !== null) {
-      element.style.transitionDelay = `${galleryRevealStaggerDelaySeconds(index)}s`;
+      element.style.transitionDelay = `${getStaggerDelay(index)}s`;
     }
   };
 
@@ -61,7 +67,7 @@ function initGalleryScrollReveal(): void {
     return;
   }
 
-  const heroIntroMs = isTabletLayout()
+  const heroIntroMs = isTablet
     ? GALLERY_HERO_INTRO_MS_TABLET
     : GALLERY_HERO_INTRO_MS;
 
@@ -69,12 +75,14 @@ function initGalleryScrollReveal(): void {
     window.setTimeout(resolve, heroIntroMs);
   });
 
+  const revealPaintDelayMs = isTablet ? 80 : 48;
+
   const revealAfterPaint = (targets: Element[]) => {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         window.setTimeout(() => {
           targets.forEach((target) => revealTarget(target));
-        }, 48);
+        }, revealPaintDelayMs);
       });
     });
   };

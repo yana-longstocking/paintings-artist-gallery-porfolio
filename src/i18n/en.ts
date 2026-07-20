@@ -10,6 +10,7 @@ const contact = {
 
 export const home = {
   viewAllWorksLabel: "View all works",
+  tabletGalleryLabel: "View gallery",
   mobileHeroTagline: "Pencil on paper",
   artistBioTitle: "Artist Bio",
   artistBioText: `Born and raised in Ukraine, I began drawing at an early age and have

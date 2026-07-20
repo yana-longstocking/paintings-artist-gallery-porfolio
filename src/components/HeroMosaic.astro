@@ -10,6 +10,7 @@ interface Props {
   artworkLinkPrefix: string;
   galleryHref?: string;
   galleryLabel?: string;
+  tabletGalleryLabel?: string;
   mobileGalleryLabel?: string;
   mobileHeroTagline?: string;
   mobileFeature?: HeroMosaicPiece;
@@ -20,6 +21,7 @@ const {
   artworkLinkPrefix,
   galleryHref,
   galleryLabel,
+  tabletGalleryLabel,
   mobileGalleryLabel,
   mobileHeroTagline,
   mobileFeature,
@@ -104,7 +106,12 @@ const mobilePiece = mobileFeature ?? featuredPiece;
         galleryHref && galleryLabel && (
           <div class="hero-mosaic__cta">
             <a href={galleryHref} class="hero-mosaic__cta-link">
-              {galleryLabel}
+              <span class="hero-mosaic__cta-label hero-mosaic__cta-label--default">
+                {galleryLabel}
+              </span>
+              <span class="hero-mosaic__cta-label hero-mosaic__cta-label--tablet">
+                {tabletGalleryLabel ?? galleryLabel}
+              </span>
             </a>
           </div>
         )

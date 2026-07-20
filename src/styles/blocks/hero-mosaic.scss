@@ -384,6 +384,8 @@
 
     &::after {
       content: "→";
+      position: relative;
+      z-index: 2;
       font-family:
         system-ui,
         -apple-system,
@@ -433,8 +435,38 @@
       white-space: normal;
       box-shadow: 0 2px 8px rgba(209, 45, 53, 0.22);
 
+      &::before {
+        inset: -20% -10%;
+        z-index: 1;
+        width: 55%;
+        background: linear-gradient(
+          105deg,
+          transparent 0%,
+          rgba(175, 165, 205, 0.2) 22%,
+          rgba(175, 165, 205, 0.55) 38%,
+          rgba(232, 226, 245, 0.95) 48%,
+          rgba(255, 255, 255, 0.9) 50%,
+          rgba(232, 226, 245, 0.95) 52%,
+          rgba(175, 165, 205, 0.55) 62%,
+          rgba(139, 127, 168, 0.35) 78%,
+          transparent 100%
+        );
+        transform: translateX(-150%) skewX(-18deg);
+        opacity: 0;
+        animation: gallery-bridge-link-shine 1.85s ease-in-out infinite;
+      }
+
       &::after {
         font-size: 7px;
+      }
+
+      @include mixin.on-hover-capable {
+        &:hover::before {
+          animation-duration: 0.9s;
+          animation-delay: 0s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
+        }
       }
 
       @include mixin.on-desktop {
@@ -447,8 +479,58 @@
         line-height: 10px;
         box-shadow: 0 2px 12px rgba(209, 45, 53, 0.26);
 
+        &::before {
+          inset: 0;
+          width: auto;
+          background: linear-gradient(
+            105deg,
+            transparent 35%,
+            rgba(255, 255, 255, 0.28) 50%,
+            transparent 65%
+          );
+          transform: translateX(-120px) skewX(-18deg);
+          opacity: 1;
+          animation: none;
+        }
+
         &::after {
           font-size: variables.$hero-mosaic-font-size-caption;
+        }
+
+        @include mixin.on-hover-capable {
+          &:hover::before {
+            animation: hero-mosaic-cta-shine 0.8s variables.$ease-smooth
+              forwards;
+          }
+        }
+      }
+    }
+  }
+
+  &__cta-label {
+    position: relative;
+    z-index: 2;
+
+    &--tablet {
+      display: none;
+    }
+
+    @include mixin.on-tablet {
+      &--default {
+        display: none;
+      }
+
+      &--tablet {
+        display: inline;
+      }
+
+      @include mixin.on-desktop {
+        &--default {
+          display: inline;
+        }
+
+        &--tablet {
+          display: none;
         }
       }
     }

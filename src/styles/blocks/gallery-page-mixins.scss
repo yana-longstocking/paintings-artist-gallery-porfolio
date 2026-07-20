@@ -210,14 +210,22 @@
 @mixin gallery-page-reveal-card {
   @include mixin.on-tablet {
     opacity: 0;
-    transform: translateY(variables.$reveal-offset-y-large);
+    transform: translateY(24px);
     transition:
-      opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
-      transform variables.$reveal-duration-transform variables.$ease-emphasized;
+      opacity 1.45s variables.$ease-smooth,
+      transform 1.55s variables.$ease-smooth;
 
     &.gallery-page__target--visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    @include mixin.on-desktop {
+      transform: translateY(variables.$reveal-offset-y-large);
+      transition:
+        opacity variables.$reveal-duration-opacity variables.$ease-emphasized,
+        transform variables.$reveal-duration-transform
+          variables.$ease-emphasized;
     }
   }
 

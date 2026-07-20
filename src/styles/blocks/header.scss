@@ -75,6 +75,11 @@
       transform: translateX(0);
     }
 
+    @include mixin.on-tablet {
+      justify-content: center;
+      padding-bottom: 10vh;
+    }
+
     @include mixin.on-desktop {
       display: block;
       position: relative;
@@ -97,7 +102,7 @@
     display: flex;
 
     @include mixin.on-tablet {
-      top: 50px;
+      top: 28px;
       left: 72px;
     }
 
@@ -184,7 +189,7 @@
     transition: transform variables.$effect-duration;
 
     @include mixin.on-tablet {
-      top: 50px;
+      top: 28px;
       right: 72px;
     }
 

@@ -1,9 +1,10 @@
-import { isMobileLayout } from "../constants/breakpoints";
+import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
 import {
   getScrollRoot,
   getScrollY,
   scrollTo,
   SMOOTH_SCROLL_TIMING_GALLERY,
+  SMOOTH_SCROLL_TIMING_GALLERY_TABLET,
 } from "../utils/scrollRoot";
 
 function initGalleryScrollTop(): void {
@@ -60,12 +61,16 @@ function initGalleryScrollTop(): void {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+    const scrollTiming = isTabletLayout()
+      ? SMOOTH_SCROLL_TIMING_GALLERY_TABLET
+      : SMOOTH_SCROLL_TIMING_GALLERY;
+
     scrollTo(
       {
         top: 0,
         behavior: reduceMotion ? "auto" : "smooth",
       },
-      SMOOTH_SCROLL_TIMING_GALLERY,
+      scrollTiming,
     );
   };
 

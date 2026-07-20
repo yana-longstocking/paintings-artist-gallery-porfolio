@@ -10,6 +10,7 @@ const contact = {
 
 export const home = {
   viewAllWorksLabel: "Ver las obras",
+  tabletGalleryLabel: "Ver galería",
   mobileHeroTagline: "Lápiz sobre papel",
   artistBioTitle: "Biografía de la Artista",
   artistBioText: `Nacida y criada en Ucrania, comencé a dibujar a una edad temprana y he

@@ -35,6 +35,14 @@ export const SMOOTH_SCROLL_TIMING_GALLERY: SmoothScrollTiming = {
   easing: easeInOutCubic,
 };
 
+/** Faster gallery scroll-up on tablet */
+export const SMOOTH_SCROLL_TIMING_GALLERY_TABLET: SmoothScrollTiming = {
+  minDurationMs: 900,
+  maxDurationMs: 1400,
+  msPerPx: 0.55,
+  easing: easeInOutCubic,
+};
+
 const DEFAULT_SMOOTH_SCROLL_TIMING: Required<
   Omit<SmoothScrollTiming, "easing">
 > & {
