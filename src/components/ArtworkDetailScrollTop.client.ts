@@ -1,4 +1,4 @@
-import { scrollTo } from "../utils/scrollRoot";
+import { getScrollRoot, scrollTo } from "../utils/scrollRoot";
 
 function initArtworkDetailScrollTop(): void {
   const bar = document.querySelector(".artwork-detail__scroll-top-bar");
@@ -6,6 +6,8 @@ function initArtworkDetailScrollTop(): void {
   const accent = document.querySelector(".artwork-detail__scroll-top-accent");
   const button = document.querySelector(".artwork-detail__scroll-top");
   if (!bar || !wrap || !button) return;
+
+  const scroller = getScrollRoot();
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -24,12 +26,15 @@ function initArtworkDetailScrollTop(): void {
     {
       threshold: 0.25,
       rootMargin: "0px 0px -5% 0px",
+      root: scroller,
     },
   );
 
   observer.observe(bar);
 
-  button.addEventListener("click", () => {
+  let pointerStartY = 0;
+
+  const scrollToTop = (): void => {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -37,6 +42,28 @@ function initArtworkDetailScrollTop(): void {
       top: 0,
       behavior: reduceMotion ? "auto" : "smooth",
     });
+  };
+
+  button.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    pointerStartY = event.clientY;
+  });
+
+  button.addEventListener("pointerup", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (Math.abs(event.clientY - pointerStartY) > 8) return;
+
+    event.preventDefault();
+    if (button instanceof HTMLButtonElement) {
+      button.blur();
+    }
+    scrollToTop();
+  });
+
+  button.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    scrollToTop();
   });
 }
 

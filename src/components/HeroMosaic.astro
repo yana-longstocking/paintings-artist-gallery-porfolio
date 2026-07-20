@@ -10,7 +10,9 @@ interface Props {
   artworkLinkPrefix: string;
   galleryHref?: string;
   galleryLabel?: string;
+  mobileGalleryLabel?: string;
   mobileHeroTagline?: string;
+  mobileFeature?: HeroMosaicPiece;
 }
 
 const {
@@ -18,7 +20,9 @@ const {
   artworkLinkPrefix,
   galleryHref,
   galleryLabel,
+  mobileGalleryLabel,
   mobileHeroTagline,
+  mobileFeature,
 } = Astro.props;
 
 const slotClasses = [
@@ -34,21 +38,22 @@ const slotClasses = [
 const cells = pieces.slice(0, slotClasses.length);
 const featuredIndex = Math.min(3, pieces.length - 1);
 const featuredPiece = pieces[featuredIndex] ?? pieces[0];
+const mobilePiece = mobileFeature ?? featuredPiece;
 ---
 
 <section aria-label="Welcome">
   <div class="hero-mosaic__inner">
     <div class="hero-mosaic__mobile-feature">
       {
-        featuredPiece && (
+        mobilePiece && (
           <a
-            href={`/${artworkLinkPrefix}artwork/${featuredPiece.id}`}
+            href={`/${artworkLinkPrefix}artwork/${mobilePiece.id}`}
             class="hero-mosaic__mobile-photo"
-            aria-label={featuredPiece.alt}
+            aria-label={mobilePiece.alt}
           >
             <img
-              src={`/${featuredPiece.src}`}
-              alt={featuredPiece.alt}
+              src={`/${mobilePiece.src}`}
+              alt={mobilePiece.alt}
               class="hero-mosaic__mobile-photo-img"
               width="800"
               height="1000"
@@ -66,9 +71,9 @@ const featuredPiece = pieces[featuredIndex] ?? pieces[0];
           )
         }
         {
-          galleryHref && galleryLabel && (
+          galleryHref && (mobileGalleryLabel ?? galleryLabel) && (
             <a href={galleryHref} class="hero-mosaic__mobile-cta">
-              {galleryLabel}
+              {mobileGalleryLabel ?? galleryLabel}
             </a>
           )
         }

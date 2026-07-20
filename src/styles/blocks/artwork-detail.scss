@@ -2,34 +2,6 @@
 @use "variables";
 @use "contact-actions";
 
-@keyframes artwork-detail-title-line-enter {
-  0% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-
-  40% {
-    opacity: 0.55;
-  }
-
-  100% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-}
-
-@keyframes artwork-detail-accent-line-in {
-  0% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-}
-
 @mixin artwork-detail-reveal {
   @include mixin.on-tablet {
     opacity: 0;
@@ -199,9 +171,8 @@
     background: variables.$accent-line-gradient;
 
     &--visible {
-      animation: artwork-detail-accent-line-in
-        variables.$reveal-duration-opacity variables.$ease-emphasized
-        variables.$effect-duration-short forwards;
+      animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
+        variables.$ease-emphasized variables.$effect-duration-short forwards;
     }
   }
 
@@ -222,6 +193,126 @@
     }
 
     &__scroll-top-accent--visible {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  &__scroll-down-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    margin-top: 24px;
+    padding-bottom: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(variables.$reveal-offset-y-medium);
+    pointer-events: none;
+    transition:
+      opacity variables.$effect-duration-medium variables.$ease-smooth,
+      visibility variables.$effect-duration-medium variables.$ease-smooth,
+      transform 0.65s variables.$ease-emphasized;
+
+    @include mixin.on-tablet {
+      display: none;
+    }
+
+    &--visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
+
+  &__scroll-down {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    touch-action: manipulation;
+    border: 1px solid rgba(139, 127, 168, 0.55);
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.55);
+    color: rgba(107, 95, 138, 0.98);
+    box-shadow: 0 3px 12px rgba(107, 95, 138, 0.16);
+    cursor: pointer;
+    transition:
+      background-color variables.$effect-duration variables.$transition,
+      border-color variables.$effect-duration variables.$transition,
+      color variables.$effect-duration variables.$transition,
+      box-shadow variables.$effect-duration variables.$transition,
+      transform variables.$effect-duration-hover variables.$ease-smooth;
+
+    @include mixin.on-hover-capable {
+      &:hover {
+        background-color: variables.$background-color;
+        border-color: variables.$background-color;
+        color: variables.$color-text;
+        box-shadow: 0 8px 24px rgba(209, 45, 53, 0.28);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: translateY(-1px);
+      }
+    }
+
+    &:active {
+      background-color: variables.$background-color;
+      border-color: variables.$background-color;
+      color: variables.$color-text;
+      box-shadow: 0 6px 20px rgba(209, 45, 53, 0.28);
+      transform: translateY(0);
+    }
+
+    &:focus-visible {
+      outline: 2px solid variables.$main-color;
+      outline-offset: 3px;
+    }
+  }
+
+  &__scroll-down-icon {
+    display: block;
+  }
+
+  &__scroll-down-accent {
+    display: block;
+    width: 36px;
+    height: 1.5px;
+    border-radius: variables.$border-radius-accent;
+    transform: scaleX(0);
+    transform-origin: left center;
+    opacity: 0;
+    background: variables.$accent-line-gradient;
+
+    &--visible {
+      animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
+        variables.$ease-emphasized variables.$effect-duration-short forwards;
+    }
+  }
+
+  @include mixin.on-reduced-motion {
+    &__scroll-down {
+      transition: background-color variables.$effect-duration-short;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    &__scroll-down-wrap {
+      transform: none;
+      transition:
+        opacity variables.$effect-duration-short,
+        visibility variables.$effect-duration-short;
+    }
+
+    &__scroll-down-accent--visible {
       animation: none;
       opacity: 1;
       transform: none;
@@ -483,7 +574,7 @@
   }
 
   &__footer {
-    margin-top: 60px;
+    margin-top: 28px;
     padding-top: 40px;
     padding-bottom: 20px;
     border-top: 1px solid rgba(22, 22, 22, 0.1);
@@ -565,7 +656,7 @@
 
       &.artwork-detail__target--visible {
         &::after {
-          animation: artwork-detail-title-line-enter
+          animation: artist-bio-title-line-enter
             variables.$reveal-duration-opacity variables.$ease-emphasized 0.38s
             both;
         }
@@ -613,6 +704,9 @@
   &__footer-link {
     @include artwork-detail-reveal;
     display: inline-flex;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     align-items: center;
     gap: 5px;
     min-height: 30px;
@@ -636,6 +730,30 @@
       border-color variables.$effect-duration variables.$transition,
       box-shadow variables.$effect-duration variables.$transition;
 
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -20% -10%;
+      z-index: 1;
+      width: 55%;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(175, 165, 205, 0.2) 22%,
+        rgba(175, 165, 205, 0.55) 38%,
+        rgba(232, 226, 245, 0.95) 48%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(232, 226, 245, 0.95) 52%,
+        rgba(175, 165, 205, 0.55) 62%,
+        rgba(139, 127, 168, 0.35) 78%,
+        transparent 100%
+      );
+      transform: translateX(-150%) skewX(-18deg);
+      opacity: 0;
+      pointer-events: none;
+      animation: gallery-bridge-link-shine 1.65s ease-in-out infinite;
+    }
+
     @include mixin.on-tablet {
       font-weight: 400;
       transition:
@@ -649,6 +767,10 @@
       margin-top: auto;
       align-self: flex-start;
 
+      &::before {
+        animation-duration: 2.1s;
+      }
+
       @include mixin.on-desktop {
         font-weight: 700;
       }
@@ -656,6 +778,8 @@
 
     &::after {
       content: "→";
+      position: relative;
+      z-index: 2;
       font-family:
         system-ui,
         -apple-system,
@@ -681,6 +805,13 @@
           @include contact-actions.contact-actions-link-filled;
           transform: translateY(-2px);
 
+          &::before {
+            animation-duration: 0.9s;
+            animation-delay: 0s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+          }
+
           &::after {
             transform: translateX(2px);
           }
@@ -693,6 +824,10 @@
     }
 
     @include mixin.on-reduced-motion {
+      &::before {
+        animation: none;
+      }
+
       transition:
         background-color variables.$effect-duration-short,
         color variables.$effect-duration-short,
@@ -707,6 +842,11 @@
         transition: none;
       }
     }
+  }
+
+  &__footer-link-text {
+    position: relative;
+    z-index: 2;
   }
 
   &__footer-actions {

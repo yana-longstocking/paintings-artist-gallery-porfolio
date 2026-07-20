@@ -1,4 +1,10 @@
-import { scrollTo } from "../utils/scrollRoot";
+import { isMobileLayout } from "../constants/breakpoints";
+import {
+  getScrollRoot,
+  getScrollY,
+  scrollTo,
+  SMOOTH_SCROLL_TIMING_GALLERY,
+} from "../utils/scrollRoot";
 
 function initGalleryScrollTop(): void {
   const bar = document.querySelector(".gallery-page__scroll-top-bar");
@@ -7,36 +13,82 @@ function initGalleryScrollTop(): void {
   const button = document.querySelector(".gallery-page__scroll-top");
   if (!bar || !wrap || !button) return;
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const isVisible = entry.isIntersecting;
-        wrap.classList.toggle(
-          "gallery-page__scroll-top-wrap--visible",
-          isVisible,
-        );
-        accent?.classList.toggle(
-          "gallery-page__scroll-top-accent--visible",
-          isVisible,
-        );
-      });
-    },
-    {
-      threshold: 0.25,
-      rootMargin: "0px 0px -5% 0px",
-    },
-  );
+  const scroller = getScrollRoot();
 
-  observer.observe(bar);
+  const setVisible = (isVisible: boolean): void => {
+    wrap.classList.toggle("gallery-page__scroll-top-wrap--visible", isVisible);
+    accent?.classList.toggle(
+      "gallery-page__scroll-top-accent--visible",
+      isVisible,
+    );
+  };
 
-  button.addEventListener("click", () => {
+  if (isMobileLayout()) {
+    const syncMobileVisibility = (): void => {
+      const scrollY = getScrollY();
+      const maxScroll = Math.max(
+        0,
+        scroller.scrollHeight - scroller.clientHeight,
+      );
+      setVisible(scrollY > 160 && scrollY >= maxScroll - 96);
+    };
+
+    scroller.addEventListener("scroll", syncMobileVisibility, {
+      passive: true,
+    });
+    syncMobileVisibility();
+  } else {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setVisible(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.25,
+        rootMargin: "0px 0px -5% 0px",
+        root: scroller,
+      },
+    );
+
+    observer.observe(bar);
+  }
+
+  let pointerStartY = 0;
+
+  const scrollToTop = (): void => {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    scrollTo({
-      top: 0,
-      behavior: reduceMotion ? "auto" : "smooth",
-    });
+    scrollTo(
+      {
+        top: 0,
+        behavior: reduceMotion ? "auto" : "smooth",
+      },
+      SMOOTH_SCROLL_TIMING_GALLERY,
+    );
+  };
+
+  button.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    pointerStartY = event.clientY;
+  });
+
+  button.addEventListener("pointerup", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    if (Math.abs(event.clientY - pointerStartY) > 8) return;
+
+    event.preventDefault();
+    if (button instanceof HTMLButtonElement) {
+      button.blur();
+    }
+    scrollToTop();
+  });
+
+  button.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    scrollToTop();
   });
 }
 

@@ -1,0 +1,35 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="artwork-detail__scroll-down-wrap">
+  <button
+    type="button"
+    class="artwork-detail__scroll-down"
+    aria-label={label}
+    title={label}
+  >
+    <svg
+      class="artwork-detail__scroll-down-icon"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 18V6M7 11l5-5 5 5"></path>
+    </svg>
+  </button>
+  <span class="artwork-detail__scroll-down-accent" aria-hidden="true"></span>
+</div>
+
+<script src="./ArtworkDetailScrollDown.client.ts"></script>

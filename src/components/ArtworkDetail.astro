@@ -3,6 +3,7 @@ import ImageModal from "./ImageModal/ImageModal.astro";
 import ContactActionButtons from "./ContactActionButtons.astro";
 import ArtworkDetailScrollReveal from "./ArtworkDetailScrollReveal.astro";
 import ArtworkDetailScrollTop from "./ArtworkDetailScrollTop.astro";
+import ArtworkDetailScrollDown from "./ArtworkDetailScrollDown.astro";
 import type { ArtworkItem } from "../types/gallery";
 import type { ArtworkTranslations } from "../i18n/types";
 
@@ -70,6 +71,7 @@ const hasAdditionalPhotos =
                   </div>
                 ))}
               </div>
+              <ArtworkDetailScrollDown label={translations.scrollToTopLabel} />
             </div>
           )
         }
@@ -89,7 +91,9 @@ const hasAdditionalPhotos =
           {translations.footerText}
         </p>
         <a href={galleryLink} class="artwork-detail__footer-link">
-          {translations.footerLinkText}
+          <span class="artwork-detail__footer-link-text">
+            {translations.footerLinkText}
+          </span>
         </a>
       </div>
 

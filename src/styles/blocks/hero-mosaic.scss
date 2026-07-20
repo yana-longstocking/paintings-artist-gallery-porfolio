@@ -121,7 +121,25 @@
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    opacity: 0.58;
+    opacity: 0.92;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      rgba(0, 0, 0, 0.97) 18%,
+      rgba(0, 0, 0, 0.9) 40%,
+      rgba(0, 0, 0, 0.78) 60%,
+      rgba(0, 0, 0, 0.65) 80%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      rgba(0, 0, 0, 0.97) 18%,
+      rgba(0, 0, 0, 0.9) 40%,
+      rgba(0, 0, 0, 0.78) 60%,
+      rgba(0, 0, 0, 0.65) 80%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
   }
 
   &__mobile-copy {
@@ -132,14 +150,18 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    padding: 60px variables.$hero-mosaic-padding-inline
+    padding: 110px variables.$hero-mosaic-padding-inline
       variables.$hero-mosaic-padding-inline;
     pointer-events: none;
     background: linear-gradient(
       180deg,
       rgba(242, 240, 246, 0) 0%,
-      rgba(242, 240, 246, 0.45) 50%,
-      rgba(242, 240, 246, 0.88) 100%
+      rgba(242, 240, 246, 0.06) 18%,
+      rgba(242, 240, 246, 0.18) 36%,
+      rgba(242, 240, 246, 0.38) 54%,
+      rgba(242, 240, 246, 0.62) 72%,
+      rgba(242, 240, 246, 0.82) 88%,
+      rgba(242, 240, 246, 0.94) 100%
     );
   }
 
@@ -148,7 +170,7 @@
     font-size: variables.$hero-mosaic-font-size-caption;
     font-weight: 400;
     line-height: 12px;
-    color: rgba(26, 26, 26, 0.62);
+    color: rgba(26, 26, 26, 0.78);
   }
 
   &__mobile-cta {
@@ -185,19 +207,31 @@
     &::before {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: -20% -10%;
+      z-index: 1;
+      width: 55%;
       background: linear-gradient(
         105deg,
-        transparent 35%,
-        rgba(255, 255, 255, 0.28) 50%,
-        transparent 65%
+        transparent 0%,
+        rgba(175, 165, 205, 0.2) 22%,
+        rgba(175, 165, 205, 0.55) 38%,
+        rgba(232, 226, 245, 0.95) 48%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(232, 226, 245, 0.95) 52%,
+        rgba(175, 165, 205, 0.55) 62%,
+        rgba(139, 127, 168, 0.35) 78%,
+        transparent 100%
       );
-      transform: translateX(-120px) skewX(-18deg);
+      transform: translateX(-150%) skewX(-18deg);
+      opacity: 0;
       pointer-events: none;
+      animation: gallery-bridge-link-shine 1.85s ease-in-out infinite;
     }
 
     &::after {
       content: "→";
+      position: relative;
+      z-index: 2;
       font-family:
         system-ui,
         -apple-system,
@@ -230,7 +264,10 @@
           inset 0 1px 0 rgba(255, 255, 255, 0.16);
 
         &::before {
-          animation: hero-mosaic-cta-shine 0.8s variables.$ease-smooth forwards;
+          animation-duration: 0.9s;
+          animation-delay: 0s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
         }
 
         &::after {
@@ -538,23 +575,23 @@
       animation: none;
       opacity: 1;
       transform: none;
+
+      &::before {
+        animation: none;
+      }
     }
 
-    &__cta-link {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
+    &__cta-link,
     &__cta-link--ready {
       animation: none;
       opacity: 1;
       transform: none;
+      pointer-events: auto;
     }
 
     &__cta-link,
     &__cta-link::after,
     &__cta-link::before {
-      animation: none;
       transition: none;
     }
 

@@ -2,8 +2,29 @@
 @use "variables";
 
 @keyframes gallery-bridge-link-shine {
-  to {
-    transform: translateX(120%) skewX(-18deg);
+  0% {
+    transform: translateX(-150%) skewX(-18deg);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  70% {
+    transform: translateX(150%) skewX(-18deg);
+    opacity: 0.35;
+  }
+
+  85% {
+    transform: translateX(170%) skewX(-18deg);
+    opacity: 0;
+  }
+
+  86%,
+  100% {
+    transform: translateX(-150%) skewX(-18deg);
+    opacity: 0;
   }
 }
 
@@ -27,6 +48,10 @@
     &__link {
       max-width: 280px;
       min-height: 52px;
+
+      &::before {
+        animation-duration: 2.1s;
+      }
     }
 
     &__link-text {
@@ -38,10 +63,8 @@
       opacity: 0;
       transform: translateY(56px) scale(0.97);
       transition:
-        opacity variables.$reveal-duration-opacity-long
-          variables.$ease-emphasized,
-        transform variables.$reveal-duration-transform-long
-          variables.$ease-emphasized;
+        opacity 0.95s variables.$ease-emphasized,
+        transform 1.05s variables.$ease-emphasized;
     }
 
     &--reveal.gallery-bridge--visible &__inner {
@@ -121,15 +144,25 @@
     &::before {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: -20% -10%;
+      z-index: 1;
+      width: 55%;
       background: linear-gradient(
         105deg,
-        transparent 34%,
-        rgba(255, 255, 255, 0.55) 50%,
-        transparent 66%
+        transparent 0%,
+        rgba(175, 165, 205, 0.2) 22%,
+        rgba(175, 165, 205, 0.55) 38%,
+        rgba(232, 226, 245, 0.95) 48%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(232, 226, 245, 0.95) 52%,
+        rgba(175, 165, 205, 0.55) 62%,
+        rgba(139, 127, 168, 0.35) 78%,
+        transparent 100%
       );
-      transform: translateX(-130%) skewX(-18deg);
+      transform: translateX(-150%) skewX(-18deg);
+      opacity: 0;
       pointer-events: none;
+      animation: gallery-bridge-link-shine 1.85s ease-in-out infinite;
     }
 
     &::after {
@@ -170,8 +203,10 @@
           inset 0 1px 0 rgba(255, 255, 255, 0.96);
 
         &::before {
-          animation: gallery-bridge-link-shine 0.9s variables.$ease-smooth
-            forwards;
+          animation-duration: 0.9s;
+          animation-delay: 0s;
+          animation-iteration-count: 1;
+          animation-fill-mode: forwards;
         }
 
         &::after {
@@ -190,6 +225,10 @@
         color variables.$effect-duration-short,
         box-shadow variables.$effect-duration-short;
 
+      &::before {
+        animation: none;
+      }
+
       &::after {
         transform: scaleX(1);
         transition: none;
@@ -199,14 +238,12 @@
       &:active {
         transform: none;
       }
-
-      &:hover::before {
-        animation: none;
-      }
     }
   }
 
   &__link-body {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex: 1;
     align-items: center;
@@ -224,6 +261,8 @@
   }
 
   &__link-icon {
+    position: relative;
+    z-index: 2;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;

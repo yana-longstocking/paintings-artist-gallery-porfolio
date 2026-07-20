@@ -117,6 +117,8 @@ const mapDancerForHero = (p: MosaicItem): MosaicItem => {
   return replacement ?? p;
 };
 
+const mobileFeaturePiece = findMosaicItem("dancer");
+
 const heroMosaicPieces = [
   sidePicks[0],
   sidePicks[1],
@@ -138,7 +140,13 @@ const heroMosaicPieces = [
       artworkLinkPrefix={artworkLinkPrefix}
       galleryHref={galleryHref}
       galleryLabel={translations.viewAllWorksLabel}
+      mobileGalleryLabel={translations.mobileGalleryBridgeLabel}
       mobileHeroTagline={translations.mobileHeroTagline}
+      mobileFeature={mobileFeaturePiece && {
+        id: mobileFeaturePiece.id,
+        src: mobileFeaturePiece.src,
+        alt: mobileFeaturePiece.alt,
+      }}
     />
   </div>
 </main>
