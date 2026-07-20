@@ -5,17 +5,33 @@
   background-image:
     radial-gradient(
       ellipse 80% 120% at 0% 50%,
-      rgba(210, 198, 235, 0.22) 0%,
+      rgba(210, 198, 235, 0.2) 0%,
       transparent 62%
     ),
     radial-gradient(
       ellipse 80% 120% at 100% 50%,
-      rgba(175, 165, 205, 0.16) 0%,
+      rgba(175, 165, 205, 0.12) 0%,
       transparent 62%
     ),
-    linear-gradient(90deg, #f9f6fd 0%, #f4f1f8 45%, #ece8f3 55%, #dedae6 100%);
+    variables.$page-bg-linear;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+@mixin footer-fade {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: -220px;
+    z-index: -1;
+    pointer-events: none;
+    background: variables.$footer-fade-gradient;
+  }
 }
 
 @mixin on-mobile {

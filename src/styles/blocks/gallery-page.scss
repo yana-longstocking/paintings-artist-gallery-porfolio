@@ -282,6 +282,9 @@
   }
 
   &__footer {
+    @include mixin.footer-fade;
+    z-index: 1;
+
     @include mixin.on-desktop {
       margin-top: 48px;
     }

@@ -564,6 +564,8 @@
   }
 
   &__footer {
+    @include mixin.footer-fade;
+    z-index: 1;
     margin-top: 28px;
     padding-top: 40px;
     padding-bottom: 20px;

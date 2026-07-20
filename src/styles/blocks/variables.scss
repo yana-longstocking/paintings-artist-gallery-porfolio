@@ -21,7 +21,22 @@ $ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 $transform-hover: translateY(-8px);
 $scale-min-hover: scale(1.01);
 $scale-max-hover: scale(1.05);
-$bg-color: #f2f0f6;
+$bg-color: #efeaf5;
+$page-bg-linear: linear-gradient(
+  180deg,
+  #efeaf5 0%,
+  #f3eff8 40%,
+  #f0ebf6 70%,
+  #e9e3f1 88%,
+  #ded6eb 100%
+);
+$footer-fade-gradient: linear-gradient(
+  180deg,
+  transparent 0%,
+  rgba(196, 184, 220, 0.05) 22%,
+  rgba(186, 172, 214, 0.14) 52%,
+  rgba(174, 158, 206, 0.28) 100%
+);
 $background-color: #d12d35;
 $box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 $box-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);

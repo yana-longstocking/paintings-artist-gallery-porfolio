@@ -44,7 +44,7 @@
 }
 
 .footer {
-  position: relative;
+  @include mixin.footer-fade;
   z-index: 1;
   padding-bottom: 20px;
 
