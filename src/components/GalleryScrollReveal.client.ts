@@ -1,7 +1,6 @@
 import {
   GALLERY_HERO_INTRO_MS,
   GALLERY_HERO_INTRO_MS_TABLET,
-  galleryRevealStaggerDelaySeconds,
   galleryRevealStaggerDelaySecondsTablet,
 } from "../constants/gallery-reveal";
 import {
@@ -30,16 +29,12 @@ function initGalleryScrollReveal(): void {
   const isLargeDesktop = window.matchMedia(
     `(min-width: ${LARGE_DESKTOP_MIN_WIDTH}px)`,
   ).matches;
-  const useTabletRevealTiming = !isLargeDesktop;
-  const getStaggerDelay = useTabletRevealTiming
-    ? galleryRevealStaggerDelaySecondsTablet
-    : galleryRevealStaggerDelaySeconds;
 
   const prepareTarget = (target: Element, index: number | null) => {
     const element = target as HTMLElement;
     target.classList.add("gallery-page__target");
     if (index !== null) {
-      element.style.transitionDelay = `${getStaggerDelay(index)}s`;
+      element.style.transitionDelay = `${galleryRevealStaggerDelaySecondsTablet(index)}s`;
     }
   };
 
@@ -81,14 +76,12 @@ function initGalleryScrollReveal(): void {
     window.setTimeout(resolve, heroIntroMs);
   });
 
-  const revealPaintDelayMs = useTabletRevealTiming ? 80 : 48;
-
   const revealAfterPaint = (targets: Element[]) => {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         window.setTimeout(() => {
           targets.forEach((target) => revealTarget(target));
-        }, revealPaintDelayMs);
+        }, 80);
       });
     });
   };
