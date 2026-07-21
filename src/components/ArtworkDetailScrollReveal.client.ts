@@ -1,5 +1,9 @@
 import { galleryRevealStaggerDelaySeconds } from "../constants/gallery-reveal";
-import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
+import {
+  isDesktopLayout,
+  isMobileLayout,
+  isTabletLayout,
+} from "../constants/breakpoints";
 import { getScrollY } from "../utils/scrollRoot";
 
 const INTRO_SELECTOR = [
@@ -10,6 +14,16 @@ const INTRO_SELECTOR = [
   ".artwork-detail__size",
   ".artwork-detail__price",
 ].join(", ");
+
+const DESKTOP_SEQUENCE_SELECTORS = [
+  ".artwork-detail__main-image",
+  ".artwork-detail__title",
+  ".artwork-detail__description",
+  ".artwork-detail__description-spacer",
+  ".artwork-detail__purchase-info",
+  ".artwork-detail__additional-title",
+  ".artwork-detail__gallery-item",
+];
 
 const DETAILS_SELECTOR = [
   ".artwork-detail__additional-title",
@@ -22,7 +36,8 @@ const FOOTER_ACTION_SELECTOR =
   ".artwork-detail__footer-link, .artwork-detail__footer-actions";
 
 const MIN_SCROLL_PX = 40;
-const AFTER_TEXT_DELAY_MS = 900;
+const AFTER_TEXT_DELAY_MS = 500;
+const DESKTOP_CASCADE_STEP_MS = 85;
 
 function initArtworkDetailScrollReveal(): void {
   const root = document.querySelector(".artwork-detail");
@@ -85,9 +100,15 @@ function initArtworkDetailScrollReveal(): void {
 
   const skipUpperMotion = isMobileLayout();
   const tabletLayout = isTabletLayout();
+  const desktopLayout = isDesktopLayout();
 
   if (skipUpperMotion) {
     revealAll(allTargets);
+    return;
+  }
+
+  if (desktopLayout) {
+    initDesktopSequentialReveal(root, footerTextTargets, footerActionTargets);
     return;
   }
 
@@ -275,6 +296,90 @@ function initArtworkDetailScrollReveal(): void {
   }
 
   onScroll();
+}
+
+function initDesktopSequentialReveal(
+  root: Element,
+  footerTextTargets: Element[],
+  footerActionTargets: Element[],
+): void {
+  const footerCopyright = root.querySelector(
+    ".artwork-detail__footer-copyright",
+  );
+
+  const sequence = [
+    ...DESKTOP_SEQUENCE_SELECTORS.flatMap((selector) =>
+      Array.from(root.querySelectorAll(selector)),
+    ),
+    ...footerTextTargets,
+    ...footerActionTargets,
+    ...(footerCopyright ? [footerCopyright] : []),
+  ];
+
+  if (!sequence.length) return;
+
+  sequence.forEach((target) => {
+    target.classList.add("artwork-detail__target");
+  });
+
+  const revealed = new Set<Element>();
+  let revealIndex = 0;
+  let cascadeTimer: number | null = null;
+
+  const isEntering = (target: Element) => {
+    const rect = target.getBoundingClientRect();
+    return rect.top < window.innerHeight * 1.05 && rect.bottom > 0;
+  };
+
+  const markRevealed = (target: Element) => {
+    if (revealed.has(target)) return;
+    revealed.add(target);
+    target.classList.add("artwork-detail__target--visible");
+  };
+
+  const cleanup = () => {
+    window.removeEventListener("scroll", onScroll);
+    if (cascadeTimer !== null) {
+      window.clearTimeout(cascadeTimer);
+      cascadeTimer = null;
+    }
+  };
+
+  const continueCascade = () => {
+    if (revealIndex >= sequence.length) {
+      cleanup();
+      return;
+    }
+
+    const next = sequence[revealIndex];
+    if (!isEntering(next)) return;
+
+    markRevealed(next);
+    revealIndex += 1;
+
+    if (revealIndex >= sequence.length) {
+      cleanup();
+      return;
+    }
+
+    cascadeTimer = window.setTimeout(() => {
+      cascadeTimer = null;
+      continueCascade();
+    }, DESKTOP_CASCADE_STEP_MS);
+  };
+
+  const onScroll = () => {
+    if (cascadeTimer !== null) return;
+    continueCascade();
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      continueCascade();
+    });
+  });
 }
 
 if (document.readyState === "loading") {

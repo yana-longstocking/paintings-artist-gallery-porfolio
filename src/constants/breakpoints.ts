@@ -16,3 +16,7 @@ export function isTabletLayout(): boolean {
     !window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`).matches
   );
 }
+
+export function isDesktopLayout(): boolean {
+  return window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`).matches;
+}

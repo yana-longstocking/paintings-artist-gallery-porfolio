@@ -330,9 +330,7 @@
 
     &--with-gallery {
       @include mixin.on-desktop {
-        display: flex;
-        align-items: stretch;
-        gap: 40px;
+        gap: 100px;
       }
     }
   }
@@ -346,9 +344,11 @@
   &__wrapper--with-gallery &__wrapper-title {
     @include mixin.on-desktop {
       display: flex;
-      flex: 1 1 0;
       flex-direction: column;
+      align-self: stretch;
+      height: 100%;
       min-width: 0;
+      min-height: 0;
       padding: 0;
     }
   }
@@ -369,8 +369,10 @@
     }
 
     @include mixin.on-desktop {
-      padding-bottom: 24px;
+      padding-top: 28px;
+      padding-bottom: 28px;
       font-size: 20px;
+      font-variant: small-caps;
       line-height: 28px;
       text-align: left;
     }
@@ -390,11 +392,19 @@
   &__wrapper--with-gallery &__main-image {
     @include mixin.on-desktop {
       display: flex;
-      flex: 1.7 1 0;
-      min-width: 0;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
       align-self: stretch;
-      height: auto;
+      width: 100%;
       min-height: 0;
+      min-width: 0;
+    }
+  }
+
+  &__wrapper--no-description &__main-image {
+    @include mixin.on-desktop {
+      justify-content: center;
     }
   }
 
@@ -417,18 +427,24 @@
     }
 
     @include mixin.on-desktop {
-      width: 710px;
+      width: 600px;
+      max-width: 100%;
     }
   }
 
   &__wrapper--with-gallery &__image {
     @include mixin.on-desktop {
-      flex: 1 1 auto;
-      width: 100%;
-      max-width: none;
-      height: 100%;
-      min-height: 0;
-      object-fit: cover;
+      width: 68%;
+      max-height: 100%;
+      height: auto;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+  }
+
+  &__wrapper--no-description &__image {
+    @include mixin.on-desktop {
+      object-position: center;
     }
   }
 
@@ -447,6 +463,40 @@
     }
   }
 
+  &__description-spacer {
+    @include mixin.on-desktop {
+      min-height: 48px;
+      padding-bottom: 16px;
+    }
+  }
+
+  &__purchase-info {
+    @include mixin.on-desktop {
+      @include artwork-detail-reveal;
+      border-top: 1px solid rgba(22, 22, 22, 0.1);
+      border-bottom: 1px solid rgba(22, 22, 22, 0.1);
+      margin-bottom: 50px;
+    }
+  }
+
+  &__purchase-info &__medium,
+  &__purchase-info &__size,
+  &__purchase-info &__price {
+    @include mixin.on-desktop {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  &__meta {
+    @include mixin.on-desktop {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: center;
+    }
+  }
+
   &__medium,
   &__size {
     @include artwork-detail-reveal;
@@ -458,6 +508,17 @@
 
     @include mixin.on-tablet {
       padding-bottom: 32px;
+    }
+
+    @include mixin.on-desktop {
+      margin: 0;
+      padding: 10px 24px;
+    }
+  }
+
+  &__meta &__size {
+    @include mixin.on-desktop {
+      border-left: 1px solid rgba(22, 22, 22, 0.1);
     }
   }
 
@@ -473,6 +534,28 @@
       font-size: 24px;
       padding-bottom: 80px;
     }
+
+    @include mixin.on-desktop {
+      position: relative;
+      margin: 0;
+      padding: 10px 0 10px 20px;
+      font-family: variables.$font-family-cinzel;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+      color: variables.$background-color;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 3px;
+        height: 32px;
+        transform: translateY(-50%);
+        background-color: variables.$background-color;
+      }
+    }
   }
 
   &__additional-title {
@@ -487,18 +570,17 @@
 
     @include mixin.on-desktop {
       text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding-bottom: 16px;
     }
   }
 
   &__wrapper--with-gallery &__additional-photos {
     @include mixin.on-desktop {
-      display: flex;
-      flex: 1 1 auto;
-      flex-direction: column;
-      justify-content: flex-end;
       margin-top: auto;
       width: 100%;
-      min-height: 0;
     }
   }
 
@@ -513,13 +595,11 @@
 
   &__wrapper--with-gallery &__gallery {
     @include mixin.on-desktop {
-      flex: 1 1 auto;
-      width: 100%;
+      width: fit-content;
+      max-width: 100%;
       margin: 0;
-      gap: 28px;
-      min-height: 0;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-rows: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      grid-template-columns: repeat(4, 132px);
       align-content: stretch;
     }
   }
@@ -549,7 +629,8 @@
 
   &__wrapper--with-gallery &__gallery-item {
     @include mixin.on-desktop {
-      height: 100%;
+      aspect-ratio: 1;
+      height: auto;
       min-height: 0;
     }
   }
@@ -577,8 +658,8 @@
     }
 
     @include mixin.on-desktop {
-      margin-top: 100px;
-      padding-top: 80px;
+      margin-top: 60px;
+      padding-top: 60px;
     }
   }
 

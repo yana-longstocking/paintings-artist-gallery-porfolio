@@ -16,6 +16,7 @@ interface Props {
 const { image, translations, galleryLink } = Astro.props;
 const hasAdditionalPhotos =
   image.additionalPhotos && image.additionalPhotos.length > 0;
+const hasDescription = Boolean(image.description?.trim());
 ---
 
 <main class="artwork-detail">
@@ -24,6 +25,10 @@ const hasAdditionalPhotos =
       class:list={[
         "artwork-detail__wrapper",
         { "artwork-detail__wrapper--with-gallery": hasAdditionalPhotos },
+        {
+          "artwork-detail__wrapper--no-description":
+            hasAdditionalPhotos && !hasDescription,
+        },
       ]}
     >
       <div class="artwork-detail__main-image">
@@ -42,13 +47,36 @@ const hasAdditionalPhotos =
       <div class="artwork-detail__wrapper-title">
         <h1 class="artwork-detail__title">{image.alt}</h1>
         {
-          image.description && (
+          image.description ? (
             <p class="artwork-detail__description">{image.description}</p>
+          ) : (
+            hasAdditionalPhotos && (
+              <div
+                class="artwork-detail__description-spacer"
+                aria-hidden="true"
+              />
+            )
           )
         }
-        {image.medium && <p class="artwork-detail__medium">{image.medium}</p>}
-        {image.size && <p class="artwork-detail__size">{image.size}</p>}
-        {image.price && <p class="artwork-detail__price">{image.price}</p>}
+        {
+          (image.medium || image.size || image.price) && (
+            <div class="artwork-detail__purchase-info">
+              {(image.medium || image.size) && (
+                <div class="artwork-detail__meta">
+                  {image.medium && (
+                    <p class="artwork-detail__medium">{image.medium}</p>
+                  )}
+                  {image.size && (
+                    <p class="artwork-detail__size">{image.size}</p>
+                  )}
+                </div>
+              )}
+              {image.price && (
+                <p class="artwork-detail__price">{image.price}</p>
+              )}
+            </div>
+          )
+        }
 
         {
           hasAdditionalPhotos && (
