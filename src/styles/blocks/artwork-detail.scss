@@ -84,128 +84,9 @@
     @include artwork-detail-inline-padding;
   }
 
-  &__scroll-top-bar {
-    display: none;
-  }
-
+  &__scroll-top-bar,
   &__scroll-down-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 6px;
-    margin-top: 24px;
-    padding-bottom: 8px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(variables.$reveal-offset-y-medium);
-    pointer-events: none;
-    transition:
-      opacity variables.$effect-duration-medium variables.$ease-smooth,
-      visibility variables.$effect-duration-medium variables.$ease-smooth,
-      transform 0.65s variables.$ease-emphasized;
-
-    @include mixin.on-tablet {
-      display: none;
-    }
-
-    &--visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-  }
-
-  &__scroll-down {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    touch-action: manipulation;
-    border: 1px solid rgba(139, 127, 168, 0.55);
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.55);
-    color: rgba(107, 95, 138, 0.98);
-    box-shadow: 0 3px 12px rgba(107, 95, 138, 0.16);
-    cursor: pointer;
-    transition:
-      background-color variables.$effect-duration variables.$transition,
-      border-color variables.$effect-duration variables.$transition,
-      color variables.$effect-duration variables.$transition,
-      box-shadow variables.$effect-duration variables.$transition,
-      transform variables.$effect-duration-hover variables.$ease-smooth;
-
-    @include mixin.on-hover-capable {
-      &:hover {
-        background-color: variables.$background-color;
-        border-color: variables.$background-color;
-        color: variables.$color-text;
-        box-shadow: 0 8px 24px rgba(209, 45, 53, 0.28);
-        transform: translateY(-2px);
-      }
-
-      &:active {
-        transform: translateY(-1px);
-      }
-    }
-
-    &:active {
-      background-color: variables.$background-color;
-      border-color: variables.$background-color;
-      color: variables.$color-text;
-      box-shadow: 0 6px 20px rgba(209, 45, 53, 0.28);
-      transform: translateY(0);
-    }
-
-    &:focus-visible {
-      outline: 2px solid variables.$main-color;
-      outline-offset: 3px;
-    }
-  }
-
-  &__scroll-down-icon {
-    display: block;
-  }
-
-  &__scroll-down-accent {
-    display: block;
-    width: 36px;
-    height: 1.5px;
-    border-radius: variables.$border-radius-accent;
-    transform: scaleX(0);
-    transform-origin: left center;
-    opacity: 0;
-    background: variables.$accent-line-gradient;
-
-    &--visible {
-      animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
-        variables.$ease-emphasized variables.$effect-duration-short forwards;
-    }
-  }
-
-  @include mixin.on-reduced-motion {
-    &__scroll-down {
-      transition: background-color variables.$effect-duration-short;
-
-      &:hover {
-        transform: none;
-      }
-    }
-
-    &__scroll-down-wrap {
-      transform: none;
-      transition:
-        opacity variables.$effect-duration-short,
-        visibility variables.$effect-duration-short;
-    }
-
-    &__scroll-down-accent--visible {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
+    display: none;
   }
 
   &__wrapper {
@@ -248,15 +129,14 @@
     font-family: variables.$font-family-cinzel;
     font-size: 16px;
     font-weight: 700;
+    font-variant: small-caps;
     line-height: variables.$line-height-body-24;
-    padding-bottom: 24px;
+    padding-bottom: 20px;
     color: variables.$background-color;
     text-align: center;
 
     @include mixin.on-tablet {
       padding-top: 12px;
-      padding-bottom: 20px;
-      font-variant: small-caps;
       line-height: 22px;
       text-align: left;
     }
@@ -281,13 +161,14 @@
   }
 
   &__wrapper--with-gallery &__main-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
     @include mixin.on-tablet {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       align-self: stretch;
-      width: 100%;
       min-height: 0;
       min-width: 0;
     }
@@ -318,12 +199,14 @@
   }
 
   &__wrapper--with-gallery &__image {
+    width: 240px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+
     @include mixin.on-tablet {
       width: 330px;
-      max-width: 100%;
       max-height: 100%;
-      height: auto;
-      object-fit: contain;
     }
 
     @include mixin.on-desktop {
@@ -362,10 +245,12 @@
   }
 
   &__purchase-info {
+    border-top: 1px solid rgba(22, 22, 22, 0.1);
+    border-bottom: 1px solid rgba(22, 22, 22, 0.1);
+    margin-bottom: 24px;
+
     @include mixin.on-tablet {
       @include artwork-detail-reveal;
-      border-top: 1px solid rgba(22, 22, 22, 0.1);
-      border-bottom: 1px solid rgba(22, 22, 22, 0.1);
       margin-bottom: 32px;
     }
 
@@ -374,35 +259,22 @@
     }
   }
 
-  &__purchase-info &__medium,
-  &__purchase-info &__size,
-  &__purchase-info &__price {
-    @include mixin.on-tablet {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
-
   &__meta {
-    @include mixin.on-tablet {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: center;
-    }
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
   }
 
   &__medium,
   &__size {
-    @include artwork-detail-reveal;
     font-family: variables.$font-family-roboto;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 400;
     color: variables.$main-color;
-    padding-bottom: 24px;
+    margin: 0;
+    padding: 10px 12px;
 
     @include mixin.on-tablet {
-      margin: 0;
       padding: 10px 16px;
       font-size: 14px;
     }
@@ -414,36 +286,36 @@
   }
 
   &__meta &__size {
-    @include mixin.on-tablet {
-      border-left: 1px solid rgba(22, 22, 22, 0.1);
-    }
+    border-left: 1px solid rgba(22, 22, 22, 0.1);
   }
 
   &__price {
-    @include artwork-detail-reveal;
-    font-family: variables.$font-family-roboto;
-    font-size: 20px;
+    position: relative;
+    margin: 0;
+    padding: 10px 0 10px 14px;
+    font-family: variables.$font-family-cinzel;
+    font-size: 18px;
     font-weight: 700;
-    color: variables.$main-color;
-    padding-bottom: 24px;
+    line-height: 1;
+    color: variables.$background-color;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 3px;
+      height: 24px;
+      transform: translateY(-50%);
+      background-color: variables.$background-color;
+    }
 
     @include mixin.on-tablet {
-      position: relative;
-      margin: 0;
       padding: 10px 0 10px 16px;
-      font-family: variables.$font-family-cinzel;
-      line-height: 1;
-      color: variables.$background-color;
+      font-size: 20px;
 
       &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 3px;
         height: 28px;
-        transform: translateY(-50%);
-        background-color: variables.$background-color;
       }
     }
 
@@ -460,19 +332,17 @@
   &__additional-title {
     @include artwork-detail-reveal;
     font-family: variables.$font-family-cinzel;
-    font-size: 16px;
+    font-size: 10px;
     font-weight: 400;
     color: variables.$background-color;
     line-height: variables.$line-height-body-27;
-    padding-bottom: 24px;
+    padding-bottom: 12px;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 
     @include mixin.on-tablet {
       text-align: left;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      padding-bottom: 12px;
     }
 
     @include mixin.on-desktop {
@@ -489,15 +359,16 @@
 
   &__gallery {
     @include mixin.page-grid;
-    grid-template-columns: repeat(1, 1fr);
   }
 
   &__wrapper--with-gallery &__gallery {
+    width: 100%;
+    margin: 0;
+    gap: 6px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
     @include mixin.on-tablet {
-      width: 100%;
-      margin: 0;
       gap: 8px;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
     @include mixin.on-desktop {
@@ -536,10 +407,8 @@
   }
 
   &__wrapper--with-gallery &__gallery-item {
-    @include mixin.on-tablet {
-      aspect-ratio: 1;
-      min-height: 0;
-    }
+    aspect-ratio: 1;
+    min-height: 0;
   }
 
   &__gallery-image {
@@ -866,7 +735,6 @@
     text-align: center;
 
     @include mixin.on-tablet {
-      margin-top: 40px;
       padding-top: 16px;
     }
 
