@@ -17,9 +17,15 @@ const { image, translations, galleryLink } = Astro.props;
 const hasAdditionalPhotos =
   image.additionalPhotos && image.additionalPhotos.length > 0;
 const hasDescription = Boolean(image.description?.trim());
+const isSisterhood = image.id === "sisterhood";
 ---
 
-<main class="artwork-detail">
+<main
+  class:list={[
+    "artwork-detail",
+    { "artwork-detail--sisterhood": isSisterhood },
+  ]}
+>
   <div class="artwork-detail__container">
     <div
       class:list={[

@@ -60,11 +60,24 @@
   padding-top: 40px;
 
   @include mixin.on-tablet {
+    display: flex;
+    flex-direction: column;
     padding-top: 60px;
   }
 
   @include mixin.on-desktop {
+    display: block;
     padding-top: 130px;
+  }
+
+  &--sisterhood {
+    @include mixin.on-tablet {
+      padding-top: 160px;
+    }
+
+    @include mixin.on-desktop {
+      padding-top: 130px;
+    }
   }
 
   &__container {
@@ -73,130 +86,6 @@
 
   &__scroll-top-bar {
     display: none;
-
-    @include mixin.on-tablet {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 40px;
-      padding-bottom: 8px;
-
-      @include mixin.on-desktop {
-        display: none;
-      }
-    }
-  }
-
-  &__scroll-top-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(variables.$reveal-offset-y-medium);
-    pointer-events: none;
-    transition:
-      opacity variables.$effect-duration-medium variables.$ease-smooth,
-      visibility variables.$effect-duration-medium variables.$ease-smooth,
-      transform 0.65s variables.$ease-emphasized;
-
-    &--visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-  }
-
-  &__scroll-top {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    border: 1px solid rgba(139, 127, 168, 0.45);
-    border-radius: variables.$border-radius-accent;
-    background-color: rgba(255, 255, 255, 0.82);
-    color: rgba(107, 95, 138, 0.98);
-    box-shadow: 0 2px 10px rgba(107, 95, 138, 0.08);
-    cursor: pointer;
-    transition:
-      background-color variables.$effect-duration variables.$transition,
-      border-color variables.$effect-duration variables.$transition,
-      color variables.$effect-duration variables.$transition,
-      box-shadow variables.$effect-duration variables.$transition,
-      transform variables.$effect-duration-hover variables.$ease-smooth;
-
-    @include mixin.on-hover-capable {
-      &:hover {
-        background-color: variables.$background-color;
-        border-color: variables.$background-color;
-        color: variables.$color-text;
-        box-shadow: 0 6px 18px rgba(209, 45, 53, 0.24);
-        transform: translateY(-2px);
-      }
-
-      &:active {
-        transform: translateY(-1px);
-      }
-    }
-
-    &:active {
-      background-color: variables.$background-color;
-      border-color: variables.$background-color;
-      color: variables.$color-text;
-      box-shadow: 0 6px 18px rgba(209, 45, 53, 0.24);
-      transform: translateY(0);
-    }
-
-    &:focus-visible {
-      outline: 2px solid variables.$main-color;
-      outline-offset: 3px;
-    }
-  }
-
-  &__scroll-top-icon {
-    display: block;
-  }
-
-  &__scroll-top-accent {
-    display: block;
-    width: 36px;
-    height: 1.5px;
-    border-radius: variables.$border-radius-accent;
-    transform: scaleX(0);
-    transform-origin: center center;
-    opacity: 0;
-    background: variables.$accent-line-gradient;
-
-    &--visible {
-      animation: gallery-page-accent-line-in variables.$reveal-duration-opacity
-        variables.$ease-emphasized variables.$effect-duration-short forwards;
-    }
-  }
-
-  @include mixin.on-reduced-motion {
-    &__scroll-top {
-      transition: background-color variables.$effect-duration-short;
-
-      &:hover {
-        transform: none;
-      }
-    }
-
-    &__scroll-top-wrap {
-      transform: none;
-      transition:
-        opacity variables.$effect-duration-short,
-        visibility variables.$effect-duration-short;
-    }
-
-    &__scroll-top-accent--visible {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
   }
 
   &__scroll-down-wrap {
@@ -322,34 +211,35 @@
   &__wrapper {
     @include mixin.page-grid;
 
-    @include mixin.on-desktop {
-      gap: 50px;
+    @include mixin.on-tablet {
+      gap: 36px;
       grid-template-columns: repeat(2, 1fr);
       align-items: stretch;
     }
 
+    @include mixin.on-desktop {
+      gap: 50px;
+    }
+
     &--with-gallery {
+      @include mixin.on-tablet {
+        gap: 40px;
+      }
+
       @include mixin.on-desktop {
         gap: 100px;
       }
     }
   }
 
-  &__wrapper-title {
-    @include mixin.on-tablet {
-      padding: 0 10px;
-    }
-  }
-
   &__wrapper--with-gallery &__wrapper-title {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       display: flex;
       flex-direction: column;
       align-self: stretch;
       height: 100%;
       min-width: 0;
       min-height: 0;
-      padding: 0;
     }
   }
 
@@ -364,17 +254,18 @@
     text-align: center;
 
     @include mixin.on-tablet {
-      padding: 50px 0 32px;
+      padding-top: 12px;
+      padding-bottom: 20px;
+      font-variant: small-caps;
       line-height: 22px;
+      text-align: left;
     }
 
     @include mixin.on-desktop {
       padding-top: 28px;
       padding-bottom: 28px;
       font-size: 20px;
-      font-variant: small-caps;
       line-height: 28px;
-      text-align: left;
     }
   }
 
@@ -383,14 +274,14 @@
     position: relative;
     padding-bottom: 24px;
 
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       padding-bottom: 0;
       height: 100%;
     }
   }
 
   &__wrapper--with-gallery &__main-image {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -399,16 +290,6 @@
       width: 100%;
       min-height: 0;
       min-width: 0;
-    }
-
-    @include mixin.on-large-desktop {
-      justify-content: center;
-    }
-  }
-
-  &__wrapper--no-description &__main-image {
-    @include mixin.on-desktop {
-      justify-content: center;
     }
   }
 
@@ -437,24 +318,16 @@
   }
 
   &__wrapper--with-gallery &__image {
-    @include mixin.on-desktop {
-      width: 380px;
+    @include mixin.on-tablet {
+      width: 330px;
       max-width: 100%;
       max-height: 100%;
       height: auto;
       object-fit: contain;
-      object-position: center;
     }
 
-    @include mixin.on-large-desktop {
-      width: 380px;
-      object-position: center;
-    }
-  }
-
-  &__wrapper--no-description &__image {
     @include mixin.on-desktop {
-      object-position: center;
+      width: 380px;
     }
   }
 
@@ -467,13 +340,21 @@
     padding-bottom: 24px;
 
     @include mixin.on-tablet {
+      line-height: variables.$line-height-body-27;
+    }
+
+    @include mixin.on-desktop {
       font-size: 16px;
       padding-bottom: 32px;
-      line-height: variables.$line-height-body-27;
     }
   }
 
   &__description-spacer {
+    @include mixin.on-tablet {
+      min-height: 32px;
+      padding-bottom: 12px;
+    }
+
     @include mixin.on-desktop {
       min-height: 48px;
       padding-bottom: 16px;
@@ -481,10 +362,14 @@
   }
 
   &__purchase-info {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       @include artwork-detail-reveal;
       border-top: 1px solid rgba(22, 22, 22, 0.1);
       border-bottom: 1px solid rgba(22, 22, 22, 0.1);
+      margin-bottom: 32px;
+    }
+
+    @include mixin.on-desktop {
       margin-bottom: 50px;
     }
   }
@@ -492,7 +377,7 @@
   &__purchase-info &__medium,
   &__purchase-info &__size,
   &__purchase-info &__price {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       opacity: 1;
       transform: none;
       transition: none;
@@ -500,7 +385,7 @@
   }
 
   &__meta {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       align-items: center;
@@ -517,17 +402,19 @@
     padding-bottom: 24px;
 
     @include mixin.on-tablet {
-      padding-bottom: 32px;
+      margin: 0;
+      padding: 10px 16px;
+      font-size: 14px;
     }
 
     @include mixin.on-desktop {
-      margin: 0;
       padding: 10px 24px;
+      font-size: 16px;
     }
   }
 
   &__meta &__size {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       border-left: 1px solid rgba(22, 22, 22, 0.1);
     }
   }
@@ -541,17 +428,10 @@
     padding-bottom: 24px;
 
     @include mixin.on-tablet {
-      font-size: 24px;
-      padding-bottom: 80px;
-    }
-
-    @include mixin.on-desktop {
       position: relative;
       margin: 0;
-      padding: 10px 0 10px 20px;
+      padding: 10px 0 10px 16px;
       font-family: variables.$font-family-cinzel;
-      font-size: 22px;
-      font-weight: 700;
       line-height: 1;
       color: variables.$background-color;
 
@@ -561,9 +441,18 @@
         left: 0;
         top: 50%;
         width: 3px;
-        height: 32px;
+        height: 28px;
         transform: translateY(-50%);
         background-color: variables.$background-color;
+      }
+    }
+
+    @include mixin.on-desktop {
+      padding: 10px 0 10px 20px;
+      font-size: 22px;
+
+      &::before {
+        height: 32px;
       }
     }
   }
@@ -578,39 +467,43 @@
     padding-bottom: 24px;
     text-align: center;
 
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       text-align: left;
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 2px;
+      padding-bottom: 12px;
+    }
+
+    @include mixin.on-desktop {
+      font-size: 11px;
       padding-bottom: 16px;
     }
   }
 
   &__wrapper--with-gallery &__additional-photos {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       margin-top: auto;
-      width: 100%;
     }
   }
 
   &__gallery {
     @include mixin.page-grid;
     grid-template-columns: repeat(1, 1fr);
-
-    @include mixin.on-tablet {
-      grid-template-columns: repeat(2, 1fr);
-    }
   }
 
   &__wrapper--with-gallery &__gallery {
+    @include mixin.on-tablet {
+      width: 100%;
+      margin: 0;
+      gap: 8px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
     @include mixin.on-desktop {
       width: fit-content;
-      max-width: 100%;
-      margin: 0;
       gap: 10px;
       grid-template-columns: repeat(4, 108px);
-      align-content: stretch;
     }
 
     @include mixin.on-large-desktop {
@@ -643,9 +536,8 @@
   }
 
   &__wrapper--with-gallery &__gallery-item {
-    @include mixin.on-desktop {
+    @include mixin.on-tablet {
       aspect-ratio: 1;
-      height: auto;
       min-height: 0;
     }
   }
@@ -668,13 +560,26 @@
     border-top: 1px solid rgba(22, 22, 22, 0.1);
 
     @include mixin.on-tablet {
-      margin-top: 48px;
-      padding-top: 40px;
+      margin-top: 80px;
     }
 
     @include mixin.on-desktop {
       margin-top: 60px;
       padding-top: 60px;
+    }
+  }
+
+  &--sisterhood &__footer {
+    @include mixin.on-tablet {
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    @include mixin.on-desktop {
+      display: block;
+      flex: none;
     }
   }
 
@@ -695,6 +600,16 @@
       column-gap: 88px;
       max-width: 1040px;
       margin-inline: auto;
+    }
+  }
+
+  &--sisterhood &__footer-content {
+    @include mixin.on-tablet {
+      margin-block: auto;
+    }
+
+    @include mixin.on-desktop {
+      margin-block: 0;
     }
   }
 
@@ -855,10 +770,10 @@
           variables.$ease-emphasized;
       margin-top: auto;
       align-self: flex-start;
+    }
 
-      @include mixin.on-desktop {
-        font-weight: 700;
-      }
+    @include mixin.on-desktop {
+      font-weight: 700;
     }
 
     &::after {
@@ -951,8 +866,8 @@
     text-align: center;
 
     @include mixin.on-tablet {
-      margin-top: 50px;
-      padding-top: 40px;
+      margin-top: 40px;
+      padding-top: 16px;
     }
 
     @include mixin.on-desktop {
@@ -967,6 +882,5 @@
     font-size: 12px;
     font-weight: 400;
     color: variables.$main-color;
-    text-align: center;
   }
 }
