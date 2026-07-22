@@ -123,11 +123,11 @@
     &__image {
       @include gallery-page-mixins.gallery-page-tablet-cover-image;
     }
-  }
 
-  @include mixin.on-hover-capable {
-    &__link:hover {
-      @include gallery-page-mixins.gallery-hover-link-active;
+    @include mixin.on-hover-capable {
+      &__link:hover {
+        @include gallery-page-mixins.gallery-hover-link-active;
+      }
     }
   }
 
