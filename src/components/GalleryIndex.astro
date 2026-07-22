@@ -113,6 +113,7 @@ const [galleryContentLeft, galleryContentRight] = splitMasonryColumns(
                     loading="lazy"
                     decoding="async"
                   />
+                  <GalleryCardCaption variant="hover-title" title={item.alt} />
                 </a>
               </div>
             ) : null,
@@ -138,6 +139,10 @@ const [galleryContentLeft, galleryContentRight] = splitMasonryColumns(
                       class="photo-gallery__image"
                       loading="lazy"
                       decoding="async"
+                    />
+                    <GalleryCardCaption
+                      variant="hover-title"
+                      title={item.alt}
                     />
                   </a>
                 </div>
@@ -208,6 +213,7 @@ const [galleryContentLeft, galleryContentRight] = splitMasonryColumns(
                   loading="lazy"
                   decoding="async"
                 />
+                <GalleryCardCaption variant="hover-title" title={item.alt} />
               </a>
             </div>
           ))
@@ -239,6 +245,7 @@ const [galleryContentLeft, galleryContentRight] = splitMasonryColumns(
                   loading="lazy"
                   decoding="async"
                 />
+                <GalleryCardCaption variant="hover-title" title={item.alt} />
               </a>
             </div>
           ))
@@ -293,6 +300,10 @@ const [galleryContentLeft, galleryContentRight] = splitMasonryColumns(
             loading="lazy"
             decoding="async"
           />
+          <GalleryCardCaption
+            variant="hover-title"
+            title={data.galleryContent.featured.alt}
+          />
         </a>
       </div>
       <div class="gallery-content__grid">
@@ -312,6 +323,7 @@ const [galleryContentLeft, galleryContentRight] = splitMasonryColumns(
                   loading="lazy"
                   decoding="async"
                 />
+                <GalleryCardCaption variant="hover-title" title={item.alt} />
               </a>
             </div>
           ))

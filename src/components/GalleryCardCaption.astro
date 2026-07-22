@@ -9,16 +9,25 @@ interface Props {
   title: string;
   size?: string;
   price?: string;
+  variant?: "default" | "hover-title";
 }
 
-const { title, size, price } = Astro.props;
+const { title, size, price, variant = "default" } = Astro.props;
 const titleLabel = formatGalleryTitle(title);
 const sizeLabel = size ? formatGallerySize(size) : undefined;
 ---
 
-<div class="gallery-card-caption">
-  <p class="gallery-card-caption__title">{titleLabel}</p>
-  {sizeLabel && <p class="gallery-card-caption__meta">{sizeLabel}</p>}
-  <p class="gallery-card-caption__meta">{SITE_NAME}</p>
-  {price && <p class="gallery-card-caption__price">{price}</p>}
-</div>
+{
+  variant === "hover-title" ? (
+    <div class="gallery-card-caption gallery-card-caption--hover-title">
+      <p class="gallery-card-caption__title">{titleLabel}</p>
+    </div>
+  ) : (
+    <div class="gallery-card-caption">
+      <p class="gallery-card-caption__title">{titleLabel}</p>
+      {sizeLabel && <p class="gallery-card-caption__meta">{sizeLabel}</p>}
+      <p class="gallery-card-caption__meta">{SITE_NAME}</p>
+      {price && <p class="gallery-card-caption__price">{price}</p>}
+    </div>
+  )
+}

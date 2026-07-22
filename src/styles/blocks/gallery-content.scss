@@ -156,4 +156,7 @@
       @include gallery-page-mixins.gallery-hover-link-active;
     }
   }
+
+  @include gallery-page-mixins.gallery-card-large-desktop-hover;
+  @include gallery-page-mixins.gallery-card-large-desktop-hover-featured;
 }

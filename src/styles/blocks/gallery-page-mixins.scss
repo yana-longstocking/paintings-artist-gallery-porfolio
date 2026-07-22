@@ -79,15 +79,6 @@
   grid-template-columns: repeat(5, variables.$gallery-grid-column-fluid);
 }
 
-@mixin gallery-card-image {
-  width: 100%;
-  height: auto;
-  min-height: 0;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-}
-
 @mixin gallery-hover-link {
   box-shadow: none;
   transition:
@@ -101,6 +92,80 @@
 
   @include mixin.on-reduced-motion {
     transform: none;
+  }
+}
+
+@mixin gallery-large-desktop-hover-inset-frame {
+  box-shadow:
+    inset 0 0 0 2px variables.$background-color,
+    inset 0 0 0 3px rgba(175, 165, 205, 0.55);
+}
+
+@mixin gallery-card-large-desktop-hover-image {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  transition: box-shadow 0.35s variables.$transition;
+}
+
+@mixin gallery-card-large-desktop-hover {
+  @include mixin.on-large-desktop {
+    &__item {
+      overflow: visible;
+    }
+
+    &__link {
+      position: relative;
+      overflow: visible;
+    }
+
+    &__image {
+      @include gallery-card-large-desktop-hover-image;
+    }
+
+    @include mixin.on-hover-capable {
+      &__link:hover &__image {
+        @include gallery-large-desktop-hover-inset-frame;
+      }
+
+      &__link:hover .gallery-card-caption--hover-title {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @include mixin.on-reduced-motion {
+      &__image {
+        transition: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+@mixin gallery-card-large-desktop-hover-featured {
+  @include mixin.on-large-desktop {
+    &__featured {
+      overflow: visible;
+    }
+
+    &__featured-image {
+      @include gallery-card-large-desktop-hover-image;
+    }
+
+    @include mixin.on-hover-capable {
+      &__link:hover &__featured-image {
+        @include gallery-large-desktop-hover-inset-frame;
+      }
+    }
+
+    @include mixin.on-reduced-motion {
+      &__featured-image {
+        transition: none;
+        box-shadow: none;
+      }
+    }
   }
 }
 
@@ -142,8 +207,12 @@
 }
 
 @mixin gallery-page-card-image {
-  @include gallery-card-image;
+  width: 100%;
+  height: auto;
+  min-height: 0;
   object-fit: unset;
+  object-position: center;
+  display: block;
 }
 
 @mixin gallery-page-tablet-equal-rows {
