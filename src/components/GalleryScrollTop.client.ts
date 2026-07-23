@@ -1,6 +1,5 @@
-import { isMobileLayout, isTabletLayout } from "../constants/breakpoints";
+import { isTabletLayout } from "../constants/breakpoints";
 import {
-  getScrollY,
   scrollTo,
   SMOOTH_SCROLL_TIMING_GALLERY,
   SMOOTH_SCROLL_TIMING_GALLERY_TABLET,
@@ -21,35 +20,19 @@ function initGalleryScrollTop(): void {
     );
   };
 
-  if (isMobileLayout()) {
-    const syncMobileVisibility = (): void => {
-      const scrollY = getScrollY();
-      const root =
-        (document.scrollingElement as HTMLElement | null) ??
-        document.documentElement;
-      const maxScroll = Math.max(0, root.scrollHeight - root.clientHeight);
-      setVisible(scrollY > 160 && scrollY >= maxScroll - 96);
-    };
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        setVisible(entry.isIntersecting);
+      });
+    },
+    {
+      threshold: 0.25,
+      rootMargin: "0px 0px -5% 0px",
+    },
+  );
 
-    window.addEventListener("scroll", syncMobileVisibility, {
-      passive: true,
-    });
-    syncMobileVisibility();
-  } else {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setVisible(entry.isIntersecting);
-        });
-      },
-      {
-        threshold: 0.25,
-        rootMargin: "0px 0px -5% 0px",
-      },
-    );
-
-    observer.observe(bar);
-  }
+  observer.observe(bar);
 
   let pointerStartY = 0;
 
